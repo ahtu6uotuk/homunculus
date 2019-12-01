@@ -1,5 +1,4 @@
-#ifndef COMMON_H
-#define COMMON_H
+#pragma once
 
 #include <string>
 using namespace std;
@@ -14,5 +13,3 @@ int isize (const T& container) { return toi (container.size ()); }
 void assert (bool check, string message);
 
 int fuzzycmp (double a, double b = 0.0, double eps = 1e-16);
-
-#endif // COMMON_H

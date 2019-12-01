@@ -1,5 +1,4 @@
-#ifndef ENGINE_H
-#define ENGINE_H
+#pragma once
 #include <SFML/Graphics/RenderWindow.hpp>
 
 
@@ -14,5 +13,3 @@ public:
   int exec ();
   ~engine_t ();
 };
-
-#endif // ENGINE_H
