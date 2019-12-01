@@ -7,6 +7,11 @@ CONFIG += console c++1z
 CONFIG -= app_bundle
 CONFIG -= qt
 LIBS += -lsfml-graphics -lsfml-window -lsfml-system -lGLEW -lGL
+QMAKE_CXXFLAGS += -g -W -Wall -Wunused -Wcast-align -Werror \
+                  -pedantic -pedantic-errors -fstack-protector-all \
+                  -Wfloat-equal -Wpointer-arith -Wwrite-strings \
+                  -Wcast-align -Wno-long-long -O2 -ffast-math \
+                  -Wmissing-declarations -lm
 INCLUDEPATH += ./
 
 SOURCES += \
