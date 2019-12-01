@@ -19,7 +19,7 @@ int engine_t::exec ()
           if (event.type == sf::Event::Closed)
             m_window.close ();
         }
-      uint8_t color = (time (0) * 100) % 255;
+      uint8_t color = (time (nullptr) * 100) % 255;
       m_window.clear (sf::Color (color, color, color));
       m_window.display ();
     }
