@@ -11,7 +11,8 @@ INCLUDEPATH += ./
 
 SOURCES += \
     main.cpp \
-    engine/engine.cpp
+    engine/engine.cpp \
+    common/common.cpp
 
 # Directories
 
