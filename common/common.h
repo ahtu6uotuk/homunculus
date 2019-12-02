@@ -7,6 +7,9 @@ using namespace std;
 
 inline void do_nothing (...) {}
 
+template<typename T>
+int toi (T value) { return static_cast<int> (value); }
+
 template <typename T>
 int isize (const T& container) { return toi (container.size ()); }
 
