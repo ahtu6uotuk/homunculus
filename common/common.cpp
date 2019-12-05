@@ -1,6 +1,10 @@
 #include <math.h>
 #include "common.h"
 
+void do_nothing_no_inline ()
+{
+
+}
 void assert (bool check, string message)
 {
   if (!check)
