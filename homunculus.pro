@@ -15,6 +15,8 @@ SOURCES += \
     common/err_t.cpp \
     external/rapidxml_helpers/rapidxml_wrapper.cpp \
     common/string_converters.cpp \
+    logic/saveload_tree.cpp \
+    logic/saveload_tree_test.cpp \
     common/string_utils.cpp \
 
 # Directories
@@ -29,4 +31,6 @@ HEADERS += \
     external/rapidxml/rapidxml_utils.hpp \
     external/rapidxml_helpers/rapidxml_wrapper.h \
     common/string_converters.h \
+    logic/saveload_tree.h \
+    logic/saveload_tree_test.h \
     common/string_utils.h \
