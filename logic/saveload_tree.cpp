@@ -58,21 +58,4 @@ void saveload_node::set_node_value (const string &value)
 
 detail::saveload_root::~saveload_root () {}
 detail::saveload_root::saveload_root () : saveload_node (m_root_ownership, "doc") {}
-
-detail::save_root::~save_root () {}
-string detail::save_root::print () { return xml_node_to_string (m_root_ownership); }
-detail::load_root::~load_root () {}
-detail::save_root::save_root () : saveload_root ()
-{
-  m_node = m_root_ownership.allocate_node (rapidxml::node_type::node_element, "root");
-  m_root_ownership.append_node (m_node);
-}
-
-detail::load_root::load_root (const string &xml_to_parse)
-  : saveload_root ()
-{
-  vector<char> copy (xml_to_parse.begin (), xml_to_parse.end ());
-  copy.push_back ('\0');
-  m_root_ownership.parse<0> (&copy[0]);
-  m_node = m_root_ownership.first_node ();
-}
+void detail::saveload_root::set_node (saveload_node::node_t *node) { m_node = node; }

@@ -4,7 +4,7 @@
 #include "common/common.h"
 #include "common/err_t.h"
 #include "common/string_converters.h"
-#include "external/rapidxml/rapidxml.hpp"
+#include "external/rapidxml_helpers/rapidxml_wrapper.h"
 
 template<typename Data>
 err_t save (const Data &src, string &dst);
@@ -65,29 +65,11 @@ class saveload_root : public saveload_node
 {
 public:
   virtual ~saveload_root ();
-
-  std::string print ();
-protected:
   saveload_root ();
+
+  void set_node (node_t *node);
   doc_t m_root_ownership;
 };
-
-class save_root : public saveload_root
-{
-public:
-  save_root ();
-  virtual ~save_root ();
-
-  std::string print ();
-};
-
-class load_root : public saveload_root
-{
-public:
-  load_root (const string &xml_to_parse);
-  virtual ~load_root ();
-};
-
 
 template <typename Data>
 class saveload_data_node : public saveload_node
@@ -98,7 +80,6 @@ public:
     : saveload_node (root, name), m_data (data) {}
   virtual err_t load ();
   virtual err_t save ();
-protected:
 private:
   Data &m_data;
 };
@@ -107,14 +88,19 @@ private:
 template<typename Data>
 err_t save (const Data &src, string &dst)
 {
-  detail::save_root root;
+  detail::saveload_root root;
+
+  saveload_node::node_t *root_node = root.m_root_ownership.allocate_node (rapidxml::node_type::node_element, "root");
+  root.set_node (root_node);
+  root.m_root_ownership.append_node (root_node);
+
   const_cast<Data &> (src).build_saveload_tree (root);
   // It would be great to get rid of this const_cast.
   // I don't know how though.
 
   err_t err = root.save ();
   if (err.ok ())
-    dst = root.print ();
+    dst = xml_node_to_string (root.m_root_ownership);
 
   return err;
 }
@@ -122,9 +108,15 @@ err_t save (const Data &src, string &dst)
 template <typename Data>
 err_t load (Data &dst, const string &src)
 {
-  detail::load_root otherroot (src);
-  dst.build_saveload_tree (otherroot);
-  return otherroot.load ();
+  detail::saveload_root root;
+
+  vector<char> copy (src.begin (), src.end ());
+  copy.push_back ('\0');
+  root.m_root_ownership.parse<0> (&copy[0]);
+  root.set_node (root.m_root_ownership.first_node ());
+
+  dst.build_saveload_tree (root);
+  return root.load ();
 }
 
 template<typename Data>
