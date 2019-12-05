@@ -17,7 +17,7 @@ void assert_check (bool check, string message)
 
 int fuzzycmp (double a, double b, double eps)
 {
-  if (fabs (a - b) < eps)
+  if (fabs (a - b) <= eps)
     return 0;
   if (a > b)
     return 1;
