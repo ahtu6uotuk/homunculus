@@ -4,6 +4,7 @@
 #include "common/common.h"
 #include "common/err_t.h"
 #include "common/string_converters.h"
+#include "common/string_utils.h"
 #include "external/rapidxml_helpers/rapidxml_wrapper.h"
 
 template<typename Data>
@@ -112,9 +113,19 @@ err_t load (Data &dst, const string &src)
 
   vector<char> copy (src.begin (), src.end ());
   copy.push_back ('\0');
-  root.m_root_ownership.parse<0> (&copy[0]);
-  root.set_node (root.m_root_ownership.first_node ());
 
+  string errstr = "";
+  try { root.m_root_ownership.parse<0> (&copy[0]); }
+  catch (const std::runtime_error& e) { errstr = string ("Runtime error was: ") + e.what (); }
+  catch (const rapidxml::parse_error& e) { errstr = string ("Parse error was: ") + e.what (); }
+  catch (const std::exception& e) { errstr = string ("Error was: ") + e.what (); }
+  catch (...) { errstr = string ("Internal error"); }
+
+  err_t err (errstr);
+  if (!err.ok ())
+    return err_t (string_printf ("Error encountered while parsing xml: %s\n", errstr.c_str ()));
+
+  root.set_node (root.m_root_ownership.first_node ());
   dst.build_saveload_tree (root);
   return root.load ();
 }
