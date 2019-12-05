@@ -22,5 +22,9 @@ HEADERS += \
     engine/engine.h \
     common/common.h \
     common/err_t.h \
+    external/rapidxml/rapidxml.hpp \
+    external/rapidxml/rapidxml_iterators.hpp \
+    external/rapidxml/rapidxml_print.hpp \
+    external/rapidxml/rapidxml_utils.hpp \
     common/string_converters.h \
     common/string_utils.h \
