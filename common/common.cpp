@@ -5,7 +5,8 @@ void do_nothing_no_inline ()
 {
 
 }
-void assert (bool check, string message)
+
+void assert_check (bool check, string message)
 {
   if (!check)
     {
