@@ -13,6 +13,7 @@ SOURCES += \
     engine/engine.cpp \
     common/common.cpp \
     common/err_t.cpp \
+    external/rapidxml_helpers/rapidxml_wrapper.cpp \
     common/string_converters.cpp \
     common/string_utils.cpp \
 
@@ -26,5 +27,6 @@ HEADERS += \
     external/rapidxml/rapidxml_iterators.hpp \
     external/rapidxml/rapidxml_print.hpp \
     external/rapidxml/rapidxml_utils.hpp \
+    external/rapidxml_helpers/rapidxml_wrapper.h \
     common/string_converters.h \
     common/string_utils.h \
