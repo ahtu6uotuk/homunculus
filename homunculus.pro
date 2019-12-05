@@ -13,6 +13,8 @@ SOURCES += \
     engine/engine.cpp \
     common/common.cpp \
     common/err_t.cpp \
+    common/string_converters.cpp \
+    common/string_utils.cpp \
 
 # Directories
 
@@ -20,3 +22,5 @@ HEADERS += \
     engine/engine.h \
     common/common.h \
     common/err_t.h \
+    common/string_converters.h \
+    common/string_utils.h \
