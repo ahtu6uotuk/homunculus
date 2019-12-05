@@ -12,9 +12,11 @@ SOURCES += \
     main.cpp \
     engine/engine.cpp \
     common/common.cpp \
+    common/err_t.cpp \
 
 # Directories
 
 HEADERS += \
     engine/engine.h \
     common/common.h \
+    common/err_t.h \
