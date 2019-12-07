@@ -11,18 +11,20 @@ engine_t::engine_t (int argc, char *argv[]):
   m_logger.print (log_section_t::ENGINE, log_priority_t::INFO, "initialization complete!");
 }
 
-int engine_t::init ()
+err_t engine_t::init ()
 {
   if (!m_logger.is_ok ())
-    return -1;
+    return err_t ("Internal logger error");
 
-  return 0;
+  return ERR_OK;
 }
 
 int engine_t::exec ()
 {
-  if (auto ret = init ())
-    return ret;
+  if (!init ().ok ())
+    {
+      return -1;
+    }
 
   return 0;
 }
