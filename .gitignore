@@ -14,7 +14,7 @@ object_script.*.Release
 object_script.*.Debug
 *_plugin_import.cpp
 /.qmake.cache
-/.qmake.stash
+*.qmake.stash
 *.pro.user
 *.pro.user.*
 *.qbs.user
@@ -41,3 +41,7 @@ target_wrapper.*
 
 # QtCreator CMake
 CMakeLists.txt.user*
+
+# Game files and other data
+*.log
+homunculus
