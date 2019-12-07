@@ -6,6 +6,8 @@ class engine_t
 {
   sf::RenderWindow m_window;
   logger_t m_logger;
+private:
+  int init ();
 public:
   engine_t () = delete;
   engine_t (int argc, char *argv[]);

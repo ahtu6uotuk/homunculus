@@ -53,5 +53,6 @@ public:
     m_fstream.flush ();
     m_mutex.unlock ();
   }
+  bool is_ok () const;
   ~logger_t ();
 };

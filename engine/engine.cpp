@@ -11,20 +11,19 @@ engine_t::engine_t (int argc, char *argv[]):
   m_logger.print (log_section_t::ENGINE, log_priority_t::INFO, "initialization complete!");
 }
 
+int engine_t::init ()
+{
+  if (!m_logger.is_ok ())
+    return -1;
+
+  return 0;
+}
+
 int engine_t::exec ()
 {
-  while (m_window.isOpen ())
-    {
-      sf::Event event;
-      while (m_window.pollEvent (event))
-        {
-          if (event.type == sf::Event::Closed)
-            m_window.close ();
-        }
-      uint8_t color = (time (nullptr) * 100) % 255;
-      m_window.clear (sf::Color (color, color, color));
-      m_window.display ();
-    }
+  if (auto ret = init ())
+    return ret;
+
   return 0;
 }
 

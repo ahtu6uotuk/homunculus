@@ -5,6 +5,11 @@ logger_t::logger_t (const char *fname_log)
   m_fstream.open (fname_log, std::ios_base::out);
 }
 
+bool logger_t::is_ok () const
+{
+  return m_fstream.is_open ();
+}
+
 logger_t::~logger_t ()
 {
   m_fstream.flush ();
