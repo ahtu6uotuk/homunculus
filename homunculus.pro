@@ -18,7 +18,8 @@ SOURCES += \
     logic/saveload_tree.cpp \
     logic/saveload_tree_test.cpp \
     common/string_utils.cpp \
-    engine/logger.cpp
+    engine/logger.cpp \
+    common/thread_info.cpp
 
 # Directories
 
@@ -35,4 +36,5 @@ HEADERS += \
     logic/saveload_tree.h \
     logic/saveload_tree_test.h \
     common/string_utils.h \
-    engine/logger.h
+    engine/logger.h \
+    common/thread_info.h
