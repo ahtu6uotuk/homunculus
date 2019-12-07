@@ -1,10 +1,11 @@
 #pragma once
 #include <SFML/Graphics/RenderWindow.hpp>
-
+#include "engine/logger.h"
 
 class engine_t
 {
   sf::RenderWindow m_window;
+  logger_t m_logger;
 public:
   engine_t () = delete;
   engine_t (int argc, char *argv[]);
