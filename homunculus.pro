@@ -1,5 +1,5 @@
 CONFIG -= qt
-LIBS += -lsfml-graphics -lsfml-window -lsfml-system -lGLEW -lGL
+LIBS += -lsfml-graphics -lsfml-window -lsfml-system -lGLEW -lGL -lpthread
 QMAKE_CXXFLAGS += -std=c++17
 QMAKE_CXXFLAGS += -g -W -Wall -Wunused -Wcast-align -Werror \
                   -pedantic -pedantic-errors -fstack-protector-all \
@@ -19,7 +19,8 @@ SOURCES += \
     logic/saveload_tree_test.cpp \
     common/string_utils.cpp \
     engine/logger.cpp \
-    common/thread_info.cpp
+    common/thread_info.cpp \
+    common/thread_sync.cpp
 
 # Directories
 
@@ -37,4 +38,5 @@ HEADERS += \
     logic/saveload_tree_test.h \
     common/string_utils.h \
     engine/logger.h \
-    common/thread_info.h
+    common/thread_info.h \
+    common/thread_sync.h
