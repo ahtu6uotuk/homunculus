@@ -1,65 +1,91 @@
+#include "logic_tests.h"
+
 #include <iostream>
-#include "common/string_utils.h"
-#include "logic/saveload_tree_test.h"
+
 #include "common/common.h"
+#include "common/string/string_utils.h"
 #include "logic/saveload_tree.h"
 
-class A
+class inner_class
 {
 public:
-  bool operator == (const A &other)
+  bool operator== (const inner_class &other) const
   {
-    return
-        !fuzzycmp (x, other.x, 0)
-        && !fuzzycmp (y, other.y, 0)
-        && z1 == other.z1
-        && z2 == other.z2;
+    return    !fuzzycmp (m_double_val_1, other.m_double_val_1, 0)
+           && !fuzzycmp (m_double_val_2, other.m_double_val_2, 0)
+           && m_int_val_1 == other.m_int_val_1
+           && m_int_val_2 == other.m_int_val_2
+           && uptrs_are_equal (m_unique_int_1, other.m_unique_int_1)
+           && uptrs_are_equal (m_unique_int_2, other.m_unique_int_2);
   }
   void build_saveload_tree (saveload_node &node)
   {
-    node.add (x, "x");
-    node.add (y, "y");
-    node.add (z1, "z1");
-    node.add (z2, "z2");
+    node.add (m_double_val_1, "m_double_val_1");
+    node.add (m_double_val_2, "m_double_val_2");
+    node.add (m_int_val_1, "m_int_val_1");
+    node.add (m_int_val_2, "m_int_val_2");
+    node.add (m_unique_int_1, "m_unique_int_1");
+    node.add (m_unique_int_2, "m_unique_int_2");
   }
-  double x = 0;
-  double y = 0;
-  int z1 = 0;
-  int z2 = 0;
+  unique_ptr<int> m_unique_int_1;
+  unique_ptr<int> m_unique_int_2;
+  double m_double_val_1 = 0;
+  double m_double_val_2 = 0;
+  int m_int_val_1 = 0;
+  int m_int_val_2 = 0;
 };
 
-class B
+class outer_class
 {
 public:
-  bool operator == (const B &other) { return k == other.k && !fuzzycmp (m, other.m, 0); }
+  bool operator== (const outer_class &other) const
+  {
+    return    m_member_inner == other.m_member_inner
+           && !fuzzycmp (m_double_val, other.m_double_val, 0)
+           && m_int_string_map == other.m_int_string_map
+           && m_vect_of_inners == other.m_vect_of_inners
+           && uptrs_are_equal (m_unique_inner_1, other.m_unique_inner_1)
+           && uptrs_are_equal (m_unique_inner_1, other.m_unique_inner_1);
+  }
   void build_saveload_tree (saveload_node &node)
   {
-    node.add (k, "some_args");
-    node.add (m, "m");
-    node.add (l, "dlist");
+    node.add (m_member_inner, "member_inner");
+    node.add (m_double_val, "double_val");
+    node.add (m_int_string_map, "vect_of_ints");
+    node.add (m_vect_of_inners, "vect_of_inners");
+    node.add (m_unique_inner_1, "unique_inner_1");
+    node.add (m_unique_inner_2, "unique_inner_2");
   }
-  A k;
-  double m = 0;
-  vector<double> l;
+  inner_class m_member_inner;
+  unique_ptr<inner_class> m_unique_inner_1;
+  unique_ptr<inner_class> m_unique_inner_2;
+  double m_double_val = 0;
+  unordered_map<int, string> m_int_string_map;
+  vector<inner_class> m_vect_of_inners;
 };
 
-void saveload_tree_test ()
+void complex_structure_saveload_test ()
 {
-  B data_to_save;
-  data_to_save.k.x = 1.1;
-  data_to_save.k.y = 1234234.125e+30;
-  data_to_save.k.z1 = -1735;
-  data_to_save.k.z2 = 97353;
-  data_to_save.m = 1.0 / 7.0;
-  data_to_save.l = {1, 2, 3};
+  outer_class data_to_save;
 
-  string dump;
-  assert_test (save (data_to_save, dump));
+  data_to_save.m_member_inner.m_double_val_1 = 1.1;
+  data_to_save.m_member_inner.m_double_val_2 = 1234234.125e+30;
+  data_to_save.m_member_inner.m_int_val_1 = -1735;
+  data_to_save.m_member_inner.m_int_val_2 = 97353;
+  data_to_save.m_member_inner.m_unique_int_1.reset (new int (11038));
+  data_to_save.m_member_inner.m_unique_int_2.reset ();
 
-  B data_to_load;
-  assert_test (load (data_to_load, dump), string_printf ("\nDump:\n%s", dump.c_str ()));
+  data_to_save.m_double_val = 1.0 / 7.0;
 
-  err_t err = (data_to_save == data_to_load ? ERR_OK : err_t ("Loaded data is different from saved data!"));
-  assert_test (err, string_printf ("\nDump:\n%s", dump.c_str ()));
+  data_to_save.m_int_string_map.insert ({1, "kek"});
+  data_to_save.m_int_string_map.insert ({2, "lek"});
+  data_to_save.m_int_string_map.insert ({3, "lel"});
+
+  data_to_save.m_vect_of_inners.push_back ({});
+  data_to_save.m_vect_of_inners[0].m_int_val_1 = 11037;
+
+  data_to_save.m_unique_inner_1.reset (new inner_class ());
+  data_to_save.m_unique_inner_1->m_int_val_2 = 11039;
+
+  save_and_load_test (data_to_save);
 }
-

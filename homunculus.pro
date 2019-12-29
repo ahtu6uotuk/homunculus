@@ -15,6 +15,7 @@ INCLUDEPATH += ./
 
 SOURCES += \
     logic/object/object_heap.cpp \
+    logic/object_heap_test.cpp \
     main.cpp \
     engine/engine.cpp \
     common/common.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
     external/rapidxml/rapidxml_print.hpp \
     external/rapidxml/rapidxml_utils.hpp \
     common/string/string_converters.h \
+    logic/logic_tests.h \
     logic/object/object.h \
     logic/object/object_base.h \
     logic/object/object_heap.h \
@@ -46,7 +48,6 @@ HEADERS += \
     logic/policies/name_policy.h \
     logic/policies/talk_policy.h \
     logic/saveload_tree.h \
-    logic/saveload_tree_test.h \
     common/string/string_utils.h \
     engine/logger.h \
     common/thread_info.h \
