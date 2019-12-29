@@ -1,8 +1,10 @@
-#include <float.h>
-#include <cstdio>
 #include "string_converters.h"
+
+#include <cstdio>
+#include <float.h>
+
 #include "common/err_t.h"
-#include "common/string_utils.h"
+#include "common/string/string_utils.h"
 
 // double
 err_t string_to_data (const string &src, double &dst)
@@ -22,14 +24,14 @@ err_t string_from_data (string &dst, const double &src)
   return ERR_OK;
 }
 
-// long
+// int
 err_t string_to_data (const string &src, int &dst)
 {
   char *endptr = nullptr;
   int res = static_cast<int> (strtol (src.c_str (), &endptr, 10));
 
   if (*endptr)
-    return err_t (string_printf ("Could not convert %s to double", src.c_str ()));
+    return err_t (string_printf ("Could not convert %s to int", src.c_str ()));
 
   dst = res;
   return ERR_OK;

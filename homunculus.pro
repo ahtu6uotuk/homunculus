@@ -14,10 +14,9 @@ SOURCES += \
     common/common.cpp \
     common/err_t.cpp \
     external/rapidxml_helpers/rapidxml_wrapper.cpp \
-    common/string_converters.cpp \
+    common/string/string_converters.cpp \
     logic/saveload_tree.cpp \
     logic/saveload_tree_test.cpp \
-    common/string_utils.cpp \
     engine/logger.cpp \
     common/thread_info.cpp \
     common/thread_sync.cpp
@@ -33,10 +32,10 @@ HEADERS += \
     external/rapidxml/rapidxml_print.hpp \
     external/rapidxml/rapidxml_utils.hpp \
     external/rapidxml_helpers/rapidxml_wrapper.h \
-    common/string_converters.h \
+    common/string/string_converters.h \
     logic/saveload_tree.h \
     logic/saveload_tree_test.h \
-    common/string_utils.h \
+    common/string/string_utils.h \
     engine/logger.h \
     common/thread_info.h \
     common/thread_sync.h
