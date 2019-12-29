@@ -28,6 +28,8 @@ SOURCES += \
 # Directories
 
 HEADERS += \
+    common/template_tricks/auto_register.h \
+    common/template_tricks/static_for.h \
     engine/engine.h \
     common/common.h \
     common/err_t.h \
