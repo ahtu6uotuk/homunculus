@@ -1,11 +1,16 @@
 CONFIG -= qt
 LIBS += -lsfml-graphics -lsfml-window -lsfml-system -lGLEW -lGL -lpthread
-QMAKE_CXXFLAGS += -std=c++17
-QMAKE_CXXFLAGS += -g -W -Wall -Wunused -Wcast-align -Werror \
+QMAKE_CXXFLAGS += -std=c++2a
+QMAKE_CXXFLAGS += -g -lm -W -Wall -Wunused -Wcast-align -Werror \
                   -pedantic -pedantic-errors -fstack-protector-all \
                   -Wfloat-equal -Wpointer-arith -Wwrite-strings \
-                  -Wcast-align -Wno-long-long \
-                  -Wmissing-declarations -lm
+                  -Wcast-align -Wno-long-long -Wsuggest-override\
+                  -Wmissing-declarations -Wnon-virtual-dtor \
+                  -Wmissing-format-attribute -Wvla -Wformat=1 \
+                  -Wno-maybe-uninitialized -Wuninitialized \
+                  -Wlogical-op -Wno-unused-local-typedefs -Wshadow \
+                  -Wextra  -Wformat-security \
+
 INCLUDEPATH += ./
 
 SOURCES += \
