@@ -18,7 +18,6 @@ SOURCES += \
     engine/engine.cpp \
     common/common.cpp \
     common/err_t.cpp \
-    external/rapidxml_helpers/rapidxml_wrapper.cpp \
     common/string/string_converters.cpp \
     logic/saveload_tree.cpp \
     logic/saveload_tree_test.cpp \
@@ -36,7 +35,6 @@ HEADERS += \
     external/rapidxml/rapidxml_iterators.hpp \
     external/rapidxml/rapidxml_print.hpp \
     external/rapidxml/rapidxml_utils.hpp \
-    external/rapidxml_helpers/rapidxml_wrapper.h \
     common/string/string_converters.h \
     logic/saveload_tree.h \
     logic/saveload_tree_test.h \
