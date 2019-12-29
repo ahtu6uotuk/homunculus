@@ -1,16 +1,14 @@
-#include <math.h>
 #include "common.h"
 
-void do_nothing_no_inline ()
-{
+#include <math.h>
 
-}
+void do_nothing_no_inline () {}
 
 void assert_check (bool check, string message)
 {
   if (!check)
     {
-      fprintf (stderr, "WARNING: %s\n", message.c_str());
+      fprintf (stderr, "WARNING: %s\n", message.c_str ());
       throw exception ();
     }
 }

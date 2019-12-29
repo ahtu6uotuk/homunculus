@@ -9,10 +9,16 @@ inline void do_nothing (...) {}
 void do_nothing_no_inline ();
 
 template<typename T>
-int toi (T value) { return static_cast<int> (value); }
+int toi (T value)
+{
+  return static_cast<int> (value);
+}
 
-template <typename T>
-int isize (const T& container) { return toi (container.size ()); }
+template<typename T>
+int isize (const T &container)
+{
+  return toi (container.size ());
+}
 
 void assert_check (bool check, string message);
 

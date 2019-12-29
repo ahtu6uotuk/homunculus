@@ -8,6 +8,7 @@ public:
   bool ok () { return m_description.empty (); }
   const string &descr () { return m_description; }
   const char *descr_c_str () { return m_description.c_str (); }
+
 private:
   string m_description;
 };
