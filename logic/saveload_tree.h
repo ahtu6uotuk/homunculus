@@ -9,6 +9,9 @@
 #include "common/string/string_converters.h"
 #include "common/string/string_utils.h"
 #include "external/rapidxml/rapidxml.hpp"
+template <typename Self, typename ... Args>
+class object;
+class object_base;
 namespace detail {
 class saveload_container_node_base;
 template<typename DataT, typename ElemT>
@@ -93,6 +96,15 @@ public:
     data = move (elem_to_add);
   }
 
+  /// composite objects
+  template<typename Data, typename ConditionallyVoid = enable_if_t<is_base_of_v<object_base, Data>, void>>
+  ConditionallyVoid add (Data &data, const string &name)
+  {
+    m_children.emplace_back (new saveload_node (m_root, name));
+    saveload_node &node = *m_children.back ();
+    auto func = [&node] (auto attr) { attr->build_saveload_tree_policy (node); };
+    data.for_all_attrs (func);
+  }
 
   /// everything else
   template<typename Data, enable_if_t<!is_base_of_v<object_base, Data>, int> = 0>

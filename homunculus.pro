@@ -14,6 +14,7 @@ QMAKE_CXXFLAGS += -g -lm -W -Wall -Wunused -Wcast-align -Werror \
 INCLUDEPATH += ./
 
 SOURCES += \
+    logic/object/object_heap.cpp \
     main.cpp \
     engine/engine.cpp \
     common/common.cpp \
@@ -38,6 +39,12 @@ HEADERS += \
     external/rapidxml/rapidxml_print.hpp \
     external/rapidxml/rapidxml_utils.hpp \
     common/string/string_converters.h \
+    logic/object/object.h \
+    logic/object/object_base.h \
+    logic/object/object_heap.h \
+    logic/policies/health_policy.h \
+    logic/policies/name_policy.h \
+    logic/policies/talk_policy.h \
     logic/saveload_tree.h \
     logic/saveload_tree_test.h \
     common/string/string_utils.h \
