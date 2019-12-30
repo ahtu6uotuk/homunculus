@@ -14,6 +14,7 @@ QMAKE_CXXFLAGS += -g -lm -W -Wall -Wunused -Wcast-align -Werror \
 INCLUDEPATH += ./
 
 SOURCES += \
+    common/string/string_utils.cpp \
     logic/object/object_heap.cpp \
     logic/object_heap_test.cpp \
     main.cpp \

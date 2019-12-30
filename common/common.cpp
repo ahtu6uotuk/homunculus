@@ -21,3 +21,5 @@ int fuzzycmp (double a, double b, double eps)
     return 1;
   return -1;
 }
+
+string get_assets_path_prefix () { return "../homunculus/assets/"; }

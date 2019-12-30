@@ -5,6 +5,10 @@
 #include <string>
 
 #include "common/common.h"
+class err_t;
+
+err_t to_file (const string &src_string, const string &dst_filename);
+err_t from_file (string &dst_string, const string &src_filename);
 
 template<typename... Args>
 string string_printf (const char *format, Args... args)
