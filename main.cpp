@@ -3,7 +3,8 @@
 #include "common/common.h"
 #include "common/err_t.h"
 #include "engine/engine.h"
-#include "logic/logic_tests.h"
+#include "logic/tests/logic_tests.h"
+
 
 int main (int argc, char *argv[])
 {
