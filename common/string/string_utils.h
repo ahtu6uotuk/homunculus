@@ -9,6 +9,8 @@ class err_t;
 
 err_t to_file (const string &src_string, const string &dst_filename);
 err_t from_file (string &dst_string, const string &src_filename);
+err_t to_asset_file (const string &src_string, const string &asset_name);
+err_t from_asset_file (string &dst_string, const string &asset_name);
 
 template<typename... Args>
 string string_printf (const char *format, Args... args)

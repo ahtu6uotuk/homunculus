@@ -6,6 +6,16 @@
 #include "common/common.h"
 #include "common/err_t.h"
 
+err_t to_asset_file (const string &src_string, const string &asset_name)
+{
+  return to_file (src_string, get_assets_path_prefix () + asset_name + ".txt");
+}
+
+err_t from_asset_file (string &dst_string, const string &asset_name)
+{
+  return from_file (dst_string, get_assets_path_prefix () + asset_name + ".txt");
+}
+
 err_t to_file (const string &src_string, const string &dst_filename)
 {
   fstream file_stream;
