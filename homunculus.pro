@@ -16,6 +16,7 @@ INCLUDEPATH += ./
 SOURCES += \
     common/string/string_utils.cpp \
     logic/object/object_heap.cpp \
+    logic/tests/asset_test.cpp \
     logic/tests/object_heap_test.cpp \
     main.cpp \
     engine/engine.cpp \
