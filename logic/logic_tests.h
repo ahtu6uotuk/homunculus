@@ -10,19 +10,19 @@ template <typename T>
 T save_and_load_test (T &data_to_save)
 {
   string dump;
-  assert_test (save (data_to_save, dump));
+  assert_error (save (data_to_save, dump));
 
   T data_to_load;
-  assert_test (load (data_to_load, dump), string_printf ("\nDump:\n%s", dump.c_str ()));
+  assert_error (load (data_to_load, dump), string_printf ("\nDump:\n%s", dump.c_str ()));
 
   err_t err = (data_to_save == data_to_load ? ERR_OK : err_t ("Loaded data is different from saved data!"));
-  assert_test (err, string_printf ("\nDump:\n%s", dump.c_str ()));
+  assert_error (err, string_printf ("\nDump:\n%s", dump.c_str ()));
 
   string another_dump;
-  assert_test (save (data_to_load, another_dump));
+  assert_error (save (data_to_load, another_dump));
 
   err = (dump == another_dump ? ERR_OK : err_t ("Loaded data dump differs from saved data dump!"));
-  assert_test (err, string_printf ("\nDump1:\n%s\nDump2:\n%s", dump.c_str (), another_dump.c_str ()));
+  assert_error (err, string_printf ("\nDump1:\n%s\nDump2:\n%s", dump.c_str (), another_dump.c_str ()));
 
   return data_to_load;
 }

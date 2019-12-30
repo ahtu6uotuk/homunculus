@@ -14,4 +14,4 @@ private:
 };
 const err_t ERR_OK = err_t ("");
 
-void assert_test (err_t err, const string &additional_info = "");
+void assert_error (err_t err, const string &additional_info = "");
