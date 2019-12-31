@@ -15,6 +15,7 @@ INCLUDEPATH += ./
 
 SOURCES += \
     common/string/string_utils.cpp \
+    logic/asset.cpp \
     logic/object/object_heap.cpp \
     logic/tests/asset_test.cpp \
     logic/tests/object_heap_test.cpp \
@@ -42,6 +43,7 @@ HEADERS += \
     external/rapidxml/rapidxml_print.hpp \
     external/rapidxml/rapidxml_utils.hpp \
     common/string/string_converters.h \
+    logic/asset.h \
     logic/tests/logic_tests.h \
     logic/object/object.h \
     logic/object/object_base.h \
