@@ -1,7 +1,8 @@
 #include "string_utils.h"
 
-#include<fstream>
-#include<sstream>
+#include <fstream>
+#include <sstream>
+#include <cstdarg>
 
 #include "common/common.h"
 #include "common/err_t.h"
@@ -46,4 +47,31 @@ err_t from_file (string &dst_string, const string &src_filename)
   file_stream.close ();
 
   return ERR_OK;
+}
+
+__attribute__((format(printf, 1, 2)))
+std::string string_printf (const char *format, ...)
+{
+  va_list va;
+  va_start (va, format);
+
+#ifndef _WIN32
+  va_list va_for_couting;
+  va_copy (va_for_couting, va);
+  int length = vsnprintf (nullptr, 0, format, va_for_couting);
+  va_end (va_for_couting);
+#else
+  int length = vsnprintf (0, 0, format, va);
+#endif
+
+  std::string result;
+  if (length > 0)
+    {
+      result.assign (length, '\0');
+      vsprintf (&result[0], format, va);
+    }
+
+  va_end (va);
+
+  return result;
 }

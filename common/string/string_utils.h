@@ -12,14 +12,8 @@ err_t from_file (string &dst_string, const string &src_filename);
 err_t to_asset_file (const string &src_string, const string &asset_name);
 err_t from_asset_file (string &dst_string, const string &asset_name);
 
-template<typename... Args>
-string string_printf (const char *format, Args... args)
-{
-  size_t size = snprintf (nullptr, 0, format, args...) + 1;
-  std::unique_ptr<char[]> buf (new char[size]);
-  snprintf (buf.get (), size, format, args...);
-  return std::string (buf.get (), buf.get () + size - 1);
-}
+__attribute__((format(printf, 1, 2)))
+std::string string_printf (const char *format, ...);
 
 inline string string_replace (
     const std::string &src,

@@ -9,7 +9,7 @@ QMAKE_CXXFLAGS += -g -lm -W -Wall -Wunused -Wcast-align -Werror \
                   -Wmissing-format-attribute -Wvla -Wformat=1 \
                   -Wno-maybe-uninitialized -Wuninitialized \
                   -Wlogical-op -Wno-unused-local-typedefs -Wshadow \
-                  -Wextra  -Wformat-security \
+                  -Wextra  -Wformat-security -Wformat-nonliteral \
 
 INCLUDEPATH += ./
 
