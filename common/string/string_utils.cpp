@@ -22,7 +22,7 @@ err_t to_file (const string &src_string, const string &dst_filename)
 
   file_stream.open (dst_filename, ios_base::out);
   if (!file_stream.is_open ())
-    return string_printf ("Couldn't open file %s", dst_filename);
+    return string_printf ("Couldn't open file %s", dst_filename.c_str ());
 
   file_stream << src_string;
   file_stream.flush ();
@@ -37,7 +37,7 @@ err_t from_file (string &dst_string, const string &src_filename)
 
   file_stream.open (src_filename, ios_base::in);
   if (!file_stream.is_open ())
-    return string_printf ("Couldn't open file %s", src_filename);
+    return string_printf ("Couldn't open file %s", src_filename.c_str ());
 
   stringstream buffer;
   buffer << file_stream.rdbuf();
