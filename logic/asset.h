@@ -4,6 +4,7 @@
 #include "common/string/string_utils.h"
 #include "common/err_t.h"
 #include "logic/saveload_tree.h"
+#include "common/template_tricks/string_literal.h"
 
 template <typename DataT, const char *asset_name>
 class asset_ptr
