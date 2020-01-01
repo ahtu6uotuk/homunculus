@@ -7,7 +7,7 @@ void complex_structure_saveload_test ();
 void object_heap_test ();
 void asset_test ();
 
-void run_logic_tests ()
+inline void run_logic_tests ()
 {
   complex_structure_saveload_test ();
   object_heap_test ();
