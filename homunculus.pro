@@ -35,6 +35,7 @@ SOURCES += \
 HEADERS += \
     common/template_tricks/auto_register.h \
     common/template_tricks/static_for.h \
+    common/template_tricks/string_literal.h \
     engine/engine.h \
     common/common.h \
     common/err_t.h \
