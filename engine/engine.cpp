@@ -35,7 +35,7 @@ err_t engine_t::init ()
 void engine_t::handle_events ()
 {
   sf::Event event;
-  while (m_window.pollEvent (event))
+  while (m_window.pollEvent (event) && !m_thread_sync.is_iteration_done ())
     {
       switch (event.type)
         {
