@@ -20,6 +20,13 @@ err_t engine_t::init ()
   if (!m_logger.is_ok ())
     return err_t ("Internal logger error");
 
+  auto ret = create_threads ();
+
+  return ret;
+}
+
+err_t engine_t::create_threads ()
+{
   const auto n_threads = get_computation_threads_number ();
   m_thread.resize (n_threads);
   for (size_t comp_thread_id = 0; comp_thread_id < n_threads; comp_thread_id++)
@@ -28,7 +35,6 @@ err_t engine_t::init ()
                                          make_unique<thread_info_t> (m_thread_sync, comp_thread_id, n_threads),
                                          std::ref (*this));
     }
-
   return ERR_OK;
 }
 

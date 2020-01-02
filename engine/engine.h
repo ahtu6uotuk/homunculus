@@ -5,8 +5,8 @@
 #include "engine/logger.h"
 #include "common/thread_sync.h"
 
-
 class thread_info_t;
+
 
 class engine_t
 {
@@ -17,6 +17,7 @@ class engine_t
   bool m_run;
 private:
   err_t init ();
+  err_t create_threads ();
   err_t run_gui_thread ();
   void handle_events ();
   size_t get_computation_threads_number () const;
