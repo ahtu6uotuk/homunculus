@@ -33,7 +33,12 @@ SOURCES += \
     logic/tests/saveload_tree_test.cpp \
     engine/logger.cpp \
     common/thread_info.cpp \
-    common/thread_sync.cpp
+    common/thread_sync.cpp \
+    engine/renderer/renderer.cpp \
+    engine/gui/gui_context.cpp \
+    engine/gui/gui_element.cpp \
+    engine/gui/gui_interactive_element.cpp \
+    engine/gui/gui_system.cpp
 
 # Directories
 
@@ -68,4 +73,9 @@ HEADERS += \
     common/string/string_utils.h \
     engine/logger.h \
     common/thread_info.h \
-    common/thread_sync.h
+    common/thread_sync.h \
+    engine/renderer/renderer.h \
+    engine/gui/gui_context.h \
+    engine/gui/gui_element.h \
+    engine/gui/gui_interactive_element.h \
+    engine/gui/gui_system.h

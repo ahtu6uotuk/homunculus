@@ -8,7 +8,8 @@ engine_t::engine_t (int argc, char *argv[]):
   m_logger ("engine.log"),
   m_thread (),
   m_thread_sync (get_computation_threads_number ()),
-  m_run (true)
+  m_run (true),
+  m_gui (m_window.getSize ().x, m_window.getSize ().y)
 {
   do_nothing (argc, argv);
   m_window.setFramerateLimit (60);
@@ -45,9 +46,39 @@ void engine_t::handle_events ()
     {
       switch (event.type)
         {
-        case sf::Event::Closed:
+        case sf::Event::EventType::Closed:
           {
             m_run = false;
+            break;
+          }
+        case sf::Event::EventType::Resized:
+          {
+            m_gui.resize (event.size.width, event.size.height);
+            break;
+          }
+        case sf::Event::EventType::MouseMoved:
+          {
+            m_gui.handle_mouse_move_event (event.mouseMove.x, event.mouseMove.y);
+            break;
+          }
+        case sf::Event::EventType::MouseButtonPressed:
+          {
+            if (event.mouseButton.button == sf::Mouse::Left)
+              m_gui.handle_mouse_press_event (event.mouseButton.x, event.mouseButton.y);
+            break;
+          }
+        case sf::Event::EventType::MouseButtonReleased:
+          {
+            break;
+          }
+        case sf::Event::EventType::KeyPressed:
+          {
+            do_nothing ();
+            break;
+          }
+        case sf::Event::EventType::KeyReleased:
+          {
+            do_nothing ();
             break;
           }
         default:

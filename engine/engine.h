@@ -4,6 +4,7 @@
 #include "common/err_t.h"
 #include "engine/logger.h"
 #include "common/thread_sync.h"
+#include "engine/gui/gui_system.h"
 
 class thread_info_t;
 
@@ -15,6 +16,7 @@ class engine_t
   std::vector<thread> m_thread;
   thread_sync_t m_thread_sync;
   bool m_run;
+  gui_system_t m_gui;
 private:
   err_t init ();
   err_t create_threads ();
