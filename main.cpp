@@ -10,10 +10,12 @@ int main (int argc, char *argv[])
 {
   do_nothing (argc, argv);
   feenableexcept (FE_DIVBYZERO | FE_OVERFLOW | FE_INVALID);
-  run_logic_tests ();
 
-  if (argc > 1 && !strcmp (argv[1], "--tests-only"))
+  if (argc == 2 && strcmp (argv[1], "--tests-only"))
+    {
+      run_logic_tests ();
       return 0;
+    }
 
   engine_t engine (argc, argv);
   return engine.exec ();
