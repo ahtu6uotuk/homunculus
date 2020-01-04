@@ -23,6 +23,7 @@ public:
   unsigned int get_width () const {return m_width;}
   unsigned int get_height () const {return m_height;}
   unsigned int make_context ();
+  bool is_ok () const {return !m_context.empty ();}
   ~gui_system_t ();
 };
 

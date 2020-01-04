@@ -21,6 +21,9 @@ err_t engine_t::init ()
   if (!m_logger.is_ok ())
     return err_t ("Internal logger error");
 
+  if (!m_gui.is_ok ())
+    return err_t ("GUI initialization error: no contexts exist!");
+
   auto ret = create_threads ();
 
   return ret;
@@ -113,14 +116,20 @@ err_t engine_t::run_gui_thread ()
 
 int engine_t::exec ()
 {
-  if (!init ().ok ())
+  auto ret = init ();
+  if (!ret.ok ())
     {
+      if (m_logger.is_ok ())
+        {
+          m_logger.print (log_section_t::ENGINE, log_priority_t::ERROR, ret.descr_c_str ());
+        }
       return -1;
     }
 
-  if (!run_gui_thread ().ok ())
+  ret = run_gui_thread ();
+  if (!ret.ok ())
     {
-      m_logger.print (log_section_t::ENGINE, log_priority_t::ERROR, "fatal error!");
+      m_logger.print (log_section_t::ENGINE, log_priority_t::ERROR, ret.descr_c_str ());
       return -2;
     }
 
