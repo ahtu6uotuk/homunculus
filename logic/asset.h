@@ -3,7 +3,7 @@
 #include "common/common.h"
 #include "common/string/string_utils.h"
 #include "common/err_t.h"
-#include "logic/saveload_tree.h"
+#include "logic/saveload.h"
 #include "common/template_tricks/string_literal.h"
 
 template <typename DataT, const char *asset_name>
@@ -12,7 +12,7 @@ class asset_ptr
 public:
   DataT *operator-> () { return m_data.operator-> (); }
   DataT *get () { return m_data.get (); }
-  DataT *operator * () { return m_data.operator* (); }
+  DataT &operator * () { return m_data.operator* (); }
 
   asset_ptr ()
   {

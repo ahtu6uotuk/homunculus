@@ -1,8 +1,8 @@
 #include "logic_tests.h"
 
-#include "logic/policies/health_policy.h"
-#include "logic/policies/talk_policy.h"
-#include "logic/policies/name_policy.h"
+#include "logic/policies/example/health_policy.h"
+#include "logic/policies/example/talk_policy.h"
+#include "logic/policies/example/name_policy.h"
 #include "logic/object/object_heap.h"
 
 /// these three classes below are composed from "policies" -

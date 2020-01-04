@@ -6,7 +6,7 @@
 #include "common/template_tricks/static_for.h"
 #include "logic/object/object_base.h"
 #include "logic/object/object_heap.h"
-#include "logic/saveload_tree.h"
+#include "logic/saveload.h"
 
 template<typename Self, typename... Args>
 class object : automatic_register<Self>, virtual public object_base, public Args...
@@ -47,6 +47,7 @@ public:
 
 protected:
   virtual object_base &get_policy_private () override { return *this; }
+  virtual const object_base &get_policy_private () const override { return *this; }
 
 private:
   template<typename Func, typename Attr>

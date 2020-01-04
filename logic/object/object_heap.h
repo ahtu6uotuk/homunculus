@@ -3,7 +3,7 @@
 #include <unordered_map>
 #include <functional>
 
-#include "logic/saveload_tree.h"
+#include "logic/saveload.h"
 
 class object_heap;
 struct obj_heap_helper { vector<function<void (object_heap &)>> m_type_adders; };

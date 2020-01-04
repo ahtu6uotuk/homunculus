@@ -4,7 +4,7 @@
 #include "common/common.h"
 #include "common/string/string_utils.h"
 #include "logic/object/object.h"
-#include "logic/saveload_tree.h"
+#include "logic/saveload.h"
 
 /// All classes probably should have this policy.
 /// Its convenient for objects to have a name.

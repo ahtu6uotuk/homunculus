@@ -2,6 +2,7 @@
 #include <vector>
 
 #include "common/common.h"
+#include "common/string/string_utils.h"
 #include "common/err_t.h"
 class err_t;
 
@@ -14,18 +15,27 @@ err_t string_from_data (string &dst, const int &src);
 err_t string_to_data (const string &src, string &dst);
 err_t string_from_data (string &dst, const string &src);
 
-template<typename Data>
+err_t string_to_data (const string &src, bool &dst);
+err_t string_from_data (string &dst, const bool &src);
+
+template<typename Data, enable_if_t<is_enum_v<Data>, int> = 0>
 err_t string_to_data (const string &src, Data &dst)
 {
-  do_nothing (src, dst);
-  assert_check (false, "This should not even be instantiated");
-  return err_t ("This should not even be instantiated");
+  for (int i = 0; i < (int) Data::COUNT; i++)
+    if (enum_to_string ((Data) i) == src)
+      {
+        dst = (Data) i;
+        return ERR_OK;
+      }
+  return string_printf ("Could not convert \"%s\" to enum of type %s", src.c_str (), typeid (Data).name ());
 }
 
-template<typename Data>
-err_t string_from_data (string &src, const Data &dst)
+template<typename Data, enable_if_t<is_enum_v<Data>, int> = 0>
+err_t string_from_data (string &dst, const Data &src)
 {
-  do_nothing (src, dst);
-  assert_check (false, "This should not even be instantiated");
-  return err_t ("This should not even be instantiated");
+  dst = enum_to_string (src);
+  return ERR_OK;
 }
+
+err_t string_to_data (const string &, ...);
+err_t string_from_data (string &, ...);

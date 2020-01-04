@@ -1,9 +1,0 @@
-<root>
-	<data>
-		<vect_elem>kek</vect_elem>
-		<vect_elem>чебурек</vect_elem>
-		<vect_elem>лол</vect_elem>
-		<vect_elem>mea culpa</vect_elem>
-	</data>
-</root>
-

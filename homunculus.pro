@@ -16,9 +16,14 @@ INCLUDEPATH += ./
 SOURCES += \
     common/string/string_utils.cpp \
     logic/asset.cpp \
+    logic/dialog.cpp \
     logic/object/object_heap.cpp \
+    logic/plot_tag.cpp \
+    logic/policies/plot_tags_policy.cpp \
+    logic/policies/talk_policy.cpp \
     logic/tests/asset_test.cpp \
     logic/tests/object_heap_test.cpp \
+    logic/tests/plot_tag_set_test.cpp \
     main.cpp \
     engine/engine.cpp \
     common/common.cpp \
@@ -34,6 +39,7 @@ SOURCES += \
 
 HEADERS += \
     common/template_tricks/auto_register.h \
+    common/template_tricks/comparator.h \
     common/template_tricks/static_for.h \
     common/template_tricks/string_literal.h \
     engine/engine.h \
@@ -45,13 +51,19 @@ HEADERS += \
     external/rapidxml/rapidxml_utils.hpp \
     common/string/string_converters.h \
     logic/asset.h \
+    logic/dialog.h \
+    logic/plot_tag.h \
+    logic/policies/plot_tags_policy.h \
+    logic/policies/talk_policy.h \
+    logic/saveload.h \
+    logic/saveload_tree_fwd.h \
     logic/tests/logic_tests.h \
     logic/object/object.h \
     logic/object/object_base.h \
     logic/object/object_heap.h \
-    logic/policies/health_policy.h \
-    logic/policies/name_policy.h \
-    logic/policies/talk_policy.h \
+    logic/policies/example/health_policy.h \
+    logic/policies/example/name_policy.h \
+    logic/policies/example/talk_policy.h \
     logic/saveload_tree.h \
     common/string/string_utils.h \
     engine/logger.h \
