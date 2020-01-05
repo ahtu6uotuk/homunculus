@@ -100,3 +100,7 @@ HEADERS += \
     engine/gui/gui_system.h \
     engine/renderer/font.h \
     logic/world.h \
+
+DISTFILES += \
+    gamedata/shaders/text.vert \
+    gamedata/shaders/text.frag
