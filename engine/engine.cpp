@@ -2,6 +2,7 @@
 #include "common/common.h"
 #include "common/thread_info.h"
 #include <SFML/Window.hpp>
+#include "gui/gui_context.h"
 
 engine_t::engine_t (int argc, char *argv[]):
   m_window (sf::VideoMode::getDesktopMode (), "Homunculus"),
@@ -21,10 +22,19 @@ err_t engine_t::init ()
   if (!m_logger.is_ok ())
     return err_t ("Internal logger error");
 
+  // TODO: remove this block
+  m_gui.make_context ();
   if (!m_gui.is_ok ())
     return err_t ("GUI initialization error: no contexts exist!");
 
-  auto ret = create_threads ();
+  auto ret = m_renderer.init ();
+
+  if (!ret.ok ())
+    {
+      return ret;
+    }
+
+  ret = create_threads ();
 
   return ret;
 }

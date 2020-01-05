@@ -5,6 +5,7 @@
 #include "engine/logger.h"
 #include "common/thread_sync.h"
 #include "engine/gui/gui_system.h"
+#include "engine/renderer/renderer.h"
 
 class thread_info_t;
 
@@ -17,6 +18,7 @@ class engine_t
   thread_sync_t m_thread_sync;
   bool m_run;
   gui_system_t m_gui;
+  renderer_t m_renderer;
 private:
   err_t init ();
   err_t create_threads ();
