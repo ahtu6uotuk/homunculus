@@ -1,9 +1,9 @@
 #include "renderer.h"
 #include <GL/glew.h>
-#include <freetype2/ft2build.h>
-#include FT_FREETYPE_H
 
-renderer_t::renderer_t ()
+
+renderer_t::renderer_t ():
+  m_font ("FreeSerif.ttf")
 {}
 
 err_t renderer_t::init ()
@@ -12,9 +12,9 @@ err_t renderer_t::init ()
   if (glewInit () != GLEW_OK)
     return err_t ("failed to init OpenGL!");
 
-  FT_Library ft;
-  if (FT_Init_FreeType (&ft))
-    return err_t ("failed to init FreeType Library!");
+  auto ret = m_font.load ();
+  if (!ret.ok ())
+    return ret;
 
   return ERR_OK;
 }
