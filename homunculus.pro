@@ -41,7 +41,8 @@ SOURCES += \
     engine/gui/gui_context.cpp \
     engine/gui/gui_element.cpp \
     engine/gui/gui_interactive_element.cpp \
-    engine/gui/gui_system.cpp
+    engine/gui/gui_system.cpp \
+    engine/renderer/font.cpp
 
 # Directories
 
@@ -81,4 +82,5 @@ HEADERS += \
     engine/gui/gui_context.h \
     engine/gui/gui_element.h \
     engine/gui/gui_interactive_element.h \
-    engine/gui/gui_system.h
+    engine/gui/gui_system.h \
+    engine/renderer/font.h
