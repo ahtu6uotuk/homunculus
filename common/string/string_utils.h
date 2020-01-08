@@ -3,14 +3,10 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <vector>
 
 #include "common/common.h"
 class err_t;
-
-err_t to_file (const string &src_string, const string &dst_filename);
-err_t from_file (string &dst_string, const string &src_filename);
-err_t to_asset_file (const string &src_string, const string &asset_name);
-err_t from_asset_file (string &dst_string, const string &asset_name);
 
 __attribute__((format(printf, 1, 2)))
 std::string string_printf (const char *format, ...);
@@ -30,6 +26,8 @@ inline string string_replace (
     }
   return x;
 }
+
+string string_join (const vector<string> &parts, const string &separator);
 
 inline std::string &ltrim (std::string &s, const char *t = " \t\n\r\f\v")
 {
