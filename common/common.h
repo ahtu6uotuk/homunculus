@@ -23,3 +23,4 @@ bool uptrs_are_equal (const unique_ptr<T> &a, const unique_ptr<T> &b)
 }
 
 string get_assets_path_prefix ();
+string get_saved_game_path_prefix ();

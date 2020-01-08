@@ -23,3 +23,4 @@ int fuzzycmp (double a, double b, double eps)
 }
 
 string get_assets_path_prefix () { return "../homunculus/assets/"; }
+string get_saved_game_path_prefix () { return "../homunculus/saved_game/"; }
