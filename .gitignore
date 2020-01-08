@@ -45,3 +45,4 @@ CMakeLists.txt.user*
 # Game files and other data
 *.log
 homunculus
+/saved_game/test_story/simulation_state

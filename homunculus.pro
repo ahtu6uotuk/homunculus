@@ -17,22 +17,30 @@ QMAKE_CXXFLAGS += -g -lm -W -Wall -Wunused -Wcast-align -Werror \
 INCLUDEPATH += ./
 
 SOURCES += \
+    common/file_utils.cpp \
     common/string/string_utils.cpp \
     logic/asset.cpp \
     logic/dialog.cpp \
+    logic/object/interaction.cpp \
     logic/object/object_heap.cpp \
+    logic/object_classes/enemy.cpp \
+    logic/object_classes/friend.cpp \
+    logic/object_classes/player.cpp \
     logic/plot_tag.cpp \
     logic/policies/plot_tags_policy.cpp \
     logic/policies/talk_policy.cpp \
+    logic/simulation/simulation.cpp \
+    logic/simulation/simulation_helpers.cpp \
     logic/tests/asset_test.cpp \
     logic/tests/object_heap_test.cpp \
     logic/tests/plot_tag_set_test.cpp \
+    logic/world.cpp \
     main.cpp \
     engine/engine.cpp \
     common/common.cpp \
     common/err_t.cpp \
     common/string/string_converters.cpp \
-    logic/saveload_tree.cpp \
+    logic/saveload/saveload_tree.cpp \
     logic/tests/saveload_tree_test.cpp \
     engine/logger.cpp \
     common/thread_info.cpp \
@@ -42,11 +50,12 @@ SOURCES += \
     engine/gui/gui_element.cpp \
     engine/gui/gui_interactive_element.cpp \
     engine/gui/gui_system.cpp \
-    engine/renderer/font.cpp
+    engine/renderer/font.cpp \
 
 # Directories
 
 HEADERS += \
+    common/file_utils.h \
     common/template_tricks/auto_register.h \
     common/template_tricks/comparator.h \
     common/template_tricks/static_for.h \
@@ -61,19 +70,25 @@ HEADERS += \
     common/string/string_converters.h \
     logic/asset.h \
     logic/dialog.h \
+    logic/object/interaction.h \
+    logic/object_classes/enemy.h \
+    logic/object_classes/example_classes.h \
+    logic/object_classes/friend.h \
+    logic/object_classes/player.h \
     logic/plot_tag.h \
     logic/policies/plot_tags_policy.h \
     logic/policies/talk_policy.h \
-    logic/saveload.h \
-    logic/saveload_tree_fwd.h \
+    logic/saveload/saveload.h \
+    logic/saveload/saveload_tree_fwd.h \
+    logic/simulation/simulation.h \
+    logic/simulation/simulation_helpers.h \
     logic/tests/logic_tests.h \
     logic/object/object.h \
     logic/object/object_base.h \
     logic/object/object_heap.h \
-    logic/policies/example/health_policy.h \
-    logic/policies/example/name_policy.h \
-    logic/policies/example/talk_policy.h \
-    logic/saveload_tree.h \
+    logic/policies/health_policy.h \
+    logic/policies/name_policy.h \
+    logic/saveload/saveload_tree.h \
     common/string/string_utils.h \
     engine/logger.h \
     common/thread_info.h \
@@ -83,4 +98,5 @@ HEADERS += \
     engine/gui/gui_element.h \
     engine/gui/gui_interactive_element.h \
     engine/gui/gui_system.h \
-    engine/renderer/font.h
+    engine/renderer/font.h \
+    logic/world.h \
