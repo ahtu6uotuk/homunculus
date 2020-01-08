@@ -8,8 +8,9 @@
 class plot_tags_policy : virtual public object_base
 {
 public:
-  virtual string describe_policy () const = 0;
-  virtual void build_saveload_tree_policy (saveload_node &node) = 0;
+  virtual string policy_describe () const = 0;
+  virtual void policy_build_saveload_tree (saveload_node &node) = 0;
+  vector<interaction> policy_get_interactions () { return {}; }
 
   virtual void set_tag (const string &tag_name, const string &tag_value) = 0;
   virtual bool has_tag (const string &tag_name, const string &tag_value) const = 0;
@@ -19,8 +20,8 @@ template <typename ... NamedEnums>
 class simple_plot_tags_policy : public plot_tags_policy
 {
 public:
-  virtual string describe_policy () const override { return m_set.print (); }
-  virtual void build_saveload_tree_policy (saveload_node &node) override { node.add (m_set, "tag_set"); }
+  virtual string policy_describe () const override { return m_set.print (); }
+  virtual void policy_build_saveload_tree (saveload_node &node) override { node.add (m_set, "tag_set"); }
   bool operator== (const simple_plot_tags_policy<NamedEnums...> &other) const
   {
     return m_set == other.m_set;

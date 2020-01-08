@@ -3,6 +3,7 @@
 #include "logic/dialog.h"
 #include "logic/object/object.h"
 #include "logic/policies/plot_tags_policy.h"
+#include "logic/simulation/simulation_helpers.h"
 
 static void print_text_beats (const vector<string> &beats)
 {
@@ -12,40 +13,6 @@ static void print_text_beats (const vector<string> &beats)
       string dummy;
       getline (cin, dummy);
     }
-}
-
-static void print_answers (const vector<pc_dialog_line> &answers)
-{
-  for (int i = 0; i < isize (answers); i++)
-    {
-      const pc_dialog_line &answer = answers[i];
-      printf ("%d: %s\n", i + 1, answer.m_text.c_str ());
-    }
-}
-
-static bool get_answer_number_or_print_error (const vector<pc_dialog_line> &answers, int &res)
-{
-  string player_input;
-  getline (cin, player_input);
-
-  int answer_number = 0;
-  err_t err = string_to_data (player_input, answer_number);
-  answer_number--;
-
-  if (!err.ok ())
-    {
-      printf ("%s\n", err.descr_c_str ());
-      return true;
-    }
-
-  if (answer_number >= isize (answers) || answer_number < 0)
-    {
-      printf ("There is no answer with such number\n");
-      return true;
-    }
-
-  res = answer_number;
-  return false;
 }
 
 static string get_goto (const object_base &pc, const object_base &npc, const dialog_line &line)
@@ -93,7 +60,7 @@ static void exec_dialog_line (const dialog_line &line, object_base &pc, object_b
     npc_policy->set_tag (npc_tag_to_set.m_name, npc_tag_to_set.m_value);
 }
 
-void talk_policy::talk (object_base &player_character)
+void talk_policy::get_talked_by (object_base &player_character)
 {
   unordered_map<string, npc_dialog_line> &lines = get_dialog_tree ().m_lines;
 
@@ -115,11 +82,9 @@ void talk_policy::talk (object_base &player_character)
           continue;
         }
 
-      print_answers (curr_line.m_answers);
-
-      int answer_number = 0;
-      if (get_answer_number_or_print_error (curr_line.m_answers, answer_number))
-        continue;
+      function<string (const pc_dialog_line &)> print_func
+          = [] (const pc_dialog_line &line) { return line.print (); };
+      int answer_number = print_choices_and_get_answer (curr_line.m_answers, print_func);
 
       pc_dialog_line &given_answer = curr_line.m_answers[answer_number];
       exec_dialog_line (given_answer, player_character, *this);

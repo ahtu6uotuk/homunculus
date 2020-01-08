@@ -10,7 +10,7 @@
 #include "common/string/string_utils.h"
 #include "common/template_tricks/comparator.h"
 #include "external/rapidxml/rapidxml.hpp"
-#include "logic/saveload_tree_fwd.h"
+#include "logic/saveload/saveload_tree_fwd.h"
 
 class saveload_node
 {
@@ -102,7 +102,7 @@ public:
   {
     m_children.emplace_back (new saveload_node (m_root, name));
     saveload_node &node = *m_children.back ();
-    auto func = [&node] (auto attr) { attr->build_saveload_tree_policy (node); };
+    auto func = [&node] (auto attr) { attr->policy_build_saveload_tree (node); };
     data.for_all_attrs (func);
   }
 
@@ -187,6 +187,7 @@ class saveload_root : public saveload_node
 public:
   virtual ~saveload_root ();
   saveload_root ();
+  err_t save () override { return save_private (false /*ignore_defaults*/); }
 
   void set_node (node_t *node);
   doc_t m_root_ownership;
@@ -222,8 +223,7 @@ public:
   }
   virtual bool is_default_self () const override
   {
-    Primitive temp;
-    return typedCompare (m_data, temp);
+    return typed_is_default (m_data);
   }
 
 private:

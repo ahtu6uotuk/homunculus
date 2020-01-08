@@ -4,9 +4,10 @@
 #include "common/common.h"
 #include "common/template_tricks/auto_register.h"
 #include "common/template_tricks/static_for.h"
+#include "logic/object/interaction.h"
 #include "logic/object/object_base.h"
 #include "logic/object/object_heap.h"
-#include "logic/saveload.h"
+#include "logic/saveload/saveload.h"
 
 template<typename Self, typename... Args>
 class object : automatic_register<Self>, virtual public object_base, public Args...
@@ -14,8 +15,18 @@ class object : automatic_register<Self>, virtual public object_base, public Args
 public:
   string describe () const override
   {
-    string res;
-    auto func = [&res] (const auto attr) { res += attr->describe_policy (); };
+    vector<string> parts;
+    auto func = [&parts] (const auto attr) { parts.push_back (attr->policy_describe ()); };
+    for_all_attrs (func);
+    return string_join (parts, "\n");
+  }
+  vector<interaction> get_interactions () override
+  {
+    vector<interaction> res;
+    auto func = [&res] (const auto attr) {
+      vector<interaction> l_res = attr->policy_get_interactions ();
+      res.insert (res.end (), make_move_iterator (l_res.begin ()), make_move_iterator (l_res.end ()));
+    };
     for_all_attrs (func);
     return res;
   }

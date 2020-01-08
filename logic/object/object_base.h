@@ -1,7 +1,10 @@
 #pragma once
 
+#include <vector>
+
 #include "common/common.h"
 class saveload_node;
+class interaction;
 
 class object_base
 {
@@ -20,6 +23,7 @@ public:
   }
 
   virtual string describe () const = 0;
+  virtual vector<interaction> get_interactions () = 0;
 private:
   virtual object_base &get_policy_private () = 0;
   virtual const object_base &get_policy_private () const = 0;

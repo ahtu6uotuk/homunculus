@@ -3,7 +3,7 @@
 #include <unordered_map>
 #include <functional>
 
-#include "logic/saveload.h"
+#include "logic/saveload/saveload.h"
 
 class object_heap;
 struct obj_heap_helper { vector<function<void (object_heap &)>> m_type_adders; };
@@ -51,7 +51,7 @@ public:
 private:
   struct obj_map_base;
   unordered_map<string, unique_ptr<obj_map_base>> m_obj_maps;
-  int m_max_id = -1;
+  int m_max_id = 0;
 
 private:
   struct obj_map_base

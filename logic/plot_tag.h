@@ -2,7 +2,7 @@
 #include <vector>
 #include <unordered_map>
 
-#include "logic/saveload.h"
+#include "logic/saveload/saveload.h"
 #include "common/template_tricks/static_for.h"
 #include "common/common.h"
 
@@ -63,10 +63,10 @@ public:
 
   string print () const
   {
-    string res;
+    vector<string> parts;
     for (const pair<const string, unique_ptr<plot_tag_base>> &it: m_plot_properties)
-      res += string_printf ("Tag name: %s, tag value: %s\n", it.first.c_str (), it.second->print ().c_str ());
-    return res;
+      parts.push_back (string_printf ("Tag name: %s, tag value: %s", it.first.c_str (), it.second->print ().c_str ()));
+    return string_join (parts, "\n");
   }
 
   bool operator == (const plot_tag_set<NamedEnums...> &other) const
