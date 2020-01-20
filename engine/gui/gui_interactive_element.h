@@ -9,7 +9,8 @@ private:
   bool m_is_active;
 public:
   gui_interactive_element_t () = delete;
-  gui_interactive_element_t (const int x,
+  gui_interactive_element_t (renderer_t &renderer,
+                             const int x,
                              const int y,
                              const unsigned int w,
                              const unsigned int h,
