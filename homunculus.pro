@@ -1,7 +1,7 @@
 CONFIG -= qt
 CONFIG += link_pkgconfig
 PKGCONFIG += freetype2
-LIBS += -lsfml-graphics -lsfml-window -lsfml-system -lGLEW -lGL -lpthread -lfreetype
+LIBS += -lsfml-graphics -lsfml-window -lsfml-system -lGLEW -lGL -lpthread -lfreetype -lGLU
 
 QMAKE_CXXFLAGS += -std=c++2a
 QMAKE_CXXFLAGS += -g -lm -W -Wall -Wunused -Wcast-align -Werror \
