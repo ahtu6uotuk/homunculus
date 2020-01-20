@@ -10,7 +10,8 @@ engine_t::engine_t (int argc, char *argv[]):
   m_thread (),
   m_thread_sync (get_computation_threads_number ()),
   m_run (true),
-  m_gui (m_window.getSize ().x, m_window.getSize ().y)
+  m_gui (m_window.getSize ().x, m_window.getSize ().y),
+  m_renderer (*this)
 {
   do_nothing (argc, argv);
   m_window.setFramerateLimit (60);
@@ -118,6 +119,7 @@ err_t engine_t::run_gui_thread ()
     {
       handle_events ();
       // ...do_something here
+      m_renderer.render ();
       m_window.display ();
     }
   m_window.close ();

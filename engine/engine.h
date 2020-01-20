@@ -33,6 +33,8 @@ public:
   int exec ();
   bool is_running () const {return m_run;}
   auto &get_logger () {return m_logger;}
+  auto &get_gui_system () {return m_gui;}
+  auto &get_sfml_window () {return m_window;}
   ~engine_t ();
 };
 
