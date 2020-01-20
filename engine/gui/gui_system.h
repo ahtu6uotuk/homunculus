@@ -4,6 +4,8 @@
 #include "common/common.h"
 
 class gui_context_t;
+enum class gui_horizontal_alignment_t;
+enum class gui_vertical_alignment_t;
 
 
 class gui_system_t
@@ -15,11 +17,14 @@ class gui_system_t
 public:
   gui_system_t (const unsigned int width, const unsigned int height);
   gui_context_t *get_active_context () const {return m_context[m_active_id].get ();}
+  gui_context_t *get_context (const unsigned int id) {return m_context[id].get ();}
   void set_active_context (const unsigned int id);
   void draw ();
   void resize (const unsigned int width, const unsigned height);
   void handle_mouse_move_event (const int x, const int y);
   void handle_mouse_press_event (const int x, const int y);
+  int get_pivot_x (gui_horizontal_alignment_t align_h) const;
+  int get_pivot_y (gui_vertical_alignment_t align_v) const;
   unsigned int get_width () const {return m_width;}
   unsigned int get_height () const {return m_height;}
   unsigned int make_context ();

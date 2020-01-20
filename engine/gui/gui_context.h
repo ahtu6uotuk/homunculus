@@ -21,9 +21,8 @@ public:
   void add_element (unique_ptr<gui_interactive_element_t> element);
   void resize (const unsigned int width, const unsigned int height);
   void draw ();
+  void handle_mouse_move_event (const int x, const int y);
   void handle_mouse_press_event (const int x, const int y);
-  int get_x_by_alignment (gui_horizontal_alignment_t align_h) const;
-  int get_y_by_alignment (gui_vertical_alignment_t align_v) const;
   ~gui_context_t ();
 };
 

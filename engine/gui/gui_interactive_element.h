@@ -18,7 +18,12 @@ public:
                              const bool is_active);
   bool is_active () const {return m_is_active;}
   void set_active (const bool is_active) {m_is_active = is_active;}
-  virtual void on_mouse_pressed () = 0;
+  bool is_mouse_pointer_inside (const int pivot_x,
+                                const int pivot_y,
+                                const int mouse_x,
+                                const int mouse_y) const;
+  virtual void on_mouse_button_pressed () = 0;
+  virtual void on_mouse_move () = 0;
   virtual ~gui_interactive_element_t ();
 };
 

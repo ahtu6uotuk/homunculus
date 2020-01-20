@@ -13,6 +13,15 @@ gui_interactive_element_t::gui_interactive_element_t (
   m_is_active (is_active)
 {}
 
+bool gui_interactive_element_t::is_mouse_pointer_inside (const int pivot_x, const int pivot_y,
+                                                         const int mouse_x, const int mouse_y) const
+{
+  const int abs_x = pivot_x + get_x ();
+  const int abs_y = pivot_y + get_y ();
+  return     (mouse_x >= abs_x) && (mouse_x < abs_x + get_width ())
+          && (mouse_y >= abs_y) && (mouse_y < abs_y + get_height ());
+}
+
 gui_interactive_element_t::~gui_interactive_element_t ()
 {
 
