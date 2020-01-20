@@ -51,6 +51,7 @@ SOURCES += \
     engine/gui/gui_interactive_element.cpp \
     engine/gui/gui_system.cpp \
     engine/renderer/font.cpp \
+    engine/renderer/shader.cpp
 
 # Directories
 
@@ -100,6 +101,7 @@ HEADERS += \
     engine/gui/gui_system.h \
     engine/renderer/font.h \
     logic/world.h \
+    engine/renderer/shader.h
 
 DISTFILES += \
     gamedata/shaders/text.vert \
