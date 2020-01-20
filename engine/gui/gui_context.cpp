@@ -40,9 +40,6 @@ void gui_context_t::handle_mouse_move_event (const int x, const int y)
     }
 }
 
-{
-}
-
 void gui_context_t::handle_mouse_press_event (const int x, const int y)
 {
   for (auto &e : m_context_interactive)
