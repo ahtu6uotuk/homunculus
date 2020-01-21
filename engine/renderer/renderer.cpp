@@ -62,6 +62,7 @@ err_t renderer_t::init ()
   // <<<===
   // BLOCK END
 
+  glEnable (GL_DEPTH_TEST);
   glEnable (GL_CULL_FACE);
   glEnable (GL_BLEND);
   glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -77,6 +78,8 @@ err_t renderer_t::init ()
 
 void renderer_t::render ()
 {
+  glClearColor (0., 0., 0., 0.);
+  glClear (GL_COLOR_BUFFER_BIT);
   gluOrtho2D (0., 800, 0., 600.);
   m_gui.draw ();
 }
