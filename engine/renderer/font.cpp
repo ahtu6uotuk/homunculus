@@ -115,3 +115,44 @@ err_t font_t::load ()
   glBindVertexArray (0);
   return ERR_OK;
 }
+
+void font_t::render_text (const string &text,
+                          GLfloat x,
+                          GLfloat y,
+                          GLfloat scale) const
+{
+  glActiveTexture (GL_TEXTURE0);
+  glBindVertexArray (m_vao);
+  for (const auto &c : text)
+    {
+      const auto &ch = m_char.at (c);
+      const auto &ch_size = ch.get_size ();
+      const auto base_offset = ch.get_base_offset ();
+      GLfloat xpos = x + base_offset.x * scale;
+      GLfloat ypos = y - (ch_size.y - base_offset.y) * scale;
+
+      GLfloat w = ch_size.x * scale;
+      GLfloat h = ch_size.y * scale;
+      GLfloat vertices[6][4] = {
+                  { xpos,     ypos + h,   0.0, 0.0 },
+                  { xpos,     ypos,       0.0, 1.0 },
+                  { xpos + w, ypos,       1.0, 1.0 },
+
+                  { xpos,     ypos + h,   0.0, 0.0 },
+                  { xpos + w, ypos,       1.0, 1.0 },
+                  { xpos + w, ypos + h,   1.0, 0.0 }
+              };
+      // Render glyph texture over quad
+      glBindTexture (GL_TEXTURE_2D, ch.get_texture_id ());
+      // Update content of VBO memory
+      glBindBuffer (GL_ARRAY_BUFFER, m_vbo);
+      glBufferSubData (GL_ARRAY_BUFFER, 0, sizeof (vertices), vertices);
+      glBindBuffer (GL_ARRAY_BUFFER, 0);
+      // Render quad
+      glDrawArrays (GL_TRIANGLES, 0, 6);
+      // Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
+      x += (ch.get_offset_to_next_glyph () >> 6) * scale;
+    }
+  glBindVertexArray (0);
+  glBindTexture (GL_TEXTURE_2D, 0);
+}

@@ -41,6 +41,8 @@ public:
   err_t load ();
   const string &get_font_name () const {return m_font_name;}
   const font_character_t &get_character (GLchar ch) const {return m_char.at (ch);}
+  void render_text (const string &text,
+                    GLfloat x, GLfloat y, GLfloat scale) const;
 };
 
 #endif // FONT_H
