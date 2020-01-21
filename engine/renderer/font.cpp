@@ -31,9 +31,7 @@ font_character_t::~font_character_t ()
 
 font_t::font_t (string &&font_name):
   m_font_name (font_name)
-{
-
-}
+{}
 
 err_t font_t::load ()
 {
