@@ -33,6 +33,8 @@ class font_t
 {
   string m_font_name;
   map<GLchar, font_character_t> m_char;
+  GLuint m_vao;
+  GLuint m_vbo;
 public:
   font_t (string &font_name);
   font_t (string &&font_name);

@@ -106,5 +106,14 @@ err_t font_t::load ()
     }
   FT_Done_Face (ftface);
   FT_Done_FreeType (ftlib);
+  glGenVertexArrays (1, &m_vao);
+  glGenBuffers (1, &m_vbo);
+  glBindVertexArray (m_vao);
+  glBindBuffer (GL_ARRAY_BUFFER, m_vbo);
+  glBufferData (GL_ARRAY_BUFFER, 6 * 4 * sizeof (float), nullptr, GL_DYNAMIC_DRAW);
+  glEnableVertexAttribArray (0);
+  glVertexAttribPointer (0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof (GLfloat), 0);
+  glBindBuffer (GL_ARRAY_BUFFER, 0);
+  glBindVertexArray (0);
   return ERR_OK;
 }
