@@ -5,12 +5,13 @@
 #include "gui/gui_context.h"
 
 engine_t::engine_t (int argc, char *argv[]):
-  m_window (sf::VideoMode::getDesktopMode (), "Homunculus"),
+  m_window (sf::VideoMode (800, 600, 32), "Homunculus", sf::Style::Default,
+            sf::ContextSettings (0, 0, 0, 3, 3, sf::ContextSettings::Attribute::Core)),
   m_logger ("engine.log"),
   m_thread (),
   m_thread_sync (get_computation_threads_number ()),
   m_run (true),
-  m_gui (m_window.getSize ().x, m_window.getSize ().y),
+  m_gui (800, 600),
   m_renderer (*this)
 {
   do_nothing (argc, argv);
