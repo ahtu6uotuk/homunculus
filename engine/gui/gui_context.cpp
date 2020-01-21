@@ -56,6 +56,4 @@ void gui_context_t::handle_mouse_press_event (const int x, const int y)
 }
 
 gui_context_t::~gui_context_t ()
-{
-
-}
+{}
