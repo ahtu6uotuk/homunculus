@@ -9,6 +9,7 @@ class gui_interactive_element_t;
 enum class gui_horizontal_alignment_t;
 enum class gui_vertical_alignment_t;
 
+class renderer_t;
 
 class gui_context_t
 {
@@ -23,6 +24,7 @@ public:
   void draw ();
   void handle_mouse_move_event (const int x, const int y);
   void handle_mouse_press_event (const int x, const int y);
+  void add_test_page (renderer_t &renderer); /// plz delete me!
   ~gui_context_t ();
 };
 

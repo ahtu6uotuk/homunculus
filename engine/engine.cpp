@@ -26,6 +26,9 @@ err_t engine_t::init ()
 
   // TODO: remove this block
   m_gui.make_context ();
+  auto context = m_gui.get_active_context ();
+  context->add_test_page (m_renderer);
+
   if (!m_gui.is_ok ())
     return err_t ("GUI initialization error: no contexts exist!");
 
