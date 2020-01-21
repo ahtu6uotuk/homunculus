@@ -59,6 +59,20 @@ err_t font_t::load ()
           FT_Done_FreeType (ftlib);
           return err_t (string ("failed to load glyph: index ").append (to_string (static_cast<int> (c))));
         }
+#if 0
+      auto &bmp = ftface->glyph->bitmap;
+      printf ("Character %c: rows = %u, width = %u\n", c, bmp.rows, bmp.width);
+      for (uint r = 0; r < bmp.rows; r++)
+        {
+          for (uint w = 0; w < bmp.width; w++)
+            {
+              printf ("%4u", bmp.buffer[r * bmp.width + w]);
+            }
+          printf ("\n");
+        }
+      fflush (stdout);
+#endif
+
       // Generate texture
       GLuint texture;
       glGenTextures (1, &texture);
