@@ -1,8 +1,8 @@
-#include "gui_text.h"
+#include "gui_textline.h"
 #include "engine/renderer/renderer.h"
 
 
-gui_text_t::gui_text_t (renderer_t &renderer,
+gui_textline_t::gui_textline_t (renderer_t &renderer,
                         const unsigned int x,
                         const unsigned int y,
                         const unsigned int width,
@@ -15,7 +15,7 @@ gui_text_t::gui_text_t (renderer_t &renderer,
   m_color (1.f, 0.f, 0.f)
 {}
 
-void gui_text_t::draw ()
+void gui_textline_t::draw ()
 {
   auto &renderer = get_renderer ();
   glm::vec2 pos = glm::vec2 (static_cast<float> (get_x ()), static_cast<float> (get_y ()));

@@ -1,17 +1,17 @@
-#ifndef GUI_TEXT_H
-#define GUI_TEXT_H
+#ifndef gui_textline_H
+#define gui_textline_H
 #include "gui_element.h"
 #include "common/common.h"
 #include <glm/vec3.hpp>
 
 
-class gui_text_t : public gui_element_t
+class gui_textline_t : public gui_element_t
 {
   string m_text;
   glm::vec3 m_color;
 public:
-  gui_text_t () = delete;
-  gui_text_t (renderer_t &renderer,
+  gui_textline_t () = delete;
+  gui_textline_t (renderer_t &renderer,
               const unsigned int x,
               const unsigned int y,
               const unsigned int width,
@@ -22,4 +22,4 @@ public:
   void draw () override;
 };
 
-#endif // GUI_TEXT_H
+#endif // gui_textline_H

@@ -40,10 +40,10 @@ void gui_context_t::handle_mouse_move_event (const int x, const int y)
     }
 }
 
-#include "gui_text.h"
+#include "gui_textline.h"
 void gui_context_t::add_test_page (renderer_t &renderer)
 {
-  add_element (make_unique<gui_text_t> (renderer,
+  add_element (make_unique<gui_textline_t> (renderer,
                                         10, 10, 300, 100,
                                         gui_horizontal_alignment_t::LEFT, gui_vertical_alignment_t::UP,
                                         "Homunculus"));
