@@ -26,6 +26,7 @@ public:
   void render_text (const string &text, glm::vec2 &pos, glm::vec3 &color);
   font_t &get_font () {return m_font;}
   shader_t *get_text_shader () {return m_text_shader.get ();}
+  gui_system_t &get_gui () {return m_gui;}
 };
 
 #endif // RENDERER_H

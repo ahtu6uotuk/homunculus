@@ -35,6 +35,7 @@ private:
   int m_height;
   gui_horizontal_alignment_t m_align_h;
   gui_vertical_alignment_t m_align_v;
+  gui_element_t *m_pivot;
 private:
 public:
   gui_element_t () = delete;
@@ -42,7 +43,8 @@ public:
                  const int x, const int y,
                  const int w, const int h,
                  gui_horizontal_alignment_t h_align,
-                 gui_vertical_alignment_t v_align);
+                 gui_vertical_alignment_t v_align,
+                 gui_element_t *pivot = nullptr);
   virtual void draw () = 0;
   int get_x () const {return m_x;}
   int get_y () const {return m_y;}
@@ -55,6 +57,8 @@ public:
   gui_horizontal_alignment_t get_horizontal_alignment () const {return m_align_h;}
   gui_vertical_alignment_t get_vertical_alignment () const {return m_align_v;}
   renderer_t &get_renderer () {return m_renderer;}
+  int get_absolute_x () const;
+  int get_absolute_y () const;
   virtual ~gui_element_t ();
 };
 
