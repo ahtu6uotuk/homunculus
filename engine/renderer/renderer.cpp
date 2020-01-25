@@ -99,9 +99,9 @@ void renderer_t::render ()
   m_gui.draw ();
 }
 
-void renderer_t::render_text (const string &text, glm::vec2 &pos, glm::vec3 &color)
+void renderer_t::render_text (const string &text, glm::vec2 &pos, glm::vec3 &color, const unsigned int font_size)
 {
-  const GLfloat scale = 1.;
+  const GLfloat scale = static_cast<GLfloat> (font_size) / 48.f;
   m_text_shader->use ();
   glUniform3f (glGetUniformLocation (m_text_shader->get_program_id (), "textColor"), color.r, color.g, color.b);
   m_font.render_text (text, pos.x, pos.y, scale);

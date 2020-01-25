@@ -9,16 +9,19 @@ class gui_textline_t : public gui_element_t
 {
   string m_text;
   glm::vec3 m_color;
+  unsigned int m_font_size;
 public:
   gui_textline_t () = delete;
   gui_textline_t (renderer_t &renderer,
-              const unsigned int x,
-              const unsigned int y,
-              const unsigned int width,
-              const unsigned int height,
-              gui_horizontal_alignment_t h_align,
-              gui_vertical_alignment_t v_align,
-              const char *text);
+                  const unsigned int x,
+                  const unsigned int y,
+                  const unsigned int width,
+                  const unsigned int height,
+                  gui_horizontal_alignment_t h_align,
+                  gui_vertical_alignment_t v_align,
+                  const char *text,
+                  const glm::vec3 &color,
+                  const unsigned int font_size);
   void draw () override;
 };
 
