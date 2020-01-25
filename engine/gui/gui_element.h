@@ -36,7 +36,8 @@ private:
   gui_horizontal_alignment_t m_align_h;
   gui_vertical_alignment_t m_align_v;
   const gui_element_t *m_pivot;
-private:
+protected:
+  renderer_t &get_renderer () {return m_renderer;}
 public:
   gui_element_t () = delete;
   gui_element_t (renderer_t &renderer,
@@ -56,7 +57,6 @@ public:
   void set_height (const int height) {m_height = height;}
   gui_horizontal_alignment_t get_horizontal_alignment () const {return m_align_h;}
   gui_vertical_alignment_t get_vertical_alignment () const {return m_align_v;}
-  renderer_t &get_renderer () {return m_renderer;}
   int get_absolute_x () const;
   int get_absolute_y () const;
   virtual ~gui_element_t ();
