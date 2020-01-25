@@ -36,7 +36,6 @@ class font_t
   GLuint m_vao;
   GLuint m_vbo;
 public:
-  font_t (string &font_name);
   font_t (string &&font_name);
   err_t load ();
   const string &get_font_name () const {return m_font_name;}
