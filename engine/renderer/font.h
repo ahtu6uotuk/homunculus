@@ -33,15 +33,17 @@ class font_t
 {
   string m_font_name;
   map<GLchar, font_character_t> m_char;
+  const unsigned int m_font_height;
   GLuint m_vao;
   GLuint m_vbo;
 public:
-  font_t (string &&font_name);
+  font_t (string &&font_name, const unsigned int font_height);
   err_t load ();
   const string &get_font_name () const {return m_font_name;}
   const font_character_t &get_character (GLchar ch) const {return m_char.at (ch);}
   void render_text (const string &text,
                     GLfloat x, GLfloat y, GLfloat scale) const;
+  unsigned int get_font_height () const {return m_font_height;}
   ~font_t ();
 };
 

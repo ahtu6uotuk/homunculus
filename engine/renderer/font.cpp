@@ -29,8 +29,9 @@ font_character_t::font_character_t (GLuint texture_id,
 font_character_t::~font_character_t ()
 {}
 
-font_t::font_t (string &&font_name):
-  m_font_name (font_name)
+font_t::font_t (string &&font_name, const unsigned int font_height):
+  m_font_name (font_name),
+  m_font_height (font_height)
 {}
 
 err_t font_t::load ()
@@ -45,7 +46,7 @@ err_t font_t::load ()
       FT_Done_FreeType (ftlib);
       return err_t (string ("FreeType: failed to load font ").append (ttf_filename));
     }
-  FT_Set_Pixel_Sizes (ftface, 0, 48);
+  FT_Set_Pixel_Sizes (ftface, 0, m_font_height);
 
   glPixelStorei (GL_UNPACK_ALIGNMENT, 1);
   for (GLubyte c = 0; c < 128; c++)

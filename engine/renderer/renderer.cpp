@@ -37,7 +37,7 @@ renderer_t::renderer_t (engine_t &engine):
   m_engine (engine),
   m_window (engine.get_sfml_window ()),
   m_gui (engine.get_gui_system ()),
-  m_font ("FreeSerif.ttf"),
+  m_font ("FreeSerif.ttf", 48),
   m_text_shader (nullptr)
 {}
 
@@ -101,7 +101,7 @@ void renderer_t::render ()
 
 void renderer_t::render_text (const string &text, glm::vec2 &pos, glm::vec3 &color, const unsigned int font_size)
 {
-  const GLfloat scale = static_cast<GLfloat> (font_size) / 48.f;
+  const GLfloat scale = static_cast<GLfloat> (font_size) / static_cast<GLfloat> (m_font.get_font_height ());
   m_text_shader->use ();
   glUniform3f (glGetUniformLocation (m_text_shader->get_program_id (), "textColor"), color.r, color.g, color.b);
   m_font.render_text (text, pos.x, pos.y, scale);
