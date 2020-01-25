@@ -22,6 +22,7 @@ public:
                   const char *text,
                   const glm::vec3 &color,
                   const unsigned int font_size);
+  void set_color (const glm::vec3 &color);
   void draw () override;
 };
 

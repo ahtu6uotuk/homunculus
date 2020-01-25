@@ -18,6 +18,11 @@ gui_textline_t::gui_textline_t (renderer_t &renderer,
   m_font_size (font_size)
 {}
 
+void gui_textline_t::set_color (const glm::vec3 &color)
+{
+  m_color = color;
+}
+
 void gui_textline_t::draw ()
 {
   auto &renderer = get_renderer ();
