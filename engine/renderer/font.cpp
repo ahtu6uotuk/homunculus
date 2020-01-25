@@ -156,3 +156,11 @@ void font_t::render_text (const string &text,
   glBindVertexArray (0);
   glBindTexture (GL_TEXTURE_2D, 0);
 }
+
+font_t::~font_t ()
+{
+  if (glIsVertexArray (m_vao))
+    glDeleteVertexArrays (1, &m_vao);
+  if (glIsBuffer (m_vbo))
+    glDeleteBuffers (1, &m_vbo);
+}

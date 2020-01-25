@@ -43,6 +43,7 @@ public:
   const font_character_t &get_character (GLchar ch) const {return m_char.at (ch);}
   void render_text (const string &text,
                     GLfloat x, GLfloat y, GLfloat scale) const;
+  ~font_t ();
 };
 
 #endif // FONT_H
