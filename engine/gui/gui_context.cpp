@@ -31,10 +31,7 @@ void gui_context_t::handle_mouse_move_event (const int x, const int y)
     {
       if (e->is_active ())
         {
-          if (e->is_mouse_pointer_inside (m_system.get_pivot_x (e->get_horizontal_alignment ()),
-                                          m_system.get_pivot_y (e->get_vertical_alignment ()),
-                                          x,
-                                          y))
+          if (e->is_mouse_pointer_inside (x, y))
             e->on_mouse_move ();
         }
     }
@@ -55,10 +52,7 @@ void gui_context_t::handle_mouse_press_event (const int x, const int y)
     {
       if (e->is_active ())
         {
-          if (e->is_mouse_pointer_inside (m_system.get_pivot_x (e->get_horizontal_alignment ()),
-                                          m_system.get_pivot_y (e->get_vertical_alignment ()),
-                                          x,
-                                          y))
+          if (e->is_mouse_pointer_inside (x, y))
             e->on_mouse_button_pressed ();
         }
     }

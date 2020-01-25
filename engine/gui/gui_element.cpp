@@ -10,7 +10,7 @@ gui_element_t::gui_element_t (renderer_t &renderer,
                               const int h,
                               gui_horizontal_alignment_t h_align,
                               gui_vertical_alignment_t v_align,
-                              gui_element_t *pivot):
+                              const gui_element_t *pivot):
   m_renderer (renderer),
   m_x (x),
   m_y (y),

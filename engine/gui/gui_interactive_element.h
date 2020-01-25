@@ -3,6 +3,7 @@
 #include "engine/gui/gui_element.h"
 
 
+/// @brief Base class for all GUI objects that can be clicked
 class gui_interactive_element_t : public gui_element_t
 {
 private:
@@ -16,12 +17,11 @@ public:
                              const unsigned int h,
                              const gui_horizontal_alignment_t align_h,
                              const gui_vertical_alignment_t align_v,
-                             const bool is_active);
+                             const gui_element_t *pivot = nullptr,
+                             const bool is_active = true);
   bool is_active () const {return m_is_active;}
   void set_active (const bool is_active) {m_is_active = is_active;}
-  bool is_mouse_pointer_inside (const int pivot_x,
-                                const int pivot_y,
-                                const int mouse_x,
+  bool is_mouse_pointer_inside (const int mouse_x,
                                 const int mouse_y) const;
   virtual void on_mouse_button_pressed () = 0;
   virtual void on_mouse_move () = 0;
