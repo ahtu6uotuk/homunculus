@@ -38,12 +38,12 @@ err_t font_t::load ()
   string ttf_filename = string ("gamedata/fonts/").append (m_font_name);
   FT_Library ftlib;
   if (FT_Init_FreeType (&ftlib))
-    return err_t ("failed to init FreeType Library!");
+    return err_t ("FreeType: failed to init library!");
   FT_Face ftface;
   if (FT_New_Face (ftlib, ttf_filename.c_str (), 0, &ftface))
     {
       FT_Done_FreeType (ftlib);
-      return err_t ("FreeType font init error!");
+      return err_t (string ("FreeType: failed to load font ").append (ttf_filename));
     }
   FT_Set_Pixel_Sizes (ftface, 0, 48);
 
@@ -55,7 +55,7 @@ err_t font_t::load ()
         {
           FT_Done_Face (ftface);
           FT_Done_FreeType (ftlib);
-          return err_t (string ("failed to load glyph: index ").append (to_string (static_cast<int> (c))));
+          return err_t (string ("FreeType: failed to load glyph: index ").append (to_string (static_cast<int> (c))));
         }
 #if 0
       auto &bmp = ftface->glyph->bitmap;
