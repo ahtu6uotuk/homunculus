@@ -24,7 +24,7 @@ public:
   bool is_mouse_pointer_inside (const int mouse_x,
                                 const int mouse_y) const;
   virtual void on_mouse_button_pressed () = 0;
-  virtual void on_mouse_move () = 0;
+  virtual void on_mouse_hover (const bool is_mouse_pointer_inside) = 0;
   virtual ~gui_interactive_element_t ();
 };
 

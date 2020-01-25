@@ -31,8 +31,7 @@ void gui_context_t::handle_mouse_move_event (const int x, const int y)
     {
       if (e->is_active ())
         {
-          if (e->is_mouse_pointer_inside (x, y))
-            e->on_mouse_move ();
+          e->on_mouse_hover (e->is_mouse_pointer_inside (x, y));
         }
     }
 }
