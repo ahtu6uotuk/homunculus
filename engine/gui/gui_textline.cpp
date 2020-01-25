@@ -11,8 +11,9 @@ gui_textline_t::gui_textline_t (renderer_t &renderer,
                                 gui_vertical_alignment_t v_align,
                                 const char *text,
                                 const glm::vec3 &color,
-                                const unsigned int font_size):
-  gui_element_t (renderer, x, y, width, height, h_align, v_align),
+                                const unsigned int font_size,
+                                const gui_element_t *pivot):
+  gui_element_t (renderer, x, y, width, height, h_align, v_align, pivot),
   m_text (text),
   m_color (color),
   m_font_size (font_size)

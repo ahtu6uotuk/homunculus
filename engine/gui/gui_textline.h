@@ -21,7 +21,8 @@ public:
                   gui_vertical_alignment_t v_align,
                   const char *text,
                   const glm::vec3 &color,
-                  const unsigned int font_size);
+                  const unsigned int font_size,
+                  const gui_element_t *pivot = nullptr);
   void set_color (const glm::vec3 &color);
   void draw () override;
 };
