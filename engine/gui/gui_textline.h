@@ -23,6 +23,17 @@ public:
                   const glm::vec3 &color,
                   const unsigned int font_size,
                   const gui_element_t *pivot = nullptr);
+  gui_textline_t (renderer_t &renderer,
+                  const unsigned int x,
+                  const unsigned int y,
+                  const unsigned int width,
+                  const unsigned int height,
+                  gui_horizontal_alignment_t h_align,
+                  gui_vertical_alignment_t v_align,
+                  const string &text,
+                  const glm::vec3 &color,
+                  const unsigned int font_size,
+                  const gui_element_t *pivot = nullptr);
   void set_color (const glm::vec3 &color);
   void draw () override;
 };
