@@ -20,6 +20,19 @@ string test_get_shader_src (const char *fname)
   return str;
 }
 
+void renderer_t::init_gui_gl_objects ()
+{
+  glGenVertexArrays (1, &m_gui_vao);
+  glGenBuffers (1, &m_gui_vbo);
+  glBindVertexArray (m_gui_vao);
+  glBindBuffer (GL_ARRAY_BUFFER, m_gui_vbo);
+  glBufferData (GL_ARRAY_BUFFER, 6 * 4 * sizeof (float), nullptr, GL_DYNAMIC_DRAW);
+  glEnableVertexAttribArray (0);
+  glVertexAttribPointer (0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof (GLfloat), 0);
+  glBindBuffer (GL_ARRAY_BUFFER, 0);
+  glBindVertexArray (0);
+}
+
 renderer_t::renderer_t (engine_t &engine):
   m_engine (engine),
   m_window (engine.get_sfml_window ()),
@@ -73,6 +86,8 @@ err_t renderer_t::init ()
 
   glViewport (0., 0., 800, 600);
 
+  init_gui_gl_objects ();
+
   return ERR_OK;
 }
 
@@ -90,4 +105,12 @@ void renderer_t::render_text (const string &text, glm::vec2 &pos, glm::vec3 &col
   m_text_shader->use ();
   glUniform3f (glGetUniformLocation (m_text_shader->get_program_id (), "textColor"), color.r, color.g, color.b);
   m_font.render_text (text, pos.x, pos.y, scale);
+}
+
+renderer_t::~renderer_t ()
+{
+  if (glIsVertexArray (m_gui_vao))
+    glDeleteVertexArrays (1, &m_gui_vao);
+  if (glIsBuffer (m_gui_vbo))
+    glDeleteBuffers (1, &m_gui_vbo);
 }
