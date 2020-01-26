@@ -39,6 +39,8 @@ void  run_simulation (bool cont)
             = [] (const interaction &inter) { return inter.get_name (); };
 
         int interaction_num = print_choices_and_get_answer (interactions, int_print_func, true);
+        if (interaction_num < 0)
+          break;
 
         if (obj_to_interact_num >= 0)
           interactions[interaction_num].interact (world.get_player ());
