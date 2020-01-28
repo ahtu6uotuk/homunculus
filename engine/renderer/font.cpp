@@ -158,6 +158,22 @@ void font_t::render_text (const string &text,
   glBindTexture (GL_TEXTURE_2D, 0);
 }
 
+unsigned int font_t::get_text_width (const string &text) const
+{
+  unsigned int width = 0;
+  for (const auto &c : text)
+    {
+      const auto &ch = m_char.at (c);
+      width += ch.get_size ().x;
+    }
+  return width;
+}
+
+GLfloat font_t::get_scale (const unsigned int font_size) const
+{
+  return static_cast<GLfloat> (font_size) / static_cast<GLfloat> (m_font_height);
+}
+
 font_t::~font_t ()
 {
   if (glIsVertexArray (m_vao))

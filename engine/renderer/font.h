@@ -44,6 +44,8 @@ public:
   void render_text (const string &text,
                     GLfloat x, GLfloat y, GLfloat scale) const;
   unsigned int get_font_height () const {return m_font_height;}
+  unsigned int get_text_width (const string &text) const;
+  GLfloat get_scale (const unsigned int font_size) const;
   ~font_t ();
 };
 
