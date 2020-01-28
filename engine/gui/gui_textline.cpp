@@ -39,6 +39,6 @@ void gui_textline_t::set_color (const glm::vec3 &color)
 void gui_textline_t::draw ()
 {
   auto &renderer = get_renderer ();
-  glm::vec2 pos = glm::vec2 (static_cast<float> (get_x ()), static_cast<float> (get_y ()));
+  glm::vec2 pos = glm::vec2 (static_cast<float> (get_absolute_x ()), static_cast<float> (get_absolute_y ()));
   renderer.render_text (m_text, pos, m_color, m_font_size);
 }
