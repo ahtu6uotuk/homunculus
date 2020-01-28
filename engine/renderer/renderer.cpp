@@ -101,10 +101,9 @@ void renderer_t::render ()
 
 void renderer_t::render_text (const string &text, glm::vec2 &pos, glm::vec3 &color, const unsigned int font_size)
 {
-  const GLfloat scale = static_cast<GLfloat> (font_size) / static_cast<GLfloat> (m_font.get_font_height ());
   m_text_shader->use ();
   glUniform3f (glGetUniformLocation (m_text_shader->get_program_id (), "textColor"), color.r, color.g, color.b);
-  m_font.render_text (text, pos.x, pos.y, scale);
+  m_font.render_text (text, pos.x, pos.y, m_font.get_scale (font_size));
 }
 
 renderer_t::~renderer_t ()
