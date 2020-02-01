@@ -50,7 +50,7 @@ int gui_system_t::get_pivot_x (gui_horizontal_alignment_t align_h) const
     case gui_horizontal_alignment_t::CENTER:
       return static_cast<int> (get_width () / 2);
     case gui_horizontal_alignment_t::RIGHT:
-      return static_cast<int> (get_width ()) - 1;
+      return static_cast<int> (get_width ());
     case gui_horizontal_alignment_t::COUNT:
       abort ();
       return -1;
@@ -63,13 +63,13 @@ int gui_system_t::get_pivot_y (gui_vertical_alignment_t align_v) const
 {
   switch (align_v)
     {
-    case gui_vertical_alignment_t::ABSOLUTE:
     case gui_vertical_alignment_t::UP:
-      return 0;
+      return static_cast<int> (get_height ());
     case gui_vertical_alignment_t::CENTER:
       return static_cast<int> (get_height () / 2);
+    case gui_vertical_alignment_t::ABSOLUTE:
     case gui_vertical_alignment_t::DOWN:
-      return static_cast<int> (get_height ()) - 1;
+      return 0;
     case gui_vertical_alignment_t::COUNT:
       abort ();
       return -1;
