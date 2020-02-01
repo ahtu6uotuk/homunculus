@@ -36,7 +36,7 @@ font_t::font_t (string &&font_name, const unsigned int font_height):
 
 err_t font_t::load ()
 {
-  string ttf_filename = string ("gamedata/fonts/").append (m_font_name);
+  string ttf_filename = string ("../homunculus/gamedata/fonts/").append (m_font_name);
   FT_Library ftlib;
   if (FT_Init_FreeType (&ftlib))
     return err_t ("FreeType: failed to init library!");
