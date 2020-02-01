@@ -52,12 +52,12 @@ err_t renderer_t::init ()
   // TODO: remove this block
   // BLOCK BEGIN
   // ===>>>
-  auto vs = subshader_t<GL_VERTEX_SHADER> (test_get_shader_src ("gamedata/shaders/text.vert").c_str ());
+  auto vs = subshader_t<GL_VERTEX_SHADER> (test_get_shader_src ("../homunculus/gamedata/shaders/text.vert").c_str ());
   auto err = vs.check_compilation_status ();
   if (!err.ok ())
     return err;
 
-  auto fs = subshader_t<GL_FRAGMENT_SHADER> (test_get_shader_src ("gamedata/shaders/text.frag").c_str ());
+  auto fs = subshader_t<GL_FRAGMENT_SHADER> (test_get_shader_src ("../homunculus/gamedata/shaders/text.frag").c_str ());
   err = fs.check_compilation_status ();
   if (!err.ok ())
     return err;
