@@ -50,15 +50,15 @@ void gui_context_t::add_test_page (renderer_t &renderer)
   add_element (make_unique<gui_textline_t> (renderer,
                                             10, 10, 300, 100,
                                             gui_horizontal_alignment_t::RIGHT, gui_vertical_alignment_t::DOWN,
-                                            "RD", glm::vec3 (.7f, .15f, .15f), 48));
+                                            "боттом кек", glm::vec3 (.7f, .15f, .15f), 48));
   add_element (make_unique<gui_textline_t> (renderer,
                                             10, 10, 300, 100,
                                             gui_horizontal_alignment_t::RIGHT, gui_vertical_alignment_t::UP,
-                                            "RU", glm::vec3 (.7f, .15f, .15f), 48));
+                                            "ТОП КЕК", glm::vec3 (.7f, .15f, .15f), 48));
   add_element (make_unique<gui_textline_t> (renderer,
                                             10, 10, 300, 100,
                                             gui_horizontal_alignment_t::CENTER, gui_vertical_alignment_t::CENTER,
-                                            "CC", glm::vec3 (.7f, .15f, .15f), 48));
+                                            "ещё один кек", glm::vec3 (.7f, .15f, .15f), 48));
 }
 
 void gui_context_t::handle_mouse_press_event (const int x, const int y)

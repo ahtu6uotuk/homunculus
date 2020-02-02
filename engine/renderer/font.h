@@ -7,6 +7,8 @@
 #include <map>
 #include "common/err_t.h"
 
+typedef struct FT_LibraryRec_  *FT_Library;
+typedef struct FT_FaceRec_*  FT_Face;
 
 class font_character_t
 {
@@ -32,15 +34,17 @@ public:
 class font_t
 {
   string m_font_name;
-  map<GLchar, font_character_t> m_char;
+  map<GLubyte, font_character_t> m_eng_chars;
+  map<GLubyte, font_character_t> m_ru_chars;
   const unsigned int m_font_height;
   GLuint m_vao;
   GLuint m_vbo;
+  err_t load_chars (FT_Library &ftlib, FT_Face &ftface, size_t start, map<GLubyte, font_character_t> &chars);
+  const font_character_t &process_character (const unsigned char *&ch) const;
 public:
   font_t (string &&font_name, const unsigned int font_height);
   err_t load ();
   const string &get_font_name () const {return m_font_name;}
-  const font_character_t &get_character (GLchar ch) const {return m_char.at (ch);}
   void render_text (const string &text,
                     GLfloat x, GLfloat y, GLfloat scale) const;
   unsigned int get_font_height () const {return m_font_height;}

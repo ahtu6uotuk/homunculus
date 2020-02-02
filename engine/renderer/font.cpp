@@ -34,25 +34,12 @@ font_t::font_t (string &&font_name, const unsigned int font_height):
   m_font_height (font_height)
 {}
 
-err_t font_t::load ()
+err_t font_t::load_chars (FT_Library &ftlib, FT_Face &ftface, size_t start, map<GLubyte, font_character_t> &chars)
 {
-  string ttf_filename = string ("../homunculus/gamedata/fonts/").append (m_font_name);
-  FT_Library ftlib;
-  if (FT_Init_FreeType (&ftlib))
-    return err_t ("FreeType: failed to init library!");
-  FT_Face ftface;
-  if (FT_New_Face (ftlib, ttf_filename.c_str (), 0, &ftface))
-    {
-      FT_Done_FreeType (ftlib);
-      return err_t (string ("FreeType: failed to load font ").append (ttf_filename));
-    }
-  FT_Set_Pixel_Sizes (ftface, 0, m_font_height);
-
-  glPixelStorei (GL_UNPACK_ALIGNMENT, 1);
   for (GLubyte c = 0; c < 128; c++)
     {
       // Load character glyph
-      if (FT_Load_Char (ftface, c, FT_LOAD_RENDER))
+      if (FT_Load_Char (ftface, start + c, FT_LOAD_RENDER))
         {
           FT_Done_Face (ftface);
           FT_Done_FreeType (ftlib);
@@ -86,14 +73,14 @@ err_t font_t::load ()
           GL_RED,
           GL_UNSIGNED_BYTE,
           ftface->glyph->bitmap.buffer
-      );
+          );
       // Set texture options
       glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
       glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
       glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
       glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-      m_char.insert (make_pair (c,
+      chars.insert (make_pair (c,
                                 font_character_t (texture,
                                                   glm::ivec2 (ftface->glyph->bitmap.width,
                                                               ftface->glyph->bitmap.rows),
@@ -103,6 +90,26 @@ err_t font_t::load ()
                                 )
                      );
     }
+  return ERR_OK;
+}
+
+err_t font_t::load ()
+{
+  string ttf_filename = string ("../homunculus/gamedata/fonts/").append (m_font_name);
+  FT_Library ftlib;
+  if (FT_Init_FreeType (&ftlib))
+    return err_t ("FreeType: failed to init library!");
+  FT_Face ftface;
+  if (FT_New_Face (ftlib, ttf_filename.c_str (), 0, &ftface))
+    {
+      FT_Done_FreeType (ftlib);
+      return err_t (string ("FreeType: failed to load font ").append (ttf_filename));
+    }
+  FT_Set_Pixel_Sizes (ftface, 0, m_font_height);
+
+  glPixelStorei (GL_UNPACK_ALIGNMENT, 1);
+  RETURN_IF_FAIL (load_chars (ftlib, ftface, 0, m_eng_chars));
+  RETURN_IF_FAIL (load_chars (ftlib, ftface, 1024, m_ru_chars));
   FT_Done_Face (ftface);
   FT_Done_FreeType (ftlib);
   glGenVertexArrays (1, &m_vao);
@@ -117,6 +124,19 @@ err_t font_t::load ()
   return ERR_OK;
 }
 
+const font_character_t &font_t::process_character (const unsigned char *&ch) const
+{
+  assert_check (ch, "Sanity");
+  if (*ch < 128)
+    return m_eng_chars.at (*ch);
+
+  assert_check (*ch == 208 || *ch == 209, "Russian letters");
+  unsigned char shift = (*ch == 209 ? 64 : 0);
+
+  assert_check (++ch, "Sanity");
+  return m_ru_chars.at (*ch + shift - 128);
+}
+
 void font_t::render_text (const string &text,
                           GLfloat x,
                           GLfloat y,
@@ -124,9 +144,10 @@ void font_t::render_text (const string &text,
 {
   glActiveTexture (GL_TEXTURE0);
   glBindVertexArray (m_vao);
-  for (const auto &c : text)
+
+  for (const unsigned char *c = (unsigned char *) text.c_str (); *c; c++)
     {
-      const auto &ch = m_char.at (c);
+      const auto &ch = process_character (c);
       const auto &ch_size = ch.get_size ();
       const auto base_offset = ch.get_base_offset ();
       GLfloat xpos = x + base_offset.x * scale;
@@ -161,9 +182,9 @@ void font_t::render_text (const string &text,
 unsigned int font_t::get_text_width (const string &text) const
 {
   unsigned int width = 0;
-  for (const auto &c : text)
+  for (const unsigned char *c = (unsigned char *) text.c_str (); *c; c++)
     {
-      const auto &ch = m_char.at (c);
+      const auto &ch = process_character (c);
       width += ch.get_size ().x;
     }
   return width;
