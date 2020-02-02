@@ -24,6 +24,8 @@ err_t engine_t::init ()
   if (!m_logger.is_ok ())
     return err_t ("Internal logger error");
 
+  auto ret = m_renderer.init ();
+
   // TODO: remove this block
   m_gui.make_context ();
   auto context = m_gui.get_active_context ();
@@ -31,8 +33,6 @@ err_t engine_t::init ()
 
   if (!m_gui.is_ok ())
     return err_t ("GUI initialization error: no contexts exist!");
-
-  auto ret = m_renderer.init ();
 
   if (!ret.ok ())
     {
