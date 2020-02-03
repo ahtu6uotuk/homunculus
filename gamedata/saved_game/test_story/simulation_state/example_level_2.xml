@@ -1,0 +1,37 @@
+<data>
+	<max_id>3</max_id>
+	<friend>
+		<entry>
+			<first>3</first>
+			<second>
+				<entry>
+					<name>Old man</name>
+					<tag_set>
+						<mood>sad</mood>
+					</tag_set>
+					<current_tag>goodbye</current_tag>
+				</entry>
+			</second>
+		</entry>
+	</friend>
+	<enemy>
+		<entry>
+			<first>1</first>
+			<second>
+				<entry>
+					<name>Skeleton</name>
+					<hp>10</hp>
+				</entry>
+			</second>
+		</entry>
+		<entry>
+			<first>2</first>
+			<second>
+				<entry>
+					<name>Zombie</name>
+					<hp>25</hp>
+				</entry>
+			</second>
+		</entry>
+	</enemy>
+</data>
