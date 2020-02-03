@@ -19,6 +19,10 @@ INCLUDEPATH += ./
 SOURCES += \
     common/file_utils.cpp \
     common/string/string_utils.cpp \
+    control_flow/control_flow.cpp \
+    control_flow/make_gui_content.cpp \
+    control_flow/run_calc_thread.cpp \
+    engine/event.cpp \
     logic/asset.cpp \
     logic/dialog.cpp \
     logic/object/interaction.cpp \
@@ -27,6 +31,7 @@ SOURCES += \
     logic/object_classes/friend.cpp \
     logic/object_classes/player.cpp \
     logic/plot_tag.cpp \
+    logic/policies/get_text_for_gui_policy.cpp \
     logic/policies/plot_tags_policy.cpp \
     logic/policies/talk_policy.cpp \
     logic/simulation/simulation.cpp \
@@ -62,6 +67,10 @@ HEADERS += \
     common/template_tricks/comparator.h \
     common/template_tricks/static_for.h \
     common/template_tricks/string_literal.h \
+    control_flow/control_flow.h \
+    control_flow/event.h \
+    control_flow/make_gui_content.h \
+    control_flow/run_calc_thread.h \
     engine/engine.h \
     common/common.h \
     common/err_t.h \
@@ -78,6 +87,7 @@ HEADERS += \
     logic/object_classes/friend.h \
     logic/object_classes/player.h \
     logic/plot_tag.h \
+    logic/policies/get_text_for_gui_policy.h \
     logic/policies/plot_tags_policy.h \
     logic/policies/talk_policy.h \
     logic/saveload/saveload.h \

@@ -3,7 +3,7 @@
 
 #include "common/common.h"
 #include "common/err_t.h"
-#include "engine/engine.h"
+#include "control_flow/control_flow.h"
 #include "logic/tests/logic_tests.h"
 
 int main (int argc, char *argv[])
@@ -33,6 +33,7 @@ int main (int argc, char *argv[])
       return 0;
     }
 
-  engine_t engine (argc, argv);
-  return engine.exec ();
+  control_flow flow (argc, argv);
+  assert_error (flow.run (), "Error occured in while running: ");
+  return 0;
 }

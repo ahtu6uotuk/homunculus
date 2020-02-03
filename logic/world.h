@@ -15,6 +15,7 @@ public:
 
   player_t &get_player ();
   object_heap &get_level ();
+  vector<object_base *> get_all ();
 
 private:
   struct meta_info;

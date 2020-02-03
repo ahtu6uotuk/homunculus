@@ -41,6 +41,13 @@ object_heap &world_t::get_level ()
   return *m_level;
 }
 
+vector<object_base *> world_t::get_all ()
+{
+  vector<object_base *> objs_on_level = get_level ().get_all ();
+  objs_on_level.push_back (&get_player ());
+  return objs_on_level;
+}
+
 bool world_t::loaded ()
 {
   if (!m_last_save_name.empty () && m_player && m_level && m_meta_info && m_meta_info->loaded ())

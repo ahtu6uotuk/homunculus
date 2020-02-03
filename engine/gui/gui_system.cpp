@@ -11,8 +11,9 @@ void gui_system_t::set_active_context (const unsigned int id)
   m_active_id = id;
 }
 
-void gui_system_t::draw ()
+void gui_system_t::draw (unique_ptr<gui_context_t> extra_content)
 {
+  extra_content->draw ();
   m_context[m_active_id]->draw ();
 }
 

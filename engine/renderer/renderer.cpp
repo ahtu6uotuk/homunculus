@@ -1,7 +1,8 @@
 #include "renderer.h"
 #include <GL/glew.h>
 #include "engine/engine.h"
-#include "shader.h"
+#include "engine/gui/gui_context.h"
+#include "engine/renderer/shader.h"
 
 
 // TODO: remove this function
@@ -91,12 +92,12 @@ err_t renderer_t::init ()
   return ERR_OK;
 }
 
-void renderer_t::render ()
+void renderer_t::render (unique_ptr<gui_context_t> extra_content)
 {
   glClearColor (0., 0., 0., 0.);
   glClear (GL_COLOR_BUFFER_BIT);
   gluOrtho2D (0., 800, 0., 600.);
-  m_gui.draw ();
+  m_gui.draw (move (extra_content));
 }
 
 void renderer_t::render_text (const string &text, glm::vec2 &pos, glm::vec3 &color, const unsigned int font_size)

@@ -19,7 +19,7 @@ public:
   gui_context_t *get_active_context () const {return m_context[m_active_id].get ();}
   gui_context_t *get_context (const unsigned int id) {return m_context[id].get ();}
   void set_active_context (const unsigned int id);
-  void draw ();
+  void draw (unique_ptr<gui_context_t> extra_content);
   void resize (const unsigned int width, const unsigned height);
   void handle_mouse_move_event (const int x, const int y);
   void handle_mouse_press_event (const int x, const int y);

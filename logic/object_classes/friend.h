@@ -4,6 +4,7 @@
 #include "logic/policies/plot_tags_policy.h"
 #include "logic/policies/talk_policy.h"
 #include "logic/policies/health_policy.h"
+#include "logic/policies/get_text_for_gui_policy.h"
 #include "logic/object/object.h"
 #include "logic/dialog.h"
 
@@ -21,6 +22,7 @@ class friend_t
   : public object<
         friend_t,
         simple_name_policy,
+        simple_get_text_for_gui_policy,
         simple_plot_tags_policy<named_enum<LITERAL ("mood"), mood>, named_enum<LITERAL ("blood_type"), bloodtype>>,
         simple_talk_policy<LITERAL ("some_dialog")>>
 {
