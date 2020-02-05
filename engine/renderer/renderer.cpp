@@ -54,22 +54,16 @@ err_t renderer_t::init ()
   // BLOCK BEGIN
   // ===>>>
   auto vs = subshader_t<GL_VERTEX_SHADER> (test_get_shader_src ("gamedata/shaders/text.vert").c_str ());
-  auto err = vs.check_compilation_status ();
-  if (!err.ok ())
-    return err;
+  RETURN_IF_FAIL (vs.check_compilation_status ());
 
   auto fs = subshader_t<GL_FRAGMENT_SHADER> (test_get_shader_src ("gamedata/shaders/text.frag").c_str ());
-  err = fs.check_compilation_status ();
-  if (!err.ok ())
-    return err;
+  RETURN_IF_FAIL (fs.check_compilation_status ());
   m_text_shader = make_unique<shader_t> (
         vs.get_id (),
         fs.get_id ()
         );
   glm::mat4 projection = glm::ortho (0.f, 800.f, 0.f, 600.f);
-  err = m_text_shader->check_link_status ();
-  if (!err.ok ())
-    return err;
+  RETURN_IF_FAIL (m_text_shader->check_link_status ());
 
   m_text_shader->use ();
   glUniformMatrix4fv(glGetUniformLocation (m_text_shader->get_program_id (), "projection"), 1, GL_FALSE, glm::value_ptr (projection));
