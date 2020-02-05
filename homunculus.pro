@@ -58,6 +58,7 @@ SOURCES += \
     engine/renderer/font.cpp \
     engine/gui/gui_textline.cpp \
     engine/renderer/shader.cpp \
+    engine/renderer/mesh.cpp \
     engine/io/model_obj.cpp
 
 # Directories
@@ -115,6 +116,8 @@ HEADERS += \
     logic/world.h \
     engine/gui/gui_textline.h \
     engine/renderer/shader.h \
+    engine/renderer/mesh.h \
+    engine/renderer/texture.h \
     engine/io/model_obj.h
 
 DISTFILES += \
