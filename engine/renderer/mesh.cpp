@@ -16,6 +16,8 @@ void mesh_t::print_debug_info (logger_t &logger)
 
 mesh_t::~mesh_t ()
 {
+  if (glIsVertexArray (m_vao))
+    glDeleteVertexArrays (1, &m_vao);
   if (glIsBuffer (m_vbo))
     glDeleteBuffers (1, &m_vbo);
   if (glIsBuffer (m_ibo))
