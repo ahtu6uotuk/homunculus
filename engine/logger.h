@@ -8,6 +8,8 @@
 enum class log_section_t
 {
   ENGINE = 0,
+  RENDERER,
+  GAME,
   COUNT,
   ERROR = COUNT
 };
@@ -17,6 +19,7 @@ enum class log_priority_t
   INFO = 0,
   WARNING,
   ERROR,
+  DEBUG,
   COUNT
 };
 

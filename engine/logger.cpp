@@ -22,6 +22,10 @@ const char *enum_to_string (log_section_t section)
     {
     case log_section_t::ENGINE:
       return "ENGINE";
+    case log_section_t::RENDERER:
+      return "RENDERER";
+    case log_section_t::GAME:
+      return "GAME";
     case log_section_t::ERROR:
       return "Internal logger error";
     }
@@ -38,6 +42,8 @@ const char *enum_to_string (log_priority_t priority)
       return "warning";
     case log_priority_t::ERROR:
       return "error";
+    case log_priority_t::DEBUG:
+      return "debug";
     case log_priority_t::COUNT:
       return "Internal logger error";
     }
