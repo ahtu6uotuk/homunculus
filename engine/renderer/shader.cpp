@@ -49,6 +49,38 @@ shader_t::~shader_t ()
     glDeleteProgram (m_id);
 }
 
+template<GLenum SHADER_TYPE>
+subshader_t<SHADER_TYPE>::subshader_t (const char *source_code)
+{
+  if (!source_code)
+    return;
+
+  m_id = glCreateShader (SHADER_TYPE);
+  glShaderSource (m_id, 1, &source_code, nullptr);
+  glCompileShader (m_id);
+}
+
+template<GLenum SHADER_TYPE>
+err_t subshader_t<SHADER_TYPE>::check_compilation_status () const
+{
+  GLint status;
+  glGetShaderiv (m_id, GL_COMPILE_STATUS, &status);
+  if (!status)
+    {
+      string buffer (1024, 0);
+      glGetShaderInfoLog (m_id, 1024, nullptr, buffer.data ());
+      return err_t (buffer);
+    }
+  return ERR_OK;
+}
+
+template<GLenum SHADER_TYPE>
+subshader_t<SHADER_TYPE>::~subshader_t()
+{
+  if (glIsShader (m_id))
+    glDeleteShader (m_id);
+}
+
 void template_substitution ();
 void template_substitution ()
 {

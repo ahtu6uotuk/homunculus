@@ -1,7 +1,6 @@
 #ifndef SHADER_H
 #define SHADER_H
 #include <GL/gl.h>
-#include <GL/glew.h>
 #include "common/err_t.h"
 
 
@@ -13,33 +12,10 @@ public:
   subshader_t () = delete;
   subshader_t (const subshader_t &) = delete;
   subshader_t (subshader_t &&) = delete;
-  explicit subshader_t (const char *source_code)
-  {
-    if (!source_code)
-      return;
-
-    m_id = glCreateShader (SHADER_TYPE);
-    glShaderSource (m_id, 1, &source_code, nullptr);
-    glCompileShader (m_id);
-  }
+  explicit subshader_t (const char *source_code);
   GLuint get_id () const {return m_id;}
-  err_t check_compilation_status () const
-  {
-    GLint status;
-    glGetShaderiv (m_id, GL_COMPILE_STATUS, &status);
-    if (!status)
-      {
-        string buffer (1024, 0);
-        glGetShaderInfoLog (m_id, 1024, nullptr, buffer.data ());
-        return err_t (buffer);
-      }
-    return ERR_OK;
-  }
-  ~subshader_t ()
-  {
-    if (glIsShader (m_id))
-      glDeleteShader (m_id);
-  }
+  err_t check_compilation_status () const;
+  ~subshader_t ();
 };
 
 class shader_t
