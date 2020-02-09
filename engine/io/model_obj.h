@@ -17,12 +17,13 @@ class model_obj_t
   vector<glm::uvec3> m_vertex_indices;
   vector<glm::uvec3> m_uv_indices;
   vector<glm::uvec3> m_normal_indices;
+  vector<unsigned int> m_indices;
 private:
-  err_t parse_position_3d (stringstream &ss, vector<glm::vec3> &vec);
-  err_t parse_vertex_line (stringstream &ss);
-  err_t parse_vertex_texture_coordinate_line (stringstream &ss);
-  err_t parse_vertex_normal_line (stringstream &ss);
-  err_t parse_face_line (stringstream &ss);
+  void parse_position_3d (stringstream &ss, vector<glm::vec3> &vec);
+  void parse_vertex_line (stringstream &ss);
+  void parse_vertex_texture_coordinate_line (stringstream &ss);
+  void parse_vertex_normal_line (stringstream &ss);
+  void parse_face_line (stringstream &ss);
 public:
   model_obj_t () = default;
   model_obj_t (const string &filename);
