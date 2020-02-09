@@ -20,11 +20,11 @@ void make_gui_content (engine_t &engine, world_t &world, thread_info_t &thr_info
   for (object_base *obj : objs)
     {
       {
-        get_text_for_gui_policy *pl = obj->get_policy<get_text_for_gui_policy> ();
+        name_policy *pl = obj->get_policy<name_policy> ();
         if (pl)
           local_result->add_element (make_unique<gui_textline_t> (
               engine.get_renderer (), 10, ++i * 24, gui_horizontal_alignment_t::LEFT,
-              gui_vertical_alignment_t::DOWN, pl->get_text (), glm::vec3 (.7f, .15f, .15f), 24));
+              gui_vertical_alignment_t::DOWN, pl->get_name (), glm::vec3 (.7f, .15f, .15f), 24));
       }
       // other types of gui elements here...
     }
