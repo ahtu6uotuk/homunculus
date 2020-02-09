@@ -81,11 +81,5 @@ subshader_t<SHADER_TYPE>::~subshader_t()
     glDeleteShader (m_id);
 }
 
-void template_substitution ();
-void template_substitution ()
-{
-  subshader_t<GL_VERTEX_SHADER> vertex_shader (nullptr);
-  vertex_shader.check_compilation_status ();
-  subshader_t<GL_FRAGMENT_SHADER> fragment_shader (nullptr);
-  fragment_shader.check_compilation_status ();
-}
+template class subshader_t<GL_VERTEX_SHADER>;
+template class subshader_t<GL_FRAGMENT_SHADER>;
