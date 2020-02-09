@@ -1,11 +1,13 @@
 #include "control_flow.h"
 
 #include "control_flow/run_calc_thread.h"
+#include "control_flow/frame_manager.h"
 #include "engine/engine.h"
 #include "logic/world.h"
 #include "engine/event.h"
 #include "engine/gui/gui_context.h"
 #include "common/thread_info.h"
+#include "engine/gui/gui_textline.h"
 
 control_flow::~control_flow () {}
 
@@ -32,9 +34,11 @@ err_t control_flow::init ()
 err_t control_flow::run ()
 {
   RETURN_IF_FAIL (init ());
+  frame_manager frame_mgr;
 
   while (m_old_events)
     {
+      frame_mgr.start_frame ();
       m_sync_w_main->sync ();
 
       /// get new events
@@ -50,6 +54,10 @@ err_t control_flow::run ()
       do_nothing ("done by calc threads");
 
       m_sync_w_main->sync ();
+      string frame_stats = frame_mgr.end_frame ();
+      m_new_gui_content->add_element (make_unique<gui_textline_t> (
+          m_engine->get_renderer (), 10, 0, gui_horizontal_alignment_t::LEFT,
+          gui_vertical_alignment_t::UP, frame_stats, glm::vec3 (.7f, .15f, .15f), 24));
 
       m_old_events = move (m_new_events);
       m_old_gui_content = move (m_new_gui_content);

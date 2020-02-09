@@ -1,5 +1,7 @@
 #include "run_calc_thread.h"
 
+#include "math.h"
+
 #include "control_flow/control_flow.h"
 #include "control_flow/make_gui_content.h"
 #include "logic/world.h"
@@ -21,8 +23,8 @@ void run_calc_thread (unique_ptr<thread_info_t> thr_info, control_flow &flow)
       // pretending to do something
       int j = 0;
       for (int i = 0; i < 10000; i++)
-        j = j + i;
-      for (int i = 0; i < 3; i++)
+        j = j + sin (i);
+      for (int i = 0; i < 15; i++)
         thr_info->sync ();
       //
 
