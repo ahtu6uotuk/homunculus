@@ -9,6 +9,16 @@ mesh_t::mesh_t ():
   m_vertices (),
   m_indeces (),
   m_textures ()
+{
+  glGenVertexArrays (1, &m_vao);
+  glGenBuffers (1, &m_vbo);
+  glGenBuffers (1, &m_ibo);
+}
+
+mesh_t::mesh_t (vector<vertex_data_t> &&vertices, vector<GLuint> &&indeces, vector<GLuint> &&textures):
+  m_vertices (std::move (vertices)),
+  m_indeces (std::move (indeces)),
+  m_textures (std::move (textures))
 {}
 
 mesh_t::mesh_t (mesh_t &&b):
@@ -35,11 +45,8 @@ mesh_t &mesh_t::operator= (mesh_t &&b)
   return *this;
 }
 
-err_t mesh_t::load()
+err_t mesh_t::load ()
 {
-  glGenVertexArrays (1, &m_vao);
-  glGenBuffers (1, &m_vbo);
-  glGenBuffers (1, &m_ibo);
   return ERR_OK;
 }
 

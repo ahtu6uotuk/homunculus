@@ -18,6 +18,7 @@ class mesh_t
   vector<GLuint> m_textures;
 public:
   mesh_t ();
+  mesh_t (vector<vertex_data_t> &&vertices, vector<GLuint> &&indeces, vector<GLuint> &&textures);
   mesh_t (mesh_t &&b);
   mesh_t (const mesh_t &) = delete;
   mesh_t &operator= (mesh_t &&b);
