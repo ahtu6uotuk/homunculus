@@ -60,7 +60,8 @@ SOURCES += \
     engine/gui/gui_textline.cpp \
     engine/renderer/shader.cpp \
     engine/renderer/mesh.cpp \
-    engine/io/model_obj.cpp
+    engine/io/model_obj.cpp \
+    engine/renderer/vertex_data.cpp
 
 # Directories
 
@@ -120,7 +121,8 @@ HEADERS += \
     engine/renderer/shader.h \
     engine/renderer/mesh.h \
     engine/renderer/texture.h \
-    engine/io/model_obj.h
+    engine/io/model_obj.h \
+    engine/renderer/vertex_data.h
 
 DISTFILES += \
     gamedata/shaders/text.vert \
