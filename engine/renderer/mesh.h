@@ -1,16 +1,19 @@
 #ifndef MESH_H
 #define MESH_H
 #include <GL/gl.h>
-#include "common/err_t.h"
 #include <vector>
+#include "common/err_t.h"
+#include "engine/renderer/vertex_data.h"
+
 class logger_t;
+
 
 class mesh_t
 {
   GLuint m_vao; ///< vertex array object
   GLuint m_vbo; ///< vertext buffer object
   GLuint m_ibo; ///< index buffer object
-  vector<double> m_vertices;
+  vector<vertex_data_t> m_vertices;
   vector<GLuint> m_indeces;
   vector<GLuint> m_textures;
 public:
