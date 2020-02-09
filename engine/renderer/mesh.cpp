@@ -24,6 +24,17 @@ mesh_t::mesh_t (mesh_t &&b):
   b.m_ibo = 0;
 }
 
+mesh_t &mesh_t::operator= (mesh_t &&b)
+{
+  m_vao = b.m_vao;
+  m_vbo = b.m_vbo;
+  m_ibo = b.m_ibo;
+  m_vertices = std::move (b.m_vertices);
+  m_indeces = std::move (b.m_indeces);
+  m_textures = std::move (b.m_textures);
+  return *this;
+}
+
 err_t mesh_t::load()
 {
   glGenVertexArrays (1, &m_vao);

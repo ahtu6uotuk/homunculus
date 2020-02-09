@@ -17,6 +17,7 @@ public:
   mesh_t ();
   mesh_t (mesh_t &&b);
   mesh_t (const mesh_t &) = delete;
+  mesh_t &operator= (mesh_t &&b);
   err_t load ();
   void draw ();
   void print_debug_info (logger_t &logger);
