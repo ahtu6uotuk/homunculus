@@ -25,6 +25,10 @@ struct vertex_data_view_t
   vertex_data_view_t (const vertex_data_t &vertex_data):
     m_vertex (vertex_data.m_vertex), m_normal (vertex_data.m_normal), m_uv (vertex_data.m_uv)
   {}
+  bool operator< (const vertex_data_view_t b) const
+  {
+    return m_vertex == b.m_vertex && m_normal == b.m_normal && m_uv == b.m_uv;
+  };
 };
 
 #endif // VERTEX_DATA_H
