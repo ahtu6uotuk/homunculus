@@ -34,15 +34,20 @@ void model_obj_t::parse_vertex_normal_line (stringstream &ss)
 
 void model_obj_t::parse_face_line (stringstream &ss)
 {
-  unsigned int vertex_index[3], uv_index[3], normal_index[3];
+  unsigned int vertex_index[3] = {0};
+  unsigned int uv_index[3] = {0};
+  unsigned int normal_index[3] = {0};
   char delim;
   ss >> vertex_index[0] >> delim >> uv_index[0] >> delim >> normal_index[0];
   ss >> vertex_index[1] >> delim >> uv_index[1] >> delim >> normal_index[1];
   ss >> vertex_index[2] >> delim >> uv_index[2] >> delim >> normal_index[2];
 
-  m_vertex_indices.emplace_back (vertex_index[0], vertex_index[1], vertex_index[2]);
-  m_uv_indices.emplace_back (uv_index[0], uv_index[1], uv_index[2]);
-  m_normal_indices.emplace_back (normal_index[0], normal_index[1], normal_index[2]);
+  for (unsigned i = 0; i < 3; i++)
+    {
+      m_vertex_indices.push_back (vertex_index[i]);
+      m_uv_indices.push_back (uv_index[i]);
+      m_normal_indices.push_back (normal_index[i]);
+    }
 }
 
 err_t model_obj_t::load (const string &filename)

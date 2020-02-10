@@ -17,9 +17,9 @@ class model_obj_t
   vector<glm::vec3> m_vertices;
   vector<glm::vec3> m_normals;
   vector<glm::vec2> m_uv;
-  vector<glm::uvec3> m_vertex_indices;
-  vector<glm::uvec3> m_uv_indices;
-  vector<glm::uvec3> m_normal_indices;
+  vector<unsigned int> m_vertex_indices;
+  vector<unsigned int> m_uv_indices;
+  vector<unsigned int> m_normal_indices;
 private:
   void parse_position_3d (stringstream &ss, vector<glm::vec3> &vec);
   void parse_vertex_line (stringstream &ss);
