@@ -118,24 +118,28 @@ void model_obj_t::print_debug_info (logger_t &logger)
 mesh_t model_obj_t::to_mesh ()
 {
   map<vertex_data_view_t, GLuint> indexation;
-  const auto vertices_num = m_vertices.size ();
-  std::vector<vertex_data_t> vertices;
-  std::vector<GLuint> indeces;
+  std::vector<vertex_data_t> mesh_vertices;
+  std::vector<GLuint> mesh_indeces;
+
   size_t last_vertex_index = 0;
+  const size_t vertices_num = m_vertex_indices.size ();
   for (size_t i = 0; i < vertices_num; i++)
     {
-      vertex_data_view_t vertex_view = {m_vertices[i], m_normals[i], m_uv[i]};
+      vertex_data_view_t vertex_view = {m_vertices[m_vertex_indices[i]],
+                                        m_normals[m_normal_indices[i]],
+                                        m_uv[m_uv_indices[i]]};
       auto it = indexation.find (vertex_view);
       if (it != indexation.end ())
         {
-          indeces.push_back (it->second);
+          mesh_indeces.push_back (it->second);
         }
       else
         {
-          vertices.emplace_back (vertex_view);
+          mesh_vertices.emplace_back (vertex_view);
+          mesh_indeces.push_back (last_vertex_index);
           indexation[vertex_view] = last_vertex_index;
           last_vertex_index++;
         }
     }
-  return mesh_t (std::move (vertices), std::move (indeces), std::vector<GLuint> ());
+  return mesh_t (std::move (mesh_vertices), std::move (mesh_indeces), std::vector<GLuint> ());
 }
