@@ -83,7 +83,7 @@ err_t model_obj_t::load (const string &filename)
 
       if (ss.fail ())
         {
-          err_t (string ("failed to load model ").append (filename) + ": line " + to_string (line_number));
+          return err_t (string ("failed to load model ").append (filename) + ": line " + to_string (line_number));
         }
 
       line_number++;
