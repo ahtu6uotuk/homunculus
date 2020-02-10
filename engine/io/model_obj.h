@@ -7,6 +7,7 @@
 
 
 class mesh_t;
+class logger_t;
 
 /// @brief Class to import .obj model format
 /// @details
@@ -30,6 +31,7 @@ public:
   model_obj_t () = default;
   model_obj_t (const string &filename);
   err_t load (const string &filename);
+  void print_debug_info (logger_t &logger);
   mesh_t to_mesh ();
 };
 

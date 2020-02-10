@@ -2,6 +2,7 @@
 #include <sstream>
 #include <map>
 #include "engine/renderer/mesh.h"
+#include "engine/logger.h"
 #include "model_obj.h"
 
 
@@ -90,6 +91,23 @@ err_t model_obj_t::load (const string &filename)
     }
 
   return ERR_OK;
+}
+
+template<typename T>
+void print_debug_info (logger_t &logger, const char *var_name, const T &var_value)
+{
+//  logger.print (log_section_t::ENGINE, log_priority_t::DEBUG, var_name, var_value);
+  do_nothing (&logger, &var_name, &var_value);
+}
+
+void model_obj_t::print_debug_info (logger_t &logger)
+{
+  ::print_debug_info (logger, "m_vertices", m_vertices);
+  ::print_debug_info (logger, "m_normals", m_normals);
+  ::print_debug_info (logger, "m_uv", m_uv);
+  ::print_debug_info (logger, "m_vertex_indices", m_vertex_indices);
+  ::print_debug_info (logger, "m_normals", m_normals);
+  ::print_debug_info (logger, "m_uv_indices", m_uv_indices);
 }
 
 mesh_t model_obj_t::to_mesh ()
