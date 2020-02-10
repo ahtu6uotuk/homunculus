@@ -1,6 +1,9 @@
 #include <fstream>
 #include <sstream>
+#include <map>
+#include "engine/renderer/mesh.h"
 #include "model_obj.h"
+
 
 void model_obj_t::parse_position_3d (stringstream &ss, vector<glm::vec3> &vec_pos)
 {
@@ -87,4 +90,29 @@ err_t model_obj_t::load (const string &filename)
     }
 
   return ERR_OK;
+}
+
+mesh_t model_obj_t::to_mesh ()
+{
+  map<vertex_data_view_t, GLuint> indexation;
+  const auto vertices_num = m_vertices.size ();
+  std::vector<vertex_data_t> vertices;
+  std::vector<GLuint> indeces;
+  size_t last_vertex_index = 0;
+  for (size_t i = 0; i < vertices_num; i++)
+    {
+      vertex_data_view_t vertex_view = {m_vertices[i], m_normals[i], m_uv[i]};
+      auto it = indexation.find (vertex_view);
+      if (it != indexation.end ())
+        {
+          indeces.push_back (it->second);
+        }
+      else
+        {
+          vertices.emplace_back (vertex_view);
+          indexation[vertex_view] = last_vertex_index;
+          last_vertex_index++;
+        }
+    }
+  return mesh_t (std::move (vertices), std::move (indeces), std::vector<GLuint> ());
 }
