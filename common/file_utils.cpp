@@ -45,7 +45,7 @@ err_t create_dir (const string &path)
 err_t ensure_dir_exists (const string &path)
 {
   bool r;
-  string dir_path = filesystem::path (path).remove_filename ();
+  string dir_path = filesystem::path (path).remove_filename ().string();
 
   RETURN_IF_FAIL (directory_exists (dir_path, r));
   if (!r)
@@ -111,7 +111,7 @@ err_t from_saved_game_file (string &dst, const string &story, const string &save
 
 err_t to_file (const string &src_string, const string &dst_filename)
 {
-  RETURN_IF_FAIL (ensure_dir_exists (filesystem::path (dst_filename).remove_filename ()));
+  RETURN_IF_FAIL (ensure_dir_exists (filesystem::path (dst_filename).remove_filename ().string()));
 
   fstream file_stream;
   file_stream.open (dst_filename, ios::out);

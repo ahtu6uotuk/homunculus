@@ -7,7 +7,11 @@
 #include "common/common.h"
 #include "common/err_t.h"
 
+#ifndef _WIN32
 __attribute__((format(printf, 1, 2)))
+#else
+__attribute__((format(__MINGW_PRINTF_FORMAT, 1, 2)))
+#endif
 std::string string_printf (const char *format, ...)
 {
   va_list va;

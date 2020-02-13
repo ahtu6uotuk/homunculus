@@ -11,14 +11,14 @@ enum class log_section_t
   RENDERER,
   GAME,
   COUNT,
-  ERROR = COUNT
+  LOG_ERROR = COUNT
 };
 
 enum class log_priority_t
 {
   INFO = 0,
   WARNING,
-  ERROR,
+  LOG_ERROR,
   DEBUG,
   COUNT
 };

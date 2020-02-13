@@ -1,10 +1,8 @@
 #include "object_heap.h"
 
-obj_heap_helper object_heap_helper_singleton;
-
 object_heap::object_heap ()
 {
-  for (auto type_adder : object_heap_helper_singleton.m_type_adders)
+  for (auto type_adder : obj_heap_helper::singleton ())
     type_adder (*this);
 }
 

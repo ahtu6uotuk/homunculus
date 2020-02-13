@@ -1,7 +1,10 @@
 CONFIG -= qt
 CONFIG += link_pkgconfig
 PKGCONFIG += freetype2
-LIBS += -lsfml-graphics -lsfml-window -lsfml-system -lGLEW -lGL -lpthread -lfreetype -lGLU
+LIBS += -lsfml-graphics -lsfml-window -lsfml-system  -lpthread -lfreetype
+
+unix:LIBS += -lGLEW -lGL -lGLU
+win32:LIBS += -lglew32 -lglu32 -lopengl32 -lssp
 
 QMAKE_CXXFLAGS += -std=c++2a
 QMAKE_CXXFLAGS += -g -lm -W -Wall -Wunused -Wcast-align -Werror \
@@ -77,6 +80,7 @@ HEADERS += \
     control_flow/make_gui_content.h \
     control_flow/run_calc_thread.h \
     engine/engine.h \
+    engine/event.h \
     common/common.h \
     common/err_t.h \
     external/rapidxml/rapidxml.hpp \

@@ -6,8 +6,14 @@
 #include "logic/saveload/saveload.h"
 
 class object_heap;
-struct obj_heap_helper { vector<function<void (object_heap &)>> m_type_adders; };
-extern obj_heap_helper object_heap_helper_singleton;
+struct obj_heap_helper
+{
+  static vector<function<void (object_heap &)>> &singleton()
+  {
+    static vector<function<void (object_heap &)>> instance;
+    return instance;
+  }
+};
 
 class object_heap
 {

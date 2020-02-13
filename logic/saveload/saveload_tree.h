@@ -3,6 +3,7 @@
 #include <vector>
 #include <unordered_map>
 #include <type_traits>
+#include <algorithm>
 
 #include "common/common.h"
 #include "common/err_t.h"

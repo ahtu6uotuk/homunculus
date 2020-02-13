@@ -9,7 +9,9 @@
 int main (int argc, char *argv[])
 {
   do_nothing (argc, argv);
+#ifndef WIN32
   feenableexcept (FE_DIVBYZERO | FE_OVERFLOW | FE_INVALID);
+#endif
 
   if (argc == 2)
     {

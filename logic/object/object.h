@@ -89,7 +89,7 @@ private:
 
   static void register_type_for_heap ()
   {
-    object_heap_helper_singleton.m_type_adders.push_back ([] (object_heap &heap) { heap.add_type<Self> (); });
+    obj_heap_helper::singleton().push_back ([] (object_heap &heap) { heap.add_type<Self> (); });
   }
-  template<typename D> friend class automatic_register;
+  template<typename D> friend struct automatic_register;
 };
