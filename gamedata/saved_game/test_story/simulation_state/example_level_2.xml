@@ -1,19 +1,5 @@
 <data>
 	<max_id>3</max_id>
-	<friend>
-		<entry>
-			<first>3</first>
-			<second>
-				<entry>
-					<name>Old man</name>
-					<tag_set>
-						<mood>sad</mood>
-					</tag_set>
-					<current_tag>goodbye</current_tag>
-				</entry>
-			</second>
-		</entry>
-	</friend>
 	<enemy>
 		<entry>
 			<first>1</first>
@@ -34,4 +20,15 @@
 			</second>
 		</entry>
 	</enemy>
+	<friend>
+		<entry>
+			<first>3</first>
+			<second>
+				<entry>
+					<name>Old man</name>
+					<current_tag>goodbye</current_tag>
+				</entry>
+			</second>
+		</entry>
+	</friend>
 </data>

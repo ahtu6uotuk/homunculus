@@ -1,5 +1,6 @@
 CONFIG -= qt
 CONFIG += link_pkgconfig
+CONFIG += console
 PKGCONFIG += freetype2
 LIBS += -lsfml-graphics -lsfml-window -lsfml-system  -lpthread -lfreetype
 

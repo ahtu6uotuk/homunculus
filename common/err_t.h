@@ -15,4 +15,4 @@ private:
 const err_t ERR_OK = err_t ("");
 
 void assert_error (err_t err, const string &additional_info = "");
-#define RETURN_IF_FAIL(A) {err_t err = A; if (!err.ok ()) return err;}
+#define RETURN_IF_FAIL(A) {err_t __err = A; if (!__err.ok ()) return __err;}

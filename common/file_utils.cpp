@@ -58,6 +58,9 @@ err_t copy (const string &old_path, const string &new_path)
 {
   error_code err;
 
+  if (filesystem::is_directory (new_path))
+    RETURN_IF_FAIL (remove_dir (new_path));
+
   filesystem::copy_options options
       = filesystem::copy_options::recursive | filesystem::copy_options::overwrite_existing;
   filesystem::copy (old_path, new_path, options, err);
