@@ -1,6 +1,36 @@
 #include <fstream>
 #include "tga_image.h"
 
+void tga_header_t::print_debug_info () const
+{
+  auto print_debug_var = [] (const char *name, auto value)
+    {
+      printf ("%s = %u\n", name, static_cast<unsigned int> (value));
+    };
+  print_debug_var ("m_id_length", m_id_length);
+  print_debug_var ("m_color_map_type", m_color_map_type);
+  print_debug_var ("m_image_type", m_image_type);
+  print_debug_var ("m_first_entry_index", m_first_entry_index);
+  print_debug_var ("m_color_map_length", m_color_map_length);
+  print_debug_var ("m_color_map_entry_size", m_color_map_entry_size);
+  print_debug_var ("m_x_origin", m_x_origin);
+  print_debug_var ("m_y_origin", m_y_origin);
+  print_debug_var ("m_image_width", m_image_width);
+  print_debug_var ("m_image_height", m_image_height);
+  print_debug_var ("m_pixel_depth", m_pixel_depth);
+  print_debug_var ("m_descriptor", m_descriptor);
+  print_debug_var ("m_descriptor_colors", m_desciptor_bits.m_bpp);
+  print_debug_var ("m_descriptor_from_left", m_desciptor_bits.m_from_left);
+  print_debug_var ("m_descriptor_from_top", m_desciptor_bits.m_from_top);
+  print_debug_var ("m_descriptor_zero", m_desciptor_bits.m_zero);
+  fflush (stdout);
+}
+
+size_t tga_header_t::get_image_size () const
+{
+  return m_image_width * m_image_height * (m_pixel_depth + m_desciptor_bits.m_bpp) / 8;
+}
+
 tga_image_t::tga_image_t ()
 {
 
@@ -40,9 +70,7 @@ void tga_image_t::read (const std::string &file_name)
 
 //  m_header.print_debug_info ();
 
-  const auto image_data_size = m_header.m_image_width
-                             * m_header.m_image_height
-                             * ((m_header.m_pixel_depth + m_header.m_desciptor_bits.m_bpp) / 8);
+  const auto image_data_size = m_header.get_image_size ();
   m_image_data = std::make_unique<unsigned char[]> (image_data_size);
   tga_file.read (reinterpret_cast<char *> (m_image_data.get ()), image_data_size);
 
@@ -52,32 +80,26 @@ void tga_image_t::read (const std::string &file_name)
   return ;
 }
 
-tga_image_t::~tga_image_t()
+std::unique_ptr<unsigned char[]> tga_image_t::move_as_texture_data ()
 {
-
-}
-
-void tga_header_t::print_debug_info () const
-{
-  auto print_debug_var = [] (const char *name, auto value)
+  if (m_header.m_image_type == tga_image_type_t::UNCOMPRESSED_TRUE_COLOR)
     {
-      printf ("%s = %u\n", name, static_cast<unsigned int> (value));
-    };
-  print_debug_var ("m_id_length", m_id_length);
-  print_debug_var ("m_color_map_type", m_color_map_type);
-  print_debug_var ("m_image_type", m_image_type);
-  print_debug_var ("m_first_entry_index", m_first_entry_index);
-  print_debug_var ("m_color_map_length", m_color_map_length);
-  print_debug_var ("m_color_map_entry_size", m_color_map_entry_size);
-  print_debug_var ("m_x_origin", m_x_origin);
-  print_debug_var ("m_y_origin", m_y_origin);
-  print_debug_var ("m_image_width", m_image_width);
-  print_debug_var ("m_image_height", m_image_height);
-  print_debug_var ("m_pixel_depth", m_pixel_depth);
-  print_debug_var ("m_descriptor", m_descriptor);
-  print_debug_var ("m_descriptor_colors", m_desciptor_bits.m_bpp);
-  print_debug_var ("m_descriptor_from_left", m_desciptor_bits.m_from_left);
-  print_debug_var ("m_descriptor_from_top", m_desciptor_bits.m_from_top);
-  print_debug_var ("m_descriptor_zero", m_desciptor_bits.m_zero);
-  fflush (stdout);
+      return std::move (m_image_data);
+    }
+  return nullptr;
 }
+
+std::unique_ptr<unsigned char[]> tga_image_t::copy_as_texture_data () const
+{
+  if (m_header.m_image_type == tga_image_type_t::UNCOMPRESSED_TRUE_COLOR)
+    {
+      const auto img_size = m_header.get_image_size ();
+      auto img = std::make_unique<unsigned char[]> (img_size);
+      std::copy_n (m_image_data.get (), img_size, img.get ());
+      return std::unique_ptr<unsigned char[]> (img.release ());
+    }
+  return nullptr;
+}
+
+tga_image_t::~tga_image_t ()
+{}

@@ -46,6 +46,7 @@ struct tga_header_t
     unsigned char m_descriptor;
   };
   void print_debug_info () const;
+  size_t get_image_size () const;
 };
 
 ///@brief TGA image class
@@ -58,6 +59,8 @@ class tga_image_t
 public:
   tga_image_t ();
   void read (const std::string &file_name);
+  std::unique_ptr<unsigned char[]> move_as_texture_data ();
+  std::unique_ptr<unsigned char[]> copy_as_texture_data () const;
   ~tga_image_t ();
 };
 
