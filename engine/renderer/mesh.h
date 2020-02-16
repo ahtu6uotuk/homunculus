@@ -16,6 +16,8 @@ class mesh_t
   vector<vertex_data_t> m_vertices;
   vector<GLuint> m_indeces;
   vector<GLuint> m_textures;
+private:
+  void init_gl ();
 public:
   mesh_t ();
   mesh_t (vector<vertex_data_t> &&vertices, vector<GLuint> &&indeces, vector<GLuint> &&textures);

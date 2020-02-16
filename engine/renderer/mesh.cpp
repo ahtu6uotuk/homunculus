@@ -2,6 +2,28 @@
 #include "mesh.h"
 #include "engine/logger.h"
 
+void mesh_t::init_gl ()
+{
+  glGenVertexArrays (1, &m_vao);
+  glGenBuffers (1, &m_vbo);
+  glGenBuffers (1, &m_ibo);
+  glBindVertexArray (m_vao);
+  glBindBuffer (GL_ARRAY_BUFFER, m_vbo);
+  glBufferData (GL_ARRAY_BUFFER, m_vertices.size () * sizeof (vertex_data_t), m_vertices.data (), GL_STATIC_DRAW);
+  glBindBuffer (GL_ELEMENT_ARRAY_BUFFER, m_ibo);
+  glBufferData (GL_ELEMENT_ARRAY_BUFFER, m_indeces.size () * sizeof (GLuint), m_indeces.data (), GL_STATIC_DRAW);
+  glEnableVertexAttribArray(0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof (vertex_data_t), (void*)0);
+  // vertex normals
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof (vertex_data_t), (void*)offsetof (vertex_data_t, m_normal));
+  // vertex texture coords
+  glEnableVertexAttribArray(2);
+  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof (vertex_data_t), (void*)offsetof (vertex_data_t, m_uv));
+
+  glBindVertexArray(0);
+}
+
 mesh_t::mesh_t ():
   m_vao (0),
   m_vbo (0),
@@ -9,17 +31,15 @@ mesh_t::mesh_t ():
   m_vertices (),
   m_indeces (),
   m_textures ()
-{
-  glGenVertexArrays (1, &m_vao);
-  glGenBuffers (1, &m_vbo);
-  glGenBuffers (1, &m_ibo);
-}
+{}
 
 mesh_t::mesh_t (vector<vertex_data_t> &&vertices, vector<GLuint> &&indeces, vector<GLuint> &&textures):
   m_vertices (std::move (vertices)),
   m_indeces (std::move (indeces)),
   m_textures (std::move (textures))
-{}
+{
+  init_gl ();
+}
 
 mesh_t::mesh_t (mesh_t &&b):
   m_vao (std::move (b.m_vao)),
@@ -52,8 +72,13 @@ err_t mesh_t::load ()
 
 void mesh_t::draw ()
 {
+  glBindVertexArray (m_vao);
+  glEnableVertexAttribArray (0);
+  glEnableVertexAttribArray (1);
   glBindBuffer (GL_ELEMENT_ARRAY_BUFFER, m_ibo);
   glDrawElements (GL_TRIANGLES, m_indeces.size (), GL_UNSIGNED_INT, m_indeces.data ());
+  glDisableVertexAttribArray (0);
+  glDisableVertexAttribArray (1);
 }
 
 void mesh_t::print_debug_info (logger_t &logger)
