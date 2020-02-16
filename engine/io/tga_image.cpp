@@ -29,8 +29,6 @@ void tga_image_t::read (const std::string &file_name)
   if (tga_file.fail ())
     {return;}
 
-//  m_header.print_debug_info ();
-
   if (m_header.m_id_length > 0)
     {
       m_image_id = std::make_unique<char[]> (m_header.m_id_length);
@@ -40,9 +38,17 @@ void tga_image_t::read (const std::string &file_name)
   if (m_header.m_color_map_type)
     {return;}
 
-  const auto image_data_size = m_header.m_image_width * m_header.m_image_height * 4;
-  m_image_data = std::make_unique<tga_image_data_t> (image_data_size);
-  tga_file.read (reinterpret_cast<char *> (img.get ()), image_data_size);
+//  m_header.print_debug_info ();
+
+  const auto image_data_size = m_header.m_image_width
+                             * m_header.m_image_height
+                             * ((m_header.m_pixel_depth + m_header.m_desciptor_bits.m_bpp) / 8);
+  m_image_data = std::make_unique<unsigned char[]> (image_data_size);
+  tga_file.read (reinterpret_cast<char *> (m_image_data.get ()), image_data_size);
+
+  if (m_header.m_image_type != tga_image_type_t::UNCOMPRESSED_TRUE_COLOR)
+    return;
+
   return ;
 }
 
@@ -69,10 +75,9 @@ void tga_header_t::print_debug_info () const
   print_debug_var ("m_image_height", m_image_height);
   print_debug_var ("m_pixel_depth", m_pixel_depth);
   print_debug_var ("m_descriptor", m_descriptor);
+  print_debug_var ("m_descriptor_colors", m_desciptor_bits.m_bpp);
+  print_debug_var ("m_descriptor_from_left", m_desciptor_bits.m_from_left);
+  print_debug_var ("m_descriptor_from_top", m_desciptor_bits.m_from_top);
+  print_debug_var ("m_descriptor_zero", m_desciptor_bits.m_zero);
   fflush (stdout);
-}
-
-tga_image_data_t::~tga_image_data_t ()
-{
-
 }

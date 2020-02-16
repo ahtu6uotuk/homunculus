@@ -19,24 +19,6 @@ enum class tga_image_type_t : uint8_t
 class tga_color_map_data_t
 {};
 
-/// @brief Base class for TGA image data
-class tga_image_data_t
-{
-  std::unique_ptr<unsigned char[]> m_pixel_data = nullptr;
-public:
-  tga_image_data_t (unsigned char *pixel_data) : m_pixel_data (std::move (pixel_data)) {}
-  virtual std::unique_ptr<unsigned char[]> to_texture_data () = 0;
-  virtual std::unique_ptr<unsigned char[]> to_texture_data () const = 0;
-  virtual ~tga_image_data_t ();
-};
-
-/// @brief TGA true color image data
-class tga_truecolor_image_data_t : public tga_image_data_t
-{
-public:
-  tga_truecolor_image_data_t ();
-};
-
 ///@brief TGA file header
 ///@details This struct stores all info about TGA image file
 struct tga_header_t
@@ -52,7 +34,17 @@ struct tga_header_t
   unsigned short m_image_width; ///< image width
   unsigned short m_image_height; ///< image height
   unsigned char m_pixel_depth; ///< image pixel color depth
-  unsigned char m_descriptor;
+  union
+  {
+    struct
+    {
+      unsigned char m_bpp : 2;
+      bool m_from_left : 1;
+      bool m_from_top : 1;
+      unsigned char m_zero : 2;
+    } m_desciptor_bits;
+    unsigned char m_descriptor;
+  };
   void print_debug_info () const;
 };
 
@@ -62,7 +54,7 @@ class tga_image_t
   tga_header_t m_header;
   std::unique_ptr<char[]> m_image_id = nullptr;
   std::unique_ptr<tga_color_map_data_t> m_color_map_data = nullptr;
-  std::unique_ptr<tga_image_data_t> m_image_data = nullptr;
+  std::unique_ptr<unsigned char[]> m_image_data = nullptr;
 public:
   tga_image_t ();
   void read (const std::string &file_name);
