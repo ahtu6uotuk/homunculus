@@ -65,7 +65,8 @@ SOURCES += \
     engine/renderer/shader.cpp \
     engine/renderer/mesh.cpp \
     engine/io/model_obj.cpp \
-    engine/renderer/vertex_data.cpp
+    engine/renderer/vertex_data.cpp \
+    engine/io/tga_image.cpp \
 
 # Directories
 
@@ -127,7 +128,8 @@ HEADERS += \
     engine/renderer/mesh.h \
     engine/renderer/texture.h \
     engine/io/model_obj.h \
-    engine/renderer/vertex_data.h
+    engine/renderer/vertex_data.h \
+    engine/io/tga_image.h \
 
 DISTFILES += \
     gamedata/shaders/text.vert \
