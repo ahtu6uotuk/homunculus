@@ -46,7 +46,7 @@ public:
   template<typename ...Types>
   void print (const log_section_t section, const log_priority_t priority, const Types & ... data)
   {
-    m_mutex.lock ();
+    lock_guard lock (m_mutex);
     m_buffer.clear ();
     m_buffer.str ("");
     m_buffer << enum_to_string (section) << ": " << enum_to_string (priority) << ":";
@@ -54,7 +54,6 @@ public:
     m_buffer << std::endl;
     m_fstream << m_buffer.rdbuf ();
     m_fstream.flush ();
-    m_mutex.unlock ();
   }
   bool is_ok () const;
   ~logger_t ();
