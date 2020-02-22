@@ -18,10 +18,6 @@ class engine_t
   logger_t m_logger;
   gui_system_t m_gui;
   renderer_t m_renderer;
-private:
-  err_t create_threads ();
-  err_t run_gui_thread ();
-  size_t get_computation_threads_number () const;
 public:
   engine_t () = delete;
   engine_t (int argc, char *argv[]);
