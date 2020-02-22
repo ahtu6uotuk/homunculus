@@ -14,7 +14,7 @@ class mesh_t
   GLuint m_vbo; ///< vertext buffer object
   GLuint m_ibo; ///< index buffer object
   vector<vertex_data_t> m_vertices;
-  vector<GLuint> m_indeces;
+  vector<GLuint> m_indices;
   vector<GLuint> m_textures;
 private:
   void init_gl ();

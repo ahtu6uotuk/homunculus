@@ -11,7 +11,7 @@ void mesh_t::init_gl ()
   glBindBuffer (GL_ARRAY_BUFFER, m_vbo);
   glBufferData (GL_ARRAY_BUFFER, m_vertices.size () * sizeof (vertex_data_t), m_vertices.data (), GL_STATIC_DRAW);
   glBindBuffer (GL_ELEMENT_ARRAY_BUFFER, m_ibo);
-  glBufferData (GL_ELEMENT_ARRAY_BUFFER, m_indeces.size () * sizeof (GLuint), m_indeces.data (), GL_STATIC_DRAW);
+  glBufferData (GL_ELEMENT_ARRAY_BUFFER, m_indices.size () * sizeof (GLuint), m_indices.data (), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof (vertex_data_t), (void*)0);
   // vertex normals
@@ -29,13 +29,13 @@ mesh_t::mesh_t ():
   m_vbo (0),
   m_ibo (0),
   m_vertices (),
-  m_indeces (),
+  m_indices (),
   m_textures ()
 {}
 
 mesh_t::mesh_t (vector<vertex_data_t> &&vertices, vector<GLuint> &&indeces, vector<GLuint> &&textures):
   m_vertices (std::move (vertices)),
-  m_indeces (std::move (indeces)),
+  m_indices (std::move (indeces)),
   m_textures (std::move (textures))
 {
   init_gl ();
@@ -46,7 +46,7 @@ mesh_t::mesh_t (mesh_t &&b):
   m_vbo (std::move (b.m_vbo)),
   m_ibo (std::move (b.m_ibo)),
   m_vertices (std::move (b.m_vertices)),
-  m_indeces(std::move (b.m_indeces)),
+  m_indices(std::move (b.m_indices)),
   m_textures (std::move (b.m_textures))
 {
   b.m_vao = 0;
@@ -60,7 +60,7 @@ mesh_t &mesh_t::operator= (mesh_t &&b)
   m_vbo = b.m_vbo;
   m_ibo = b.m_ibo;
   m_vertices = std::move (b.m_vertices);
-  m_indeces = std::move (b.m_indeces);
+  m_indices = std::move (b.m_indices);
   m_textures = std::move (b.m_textures);
   return *this;
 }
@@ -76,7 +76,7 @@ void mesh_t::draw ()
   glEnableVertexAttribArray (0);
   glEnableVertexAttribArray (1);
   glBindBuffer (GL_ELEMENT_ARRAY_BUFFER, m_ibo);
-  glDrawElements (GL_TRIANGLES, m_indeces.size (), GL_UNSIGNED_INT, m_indeces.data ());
+  glDrawElements (GL_TRIANGLES, m_indices.size (), GL_UNSIGNED_INT, m_indices.data ());
   glDisableVertexAttribArray (0);
   glDisableVertexAttribArray (1);
 }
