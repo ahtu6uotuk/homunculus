@@ -14,7 +14,6 @@ engine_t::engine_t (int argc, char *argv[]):
 {
   do_nothing (argc, argv);
   m_window.setFramerateLimit (60);
-  m_logger.print (log_section_t::ENGINE, log_priority_t::INFO, "initialization complete!");
 }
 
 err_t engine_t::init ()
@@ -31,6 +30,8 @@ err_t engine_t::init ()
 
   if (!m_gui.is_ok ())
     return err_t ("GUI initialization error: no contexts exist!");
+
+  m_logger.print (log_section_t::ENGINE, log_priority_t::INFO, "initialization complete!");
 
   return ERR_OK;
 }
