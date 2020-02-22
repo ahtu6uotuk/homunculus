@@ -1,10 +1,7 @@
 ﻿#pragma once
 #include <SFML/Graphics/RenderWindow.hpp>
-#include <thread>
-#include <atomic>
 #include "common/err_t.h"
 #include "engine/logger.h"
-#include "common/thread_sync.h"
 #include "engine/gui/gui_system.h"
 #include "engine/renderer/renderer.h"
 

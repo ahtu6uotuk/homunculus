@@ -1,10 +1,7 @@
 #include "engine.h"
 
 #include <SFML/Window.hpp>
-#include <iostream>
 
-#include "common/common.h"
-#include "common/thread_info.h"
 #include "engine/event.h"
 #include "gui/gui_context.h"
 

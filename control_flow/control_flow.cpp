@@ -8,6 +8,7 @@
 #include "engine/gui/gui_context.h"
 #include "common/thread_info.h"
 #include "engine/gui/gui_textline.h"
+#include "common/thread_sync.h"
 
 control_flow::~control_flow () {}
 
