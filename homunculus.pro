@@ -67,6 +67,7 @@ SOURCES += \
     engine/io/model_obj.cpp \
     engine/renderer/vertex_data.cpp \
     engine/io/tga_image.cpp \
+    engine/logger_utils.cpp \
     engine/renderer/camera.cpp
 
 # Directories
@@ -131,7 +132,9 @@ HEADERS += \
     engine/io/model_obj.h \
     engine/renderer/vertex_data.h \
     engine/io/tga_image.h \
-    engine/renderer/camera.h
+    engine/logger_utils.h \
+    engine/renderer/camera.h \
+    common/type_traits_ext.h
 
 DISTFILES += \
     gamedata/shaders/text.vert \

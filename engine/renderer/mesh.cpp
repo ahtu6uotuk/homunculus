@@ -1,6 +1,7 @@
 #include <GL/glew.h>
 #include "mesh.h"
 #include "engine/logger.h"
+#include "engine/logger_utils.h"
 
 void mesh_t::init_gl ()
 {
@@ -83,7 +84,15 @@ void mesh_t::draw ()
 
 void mesh_t::print_debug_info (logger_t &logger)
 {
-  do_nothing (&logger);
+  logger_utils::print_var_info (logger, "m_vao", m_vao);
+  logger_utils::print_var_info (logger, "m_vbo", m_vbo);
+  logger_utils::print_var_info (logger, "m_ibo", m_ibo);
+  logger_utils::print_var_info (logger, "m_vertices.size ()", m_vertices.size ());
+  logger_utils::print_var_info (logger, "m_vertices", m_vertices);
+  logger_utils::print_var_info (logger, "m_indices.size ()", m_indices.size ());
+  logger_utils::print_var_info (logger, "m_indices", m_indices);
+  logger_utils::print_var_info (logger, "m_textures.size ()", m_textures.size ());
+  logger_utils::print_var_info (logger, "m_textures", m_textures);
 }
 
 mesh_t::~mesh_t ()
