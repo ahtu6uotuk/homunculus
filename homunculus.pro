@@ -133,4 +133,6 @@ HEADERS += \
 
 DISTFILES += \
     gamedata/shaders/text.vert \
-    gamedata/shaders/text.frag
+    gamedata/shaders/text.frag \
+    gamedata/shaders/default.vert \
+    gamedata/shaders/test_simple.frag
