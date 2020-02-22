@@ -33,6 +33,17 @@ inline string make_string (const vertex_data_t &vertex_data)
   return buffer;
 }
 
+inline string make_string (const vertex_data_view_t &vertex_data)
+{
+  string buffer ("m_vertex: ");
+  buffer.append (make_string (vertex_data.m_vertex));
+  buffer.append (", m_normal: ");
+  buffer.append (make_string (vertex_data.m_normal));
+  buffer.append (", uv: ");
+  buffer.append (make_string (vertex_data.m_uv));
+  return buffer;
+}
+
 template<typename T>
 inline string to_stl_string (const T &data)
 {
@@ -79,3 +90,4 @@ template void logger_utils::print_var_info (logger_t &, const char *, const std:
 template void logger_utils::print_var_info (logger_t &, const char *, const std::vector<glm::vec3> &);
 template void logger_utils::print_var_info (logger_t &, const char *, const std::vector<glm::vec2> &);
 template void logger_utils::print_var_info (logger_t &, const char *, const unsigned long &);
+template void logger_utils::print_var_info (logger_t &, const char *, const vertex_data_view_t &);
