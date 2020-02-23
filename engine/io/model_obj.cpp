@@ -119,9 +119,9 @@ mesh_t model_obj_t::to_mesh ()
   const size_t vertices_num = m_vertex_indices.size ();
   for (size_t i = 0; i < vertices_num; i++)
     {
-      vertex_data_view_t vertex_view = {m_vertices[m_vertex_indices[i]],
-                                        m_normals[m_normal_indices[i]],
-                                        m_uv[m_uv_indices[i]]};
+      const vertex_data_view_t vertex_view = {m_vertices[m_vertex_indices[i]],
+                                              m_normals[m_normal_indices[i]],
+                                              m_uv[m_uv_indices[i]]};
       auto it = indexation.find (vertex_view);
       if (it != indexation.end ())
         {
@@ -129,9 +129,9 @@ mesh_t model_obj_t::to_mesh ()
         }
       else
         {
-          mesh_vertices.emplace_back (vertex_view);
           mesh_indices.push_back (last_vertex_index);
           indexation[vertex_view] = last_vertex_index;
+          mesh_vertices.emplace_back (vertex_view);
           last_vertex_index++;
         }
     }
