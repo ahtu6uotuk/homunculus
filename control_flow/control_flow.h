@@ -13,6 +13,9 @@ class event_t;
 class thread_sync_t;
 class thread_info_t;
 class gui_context_t;
+class request_to_calc_base;
+class request_to_gui_base;
+class frame_manager;
 
 class control_flow
 {
@@ -32,10 +35,12 @@ private:
   unique_ptr<engine_t> m_engine;
   unique_ptr<world_t> m_world;
 
-  optional<vector<event_t>> m_old_events;
-  unique_ptr<gui_context_t> m_old_gui_content;
-  optional<vector<event_t>> m_new_events;
-  unique_ptr<gui_context_t> m_new_gui_content;
+  unique_ptr<frame_manager> m_frame_manager;
+
+  unique_ptr<request_to_calc_base> m_old_request_to_calc;
+  unique_ptr<request_to_gui_base> m_old_request_to_gui;
+  unique_ptr<request_to_calc_base> m_new_request_to_calc;
+  unique_ptr<request_to_gui_base> m_new_request_to_gui;
 
   std::vector<thread> m_threads;
   unique_ptr<thread_sync_t> m_sync;

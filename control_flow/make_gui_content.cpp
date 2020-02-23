@@ -6,14 +6,16 @@
 #include "engine/gui/gui_textline.h"
 #include "engine/gui/gui_context.h"
 #include "common/thread_info.h"
+#include "control_flow/request_to_gui.h"
+#include "control_flow/request_to_calc.h"
 
-void make_gui_content (engine_t &engine, world_t &world, thread_info_t &thr_info, unique_ptr<gui_context_t> &result)
+void make_gui_content (engine_t &engine, world_t &world, thread_info_t &thr_info, unique_ptr<request_to_gui_base> &result)
 {
   // TODO: this should be parallel
   if (!thr_info.is_main_thread ())
     return;
 
-  unique_ptr<gui_context_t> local_result = make_unique<gui_context_t> (engine.get_gui_system ());
+  unique_ptr<gui_context_t> new_content = make_unique<gui_context_t> (engine.get_gui_system ());
   vector<object_base *> objs = world.get_all ();
 
   int i = 0;
@@ -22,12 +24,16 @@ void make_gui_content (engine_t &engine, world_t &world, thread_info_t &thr_info
       {
         name_policy *pl = obj->get_policy<name_policy> ();
         if (pl)
-          local_result->add_element (make_unique<gui_textline_t> (
+          new_content->add_element (make_unique<gui_textline_t> (
               engine.get_renderer (), 10, ++i * 24, gui_horizontal_alignment_t::LEFT,
               gui_vertical_alignment_t::DOWN, pl->get_name (), glm::vec3 (.7f, .15f, .15f), 24));
       }
       // other types of gui elements here...
     }
 
-  result = move (local_result);
+  result.reset (
+      new request_to_gui_t ([new_content = move (new_content)] (engine_t &eng) mutable -> err_t {
+        eng.get_renderer ().get_gui ().set_world_content (move (new_content));
+        return ERR_OK;
+      }));
 }

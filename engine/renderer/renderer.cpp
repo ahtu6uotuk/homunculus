@@ -86,12 +86,12 @@ err_t renderer_t::init ()
   return ERR_OK;
 }
 
-void renderer_t::render (unique_ptr<gui_context_t> extra_content)
+void renderer_t::render ()
 {
   glClearColor (0., 0., 0., 0.);
   glClear (GL_COLOR_BUFFER_BIT);
   gluOrtho2D (0., 800, 0., 600.);
-  m_gui.draw (move (extra_content));
+  m_gui.draw ();
 }
 
 void renderer_t::render_text (const string &text, glm::vec2 &pos, glm::vec3 &color, const unsigned int font_size)

@@ -27,7 +27,7 @@ private:
 public:
   renderer_t (engine_t &engine);
   err_t init ();
-  void render (unique_ptr<gui_context_t> extra_content);
+  void render ();
   void render_text (const string &text, glm::vec2 &pos, glm::vec3 &color, const unsigned int font_size);
   font_t &get_font () {return m_font;}
   shader_t *get_text_shader () {return m_text_shader.get ();}

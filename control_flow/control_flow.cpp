@@ -9,6 +9,9 @@
 #include "common/thread_info.h"
 #include "engine/gui/gui_textline.h"
 #include "common/thread_sync.h"
+#include "control_flow/handle_gui_events.h"
+#include "control_flow/request_to_gui.h"
+#include "control_flow/request_to_calc.h"
 
 control_flow::~control_flow () {}
 
@@ -26,8 +29,10 @@ err_t control_flow::init ()
   m_sync_w_main = make_unique<thread_sync_t> (get_calc_threads_number () + 1);
   RETURN_IF_FAIL (create_threads ());
 
-  m_old_events = vector<event_t> ();
-  m_old_gui_content = make_unique<gui_context_t> (m_engine->get_gui_system ());
+  m_frame_manager = make_unique<frame_manager> (*m_engine->get_performance_indicator ());
+
+  m_old_request_to_calc = make_unique<request_to_calc_empty> ();
+  m_old_request_to_gui = make_unique<request_to_gui_empty> ();
 
   return ERR_OK;
 }
@@ -35,33 +40,22 @@ err_t control_flow::init ()
 err_t control_flow::run ()
 {
   RETURN_IF_FAIL (init ());
-  frame_manager frame_mgr;
 
-  while (m_old_events)
+  m_sync_w_main->sync ();
+  while (!m_old_request_to_calc->is_exit () && !m_old_request_to_gui->is_exit ())
     {
-      frame_mgr.start_frame ();
-      m_sync_w_main->sync ();
+      m_frame_manager->start_frame ();
 
-      /// get new events
-      m_new_events = m_engine->handle_events ();
-
-      /// get new content
-      do_nothing ("done by calc threads");
-
-      /// handle old content
-      m_engine->render_and_display (move (m_old_gui_content));
-
-      /// handle old events
-      do_nothing ("done by calc threads");
+      m_old_request_to_gui->exec_assert (*m_engine);
+      m_new_request_to_calc = handle_gui_events (*m_engine);
+      m_engine->render_and_display ();
 
       m_sync_w_main->sync ();
-      string frame_stats = frame_mgr.end_frame ();
-      m_new_gui_content->add_element (make_unique<gui_textline_t> (
-          m_engine->get_renderer (), 10, 0, gui_horizontal_alignment_t::LEFT,
-          gui_vertical_alignment_t::UP, frame_stats, glm::vec3 (.7f, .15f, .15f), 24));
+      m_old_request_to_calc = move (m_new_request_to_calc);
+      m_old_request_to_gui = move (m_new_request_to_gui);
+      m_sync_w_main->sync ();
 
-      m_old_events = move (m_new_events);
-      m_old_gui_content = move (m_new_gui_content);
+      m_frame_manager->end_frame ();
     }
 
   join_threads ();
@@ -87,7 +81,6 @@ err_t control_flow::create_threads ()
 
 void control_flow::join_threads ()
 {
-  m_sync_w_main->sync ();
   for (thread &thr : m_threads)
     thr.join ();
 }

@@ -4,17 +4,27 @@
 
 gui_system_t::gui_system_t (const unsigned int width, const unsigned int height):
   m_width (width), m_height (height)
-{}
+{
+}
 
 void gui_system_t::set_active_context (const unsigned int id)
 {
   m_active_id = id;
 }
 
-void gui_system_t::draw (unique_ptr<gui_context_t> extra_content)
+void gui_system_t::draw ()
 {
-  extra_content->draw ();
+  if (m_world_content)
+    {
+      m_world_content->draw ();
+      m_world_content.reset ();
+    }
   m_context[m_active_id]->draw ();
+}
+
+void gui_system_t::set_world_content (unique_ptr<gui_context_t> world_content)
+{
+  m_world_content = move (world_content);
 }
 
 void gui_system_t::resize (unsigned int width, unsigned height)

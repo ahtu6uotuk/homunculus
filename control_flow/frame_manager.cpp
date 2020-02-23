@@ -3,13 +3,12 @@
 #include <chrono>
 #include <thread>
 
+#include "engine/gui/gui_textline.h"
 #include "common/string/string_utils.h"
 
 using namespace chrono;
 
-frame_manager::frame_manager ()
-{
-}
+frame_manager::frame_manager (gui_textline_t &indicator) : m_indicator (indicator) {}
 
 void frame_manager::start_frame ()
 {
@@ -23,7 +22,7 @@ double frame_manager::to_double (const frame_manager::duration_t &d)
   return duration_cast<duration<double>> (d).count ();
 }
 
-std::string frame_manager::end_frame ()
+void frame_manager::end_frame ()
 {
   assert_check (m_last_frame_start.has_value (), "Don't call end before start");
 
@@ -33,11 +32,14 @@ std::string frame_manager::end_frame ()
   m_last_frame_start = nullopt;
 
   if (time_passed >= frame_length_d)
-    return "Freezing!";
+    {
+      m_indicator.set_text ("Freezing!");
+      return;
+    }
 
   duration_t sleep_for = frame_length_d - time_passed;
   this_thread::sleep_for (sleep_for);
   double ratio = to_double (sleep_for) / to_double (frame_length_d);
 
-  return string_printf ("Performance ratio: %.2lf", ratio);
+  m_indicator.set_text (string_printf ("Performance ratio: %.2lf", ratio));
 }

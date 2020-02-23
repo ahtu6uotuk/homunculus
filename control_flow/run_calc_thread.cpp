@@ -7,18 +7,21 @@
 #include "logic/world.h"
 #include "engine/event.h"
 #include "common/thread_info.h"
+#include "control_flow/request_to_gui.h"
+#include "control_flow/request_to_calc.h"
 
 void run_calc_thread (unique_ptr<thread_info_t> thr_info, control_flow &flow)
 {
-  optional<vector<event_t>> &events = flow.m_old_events;
+  unique_ptr<request_to_calc_base> &old_request_to_calc = flow.m_old_request_to_calc;
+  unique_ptr<request_to_gui_base> &old_request_to_gui = flow.m_old_request_to_gui;
+  unique_ptr<request_to_gui_base> &new_request_to_gui = flow.m_new_request_to_gui;
+  world_t &world = *flow.m_world;
+  engine_t &engine = *flow.m_engine;
 
-  while (true)
+  thr_info->sync_with_main ();
+  while (!old_request_to_calc->is_exit () && !old_request_to_gui->is_exit ())
     {
-      thr_info->sync_with_main ();
-      if (!events)
-        break;
-      else
-        do_nothing ();
+      old_request_to_calc->exec_assert (world, *thr_info);
 
       // pretending to do something
       int j = 0;
@@ -28,8 +31,9 @@ void run_calc_thread (unique_ptr<thread_info_t> thr_info, control_flow &flow)
         thr_info->sync ();
       //
 
-      make_gui_content (*flow.m_engine, *flow.m_world, *thr_info, flow.m_new_gui_content);
+      make_gui_content (engine, world, *thr_info, new_request_to_gui);
 
+      thr_info->sync_with_main ();
       thr_info->sync_with_main ();
     }
 }

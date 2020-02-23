@@ -25,7 +25,10 @@ SOURCES += \
     common/string/string_utils.cpp \
     control_flow/control_flow.cpp \
     control_flow/frame_manager.cpp \
+    control_flow/handle_gui_events.cpp \
     control_flow/make_gui_content.cpp \
+    control_flow/request_to_calc.cpp \
+    control_flow/request_to_gui.cpp \
     control_flow/run_calc_thread.cpp \
     engine/event.cpp \
     logic/asset.cpp \
@@ -81,7 +84,10 @@ HEADERS += \
     control_flow/control_flow.h \
     control_flow/event.h \
     control_flow/frame_manager.h \
+    control_flow/handle_gui_events.h \
     control_flow/make_gui_content.h \
+    control_flow/request_to_calc.h \
+    control_flow/request_to_gui.h \
     control_flow/run_calc_thread.h \
     engine/engine.h \
     engine/event.h \

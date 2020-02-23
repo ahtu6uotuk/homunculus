@@ -4,6 +4,8 @@
 
 #include "engine/event.h"
 #include "gui/gui_context.h"
+#include "engine/gui/gui_element.h"
+#include "engine/gui/gui_textline.h"
 
 engine_t::engine_t (int argc, char *argv[]):
   m_window (sf::VideoMode (800, 600, 32), "Homunculus", sf::Style::Default,
@@ -28,6 +30,13 @@ err_t engine_t::init ()
   gui_context_t *context = m_gui.get_active_context ();
   context->add_test_page (m_renderer);
 
+  unique_ptr<gui_textline_t> performance_indicator = make_unique<gui_textline_t> (
+      get_renderer (), 10, 0,
+      gui_horizontal_alignment_t::LEFT, gui_vertical_alignment_t::UP,
+      "", glm::vec3 (.7f, .15f, .15f), 24);
+  m_performance_indicator = performance_indicator.get ();
+  context->add_element (move (performance_indicator));
+
   if (!m_gui.is_ok ())
     return err_t ("GUI initialization error: no contexts exist!");
 
@@ -36,63 +45,10 @@ err_t engine_t::init ()
   return ERR_OK;
 }
 
-void engine_t::render_and_display (unique_ptr<gui_context_t> extra_content)
+void engine_t::render_and_display ()
 {
-  m_renderer.render (move (extra_content));
+  m_renderer.render ();
   m_window.display ();
-}
-
-optional<vector<event_t>> engine_t::handle_events ()
-{
-  optional<vector<event_t>> result = vector<event_t>();
-
-  sf::Event event;
-  while (m_window.pollEvent (event))
-    {
-      switch (event.type)
-        {
-        case sf::Event::EventType::Closed:
-          {
-            result = nullopt;
-            break;
-          }
-        case sf::Event::EventType::Resized:
-          {
-            m_gui.resize (event.size.width, event.size.height);
-            break;
-          }
-        case sf::Event::EventType::MouseMoved:
-          {
-            m_gui.handle_mouse_move_event (event.mouseMove.x, event.mouseMove.y);
-            break;
-          }
-        case sf::Event::EventType::MouseButtonPressed:
-          {
-            if (event.mouseButton.button == sf::Mouse::Left)
-              m_gui.handle_mouse_press_event (event.mouseButton.x, event.mouseButton.y);
-            break;
-          }
-        case sf::Event::EventType::MouseButtonReleased:
-          {
-            break;
-          }
-        case sf::Event::EventType::KeyPressed:
-          {
-            do_nothing ();
-            break;
-          }
-        case sf::Event::EventType::KeyReleased:
-          {
-            do_nothing ();
-            break;
-          }
-        default:
-          {
-            do_nothing ();
-          }
-        }
-    }
-  return result;
 }
 
 engine_t::~engine_t ()
