@@ -13,13 +13,12 @@
 void run_calc_thread (unique_ptr<thread_info_t> thr_info, control_flow &flow)
 {
   unique_ptr<request_to_calc_base> &old_request_to_calc = flow.m_old_request_to_calc;
-  unique_ptr<request_to_gui_base> &old_request_to_gui = flow.m_old_request_to_gui;
   unique_ptr<request_to_gui_base> &new_request_to_gui = flow.m_new_request_to_gui;
   world_t &world = *flow.m_world;
   engine_t &engine = *flow.m_engine;
 
   thr_info->sync_with_main ();
-  while (!old_request_to_calc->is_exit () && !old_request_to_gui->is_exit ())
+  while (!old_request_to_calc->is_exit ())
     {
       old_request_to_calc->exec_assert (world, *thr_info);
 

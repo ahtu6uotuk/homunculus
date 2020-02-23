@@ -42,15 +42,15 @@ err_t control_flow::run ()
   RETURN_IF_FAIL (init ());
 
   m_sync_w_main->sync ();
-  while (!m_old_request_to_calc->is_exit () && !m_old_request_to_gui->is_exit ())
+  while (!m_old_request_to_calc->is_exit ())
     {
       m_frame_manager->start_frame ();
 
-      m_old_request_to_gui->exec_assert (*m_engine);
       m_new_request_to_calc = handle_gui_events (*m_engine);
       m_engine->render_and_display ();
 
       m_sync_w_main->sync ();
+      m_old_request_to_gui->exec_assert (*m_engine);
       m_old_request_to_calc = move (m_new_request_to_calc);
       m_old_request_to_gui = move (m_new_request_to_gui);
       m_sync_w_main->sync ();

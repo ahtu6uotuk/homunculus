@@ -9,7 +9,6 @@ class request_to_gui_base
 public:
   virtual ~request_to_gui_base () {}
   virtual err_t exec (engine_t &engine) = 0;
-  virtual bool is_exit () { return false; }
   void exec_assert (engine_t &engine) { assert_error (exec (engine)); }
 };
 
@@ -19,19 +18,6 @@ public:
   ~request_to_gui_empty () {}
   request_to_gui_empty () {}
   err_t exec (engine_t &) override { return ERR_OK; }
-};
-
-class request_to_gui_exit : public request_to_gui_base
-{
-public:
-  ~request_to_gui_exit () {}
-  request_to_gui_exit () {}
-  bool is_exit () override { return true; }
-  err_t exec (engine_t &) override
-  {
-    assert_check (false, "Sanity");
-    return ERR_OK;
-  }
 };
 
 template<typename FuncT>
