@@ -20,10 +20,6 @@ class renderer_t
   gui_system_t &m_gui;
   font_t m_font;
   unique_ptr<shader_t> m_text_shader;
-  GLuint m_gui_vbo = 0;
-  GLuint m_gui_vao = 0;
-private:
-  void init_gui_gl_objects();
 public:
   renderer_t (engine_t &engine);
   err_t init ();
@@ -32,8 +28,6 @@ public:
   font_t &get_font () {return m_font;}
   shader_t *get_text_shader () {return m_text_shader.get ();}
   gui_system_t &get_gui () {return m_gui;}
-  GLuint get_gui_vao () const {return m_gui_vao;}
-  GLuint get_gui_vbo () const {return m_gui_vbo;}
   ~renderer_t ();
 };
 
