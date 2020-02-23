@@ -113,7 +113,7 @@ mesh_t model_obj_t::to_mesh ()
 {
   map<vertex_data_view_t, GLuint> indexation;
   std::vector<vertex_data_t> mesh_vertices;
-  std::vector<GLuint> mesh_indeces;
+  std::vector<GLuint> mesh_indices;
 
   size_t last_vertex_index = 0;
   const size_t vertices_num = m_vertex_indices.size ();
@@ -125,15 +125,15 @@ mesh_t model_obj_t::to_mesh ()
       auto it = indexation.find (vertex_view);
       if (it != indexation.end ())
         {
-          mesh_indeces.push_back (it->second);
+          mesh_indices.push_back (it->second);
         }
       else
         {
           mesh_vertices.emplace_back (vertex_view);
-          mesh_indeces.push_back (last_vertex_index);
+          mesh_indices.push_back (last_vertex_index);
           indexation[vertex_view] = last_vertex_index;
           last_vertex_index++;
         }
     }
-  return mesh_t (std::move (mesh_vertices), std::move (mesh_indeces), std::vector<GLuint> ());
+  return mesh_t (std::move (mesh_vertices), std::move (mesh_indices), std::vector<GLuint> ());
 }
