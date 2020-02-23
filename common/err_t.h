@@ -5,9 +5,10 @@ class err_t
 {
 public:
   err_t (const string &description) : m_description (description) {}
-  bool ok () { return m_description.empty (); }
+  bool ok () const { return m_description.empty (); }
   const string &descr () { return m_description; }
   const char *descr_c_str () { return m_description.c_str (); }
+  operator bool () const { return !ok (); }
 
 private:
   string m_description;
