@@ -37,11 +37,11 @@ inline string make_string (const vertex_data_t &vertex_data)
 inline string make_string (const vertex_data_view_t &vertex_data)
 {
   string buffer ("m_vertex: ");
-  buffer.append (make_string (vertex_data.m_vertex));
+  buffer.append (make_string (*vertex_data.m_vertex));
   buffer.append (", m_normal: ");
-  buffer.append (make_string (vertex_data.m_normal));
+  buffer.append (make_string (*vertex_data.m_normal));
   buffer.append (", uv: ");
-  buffer.append (make_string (vertex_data.m_uv));
+  buffer.append (make_string (*vertex_data.m_uv));
   return buffer;
 }
 
