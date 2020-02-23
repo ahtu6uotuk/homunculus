@@ -72,6 +72,7 @@ void logger_utils::print_var_info (logger_t &logger, const char *var_name, const
 
 template void logger_utils::print_var_info (logger_t &, const char *, const bool &);
 template void logger_utils::print_var_info (logger_t &, const char *, const unsigned int &);
+template void logger_utils::print_var_info (logger_t &, const char *, const std::size_t &);
 template void logger_utils::print_var_info (logger_t &, const char *, const std::string &);
 template void logger_utils::print_var_info (logger_t &, const char *, const std::vector<vertex_data_t> &);
 template void logger_utils::print_var_info (logger_t &, const char *, const std::vector<unsigned int> &);
