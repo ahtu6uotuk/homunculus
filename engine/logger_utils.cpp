@@ -1,3 +1,4 @@
+#include <map>
 #include <vector>
 #include "logger_utils.h"
 #include "logger.h"
@@ -42,6 +43,11 @@ inline string make_string (const vertex_data_view_t &vertex_data)
   buffer.append (", uv: ");
   buffer.append (make_string (vertex_data.m_uv));
   return buffer;
+}
+
+inline string make_string (const std::pair<vertex_data_view_t, unsigned int> pair)
+{
+  return make_string (pair.first).append (" : ").append (to_string (pair.second));
 }
 
 template<typename T>
@@ -91,3 +97,4 @@ template void logger_utils::print_var_info (logger_t &, const char *, const std:
 template void logger_utils::print_var_info (logger_t &, const char *, const std::vector<glm::vec2> &);
 template void logger_utils::print_var_info (logger_t &, const char *, const unsigned long &);
 template void logger_utils::print_var_info (logger_t &, const char *, const vertex_data_view_t &);
+template void logger_utils::print_var_info (logger_t &, const char *, const std::map<vertex_data_view_t, unsigned int> &);
