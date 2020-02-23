@@ -21,10 +21,9 @@ gui_textline_t::gui_textline_t (
 {
 }
 
-void gui_textline_t::set_color (const glm::vec3 &color)
-{
-  m_color = color;
-}
+void gui_textline_t::set_color (const glm::vec3 &color) { m_color = color; }
+
+void gui_textline_t::set_text (const std::string &text) { m_text = text; }
 
 void gui_textline_t::draw ()
 {

@@ -22,6 +22,7 @@ public:
                   const unsigned int font_size,
                   const gui_element_t *pivot = nullptr);
   void set_color (const glm::vec3 &color);
+  void set_text (const std::string &text);
   void draw () override;
 };
 
