@@ -11,4 +11,4 @@ vertex_data_t::vertex_data_t (const vertex_data_view_t &vertex_view):
 bool vertex_data_view_t::operator< (const vertex_data_view_t &b) const
 {
   return std::memcmp (this, &b, sizeof (vertex_data_view_t)) > 0;
-};
+}
