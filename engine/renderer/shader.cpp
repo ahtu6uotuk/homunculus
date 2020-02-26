@@ -45,7 +45,7 @@ void shader_t::set_uniform_mat4 (const string &var_name, const float *mat4, cons
   glUniformMatrix4fv (glGetUniformLocation (m_id, var_name.c_str ()), 1, is_transpose, mat4);
 }
 
-err_t shader_t::check_link_status ()
+err_t shader_t::check ()
 {
   GLint status = 0;
   glGetProgramiv (m_id, GL_LINK_STATUS, &status);
@@ -64,19 +64,31 @@ shader_t::~shader_t ()
     glDeleteProgram (m_id);
 }
 
-template<GLenum SHADER_TYPE>
+constexpr GLenum shader_type_to_GLenum (shader_type_t shader_type)
+{
+  switch (shader_type)
+    {
+    case shader_type_t::VERTEX:
+      return GL_VERTEX_SHADER;
+    case shader_type_t::FRAGMENT:
+      return GL_FRAGMENT_SHADER;
+    }
+  abort (); // you shouldn't be here
+}
+
+template<shader_type_t SHADER_TYPE>
 subshader_t<SHADER_TYPE>::subshader_t (const char *source_code)
 {
   if (!source_code)
     return;
 
-  m_id = glCreateShader (SHADER_TYPE);
+  m_id = glCreateShader (shader_type_to_GLenum (SHADER_TYPE));
   glShaderSource (m_id, 1, &source_code, nullptr);
   glCompileShader (m_id);
 }
 
-template<GLenum SHADER_TYPE>
-err_t subshader_t<SHADER_TYPE>::check_compilation_status () const
+template<shader_type_t SHADER_TYPE>
+err_t subshader_t<SHADER_TYPE>::check () const
 {
   GLint status;
   glGetShaderiv (m_id, GL_COMPILE_STATUS, &status);
@@ -89,12 +101,12 @@ err_t subshader_t<SHADER_TYPE>::check_compilation_status () const
   return ERR_OK;
 }
 
-template<GLenum SHADER_TYPE>
-subshader_t<SHADER_TYPE>::~subshader_t()
+template<shader_type_t SHADER_TYPE>
+subshader_t<SHADER_TYPE>::~subshader_t ()
 {
   if (glIsShader (m_id))
     glDeleteShader (m_id);
 }
 
-template class subshader_t<GL_VERTEX_SHADER>;
-template class subshader_t<GL_FRAGMENT_SHADER>;
+template class subshader_t<shader_type_t::VERTEX>;
+template class subshader_t<shader_type_t::FRAGMENT>;

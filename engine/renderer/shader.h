@@ -1,31 +1,39 @@
 #ifndef SHADER_H
 #define SHADER_H
-#include <GL/gl.h>
 #include "common/err_t.h"
 
 
-template<GLenum SHADER_TYPE>
+enum class shader_type_t
+{
+  VERTEX,
+  FRAGMENT
+};
+
+template<shader_type_t SHADER_TYPE>
 class subshader_t
 {
-  GLuint m_id = 0;
+  unsigned int m_id = 0;
 public:
   subshader_t () = delete;
   subshader_t (const subshader_t &) = delete;
   subshader_t (subshader_t &&) = delete;
   explicit subshader_t (const char *source_code);
-  GLuint get_id () const {return m_id;}
-  err_t check_compilation_status () const;
+  unsigned int get_id () const {return m_id;}
+  err_t check () const;
   ~subshader_t ();
 };
 
+using vertex_shader_t = subshader_t<shader_type_t::VERTEX>;
+using fragment_shader_t = subshader_t<shader_type_t::FRAGMENT>;
+
 class shader_t
 {
-  GLuint m_id = 0;
+  unsigned int m_id = 0;
 public:
-  shader_t () = delete;
+  shader_t () = default;
   shader_t (const shader_t &) = delete;
   shader_t (shader_t &&) = delete;
-  shader_t (GLuint m_vertex_id, GLuint m_fragment_id);
+  shader_t (unsigned int m_vertex_id, unsigned int m_fragment_id);
   void use () const;
   void set_uniform_1i (const string &var_name, const int value) const;
   void set_uniform_1f (const string &var_name, const float value) const;
@@ -33,8 +41,8 @@ public:
   void set_uniform_3f (const string &var_name, const float v1, const float v2, const float v3) const;
   void set_uniform_3f (const string &var_name, const float *vec3) const;
   void set_uniform_mat4 (const string &var_name, const float *mat4, const bool is_transpose = false) const;
-  GLuint get_program_id () const {return m_id;}
-  err_t check_link_status ();
+  unsigned int get_program_id () const {return m_id;}
+  err_t check ();
   ~shader_t ();
 };
 
