@@ -39,16 +39,16 @@ void camera_t::move (movement_direction_t direction, float dt)
   switch (direction)
     {
     case movement_direction_t::FORWARD:
-      m_position += m_orientation_front * dt;
+      m_position += m_orientation_front * dt * m_movement_speed;
       break;
     case movement_direction_t::BACKWARD:
-      m_position -= m_orientation_front * dt;
+      m_position -= m_orientation_front * dt * m_movement_speed;
       break;
     case movement_direction_t::LEFT:
-      m_position -= m_orientation_right * dt;
+      m_position -= m_orientation_right * dt * m_movement_speed;
       break;
     case movement_direction_t::RIGHT:
-      m_position += m_orientation_right * dt;
+      m_position += m_orientation_right * dt * m_movement_speed;
       break;
     }
 }
