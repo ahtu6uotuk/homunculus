@@ -4,9 +4,11 @@
 #include "common/common.h"
 #include <glm/vec3.hpp>
 
+class font_t;
 
 class gui_textline_t : public gui_element_t
 {
+  font_t &m_font;
   string m_text;
   glm::vec3 m_color;
   unsigned int m_font_size;

@@ -15,11 +15,11 @@ gui_textline_t::gui_textline_t (
                    renderer.get_font ().get_text_width (text),
                    renderer.get_font ().get_font_height (),
                    h_align, v_align, pivot),
+    m_font (renderer.get_font ()),
     m_text (text),
     m_color (color),
     m_font_size (font_size)
-{
-}
+{}
 
 void gui_textline_t::set_color (const glm::vec3 &color) { m_color = color; }
 
@@ -27,7 +27,5 @@ void gui_textline_t::set_text (const std::string &text) { m_text = text; }
 
 void gui_textline_t::draw ()
 {
-  auto &renderer = get_renderer ();
-  glm::vec2 pos = glm::vec2 (static_cast<float> (get_absolute_x ()), static_cast<float> (get_absolute_y ()));
-  renderer.render_text (m_text, pos, m_color, m_font_size);
+  m_font.render_text (m_text, static_cast<float> (get_absolute_x ()), static_cast<float> (get_absolute_y ()), 1.f);
 }
