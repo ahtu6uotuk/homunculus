@@ -1,13 +1,8 @@
 #ifndef SHADER_H
 #define SHADER_H
 #include "common/err_t.h"
+#include "shader_fwd.h"
 
-
-enum class shader_type_t
-{
-  VERTEX,
-  FRAGMENT
-};
 
 template<shader_type_t SHADER_TYPE>
 class subshader_t
