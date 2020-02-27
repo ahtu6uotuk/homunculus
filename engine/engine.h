@@ -2,6 +2,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "common/err_t.h"
 #include "engine/logger.h"
+#include "engine/io/resource_manager.h"
 #include "engine/gui/gui_system.h"
 #include "engine/renderer/renderer.h"
 
@@ -14,6 +15,7 @@ class engine_t
 {
   sf::RenderWindow m_window;
   logger_t m_logger;
+  resource_manager_t m_resource_manager;
   gui_system_t m_gui;
   renderer_t m_renderer;
   gui_textline_t *m_performance_indicator;

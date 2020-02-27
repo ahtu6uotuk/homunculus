@@ -1,0 +1,121 @@
+#include "resource_manager.h"
+#include <fstream>
+#include "engine/io/io_utils.h"
+#include "engine/renderer/shader.h"
+
+resource_manager_t::resource_manager_t ()
+{}
+
+vertex_shader_t *resource_manager_t::get_vertex_shader (const resource_id_t &res_id) const
+{
+  return m_vertex_shaders[res_id.m_id].get ();
+}
+
+fragment_shader_t *resource_manager_t::get_fragment_shader (const resource_id_t &res_id) const
+{
+  return m_fragment_shaders[res_id.m_id].get ();
+}
+
+shader_t *resource_manager_t::get_shader (const resource_id_t &res_id) const
+{
+  return m_shaders[res_id.m_id].get ();
+}
+
+template<typename T>
+bool resource_manager_t::is_resource_in_storage (const string &filename, T **resource) const
+{
+  const auto &it = m_resource_id_storage.find (filename);
+  if (it != m_resource_id_storage.cend ())
+    {
+      if constexpr (is_same_v<T, vertex_shader_t>)
+        {
+          *resource = get_vertex_shader (it->second);
+        }
+      else if constexpr (is_same_v<T, fragment_shader_t>)
+        {
+          *resource = get_fragment_shader (it->second);
+        }
+      else if constexpr (is_same_v<T, shader_t>)
+        {
+          *resource = get_shader (it->second);
+        }
+      return true;
+    }
+
+  return false;
+}
+
+err_t resource_manager_t::load_vertex_shader (const string &filename, vertex_shader_t **vertex_shader)
+{
+  auto path = string ("gamedata/shaders/").append (filename);
+
+  unique_ptr<char[]> src = nullptr;
+  RETURN_IF_FAIL (read_file_data (path, src));
+  auto &vs = m_vertex_shaders.emplace_back (make_unique<vertex_shader_t> (src.get ()));
+
+  RETURN_IF_FAIL (vs->check ());
+
+  m_resource_id_storage.emplace (
+        make_pair (path, resource_id_t (resource_type_t::VERTEX_SHADER, m_vertex_shaders.size () -1))
+        );
+
+  *vertex_shader = vs.get ();
+
+  return ERR_OK;
+}
+
+err_t resource_manager_t::load_fragment_shader (const string &filename, fragment_shader_t **fragment_shader)
+{
+  auto path = string ("gamedata/shaders/").append (filename);
+
+  unique_ptr<char[]> src = nullptr;
+  RETURN_IF_FAIL (read_file_data (path, src));
+  auto &fs = m_fragment_shaders.emplace_back (make_unique<fragment_shader_t> (src.get ()));
+
+  RETURN_IF_FAIL (fs->check ());
+
+  m_resource_id_storage.emplace (
+        make_pair (path, resource_id_t (resource_type_t::FRAGMENT_SHADER, m_fragment_shaders.size () - 1))
+        );
+
+  *fragment_shader = fs.get ();
+
+  return ERR_OK;
+}
+
+err_t resource_manager_t::load_shader (const string &filename, shader_t **shader)
+{
+  auto path = string ("gamedata/shaders/").append (filename);
+  if (is_resource_in_storage (filename, shader))
+    return ERR_OK;
+
+  ifstream fdata (filename);
+
+  if (!fdata.is_open ())
+    return string ("can't open").append (filename);
+
+  string vs_path, fs_path;
+
+  if (!getline (fdata, vs_path))
+    return string ("can't read ").append (filename);
+
+  if (!getline (fdata, fs_path))
+    return string ("can't read ").append (filename);
+
+  vertex_shader_t *vs = nullptr;
+  fragment_shader_t *fs = nullptr;
+
+  RETURN_IF_FAIL (load_vertex_shader (vs_path, &vs));
+  RETURN_IF_FAIL (load_fragment_shader (fs_path, &fs));
+
+  m_shaders.emplace_back (make_unique<shader_t> (vs->get_id (), fs->get_id ()));
+  RETURN_IF_FAIL (m_shaders.back ()->check ());
+  m_resource_id_storage.emplace (
+        make_pair (path, resource_id_t (resource_type_t::SHADER_PROGRAM, m_shaders.size () - 1)
+                   ));
+
+  return err_t ("internal error");
+}
+
+resource_manager_t::~resource_manager_t ()
+{}
