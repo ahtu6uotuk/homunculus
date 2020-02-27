@@ -86,21 +86,21 @@ err_t resource_manager_t::load_fragment_shader (const string &filename, fragment
 err_t resource_manager_t::load_shader (const string &filename, shader_t **shader)
 {
   auto path = string ("gamedata/shaders/").append (filename);
-  if (is_resource_in_storage (filename, shader))
+  if (is_resource_in_storage (path, shader))
     return ERR_OK;
 
-  ifstream fdata (filename);
+  ifstream fdata (path);
 
   if (!fdata.is_open ())
-    return string ("can't open").append (filename);
+    return string ("can't open ").append (path);
 
   string vs_path, fs_path;
 
   if (!getline (fdata, vs_path))
-    return string ("can't read ").append (filename);
+    return string ("can't read ").append (path);
 
   if (!getline (fdata, fs_path))
-    return string ("can't read ").append (filename);
+    return string ("can't read ").append (path);
 
   vertex_shader_t *vs = nullptr;
   fragment_shader_t *fs = nullptr;
@@ -114,7 +114,7 @@ err_t resource_manager_t::load_shader (const string &filename, shader_t **shader
         make_pair (path, resource_id_t (resource_type_t::SHADER_PROGRAM, m_shaders.size () - 1)
                    ));
 
-  return err_t ("internal error");
+  return ERR_OK;
 }
 
 resource_manager_t::~resource_manager_t ()
