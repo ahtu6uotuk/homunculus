@@ -19,6 +19,8 @@ class engine_t
   gui_system_t m_gui;
   renderer_t m_renderer;
   gui_textline_t *m_performance_indicator;
+private:
+  err_t load_engine_resources ();
 public:
   engine_t () = delete;
   engine_t (int argc, char *argv[]);

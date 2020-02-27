@@ -26,6 +26,7 @@ public:
   void set_color (const glm::vec3 &color);
   void set_text (const std::string &text);
   void draw () override;
+  ~gui_textline_t ();
 };
 
 #endif // gui_textline_H

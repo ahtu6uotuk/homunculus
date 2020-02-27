@@ -18,6 +18,17 @@ engine_t::engine_t (int argc, char *argv[]):
   m_window.setFramerateLimit (60);
 }
 
+err_t engine_t::load_engine_resources ()
+{
+  shader_t *tmp_shader = nullptr;
+  RETURN_IF_FAIL (m_resource_manager.load_shader ("text.shader", &tmp_shader));
+
+  auto &font = m_renderer.get_font ();
+  font.set_text_shader (tmp_shader);
+
+  return ERR_OK;
+}
+
 err_t engine_t::init ()
 {
   if (!m_logger.is_ok ())
@@ -39,6 +50,8 @@ err_t engine_t::init ()
 
   if (!m_gui.is_ok ())
     return err_t ("GUI initialization error: no contexts exist!");
+
+  RETURN_IF_FAIL (load_engine_resources ());
 
   m_logger.print (log_section_t::ENGINE, log_priority_t::INFO, "initialization complete!");
 

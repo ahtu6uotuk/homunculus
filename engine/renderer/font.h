@@ -10,6 +10,8 @@
 typedef struct FT_LibraryRec_  *FT_Library;
 typedef struct FT_FaceRec_*  FT_Face;
 
+class shader_t;
+
 class font_character_t
 {
   GLuint m_texture_id;
@@ -39,6 +41,8 @@ class font_t
   const unsigned int m_font_height;
   GLuint m_vao;
   GLuint m_vbo;
+  shader_t *m_text_shader;
+private:
   err_t load_chars (FT_Library &ftlib, FT_Face &ftface, size_t start, map<GLubyte, font_character_t> &chars);
   const font_character_t &process_character (const unsigned char *&ch) const;
 public:
@@ -50,6 +54,7 @@ public:
   unsigned int get_font_height () const {return m_font_height;}
   unsigned int get_text_width (const string &text) const;
   GLfloat get_scale (const unsigned int font_size) const;
+  void set_text_shader (shader_t *shader);
   ~font_t ();
 };
 

@@ -1,4 +1,5 @@
 #include "font.h"
+#include "engine/renderer/shader.h"
 #include <freetype2/ft2build.h>
 #include FT_FREETYPE_H
 
@@ -142,6 +143,7 @@ void font_t::render_text (const string &text,
                           GLfloat y,
                           GLfloat scale) const
 {
+  m_text_shader->use ();
   glActiveTexture (GL_TEXTURE0);
   glBindVertexArray (m_vao);
 
@@ -193,6 +195,11 @@ unsigned int font_t::get_text_width (const string &text) const
 GLfloat font_t::get_scale (const unsigned int font_size) const
 {
   return static_cast<GLfloat> (font_size) / static_cast<GLfloat> (m_font_height);
+}
+
+void font_t::set_text_shader (shader_t *shader)
+{
+  m_text_shader = shader;
 }
 
 font_t::~font_t ()
