@@ -1,7 +1,8 @@
 #include "io_utils.h"
 #include <fstream>
+#include <iterator>
 
-err_t read_file_data (const string &filename, unique_ptr<char[]> &data)
+err_t read_file_data (const string &filename, string &data)
 {
   ifstream fdata (filename, ios_base::in);
 
@@ -11,8 +12,8 @@ err_t read_file_data (const string &filename, unique_ptr<char[]> &data)
   fdata.seekg (0, ios::end);
   const auto file_size = fdata.tellg ();
   fdata.seekg (0, ios::beg);
-  data = make_unique<char[]> (fdata.tellg ());
-  fdata.read (data.get (), file_size);
+  data.resize (file_size);
+  data.assign (istreambuf_iterator<char> (fdata), istreambuf_iterator<char> ());
 
   if (fdata.bad ())
     return string ("can't read ").append (filename);
