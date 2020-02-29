@@ -1,7 +1,9 @@
 #include "resource_manager.h"
 #include <fstream>
 #include "engine/io/io_utils.h"
+#include "engine/io/model_obj.h"
 #include "engine/renderer/shader.h"
+#include "engine/renderer/mesh.h"
 
 resource_manager_t::resource_manager_t ()
 {}
@@ -21,6 +23,11 @@ shader_t *resource_manager_t::get_shader (const resource_id_t &res_id) const
   return m_shaders[res_id.m_id].get ();
 }
 
+mesh_t *resource_manager_t::get_mesh (const resource_id_t &res_id) const
+{
+  return m_meshes[res_id.m_id].get ();
+}
+
 template<typename T>
 bool resource_manager_t::is_resource_in_storage (const string &filename, T **resource) const
 {
@@ -38,6 +45,10 @@ bool resource_manager_t::is_resource_in_storage (const string &filename, T **res
       else if constexpr (is_same_v<T, shader_t>)
         {
           *resource = get_shader (it->second);
+        }
+      else if constexpr (is_same_v<T, mesh_t>)
+        {
+          *resource = get_mesh (it->second);
         }
       return true;
     }
@@ -114,6 +125,26 @@ err_t resource_manager_t::load_shader (const string &filename, shader_t **shader
                    ));
 
   *shader = res.get ();
+
+  return ERR_OK;
+}
+
+err_t resource_manager_t::load_mesh (const string &filename, mesh_t **mesh)
+{
+  auto path = string ("gamedata/models/").append (filename);
+
+  if (is_resource_in_storage (path, mesh))
+    return ERR_OK;
+
+  model_obj_t obj_importer;
+  RETURN_IF_FAIL (obj_importer.load (path));
+
+  m_meshes.emplace_back (make_unique<mesh_t> (obj_importer.to_mesh ()));
+  m_resource_id_storage.emplace (
+        make_pair (path, resource_id_t (resource_type_t::MESH, m_meshes.size () - 1))
+        );
+
+  *mesh = m_meshes.back ().get ();
 
   return ERR_OK;
 }
