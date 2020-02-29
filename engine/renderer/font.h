@@ -1,7 +1,6 @@
 #ifndef FONT_H
 #define FONT_H
 #include <GL/glew.h>
-//#include <GL/gl.h>
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 #include <map>
@@ -45,15 +44,16 @@ class font_t
 private:
   err_t load_chars (FT_Library &ftlib, FT_Face &ftface, size_t start, map<GLubyte, font_character_t> &chars);
   const font_character_t &process_character (const unsigned char *&ch) const;
+  GLfloat get_scale (const unsigned int font_size) const;
 public:
   font_t (string &&font_name, const unsigned int font_height);
   err_t load ();
   const string &get_font_name () const {return m_font_name;}
   void render_text (const string &text,
-                    GLfloat x, GLfloat y, GLfloat scale) const;
+                    GLfloat x, GLfloat y, GLuint scale,
+                    const glm::vec3 &color) const;
   unsigned int get_font_height () const {return m_font_height;}
   unsigned int get_text_width (const string &text) const;
-  GLfloat get_scale (const unsigned int font_size) const;
   void set_text_shader (shader_t *shader);
   ~font_t ();
 };

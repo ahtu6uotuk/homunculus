@@ -1,6 +1,7 @@
 #include "gui_textline.h"
 #include "engine/renderer/renderer.h"
 #include "engine/renderer/font.h"
+#include "engine/renderer/shader.h"
 
 gui_textline_t::gui_textline_t (
     renderer_t &renderer,
@@ -28,7 +29,11 @@ void gui_textline_t::set_text (const std::string &text) { m_text = text; }
 
 void gui_textline_t::draw ()
 {
-  m_font.render_text (m_text, static_cast<float> (get_absolute_x ()), static_cast<float> (get_absolute_y ()), 1.f);
+  m_font.render_text (m_text,
+                      static_cast<float> (get_absolute_x ()),
+                      static_cast<float> (get_absolute_y ()),
+                      m_font_size,
+                      m_color);
 }
 
 gui_textline_t::~gui_textline_t ()

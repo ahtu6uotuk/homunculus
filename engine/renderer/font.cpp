@@ -1,5 +1,8 @@
 #include "font.h"
 #include "engine/renderer/shader.h"
+#include <glm/mat4x4.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <freetype2/ft2build.h>
 #include FT_FREETYPE_H
 
@@ -122,6 +125,7 @@ err_t font_t::load ()
   glVertexAttribPointer (0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof (GLfloat), 0);
   glBindBuffer (GL_ARRAY_BUFFER, 0);
   glBindVertexArray (0);
+
   return ERR_OK;
 }
 
@@ -141,9 +145,12 @@ const font_character_t &font_t::process_character (const unsigned char *&ch) con
 void font_t::render_text (const string &text,
                           GLfloat x,
                           GLfloat y,
-                          GLfloat scale) const
+                          GLuint font_size,
+                          const glm::vec3 &color) const
 {
   m_text_shader->use ();
+  m_text_shader->set_uniform_3f ("textColor", color.r, color.g, color.b);
+  GLfloat scale = get_scale (font_size);
   glActiveTexture (GL_TEXTURE0);
   glBindVertexArray (m_vao);
 
@@ -200,6 +207,10 @@ GLfloat font_t::get_scale (const unsigned int font_size) const
 void font_t::set_text_shader (shader_t *shader)
 {
   m_text_shader = shader;
+  m_text_shader->use ();
+  glm::mat4 mat = glm::ortho (0.f, 800.f, 0.f, 600.f);
+  m_text_shader->set_uniform_mat4 ("projection", glm::value_ptr (mat));
+  m_text_shader->set_uniform_3f ("textColor", .7f, .15f, .15f);
 }
 
 font_t::~font_t ()
