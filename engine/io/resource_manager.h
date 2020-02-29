@@ -5,6 +5,7 @@
 #include "common/err_t.h"
 #include "engine/renderer/shader_fwd.h"
 
+class logger_t;
 class mesh_t;
 
 enum class resource_type_t
@@ -24,6 +25,7 @@ struct resource_id_t
 
 class resource_manager_t
 {
+  logger_t &m_logger; ///< reference to engine logger for info messages
   unordered_map<string, resource_id_t> m_resource_id_storage;
   vector<unique_ptr<vertex_shader_t>> m_vertex_shaders;
   vector<unique_ptr<fragment_shader_t>> m_fragment_shaders;
@@ -33,7 +35,7 @@ private:
   template<typename T>
   bool is_resource_in_storage (const string &filename, T **resource) const;
 public:
-  resource_manager_t ();
+  resource_manager_t (logger_t &logger);
   resource_manager_t (const resource_manager_t &) = delete;
   resource_manager_t (resource_manager_t &&) = delete;
 

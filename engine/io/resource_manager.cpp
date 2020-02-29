@@ -1,11 +1,13 @@
 #include "resource_manager.h"
 #include <fstream>
+#include "engine/logger.h"
 #include "engine/io/io_utils.h"
 #include "engine/io/model_obj.h"
 #include "engine/renderer/shader.h"
 #include "engine/renderer/mesh.h"
 
-resource_manager_t::resource_manager_t ()
+resource_manager_t::resource_manager_t (logger_t &logger):
+  m_logger (logger)
 {}
 
 vertex_shader_t *resource_manager_t::get_vertex_shader (const resource_id_t &res_id) const
@@ -65,6 +67,8 @@ err_t resource_manager_t::load_vertex_shader (const string &filename, vertex_sha
   auto &vs = m_vertex_shaders.emplace_back (make_unique<vertex_shader_t> (src.c_str ()));
   RETURN_IF_FAIL (vs->check ());
 
+  m_logger.print (log_section_t::RESOURCE_MANAGER, log_priority_t::INFO, "load vertex subshader", path);
+
   m_resource_id_storage.emplace (
         make_pair (path, resource_id_t (resource_type_t::VERTEX_SHADER, m_vertex_shaders.size () -1))
         );
@@ -83,6 +87,8 @@ err_t resource_manager_t::load_fragment_shader (const string &filename, fragment
   auto &fs = m_fragment_shaders.emplace_back (make_unique<fragment_shader_t> (src.c_str ()));
   RETURN_IF_FAIL (fs->check ());
 
+  m_logger.print (log_section_t::RESOURCE_MANAGER, log_priority_t::INFO, "load fragment subshader", path);
+
   m_resource_id_storage.emplace (
         make_pair (path, resource_id_t (resource_type_t::FRAGMENT_SHADER, m_fragment_shaders.size () - 1))
         );
@@ -97,6 +103,8 @@ err_t resource_manager_t::load_shader (const string &filename, shader_t **shader
   auto path = string ("gamedata/shaders/").append (filename);
   if (is_resource_in_storage (path, shader))
     return ERR_OK;
+
+  m_logger.print (log_section_t::RESOURCE_MANAGER, log_priority_t::INFO, "load shader", path);
 
   ifstream fdata (path);
 
@@ -135,6 +143,8 @@ err_t resource_manager_t::load_mesh (const string &filename, mesh_t **mesh)
 
   if (is_resource_in_storage (path, mesh))
     return ERR_OK;
+
+  m_logger.print (log_section_t::RESOURCE_MANAGER, log_priority_t::INFO, "loading mesh", path);
 
   model_obj_t obj_importer;
   RETURN_IF_FAIL (obj_importer.load (path));
