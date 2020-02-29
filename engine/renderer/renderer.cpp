@@ -9,7 +9,8 @@ renderer_t::renderer_t (engine_t &engine):
   m_engine (engine),
   m_window (engine.get_sfml_window ()),
   m_gui (engine.get_gui_system ()),
-  m_font ("FreeSerif.ttf", 48)
+  m_font ("FreeSerif.ttf", 48),
+  m_camera (glm::vec3 (0.f, 0.f, 0.f))
 {}
 
 err_t renderer_t::init ()

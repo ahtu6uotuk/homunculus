@@ -2,6 +2,7 @@
 #define RENDERER_H
 #include "common/err_t.h"
 #include "engine/renderer/font.h"
+#include "engine/renderer/camera.h"
 
 class engine_t;
 class gui_system_t;
@@ -18,6 +19,7 @@ class renderer_t
   sf::RenderWindow &m_window;
   gui_system_t &m_gui;
   font_t m_font;
+  camera_t m_camera;
 public:
   renderer_t (engine_t &engine);
   err_t init ();
