@@ -31,6 +31,8 @@ public:
   camera_t () = delete;
   camera_t (const camera_t &) = delete;
   camera_t (camera_t &&) = delete;
+  camera_t &operator= (const camera_t &) = delete;
+  camera_t &operator= (camera_t &&) = delete;
   camera_t (const glm::vec3 &position);
   /// @brief Move camera in direction during time dt
   void move (movement_direction_t direction, float dt);
