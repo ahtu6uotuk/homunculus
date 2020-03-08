@@ -73,13 +73,15 @@ err_t mesh_t::load ()
 
 void mesh_t::draw ()
 {
+  glBindBuffer (GL_ARRAY_BUFFER, m_vbo);
   glBindVertexArray (m_vao);
+  glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof (GLfloat), reinterpret_cast<void *> (0));
   glEnableVertexAttribArray (0);
+  glVertexAttribPointer (1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof (GLfloat), reinterpret_cast<void *> (6 * sizeof (GLfloat)));
   glEnableVertexAttribArray (1);
   glBindBuffer (GL_ELEMENT_ARRAY_BUFFER, m_ibo);
-  glDrawElements (GL_TRIANGLES, m_indices.size (), GL_UNSIGNED_INT, m_indices.data ());
-  glDisableVertexAttribArray (0);
-  glDisableVertexAttribArray (1);
+  glDrawElements (GL_TRIANGLES, m_indices.size (), GL_UNSIGNED_INT, nullptr);
+  glBindVertexArray (0);
 }
 
 void mesh_t::print_debug_info (logger_t &logger)
