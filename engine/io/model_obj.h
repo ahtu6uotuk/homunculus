@@ -32,7 +32,7 @@ public:
   model_obj_t (const string &filename);
   err_t load (const string &filename);
   void print_debug_info (logger_t &logger);
-  mesh_t to_mesh ();
+  mesh_t to_mesh (logger_t &logger);
 };
 
 #endif // MODEL_OBJ_H

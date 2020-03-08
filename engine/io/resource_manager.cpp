@@ -149,7 +149,7 @@ err_t resource_manager_t::load_mesh (const string &filename, mesh_t **mesh)
   model_obj_t obj_importer;
   RETURN_IF_FAIL (obj_importer.load (path));
 
-  m_meshes.emplace_back (make_unique<mesh_t> (obj_importer.to_mesh ()));
+  m_meshes.emplace_back (make_unique<mesh_t> (obj_importer.to_mesh (m_logger)));
   m_resource_id_storage.emplace (
         make_pair (path, resource_id_t (resource_type_t::MESH, m_meshes.size () - 1))
         );

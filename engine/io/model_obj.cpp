@@ -101,39 +101,40 @@ err_t model_obj_t::load (const string &filename)
 
 void model_obj_t::print_debug_info (logger_t &logger)
 {
+  logger.print (log_section_t::RESOURCE_MANAGER, log_priority_t::INFO, "IMPORT OBJ MODEL:");
   logger_utils::print_var_info (logger, "m_vertices", m_vertices);
   logger_utils::print_var_info (logger, "m_normals", m_normals);
   logger_utils::print_var_info (logger, "m_uv", m_uv);
   logger_utils::print_var_info (logger, "m_vertex_indices", m_vertex_indices);
-  logger_utils::print_var_info (logger, "m_normals", m_normals);
+  logger_utils::print_var_info (logger, "m_normal_indices", m_normal_indices);
   logger_utils::print_var_info (logger, "m_uv_indices", m_uv_indices);
 }
 
-mesh_t model_obj_t::to_mesh ()
+mesh_t model_obj_t::to_mesh (logger_t &)
 {
-  map<vertex_data_view_t, GLuint> indexation;
-  std::vector<vertex_data_t> mesh_vertices;
-  std::vector<GLuint> mesh_indices;
-
-  size_t last_vertex_index = 0;
-  const size_t vertices_num = m_vertex_indices.size ();
-  for (size_t i = 0; i < vertices_num; i++)
+  std::map<vertex_data_view_t, unsigned int> indexation;
+  std::vector<vertex_data_t> out_vertices = {};
+  std::vector<unsigned int> out_indices = {};
+  unsigned int last_index = 0;
+  const auto vertices_len = m_vertex_indices.size ();
+  for (size_t i = 0; i < vertices_len; i++)
     {
-      const vertex_data_view_t vertex_view = {m_vertices[m_vertex_indices[i] - 1],
-                                              m_normals[m_normal_indices[i] - 1],
-                                              m_uv[m_uv_indices[i] - 1]};
-      auto it = indexation.find (vertex_view);
+      vertex_data_view_t pack = {m_vertices[m_vertex_indices[i] - 1],
+                                 m_normals[m_normal_indices[i] - 1],
+                                 m_uv[m_uv_indices[i] - 1]};
+      auto it = indexation.find (pack);
       if (it != indexation.end ())
         {
-          mesh_indices.push_back (it->second);
+          out_indices.push_back (it->second);
         }
       else
         {
-          mesh_indices.push_back (last_vertex_index);
-          indexation[vertex_view] = last_vertex_index;
-          mesh_vertices.emplace_back (vertex_view);
-          last_vertex_index++;
+          indexation[pack] = last_index;
+          out_vertices.push_back (vertex_data_t (pack));
+          out_indices.push_back (last_index);
+          last_index++;
         }
     }
-  return mesh_t (std::move (mesh_vertices), std::move (mesh_indices), std::vector<GLuint> ());
+
+  return mesh_t (std::move (out_vertices), std::move (out_indices), {});
 }
