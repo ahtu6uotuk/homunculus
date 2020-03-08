@@ -10,6 +10,7 @@ enum class log_section_t
   ENGINE = 0,
   RENDERER,
   GAME,
+  RESOURCE_MANAGER,
   COUNT,
   LOG_ERROR = COUNT
 };
@@ -60,7 +61,7 @@ public:
     std::string prefix = enum_to_string (section);
     prefix.append (": ");
     prefix.append (enum_to_string (priority));
-    prefix.append (": ");
+    prefix.append (":");
     return print_plain (prefix, data...);
   }
 

@@ -26,6 +26,8 @@ const char *enum_to_string (log_section_t section)
       return "RENDERER";
     case log_section_t::GAME:
       return "GAME";
+    case log_section_t::RESOURCE_MANAGER:
+      return "RESOURCE MANAGER";
     case log_section_t::LOG_ERROR:
       return "Internal logger error";
     }
