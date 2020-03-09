@@ -1,4 +1,5 @@
 #include <fstream>
+#include <GL/glew.h>
 #include "tga_image.h"
 
 void tga_header_t::print_debug_info () const
@@ -36,12 +37,12 @@ tga_image_t::tga_image_t ()
 
 }
 
-void tga_image_t::read (const std::string &file_name)
+err_t tga_image_t::load (const std::string &file_name)
 {
   std::ifstream tga_file;
   tga_file.open (file_name, std::ios::in | std::ios::binary);
   if (!tga_file.is_open ())
-    {return;}
+    {return string ("can't open ").append (file_name);}
 
   tga_file.read (reinterpret_cast<char *> (&m_header.m_id_length), sizeof (m_header.m_id_length));
   tga_file.read (reinterpret_cast<char *> (&m_header.m_color_map_type), sizeof (m_header.m_color_map_type));
@@ -57,7 +58,7 @@ void tga_image_t::read (const std::string &file_name)
   tga_file.read (reinterpret_cast<char *> (&m_header.m_descriptor), sizeof (m_header.m_descriptor));
 
   if (tga_file.fail ())
-    {return;}
+    {return string ("wrong TGA header format ").append (file_name);}
 
   if (m_header.m_id_length > 0)
     {
@@ -66,7 +67,7 @@ void tga_image_t::read (const std::string &file_name)
     }
 
   if (m_header.m_color_map_type)
-    {return;}
+    {return string ("wrong color type in TGA file ").append (file_name);}
 
 //  m_header.print_debug_info ();
 
@@ -75,9 +76,9 @@ void tga_image_t::read (const std::string &file_name)
   tga_file.read (reinterpret_cast<char *> (m_image_data.get ()), image_data_size);
 
   if (m_header.m_image_type != tga_image_type_t::UNCOMPRESSED_TRUE_COLOR)
-    return;
+    return string ("unsupported TGA image type ").append (file_name);
 
-  return ;
+  return ERR_OK;
 }
 
 std::unique_ptr<unsigned char[]> tga_image_t::move_as_texture_data ()
@@ -99,6 +100,23 @@ std::unique_ptr<unsigned char[]> tga_image_t::copy_as_texture_data () const
       return std::unique_ptr<unsigned char[]> (img.release ());
     }
   return nullptr;
+}
+
+unsigned int tga_image_t::to_gl () const
+{
+  unsigned int texture = 0;
+  glGenTextures (1, &texture);
+  glBindTexture (GL_TEXTURE_2D, texture);
+  glTexImage2D (GL_TEXTURE_2D, 0, GL_RGBA, m_header.m_image_width, m_header.m_image_height, 0,
+                GL_RGBA, GL_FALSE, m_image_data.get ());
+  // ... nice trilinear filtering ...
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+  // ... which requires mipmaps. Generate them automatically.
+  glGenerateMipmap (GL_TEXTURE_2D);
+  return texture;
 }
 
 tga_image_t::~tga_image_t ()

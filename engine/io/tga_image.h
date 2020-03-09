@@ -1,7 +1,7 @@
+#pragma once
 #ifndef TGA_IMAGE_H
 #define TGA_IMAGE_H
-#pragma once
-#include <memory>
+#include "common/err_t.h"
 
 enum class tga_image_type_t : uint8_t
 {
@@ -58,9 +58,10 @@ class tga_image_t
   std::unique_ptr<unsigned char[]> m_image_data = nullptr;
 public:
   tga_image_t ();
-  void read (const std::string &file_name);
+  err_t load (const std::string &file_name);
   std::unique_ptr<unsigned char[]> move_as_texture_data ();
   std::unique_ptr<unsigned char[]> copy_as_texture_data () const;
+  unsigned int to_gl () const;
   ~tga_image_t ();
 };
 

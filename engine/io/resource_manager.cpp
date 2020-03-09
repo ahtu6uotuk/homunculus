@@ -3,8 +3,20 @@
 #include "engine/logger.h"
 #include "engine/io/io_utils.h"
 #include "engine/io/model_obj.h"
+#include "engine/io/tga_image.h"
 #include "engine/renderer/shader.h"
 #include "engine/renderer/mesh.h"
+
+bool resource_manager_t::is_resource_in_storage (const string &filename, unsigned int &resource) const
+{
+  const auto &it = m_resource_id_storage.find (filename);
+  if (it != m_resource_id_storage.cend ())
+    {
+      resource = m_textures[it->second.m_id];
+      return true;
+    }
+  return false;
+}
 
 resource_manager_t::resource_manager_t (logger_t &logger):
   m_logger (logger)
@@ -148,6 +160,7 @@ err_t resource_manager_t::load_mesh (const string &filename, mesh_t **mesh)
 
   model_obj_t obj_importer;
   RETURN_IF_FAIL (obj_importer.load (path));
+  obj_importer.print_debug_info (m_logger);
 
   m_meshes.emplace_back (make_unique<mesh_t> (obj_importer.to_mesh (m_logger)));
   m_resource_id_storage.emplace (
@@ -155,6 +168,26 @@ err_t resource_manager_t::load_mesh (const string &filename, mesh_t **mesh)
         );
 
   *mesh = m_meshes.back ().get ();
+
+  return ERR_OK;
+}
+
+err_t resource_manager_t::load_tga_texture (const string &filename, unsigned int &texture)
+{
+  auto path = string ("gamedata/textures/").append (filename);
+
+  if (is_resource_in_storage (path, texture))
+    {
+      return ERR_OK;
+    }
+
+  tga_image_t tga;
+  RETURN_IF_FAIL (tga.load (path));
+  texture = tga.to_gl ();
+  m_textures.push_back (texture);
+  m_resource_id_storage.emplace (
+        make_pair (path, resource_id_t (resource_type_t::TEXTURE, m_textures.size () - 1))
+        );
 
   return ERR_OK;
 }

@@ -13,7 +13,8 @@ enum class resource_type_t
   VERTEX_SHADER,
   FRAGMENT_SHADER,
   SHADER_PROGRAM,
-  MESH
+  MESH,
+  TEXTURE
 };
 
 struct resource_id_t
@@ -31,9 +32,11 @@ class resource_manager_t
   vector<unique_ptr<fragment_shader_t>> m_fragment_shaders;
   vector<unique_ptr<shader_t>> m_shaders;
   vector<unique_ptr<mesh_t>> m_meshes;
+  vector<unsigned int> m_textures;
 private:
   template<typename T>
   bool is_resource_in_storage (const string &filename, T **resource) const;
+  bool is_resource_in_storage (const string &filename, unsigned int &resource) const;
 public:
   resource_manager_t (logger_t &logger);
   resource_manager_t (const resource_manager_t &) = delete;
@@ -48,6 +51,7 @@ public:
   err_t load_fragment_shader (const string &filename, fragment_shader_t **fragment_shader);
   err_t load_shader (const string &filename, shader_t **shader);
   err_t load_mesh (const string &filename, mesh_t **mesh);
+  err_t load_tga_texture (const string &filename, unsigned int &texture);
 
   ~resource_manager_t ();
 };
