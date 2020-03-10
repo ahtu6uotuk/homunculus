@@ -108,7 +108,7 @@ unsigned int tga_image_t::to_gl () const
   glGenTextures (1, &texture);
   glBindTexture (GL_TEXTURE_2D, texture);
   glTexImage2D (GL_TEXTURE_2D, 0, GL_RGBA, m_header.m_image_width, m_header.m_image_height, 0,
-                GL_RGBA, GL_FALSE, m_image_data.get ());
+                GL_RGBA, GL_UNSIGNED_BYTE, m_image_data.get ());
   // ... nice trilinear filtering ...
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
