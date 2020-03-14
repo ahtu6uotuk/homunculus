@@ -23,6 +23,7 @@ class camera_t
   float m_yaw; ///< yaw euler angle
   float m_pitch; ///< pitch euler angle
   float m_movement_speed;
+  float m_mouse_sensitivity;
   float m_zoom;
 private:
   /// @brief Compute camera front, up and right vectors
@@ -42,6 +43,9 @@ public:
   void zoom (float zoom);
   /// @brief Compute view matrix
   glm::mat4 get_view_matrix () const;
+
+  void print_debug_info () const;
+
   ~camera_t ();
 };
 
