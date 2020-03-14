@@ -16,11 +16,11 @@ void mesh_t::init_gl ()
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof (vertex_data_t), (void*)0);
   // vertex normals
-  glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof (vertex_data_t), (void*)offsetof (vertex_data_t, m_normal));
+//  glEnableVertexAttribArray(1);
+//  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof (vertex_data_t), (void*)offsetof (vertex_data_t, m_normal));
   // vertex texture coords
-  glEnableVertexAttribArray(2);
-  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof (vertex_data_t), (void*)offsetof (vertex_data_t, m_uv));
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer (1, 2, GL_FLOAT, GL_FALSE, sizeof (vertex_data_t), (void*)offsetof (vertex_data_t, m_uv));
 
   glBindVertexArray(0);
 }
@@ -74,13 +74,17 @@ err_t mesh_t::load ()
 void mesh_t::draw ()
 {
   glBindBuffer (GL_ARRAY_BUFFER, m_vbo);
+  glBufferData (GL_ARRAY_BUFFER, m_vertices.size () * sizeof (vertex_data_t), m_vertices.data (), GL_STATIC_DRAW);
   glBindVertexArray (m_vao);
   glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof (GLfloat), reinterpret_cast<void *> (0));
   glEnableVertexAttribArray (0);
   glVertexAttribPointer (1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof (GLfloat), reinterpret_cast<void *> (6 * sizeof (GLfloat)));
   glEnableVertexAttribArray (1);
   glBindBuffer (GL_ELEMENT_ARRAY_BUFFER, m_ibo);
+  glBufferData (GL_ELEMENT_ARRAY_BUFFER, m_indices.size () * sizeof (GLuint), m_indices.data (), GL_STATIC_DRAW);
   glDrawElements (GL_TRIANGLES, m_indices.size (), GL_UNSIGNED_INT, nullptr);
+//  glBindBuffer (GL_ARRAY_BUFFER, 0);
+//  glBindBuffer (GL_ELEMENT_ARRAY_BUFFER, 0);
   glBindVertexArray (0);
 }
 
