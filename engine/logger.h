@@ -44,6 +44,8 @@ private:
 public:
   logger_t () = delete;
   explicit logger_t (const char *fname_log);
+  logger_t (const logger_t &) = delete;
+  logger_t (logger_t &&) = delete;
   template<typename ...Types>
   void print_plain (const Types & ... data)
   {
