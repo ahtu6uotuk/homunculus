@@ -23,6 +23,7 @@ namespace camera_defaults
   constexpr float pitch = 0.f;
   constexpr float speed = 0.1f;
   constexpr float zoom = 45.f;
+  constexpr float mouse_sensitivity = 0.05f;
 }
 
 void camera_t::compute_orientation_vectors ()
@@ -43,7 +44,7 @@ camera_t::camera_t (const glm::vec3 &position):
   m_yaw (camera_defaults::yaw),
   m_pitch (camera_defaults::pitch),
   m_movement_speed (camera_defaults::speed),
-  m_mouse_sensitivity (0.005f),
+  m_mouse_sensitivity (camera_defaults::mouse_sensitivity),
   m_zoom (camera_defaults::zoom)
 {
   compute_orientation_vectors ();
