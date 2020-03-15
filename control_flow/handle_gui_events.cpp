@@ -9,6 +9,7 @@
 unique_ptr<request_to_calc_base> handle_gui_events (engine_t &engine)
 {
   unique_ptr<request_to_calc_base> result (new request_to_calc_empty ());
+  auto &camera = engine.get_renderer ().get_camera ();
 
   sf::Event event;
   while (engine.get_sfml_window ().pollEvent (event))
@@ -42,7 +43,22 @@ unique_ptr<request_to_calc_base> handle_gui_events (engine_t &engine)
           }
         case sf::Event::EventType::KeyPressed:
           {
-            do_nothing ();
+            if (event.key.code == sf::Keyboard::Key::Right)
+              camera.rotate (5.f, 0.f);
+            if (event.key.code == sf::Keyboard::Key::Left)
+              camera.rotate (-5.f, 0.f);
+            if (event.key.code == sf::Keyboard::Key::Up)
+              camera.rotate (0.f, 5.f);
+            if (event.key.code == sf::Keyboard::Key::Down)
+              camera.rotate (0.f, -5.f);
+            if (event.key.code == sf::Keyboard::Key::D)
+              camera.move (movement_direction_t::RIGHT, 1.f);
+            if (event.key.code == sf::Keyboard::Key::A)
+              camera.move (movement_direction_t::LEFT, 1.f);
+            if (event.key.code == sf::Keyboard::Key::W)
+              camera.move (movement_direction_t::FORWARD, 1.f);
+            if (event.key.code == sf::Keyboard::Key::S)
+              camera.move (movement_direction_t::BACKWARD, 1.f);
             break;
           }
         case sf::Event::EventType::KeyReleased:
