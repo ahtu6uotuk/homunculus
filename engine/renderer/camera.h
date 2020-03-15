@@ -44,8 +44,6 @@ public:
   /// @brief Compute view matrix
   glm::mat4 get_view_matrix () const;
 
-  void print_debug_info () const;
-
   ~camera_t ();
 };
 

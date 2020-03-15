@@ -100,16 +100,5 @@ glm::mat4 camera_t::get_view_matrix () const
   return glm::lookAt (m_position, m_position + m_orientation_front, m_orientation_up);
 }
 
-void camera_t::print_debug_info () const
-{
-  auto print_vec3 = [] (const glm::vec3 &v, const char *name)
-  {std::cout << name << ": " << v.x << " " << v.y << " " << v.z << std::endl;};
-  print_vec3 (m_position, "m_position");
-  print_vec3 (m_orientation_front, "m_orientation_front");
-  print_vec3 (m_orientation_right, "m_orientation_right");
-  print_vec3 (m_orientation_up, "m_orientation_up");
-  print_vec3 (m_orientation_world_up, "m_orientation_worlf_up");
-}
-
 camera_t::~camera_t ()
 {}
