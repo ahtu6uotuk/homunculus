@@ -27,6 +27,16 @@ err_t engine_t::load_engine_resources ()
   auto &font = m_renderer.get_font ();
   font.set_text_shader (tmp_shader);
 
+  mesh_t *msh = nullptr;
+  RETURN_IF_FAIL (m_resource_manager.load_mesh ("cube.obj", &msh));
+
+  RETURN_IF_FAIL (m_resource_manager.load_shader ("test.shader", &tmp_shader));
+
+  unsigned int tex;
+  RETURN_IF_FAIL (m_resource_manager.load_tga_texture ("cube.tga", tex));
+
+  m_renderer.set_mesh (m_logger, msh, tmp_shader, tex);
+
   return ERR_OK;
 }
 
