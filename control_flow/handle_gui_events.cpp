@@ -6,9 +6,9 @@
 #include "control_flow/request_to_calc.h"
 #include "engine/engine.h"
 
-unique_ptr<request_to_calc_base> handle_gui_events (engine_t &engine)
+std::unique_ptr<request_to_calc_base> handle_gui_events (engine_t &engine)
 {
-  unique_ptr<request_to_calc_base> result (new request_to_calc_empty ());
+  std::unique_ptr<request_to_calc_base> result (new request_to_calc_empty ());
   auto &camera = engine.get_renderer ().get_camera ();
 
   sf::Event event;

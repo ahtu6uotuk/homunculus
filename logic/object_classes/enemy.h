@@ -15,5 +15,5 @@ class enemy_t : public object<
                     hp_health_policy>
 {
 public:
-  static string objtype_name () { return "enemy"; }
+  static std::string objtype_name () { return "enemy"; }
 };

@@ -7,8 +7,8 @@ class gui_textline_t;
 
 class frame_manager
 {
-  using time_point_t = chrono::time_point<chrono::steady_clock>;
-  using duration_t = chrono::nanoseconds;
+  using time_point_t = std::chrono::time_point<std::chrono::steady_clock>;
+  using duration_t = std::chrono::nanoseconds;
 
 public:
   frame_manager (gui_textline_t &indicator);
@@ -23,5 +23,5 @@ private:
   gui_textline_t &m_indicator;
 
   static double to_double (const duration_t &d);
-  optional<time_point_t> m_last_frame_start;
+  std::optional<time_point_t> m_last_frame_start;
 };

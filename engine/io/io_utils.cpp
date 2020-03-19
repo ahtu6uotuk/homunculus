@@ -2,21 +2,21 @@
 #include <fstream>
 #include <iterator>
 
-err_t read_file_data (const string &filename, string &data)
+err_t read_file_data (const std::string &filename, std::string &data)
 {
-  ifstream fdata (filename, ios_base::in);
+  std::ifstream fdata (filename, std::ios_base::in);
 
   if (!fdata.is_open ())
-    return string ("can't open ").append (filename);
+    return std::string ("can't open ").append (filename);
 
-  fdata.seekg (0, ios::end);
+  fdata.seekg (0, std::ios::end);
   const auto file_size = fdata.tellg ();
-  fdata.seekg (0, ios::beg);
+  fdata.seekg (0, std::ios::beg);
   data.resize (file_size);
-  data.assign (istreambuf_iterator<char> (fdata), istreambuf_iterator<char> ());
+  data.assign (std::istreambuf_iterator<char> (fdata), std::istreambuf_iterator<char> ());
 
   if (fdata.bad ())
-    return string ("can't read ").append (filename);
+    return std::string ("can't read ").append (filename);
 
   return ERR_OK;
 }

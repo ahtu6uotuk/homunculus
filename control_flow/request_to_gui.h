@@ -25,7 +25,7 @@ class request_to_gui_t : public request_to_gui_base
 {
 public:
   ~request_to_gui_t () {}
-  request_to_gui_t (FuncT func) : m_func (move (func)) {}
+  request_to_gui_t (FuncT func) : m_func (std::move (func)) {}
   err_t exec (engine_t &engine) override { return m_func (engine); }
 
 private:

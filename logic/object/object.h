@@ -13,18 +13,18 @@ template<typename Self, typename... Args>
 class object : automatic_register<Self>, virtual public object_base, public Args...
 {
 public:
-  string describe () const override
+  std::string describe () const override
   {
-    vector<string> parts;
+    std::vector<std::string> parts;
     auto func = [&parts] (const auto attr) { parts.push_back (attr->policy_describe ()); };
     for_all_attrs (func);
     return string_join (parts, "\n");
   }
-  vector<interaction> get_interactions () override
+  std::vector<interaction> get_interactions () override
   {
-    vector<interaction> res;
+    std::vector<interaction> res;
     auto func = [&res] (const auto attr) {
-      vector<interaction> l_res = attr->policy_get_interactions ();
+      std::vector<interaction> l_res = attr->policy_get_interactions ();
       res.insert (res.end (), make_move_iterator (l_res.begin ()), make_move_iterator (l_res.end ()));
     };
     for_all_attrs (func);

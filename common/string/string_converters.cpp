@@ -7,10 +7,10 @@
 #include "common/string/string_utils.h"
 
 // double
-err_t string_to_data (const string &src, double &dst)
+err_t string_to_data (const std::string &src, double &dst)
 {
   if (src.empty ())
-    return string_printf ("Could not convert empty string to int");
+    return string_printf ("Could not convert empty std::string to int");
 
   char *endptr = nullptr;
   double res = strtod (src.c_str (), &endptr);
@@ -21,17 +21,17 @@ err_t string_to_data (const string &src, double &dst)
   dst = res;
   return ERR_OK;
 }
-err_t string_from_data (string &dst, const double &src)
+err_t string_from_data (std::string &dst, const double &src)
 {
   dst = string_printf ("%a", src);
   return ERR_OK;
 }
 
 // int
-err_t string_to_data (const string &src, int &dst)
+err_t string_to_data (const std::string &src, int &dst)
 {
   if (src.empty ())
-    return string_printf ("Could not convert empty string to int");
+    return string_printf ("Could not convert empty std::string to int");
 
   char *endptr = nullptr;
   int res = static_cast<int> (strtol (src.c_str (), &endptr, 10));
@@ -42,14 +42,14 @@ err_t string_to_data (const string &src, int &dst)
   dst = res;
   return ERR_OK;
 }
-err_t string_from_data (string &dst, const int &src)
+err_t string_from_data (std::string &dst, const int &src)
 {
   dst = string_printf ("%d", src);
   return ERR_OK;
 }
 
 // int
-err_t string_to_data (const string &src, bool &dst)
+err_t string_to_data (const std::string &src, bool &dst)
 {
   if (src == "true")
     {
@@ -62,33 +62,33 @@ err_t string_to_data (const string &src, bool &dst)
       return ERR_OK;
     }
 
-  return string_printf ("Could not convert string \"%s\" to bool", src.c_str ());
+  return string_printf ("Could not convert std::string \"%s\" to bool", src.c_str ());
 }
-err_t string_from_data (string &dst, const bool &src)
+err_t string_from_data (std::string &dst, const bool &src)
 {
   dst = (src ? "true" : "false");
   return ERR_OK;
 }
 
-// string
-err_t string_to_data (const string &src, string &dst)
+// std::string
+err_t string_to_data (const std::string &src, std::string &dst)
 {
   dst = src;
   return ERR_OK;
 }
-err_t string_from_data (string &dst, const string &src)
+err_t string_from_data (std::string &dst, const std::string &src)
 {
   dst = src;
   return ERR_OK;
 }
 
 // default case
-err_t string_to_data (const string &, ...)
+err_t string_to_data (const std::string &, ...)
 {
   assert_check (false, "This should not even be instantiated");
   return err_t ("This should not even be instantiated");
 }
-err_t string_from_data (string &, ...)
+err_t string_from_data (std::string &, ...)
 {
   assert_check (false, "This should not even be instantiated");
   return err_t ("This should not even be instantiated");

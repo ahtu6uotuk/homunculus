@@ -32,7 +32,7 @@ void object_heap_test ()
   three_in_copy_specific->set_name ("hastur");
   assert_check (!(heap == copy_made_by_saveload), "Now they should be different");
 
-  string all_objs_description;
+  std::string all_objs_description;
   for (object_base *obj : heap.get_all ())
     all_objs_description += obj->describe () + "\n";
 

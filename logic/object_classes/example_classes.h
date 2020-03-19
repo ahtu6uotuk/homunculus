@@ -13,7 +13,7 @@ class human : public object<
                   hp_health_policy>
 {
 public:
-  static string objtype_name () { return "human"; }
+  static std::string objtype_name () { return "human"; }
 };
 
 class immortal : public object<
@@ -23,7 +23,7 @@ class immortal : public object<
                      hit_count_health_policy>
 {
 public:
-  static string objtype_name () { return "immortal"; }
+  static std::string objtype_name () { return "immortal"; }
 };
 
 class other : public object<
@@ -33,5 +33,5 @@ class other : public object<
                   hit_count_health_policy>
 {
 public:
-  static string objtype_name () { return "other"; }
+  static std::string objtype_name () { return "other"; }
 };

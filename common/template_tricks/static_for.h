@@ -10,7 +10,7 @@ struct static_for
   {
     if (First < Last)
       {
-        f(integral_constant<int, First>{});
+        f(std::integral_constant<int, First>{});
         static_for<First + 1, Last>::apply(f);
       }
   }

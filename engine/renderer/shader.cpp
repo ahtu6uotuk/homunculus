@@ -15,32 +15,32 @@ void shader_t::use () const
   glUseProgram (m_id);
 }
 
-void shader_t::set_uniform_1i (const string &var_name, const int value) const
+void shader_t::set_uniform_1i (const std::string &var_name, const int value) const
 {
   glUniform1i (glGetUniformLocation (m_id, var_name.c_str ()), value);
 }
 
-void shader_t::set_uniform_1f (const string &var_name, const float value) const
+void shader_t::set_uniform_1f (const std::string &var_name, const float value) const
 {
   glUniform1f (glGetUniformLocation (m_id, var_name.c_str ()), value);
 }
 
-void shader_t::set_uniform_1d (const string &var_name, const double value) const
+void shader_t::set_uniform_1d (const std::string &var_name, const double value) const
 {
   glUniform1d (glGetUniformLocation (m_id, var_name.c_str ()), value);
 }
 
-void shader_t::set_uniform_3f (const string &var_name, const float v1, const float v2, const float v3) const
+void shader_t::set_uniform_3f (const std::string &var_name, const float v1, const float v2, const float v3) const
 {
   glUniform3f (glGetUniformLocation (m_id, var_name.c_str ()), v1, v2, v3);
 }
 
-void shader_t::set_uniform_3f (const string &var_name, const float *vec3) const
+void shader_t::set_uniform_3f (const std::string &var_name, const float *vec3) const
 {
   return set_uniform_3f (var_name.c_str (), vec3[0], vec3[1], vec3[2]);
 }
 
-void shader_t::set_uniform_mat4 (const string &var_name, const float *mat4, const bool is_transpose) const
+void shader_t::set_uniform_mat4 (const std::string &var_name, const float *mat4, const bool is_transpose) const
 {
   glUniformMatrix4fv (glGetUniformLocation (m_id, var_name.c_str ()), 1, is_transpose, mat4);
 }
@@ -51,7 +51,7 @@ err_t shader_t::check ()
   glGetProgramiv (m_id, GL_LINK_STATUS, &status);
   if (!status)
     {
-      string buffer (1024, 0);
+      std::string buffer (1024, 0);
       glGetProgramInfoLog (m_id, 1024, nullptr, buffer.data ());
       return err_t (buffer);
     }
@@ -94,7 +94,7 @@ err_t subshader_t<SHADER_TYPE>::check () const
   glGetShaderiv (m_id, GL_COMPILE_STATUS, &status);
   if (!status)
     {
-      string buffer (1024, 0);
+      std::string buffer (1024, 0);
       glGetShaderInfoLog (m_id, 1024, nullptr, buffer.data ());
       return err_t (buffer);
     }

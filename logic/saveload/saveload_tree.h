@@ -20,14 +20,14 @@ public:
   ///
 
   /// primitives
-  void add (double &data, const string &name) { add_primitive (data, name); }
-  void add (int &data, const string &name) { add_primitive (data, name); }
-  void add (string &data, const string &name) { add_primitive (data, name); }
-  void add (bool &data, const string &name) { add_primitive (data, name); }
+  void add (double &data, const std::string &name) { add_primitive (data, name); }
+  void add (int &data, const std::string &name) { add_primitive (data, name); }
+  void add (std::string &data, const std::string &name) { add_primitive (data, name); }
+  void add (bool &data, const std::string &name) { add_primitive (data, name); }
 
   /// pair
   template<typename Type1, typename Type2>
-  void add (pair<Type1, Type2> &data, const string &name)
+  void add (std::pair<Type1, Type2> &data, const std::string &name)
   {
     m_children.emplace_back (new saveload_node (m_root, name));
     m_children.back ()->add (data.first, "first");
@@ -36,40 +36,40 @@ public:
 
   /// vector
   template<typename VectElem>
-  void add (vector<VectElem> &data, const string &name)
+  void add (std::vector<VectElem> &data, const std::string &name)
   {
-    string elem_name = "elem";
-    add_container<vector<VectElem>, VectElem> (data, name, elem_name);
+    std::string elem_name = "elem";
+    add_container<std::vector<VectElem>, VectElem> (data, name, elem_name);
     for (VectElem &elem : data)
       m_children.back ()->add (elem, elem_name);
   }
   template<typename VectElem>
-  static void add_elem (vector<VectElem> &data, unique_ptr<VectElem> elem_to_add)
+  static void add_elem (std::vector<VectElem> &data, std::unique_ptr<VectElem> elem_to_add)
   {
-    data.push_back (move (*elem_to_add));
+    data.push_back (std::move (*elem_to_add));
   }
 
   /// map
   template<typename MapKey, typename MapValue>
-  void add (unordered_map<MapKey, MapValue> &data, const string &name)
+  void add (std::unordered_map<MapKey, MapValue> &data, const std::string &name)
   {
-    string elem_name = "entry";
-    add_container<unordered_map<MapKey, MapValue>, pair<MapKey, MapValue>> (data, name, elem_name);
+    std::string elem_name = "entry";
+    add_container<std::unordered_map<MapKey, MapValue>, std::pair<MapKey, MapValue>> (data, name, elem_name);
 
-    vector<pair<const MapKey, MapValue> *> ordered_pairs;
-    for (pair<const MapKey, MapValue> &elem : data)
+    std::vector<std::pair<const MapKey, MapValue> *> ordered_pairs;
+    for (std::pair<const MapKey, MapValue> &elem : data)
       ordered_pairs.push_back (&elem);
 
     sort (ordered_pairs.begin (), ordered_pairs.end (), [] (auto a, auto b) { return a->first < b->first; });
 
-    for (pair<const MapKey, MapValue> *elem : ordered_pairs)
+    for (std::pair<const MapKey, MapValue> *elem : ordered_pairs)
       {
-        pair<MapKey &, MapValue &> unconst_pair (const_cast<MapKey &> (elem->first), elem->second);
+        std::pair<MapKey &, MapValue &> unconst_pair (const_cast<MapKey &> (elem->first), elem->second);
         m_children.back ()->add (unconst_pair, elem_name);
       }
   }
   template<typename MapKey, typename MapValue>
-  static void add_elem (unordered_map<MapKey, MapValue> &data, unique_ptr<pair<MapKey, MapValue>> elem_to_add)
+  static void add_elem (std::unordered_map<MapKey, MapValue> &data, std::unique_ptr<std::pair<MapKey, MapValue>> elem_to_add)
   {
     assert_check (!data.count (elem_to_add->first), "Map can't have two elements with same key");
     data.insert (move (*elem_to_add));
@@ -77,29 +77,29 @@ public:
 
   /// unique_ptr
   template<typename DataT>
-  void add (unique_ptr<DataT> &data, const string &name)
+  void add (std::unique_ptr<DataT> &data, const std::string &name)
   {
-    string elem_name = "entry";
-    add_container<unique_ptr<DataT>, DataT> (data, name, elem_name);
+    std::string elem_name = "entry";
+    add_container<std::unique_ptr<DataT>, DataT> (data, name, elem_name);
     if (data)
       m_children.back ()->add (*data, elem_name);
   }
   template<typename DataT>
-  static void add_elem (unique_ptr<DataT> &data, unique_ptr<DataT> elem_to_add)
+  static void add_elem (std::unique_ptr<DataT> &data, std::unique_ptr<DataT> elem_to_add)
   {
     data = move (elem_to_add);
   }
 
   /// enums
-  template<typename Data, enable_if_t<is_enum_v<Data>, int> = 0>
-  void add (Data &data, const string &name)
+  template<typename Data, std::enable_if_t<std::is_enum_v<Data>, int> = 0>
+  void add (Data &data, const std::string &name)
   {
     add_primitive (data, name);
   }
 
   /// composite objects
-  template<typename Data, enable_if_t<is_base_of_v<object_base, Data>, int> = 0>
-  void add (Data &data, const string &name)
+  template<typename Data, std::enable_if_t<std::is_base_of_v<object_base, Data>, int> = 0>
+  void add (Data &data, const std::string &name)
   {
     m_children.emplace_back (new saveload_node (m_root, name));
     saveload_node &node = *m_children.back ();
@@ -108,8 +108,8 @@ public:
   }
 
   /// everything else
-  template<typename Data, enable_if_t<detail::can_build_saveload_tree<Data>::value, int> = 0>
-  void add (Data &data, const string &name)
+  template<typename Data, std::enable_if_t<detail::can_build_saveload_tree<Data>::value, int> = 0>
+  void add (Data &data, const std::string &name)
   {
     add_complex_structure (data, name);
   }
@@ -128,10 +128,10 @@ public:
 protected:
   template<typename DataT, typename ElemT>
   friend class detail::saveload_container_node;
-  saveload_node (doc_t &root_node, const string &name);
+  saveload_node (doc_t &root_node, const std::string &name);
   virtual err_t save_private (bool ignore_defaults = true);
-  void set_node_name (const string &name);
-  void set_node_value (const string &value);
+  void set_node_name (const std::string &name);
+  void set_node_value (const std::string &value);
   bool is_default () const
   {
     if (!is_default_self ())
@@ -140,27 +140,27 @@ protected:
   }
   virtual bool is_default_self () const { return true; }
   template<typename DataT, typename ElemT>
-  void add_container (DataT &data, const string &name, const string &elem_name)
+  void add_container (DataT &data, const std::string &name, const std::string &elem_name)
   {
     m_children.emplace_back (
         new detail::saveload_container_node<DataT, ElemT> (data, m_root, name, elem_name));
   }
   template<typename Data>
-  void add_primitive (Data &data, const string &name)
+  void add_primitive (Data &data, const std::string &name)
   {
     m_children.emplace_back (new detail::saveload_primitive_node<Data> (data, m_root, name));
   }
   template<typename Data>
-  void add_complex_structure (Data &data, const string &name)
+  void add_complex_structure (Data &data, const std::string &name)
   {
     m_children.emplace_back (new saveload_node (m_root, name));
     data.build_saveload_tree (*m_children.back ());
   }
 
   doc_t &m_root;
-  string m_name;
+  std::string m_name;
 
-  vector<unique_ptr<saveload_node>> m_children;
+  std::vector<std::unique_ptr<saveload_node>> m_children;
   node_t *m_node;
 };
 
@@ -199,13 +199,13 @@ class saveload_primitive_node : public saveload_node
 {
 public:
   virtual ~saveload_primitive_node () {}
-  saveload_primitive_node (Primitive &data, doc_t &root, const string &name)
+  saveload_primitive_node (Primitive &data, doc_t &root, const std::string &name)
     : saveload_node (root, name), m_data (data)
   {
   }
   virtual err_t load () override
   {
-    string src = m_node->value ();
+    std::string src = m_node->value ();
     err_t err = string_to_data (src, m_data);
     if (!err.ok ())
       return err;
@@ -214,7 +214,7 @@ public:
   }
   virtual err_t save_private (bool) override
   {
-    string dst;
+    std::string dst;
     err_t err = string_from_data (dst, m_data);
     if (!err.ok ())
       return err;
@@ -236,7 +236,7 @@ class saveload_container_node : public saveload_node
 {
 public:
   virtual ~saveload_container_node () {}
-  saveload_container_node (DataT &data, doc_t &root, const string &name, const string &elem_name)
+  saveload_container_node (DataT &data, doc_t &root, const std::string &name, const std::string &elem_name)
     : saveload_node (root, name), m_data (data), m_elem_name (elem_name)
   {
   }
@@ -253,7 +253,7 @@ public:
               "Unexpected data \"%s\", expected element with name \"%s\"",
               detail::xml_node_to_string (*current_node).c_str (), m_elem_name.c_str ());
 
-        unique_ptr<ElemT> load_target = make_unique<ElemT> ();
+        std::unique_ptr<ElemT> load_target = std::make_unique<ElemT> ();
         add (*load_target, m_name); // this is going to make a null reference. but so what?
         m_children.back ()->m_node = current_node;
 
@@ -274,6 +274,6 @@ public:
 
 private:
   DataT &m_data;
-  string m_elem_name;
+  std::string m_elem_name;
 };
 }  // namespace detail

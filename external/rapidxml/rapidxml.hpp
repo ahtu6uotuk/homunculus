@@ -89,7 +89,7 @@ namespace rapidxml
 
         //! Gets pointer to character data where error happened.
         //! Ch should be the same as char type of xml_document that produced the error.
-        //! \return Pointer to location within the parsed string where error occured.
+        //! \return Pointer to location within the parsed std::string where error occured.
         template<class Ch>
         Ch *where() const
         {
@@ -126,7 +126,7 @@ namespace rapidxml
 #ifndef RAPIDXML_ALIGNMENT
     // Memory allocation alignment.
     // Define RAPIDXML_ALIGNMENT before including rapidxml.hpp if you want to override the default value, which is the size of pointer.
-    // All memory allocations for nodes, attributes and strings will be aligned to this value.
+    // All memory allocations for nodes, attributes and std::strings will be aligned to this value.
     // This must be a power of 2 and at least 1, otherwise memory_pool will not work.
     #define RAPIDXML_ALIGNMENT sizeof(void *)
 #endif
@@ -171,7 +171,7 @@ namespace rapidxml
     //! See xml_document::parse() function.
     const int parse_no_element_values = 0x2;
 
-    //! Parse flag instructing the parser to not place zero terminators after strings in the source text.
+    //! Parse flag instructing the parser to not place zero terminators after std::strings in the source text.
     //! By default zero terminators are placed, modifying source text.
     //! Can be combined with other flags by use of | operator.
     //! <br><br>
@@ -305,7 +305,7 @@ namespace rapidxml
             static const unsigned char lookup_upcase[256];                  // To uppercase conversion table for ASCII characters
         };
 
-        // Find length of the string
+        // Find length of the std::string
         template<class Ch>
         inline std::size_t measure(const Ch *p)
         {
@@ -315,7 +315,7 @@ namespace rapidxml
             return tmp - p;
         }
 
-        // Compare strings for equality
+        // Compare std::strings for equality
         template<class Ch>
         inline bool compare(const Ch *p1, std::size_t size1, const Ch *p2, std::size_t size2, bool case_sensitive)
         {
@@ -350,8 +350,8 @@ namespace rapidxml
     //! possibly simplyfing memory management.
     //! <br><br>
     //! Call allocate_node() or allocate_attribute() functions to obtain new nodes or attributes from the pool.
-    //! You can also call allocate_string() function to allocate strings.
-    //! Such strings can then be used as names or values of nodes without worrying about their lifetime.
+    //! You can also call allocate_string() function to allocate std::strings.
+    //! Such std::strings can then be used as names or values of nodes without worrying about their lifetime.
     //! Note that there is no <code>free()</code> function -- all allocations are freed at once when clear() function is called,
     //! or when the pool is destroyed.
     //! <br><br>
@@ -365,7 +365,7 @@ namespace rapidxml
     //! This behaviour can be changed by setting custom allocation routines.
     //! Use set_allocator() function to set them.
     //! <br><br>
-    //! Allocations for nodes, attributes and strings are aligned at <code>RAPIDXML_ALIGNMENT</code> bytes.
+    //! Allocations for nodes, attributes and std::strings are aligned at <code>RAPIDXML_ALIGNMENT</code> bytes.
     //! This value defaults to the size of pointer on target architecture.
     //! <br><br>
     //! To obtain absolutely top performance from the parser,
@@ -409,8 +409,8 @@ namespace rapidxml
         //! \param type Type of node to create.
         //! \param name Name to assign to the node, or 0 to assign no name.
         //! \param value Value to assign to the node, or 0 to assign no value.
-        //! \param name_size Size of name to assign, or 0 to automatically calculate size from name string.
-        //! \param value_size Size of value to assign, or 0 to automatically calculate size from value string.
+        //! \param name_size Size of name to assign, or 0 to automatically calculate size from name std::string.
+        //! \param value_size Size of value to assign, or 0 to automatically calculate size from value std::string.
         //! \return Pointer to allocated node. This pointer will never be NULL.
         xml_node<Ch> *allocate_node(node_type type,
                                     const Ch *name = 0, const Ch *value = 0,
@@ -441,8 +441,8 @@ namespace rapidxml
         //! will call rapidxml::parse_error_handler() function.
         //! \param name Name to assign to the attribute, or 0 to assign no name.
         //! \param value Value to assign to the attribute, or 0 to assign no value.
-        //! \param name_size Size of name to assign, or 0 to automatically calculate size from name string.
-        //! \param value_size Size of value to assign, or 0 to automatically calculate size from value string.
+        //! \param name_size Size of name to assign, or 0 to automatically calculate size from name std::string.
+        //! \param value_size Size of value to assign, or 0 to automatically calculate size from value std::string.
         //! \return Pointer to allocated attribute. This pointer will never be NULL.
         xml_attribute<Ch> *allocate_attribute(const Ch *name = 0, const Ch *value = 0,
                                               std::size_t name_size = 0, std::size_t value_size = 0)
@@ -466,12 +466,12 @@ namespace rapidxml
             return attribute;
         }
 
-        //! Allocates a char array of given size from the pool, and optionally copies a given string to it.
+        //! Allocates a char array of given size from the pool, and optionally copies a given std::string to it.
         //! If the allocation request cannot be accomodated, this function will throw <code>std::bad_alloc</code>.
         //! If exceptions are disabled by defining RAPIDXML_NO_EXCEPTIONS, this function
         //! will call rapidxml::parse_error_handler() function.
-        //! \param source String to initialize the allocated memory with, or 0 to not initialize it.
-        //! \param size Number of characters to allocate, or zero to calculate it automatically from source string length; if size is 0, source string must be specified and null terminated.
+        //! \param source std::string to initialize the allocated memory with, or 0 to not initialize it.
+        //! \param size Number of characters to allocate, or zero to calculate it automatically from source std::string length; if size is 0, source std::string must be specified and null terminated.
         //! \return Pointer to allocated char array. This pointer will never be NULL.
         Ch *allocate_string(const Ch *source = 0, std::size_t size = 0)
         {
@@ -521,7 +521,7 @@ namespace rapidxml
 
         //! Clears the pool.
         //! This causes memory occupied by nodes allocated by the pool to be freed.
-        //! Any nodes or strings allocated from the pool will no longer be valid.
+        //! Any nodes or std::strings allocated from the pool will no longer be valid.
         void clear()
         {
             while (m_begin != m_static_memory)
@@ -669,7 +669,7 @@ namespace rapidxml
         //! Note that name will not be zero-terminated if rapidxml::parse_no_string_terminators option was selected during parse.
         //! <br><br>
         //! Use name_size() function to determine length of the name.
-        //! \return Name of node, or empty string if node has no name.
+        //! \return Name of node, or empty std::string if node has no name.
         Ch *name() const
         {
             return m_name ? m_name : nullstr();
@@ -688,7 +688,7 @@ namespace rapidxml
         //! Note that value will not be zero-terminated if rapidxml::parse_no_string_terminators option was selected during parse.
         //! <br><br>
         //! Use value_size() function to determine length of the value.
-        //! \return Value of node, or empty string if node has no value.
+        //! \return Value of node, or empty std::string if node has no value.
         Ch *value() const
         {
             return m_value ? m_value : nullstr();
@@ -705,17 +705,17 @@ namespace rapidxml
         ///////////////////////////////////////////////////////////////////////////
         // Node modification
 
-        //! Sets name of node to a non zero-terminated string.
+        //! Sets name of node to a non zero-terminated std::string.
         //! See \ref ownership_of_strings.
         //! <br><br>
         //! Note that node does not own its name or value, it only stores a pointer to it.
         //! It will not delete or otherwise free the pointer on destruction.
-        //! It is reponsibility of the user to properly manage lifetime of the string.
-        //! The easiest way to achieve it is to use memory_pool of the document to allocate the string -
-        //! on destruction of the document the string will be automatically freed.
+        //! It is reponsibility of the user to properly manage lifetime of the std::string.
+        //! The easiest way to achieve it is to use memory_pool of the document to allocate the std::string -
+        //! on destruction of the document the std::string will be automatically freed.
         //! <br><br>
         //! Size of name must be specified separately, because name does not have to be zero terminated.
-        //! Use name(const Ch *) function to have the length automatically calculated (string must be zero terminated).
+        //! Use name(const Ch *) function to have the length automatically calculated (std::string must be zero terminated).
         //! \param name Name of node to set. Does not have to be zero terminated.
         //! \param size Size of name, in characters. This does not include zero terminator, if one is present.
         void name(const Ch *name, std::size_t size)
@@ -724,7 +724,7 @@ namespace rapidxml
             m_name_size = size;
         }
 
-        //! Sets name of node to a zero-terminated string.
+        //! Sets name of node to a zero-terminated std::string.
         //! See also \ref ownership_of_strings and xml_node::name(const Ch *, std::size_t).
         //! \param name Name of node to set. Must be zero terminated.
         void name(const Ch *name)
@@ -732,17 +732,17 @@ namespace rapidxml
             this->name(name, internal::measure(name));
         }
 
-        //! Sets value of node to a non zero-terminated string.
+        //! Sets value of node to a non zero-terminated std::string.
         //! See \ref ownership_of_strings.
         //! <br><br>
         //! Note that node does not own its name or value, it only stores a pointer to it.
         //! It will not delete or otherwise free the pointer on destruction.
-        //! It is reponsibility of the user to properly manage lifetime of the string.
-        //! The easiest way to achieve it is to use memory_pool of the document to allocate the string -
-        //! on destruction of the document the string will be automatically freed.
+        //! It is reponsibility of the user to properly manage lifetime of the std::string.
+        //! The easiest way to achieve it is to use memory_pool of the document to allocate the std::string -
+        //! on destruction of the document the std::string will be automatically freed.
         //! <br><br>
         //! Size of value must be specified separately, because it does not have to be zero terminated.
-        //! Use value(const Ch *) function to have the length automatically calculated (string must be zero terminated).
+        //! Use value(const Ch *) function to have the length automatically calculated (std::string must be zero terminated).
         //! <br><br>
         //! If an element has a child node of type node_data, it will take precedence over element value when printing.
         //! If you want to manipulate data of elements using values, use parser flag rapidxml::parse_no_data_nodes to prevent creation of data nodes by the parser.
@@ -754,7 +754,7 @@ namespace rapidxml
             m_value_size = size;
         }
 
-        //! Sets value of node to a zero-terminated string.
+        //! Sets value of node to a zero-terminated std::string.
         //! See also \ref ownership_of_strings and xml_node::value(const Ch *, std::size_t).
         //! \param value Vame of node to set. Must be zero terminated.
         void value(const Ch *value)
@@ -774,7 +774,7 @@ namespace rapidxml
 
     protected:
 
-        // Return empty string
+        // Return empty std::string
         static Ch *nullstr()
         {
             static Ch zero = Ch('\0');
@@ -790,7 +790,7 @@ namespace rapidxml
     };
 
     //! Class representing attribute node of XML document.
-    //! Each attribute has name and value strings, which are available through name() and value() functions (inherited from xml_base).
+    //! Each attribute has name and value std::strings, which are available through name() and value() functions (inherited from xml_base).
     //! Note that after parse, both name and value of attribute will point to interior of source text used for parsing.
     //! Thus, this text must persist in memory for the lifetime of attribute.
     //! \param Ch Character type to use.
@@ -829,8 +829,8 @@ namespace rapidxml
         }
 
         //! Gets previous attribute, optionally matching attribute name.
-        //! \param name Name of attribute to find, or 0 to return previous attribute regardless of its name; this string doesn't have to be zero-terminated if name_size is non-zero
-        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from string
+        //! \param name Name of attribute to find, or 0 to return previous attribute regardless of its name; this std::string doesn't have to be zero-terminated if name_size is non-zero
+        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from std::string
         //! \param case_sensitive Should name comparison be case-sensitive; non case-sensitive comparison works properly only for ASCII characters
         //! \return Pointer to found attribute, or 0 if not found.
         xml_attribute<Ch> *previous_attribute(const Ch *name = 0, std::size_t name_size = 0, bool case_sensitive = true) const
@@ -849,8 +849,8 @@ namespace rapidxml
         }
 
         //! Gets next attribute, optionally matching attribute name.
-        //! \param name Name of attribute to find, or 0 to return next attribute regardless of its name; this string doesn't have to be zero-terminated if name_size is non-zero
-        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from string
+        //! \param name Name of attribute to find, or 0 to return next attribute regardless of its name; this std::string doesn't have to be zero-terminated if name_size is non-zero
+        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from std::string
         //! \param case_sensitive Should name comparison be case-sensitive; non case-sensitive comparison works properly only for ASCII characters
         //! \return Pointer to found attribute, or 0 if not found.
         xml_attribute<Ch> *next_attribute(const Ch *name = 0, std::size_t name_size = 0, bool case_sensitive = true) const
@@ -879,7 +879,7 @@ namespace rapidxml
     // XML node
 
     //! Class representing a node of XML document.
-    //! Each node may have associated name and value strings, which are available through name() and value() functions.
+    //! Each node may have associated name and value std::strings, which are available through name() and value() functions.
     //! Interpretation of name and value depends on type of the node.
     //! Type of node can be determined by using type() function.
     //! <br><br>
@@ -929,8 +929,8 @@ namespace rapidxml
         }
 
         //! Gets first child node, optionally matching node name.
-        //! \param name Name of child to find, or 0 to return first child regardless of its name; this string doesn't have to be zero-terminated if name_size is non-zero
-        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from string
+        //! \param name Name of child to find, or 0 to return first child regardless of its name; this std::string doesn't have to be zero-terminated if name_size is non-zero
+        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from std::string
         //! \param case_sensitive Should name comparison be case-sensitive; non case-sensitive comparison works properly only for ASCII characters
         //! \return Pointer to found child, or 0 if not found.
         xml_node<Ch> *first_node(const Ch *name = 0, std::size_t name_size = 0, bool case_sensitive = true) const
@@ -951,8 +951,8 @@ namespace rapidxml
         //! Gets last child node, optionally matching node name.
         //! Behaviour is undefined if node has no children.
         //! Use first_node() to test if node has children.
-        //! \param name Name of child to find, or 0 to return last child regardless of its name; this string doesn't have to be zero-terminated if name_size is non-zero
-        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from string
+        //! \param name Name of child to find, or 0 to return last child regardless of its name; this std::string doesn't have to be zero-terminated if name_size is non-zero
+        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from std::string
         //! \param case_sensitive Should name comparison be case-sensitive; non case-sensitive comparison works properly only for ASCII characters
         //! \return Pointer to found child, or 0 if not found.
         xml_node<Ch> *last_node(const Ch *name = 0, std::size_t name_size = 0, bool case_sensitive = true) const
@@ -974,8 +974,8 @@ namespace rapidxml
         //! Gets previous sibling node, optionally matching node name.
         //! Behaviour is undefined if node has no parent.
         //! Use parent() to test if node has a parent.
-        //! \param name Name of sibling to find, or 0 to return previous sibling regardless of its name; this string doesn't have to be zero-terminated if name_size is non-zero
-        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from string
+        //! \param name Name of sibling to find, or 0 to return previous sibling regardless of its name; this std::string doesn't have to be zero-terminated if name_size is non-zero
+        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from std::string
         //! \param case_sensitive Should name comparison be case-sensitive; non case-sensitive comparison works properly only for ASCII characters
         //! \return Pointer to found sibling, or 0 if not found.
         xml_node<Ch> *previous_sibling(const Ch *name = 0, std::size_t name_size = 0, bool case_sensitive = true) const
@@ -997,8 +997,8 @@ namespace rapidxml
         //! Gets next sibling node, optionally matching node name.
         //! Behaviour is undefined if node has no parent.
         //! Use parent() to test if node has a parent.
-        //! \param name Name of sibling to find, or 0 to return next sibling regardless of its name; this string doesn't have to be zero-terminated if name_size is non-zero
-        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from string
+        //! \param name Name of sibling to find, or 0 to return next sibling regardless of its name; this std::string doesn't have to be zero-terminated if name_size is non-zero
+        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from std::string
         //! \param case_sensitive Should name comparison be case-sensitive; non case-sensitive comparison works properly only for ASCII characters
         //! \return Pointer to found sibling, or 0 if not found.
         xml_node<Ch> *next_sibling(const Ch *name = 0, std::size_t name_size = 0, bool case_sensitive = true) const
@@ -1018,8 +1018,8 @@ namespace rapidxml
         }
 
         //! Gets first attribute of node, optionally matching attribute name.
-        //! \param name Name of attribute to find, or 0 to return first attribute regardless of its name; this string doesn't have to be zero-terminated if name_size is non-zero
-        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from string
+        //! \param name Name of attribute to find, or 0 to return first attribute regardless of its name; this std::string doesn't have to be zero-terminated if name_size is non-zero
+        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from std::string
         //! \param case_sensitive Should name comparison be case-sensitive; non case-sensitive comparison works properly only for ASCII characters
         //! \return Pointer to found attribute, or 0 if not found.
         xml_attribute<Ch> *first_attribute(const Ch *name = 0, std::size_t name_size = 0, bool case_sensitive = true) const
@@ -1038,8 +1038,8 @@ namespace rapidxml
         }
 
         //! Gets last attribute of node, optionally matching attribute name.
-        //! \param name Name of attribute to find, or 0 to return last attribute regardless of its name; this string doesn't have to be zero-terminated if name_size is non-zero
-        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from string
+        //! \param name Name of attribute to find, or 0 to return last attribute regardless of its name; this std::string doesn't have to be zero-terminated if name_size is non-zero
+        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from std::string
         //! \param case_sensitive Should name comparison be case-sensitive; non case-sensitive comparison works properly only for ASCII characters
         //! \return Pointer to found attribute, or 0 if not found.
         xml_attribute<Ch> *last_attribute(const Ch *name = 0, std::size_t name_size = 0, bool case_sensitive = true) const
@@ -1349,7 +1349,7 @@ namespace rapidxml
 
     //! This class represents root of the DOM hierarchy.
     //! It is also an xml_node and a memory_pool through public inheritance.
-    //! Use parse() function to build a DOM tree from a zero-terminated XML text string.
+    //! Use parse() function to build a DOM tree from a zero-terminated XML text std::string.
     //! parse() function allocates memory for nodes and attributes by using functions of xml_document,
     //! which are inherited from memory_pool.
     //! To access root node of the document, use the document itself, as if it was an xml_node.
@@ -1366,9 +1366,9 @@ namespace rapidxml
         {
         }
 
-        //! Parses zero-terminated XML string according to given flags.
-        //! Passed string will be modified by the parser, unless rapidxml::parse_non_destructive flag is used.
-        //! The string must persist for the lifetime of the document.
+        //! Parses zero-terminated XML std::string according to given flags.
+        //! Passed std::string will be modified by the parser, unless rapidxml::parse_non_destructive flag is used.
+        //! The std::string must persist for the lifetime of the document.
         //! In case of error, rapidxml::parse_error exception will be thrown.
         //! <br><br>
         //! If you want to parse contents of a file, you must first load the file into the memory, and pass pointer to its beginning.

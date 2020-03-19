@@ -22,8 +22,8 @@ public:
     return dynamic_cast<const PolicyType *> (&get_policy_private ());
   }
 
-  virtual string describe () const = 0;
-  virtual vector<interaction> get_interactions () = 0;
+  virtual std::string describe () const = 0;
+  virtual std::vector<interaction> get_interactions () = 0;
 private:
   virtual object_base &get_policy_private () = 0;
   virtual const object_base &get_policy_private () const = 0;

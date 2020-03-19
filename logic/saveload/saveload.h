@@ -3,7 +3,7 @@
 #include "logic/saveload/saveload_tree.h"
 
 template<typename Data>
-err_t save (const Data &src, string &dst)
+err_t save (const Data &src, std::string &dst)
 {
   detail::saveload_root root;
 
@@ -24,33 +24,33 @@ err_t save (const Data &src, string &dst)
 }
 
 template<typename Data>
-err_t load (Data &dst, const string &src)
+err_t load (Data &dst, const std::string &src)
 {
   detail::saveload_root root;
 
-  vector<char> copy (src.begin (), src.end ());
+  std::vector<char> copy (src.begin (), src.end ());
   copy.push_back ('\0');
 
-  string errstr = "";
+  std::string errstr = "";
   try
     {
       root.m_root_ownership.parse<0> (&copy[0]);
     }
   catch (const std::runtime_error &e)
     {
-      errstr = string ("Runtime error was: ") + e.what ();
+      errstr = std::string ("Runtime error was: ") + e.what ();
     }
   catch (const rapidxml::parse_error &e)
     {
-      errstr = string ("Parse error was: ") + e.what ();
+      errstr = std::string ("Parse error was: ") + e.what ();
     }
   catch (const std::exception &e)
     {
-      errstr = string ("Error was: ") + e.what ();
+      errstr = std::string ("Error was: ") + e.what ();
     }
   catch (...)
     {
-      errstr = string ("Internal error");
+      errstr = std::string ("Internal error");
     }
 
   err_t err (errstr);

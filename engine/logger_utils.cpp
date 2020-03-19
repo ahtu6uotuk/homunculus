@@ -5,27 +5,28 @@
 #include "common/type_traits_ext.h"
 #include "engine/renderer/vertex_data.h"
 
+using std::to_string;
 
-inline string make_string (const glm::vec3 vec3)
+inline std::string make_string (const glm::vec3 vec3)
 {
-  string buffer ("");
+  std::string buffer ("");
   buffer.append (to_string (vec3.x)).append (" ");
   buffer.append (to_string (vec3.y)).append (" ");
   buffer.append (to_string (vec3.z));
   return buffer;
 }
 
-inline string make_string (const glm::vec2 &vec2)
+inline std::string make_string (const glm::vec2 &vec2)
 {
-  string buffer ("");
+  std::string buffer ("");
   buffer.append (to_string (vec2.x)).append (" ");
   buffer.append (to_string (vec2.y));
   return buffer;
 }
 
-inline string make_string (const vertex_data_t &vertex_data)
+inline std::string make_string (const vertex_data_t &vertex_data)
 {
-  string buffer ("m_vertex: ");
+  std::string buffer ("m_vertex: ");
   buffer.append (make_string (vertex_data.m_vertex));
   buffer.append (", m_normal: ");
   buffer.append (make_string (vertex_data.m_normal));
@@ -34,9 +35,9 @@ inline string make_string (const vertex_data_t &vertex_data)
   return buffer;
 }
 
-inline string make_string (const vertex_data_view_t &vertex_data)
+inline std::string make_string (const vertex_data_view_t &vertex_data)
 {
-  string buffer ("m_vertex: ");
+  std::string buffer ("m_vertex: ");
   buffer.append (make_string (*vertex_data.m_vertex));
   buffer.append (", m_normal: ");
   buffer.append (make_string (*vertex_data.m_normal));
@@ -45,31 +46,31 @@ inline string make_string (const vertex_data_view_t &vertex_data)
   return buffer;
 }
 
-inline string make_string (const std::pair<vertex_data_view_t, unsigned int> pair)
+inline std::string make_string (const std::pair<vertex_data_view_t, unsigned int> pair)
 {
   return make_string (pair.first).append (" : ").append (to_string (pair.second));
 }
 
 template<typename T>
-inline string to_stl_string (const T &data)
+inline std::string to_stl_string (const T &data)
 {
-  if constexpr (is_same_v<T, std::string> || is_same_v<T, char *>)
+  if constexpr (std::is_same_v<T, std::string> || std::is_same_v<T, char *>)
     {
       return data;
     }
-  else if constexpr (is_fundamental_v<T> || is_fundamental_v<remove_reference_t<T>>)
+  else if constexpr (std::is_fundamental_v<T> || std::is_fundamental_v<std::remove_reference_t<T>>)
     {
       return to_string (data);
     }
   else if constexpr (is_iterable_v<T>)
     {
-      string buffer;
+      std::string buffer;
       buffer.append (": \n");
       size_t i = 0;
       for (const auto &value : data)
         {
           buffer.append (to_string (i)).append (": ");
-          buffer.append (to_stl_string<remove_reference_t<decltype (value)>> (value)).append ("\n");
+          buffer.append (to_stl_string<std::remove_reference_t<decltype (value)>> (value)).append ("\n");
           i++;
         }
       return buffer;

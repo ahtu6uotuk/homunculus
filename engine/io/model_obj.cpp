@@ -7,7 +7,7 @@
 #include "engine/logger_utils.h"
 
 
-void model_obj_t::parse_position_3d (stringstream &ss, vector<glm::vec3> &vec_pos)
+void model_obj_t::parse_position_3d (std::stringstream &ss, std::vector<glm::vec3> &vec_pos)
 {
   double x, y, z;
   ss >> x >> y >> z;
@@ -15,12 +15,12 @@ void model_obj_t::parse_position_3d (stringstream &ss, vector<glm::vec3> &vec_po
   vec_pos.emplace_back (x, y, z);
 }
 
-void model_obj_t::parse_vertex_line (stringstream &ss)
+void model_obj_t::parse_vertex_line (std::stringstream &ss)
 {
   return parse_position_3d (ss, m_vertices);
 }
 
-void model_obj_t::parse_vertex_texture_coordinate_line (stringstream &ss)
+void model_obj_t::parse_vertex_texture_coordinate_line (std::stringstream &ss)
 {
   double u, v;
   ss >> u >> v;
@@ -28,12 +28,12 @@ void model_obj_t::parse_vertex_texture_coordinate_line (stringstream &ss)
   m_uv.emplace_back (u, v);
 }
 
-void model_obj_t::parse_vertex_normal_line (stringstream &ss)
+void model_obj_t::parse_vertex_normal_line (std::stringstream &ss)
 {
   return parse_position_3d (ss, m_normals);
 }
 
-void model_obj_t::parse_face_line (stringstream &ss)
+void model_obj_t::parse_face_line (std::stringstream &ss)
 {
   unsigned int vertex_index[3] = {0};
   unsigned int uv_index[3] = {0};
@@ -51,20 +51,20 @@ void model_obj_t::parse_face_line (stringstream &ss)
     }
 }
 
-err_t model_obj_t::load (const string &filename)
+err_t model_obj_t::load (const std::string &filename)
 {
-  ifstream ifs;
+  std::ifstream ifs;
   ifs.open (filename);
   if (!ifs.is_open ())
     {
-      return err_t (string ("Can't open file ").append (filename));
+      return err_t (std::string ("Can't open file ").append (filename));
     }
-  string line;
+  std::string line;
   size_t line_number = 1;
   while (getline (ifs, line))
     {
-      stringstream ss (line);
-      string buffer;
+      std::stringstream ss (line);
+      std::string buffer;
       ss >> buffer;
 
       if (buffer == "v")
@@ -90,7 +90,7 @@ err_t model_obj_t::load (const string &filename)
 
       if (ss.fail ())
         {
-          return err_t (string ("failed to load model ").append (filename) + ": line " + to_string (line_number));
+          return err_t (std::string ("failed to load model ").append (filename) + ": line " + std::to_string (line_number));
         }
 
       line_number++;

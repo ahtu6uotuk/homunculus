@@ -29,27 +29,27 @@ private:
   err_t create_threads ();
   void join_threads ();
   size_t get_calc_threads_number () const;
-  static unique_ptr<gui_context_t> make_gui_content (engine_t &engine, world_t &world);
+  static std::unique_ptr<gui_context_t> make_gui_content (engine_t &engine, world_t &world);
 
 private:
-  unique_ptr<engine_t> m_engine;
-  unique_ptr<world_t> m_world;
+  std::unique_ptr<engine_t> m_engine;
+  std::unique_ptr<world_t> m_world;
 
-  unique_ptr<frame_manager> m_frame_manager;
+  std::unique_ptr<frame_manager> m_frame_manager;
 
-  unique_ptr<request_to_calc_base> m_old_request_to_calc;
-  unique_ptr<request_to_gui_base> m_old_request_to_gui;
-  unique_ptr<request_to_calc_base> m_new_request_to_calc;
-  unique_ptr<request_to_gui_base> m_new_request_to_gui;
+  std::unique_ptr<request_to_calc_base> m_old_request_to_calc;
+  std::unique_ptr<request_to_gui_base> m_old_request_to_gui;
+  std::unique_ptr<request_to_calc_base> m_new_request_to_calc;
+  std::unique_ptr<request_to_gui_base> m_new_request_to_gui;
 
-  std::vector<thread> m_threads;
-  unique_ptr<thread_sync_t> m_sync;
-  unique_ptr<thread_sync_t> m_sync_w_main;
+  std::vector<std::thread> m_threads;
+  std::unique_ptr<thread_sync_t> m_sync;
+  std::unique_ptr<thread_sync_t> m_sync_w_main;
 
   err_t m_next_frame_error = ERR_OK;
 
   int m_argc;
   char ** m_argv;
 
-  friend void run_calc_thread (unique_ptr<thread_info_t> , control_flow &);
+  friend void run_calc_thread (std::unique_ptr<thread_info_t> , control_flow &);
 };

@@ -7,11 +7,13 @@
 #include "common/string/string_utils.h"
 #include "common/err_t.h"
 
-err_t directory_exists (const string &path, bool &res)
-{
-  error_code err;
+using namespace std::filesystem;
 
-  bool r = filesystem::exists (path, err);
+err_t directory_exists (const std::string &path, bool &res)
+{
+  std::error_code err;
+
+  bool r = exists (path, err);
   if (err)
     return string_printf (
         "Couldn't check if directory \"%s\" exists: %s", path.c_str (), err.message ().c_str ());
@@ -22,7 +24,7 @@ err_t directory_exists (const string &path, bool &res)
       return ERR_OK;
     }
 
-  r = filesystem::is_directory (path, err);
+  r = is_directory (path, err);
   if (err)
     return string_printf (
         "Couldn't check if directory \"%s\" exists: %s", path.c_str (), err.message ().c_str ());
@@ -30,11 +32,11 @@ err_t directory_exists (const string &path, bool &res)
   res = r;
   return ERR_OK;
 }
-err_t create_dir (const string &path)
+err_t create_dir (const std::string &path)
 {
-  error_code err;
+  std::error_code err;
 
-  bool r = filesystem::create_directories (path, err);
+  bool r = create_directories (path, err);
   if (err)
     return string_printf (
         "Couldn't create directory \"%s\": %s", path.c_str (), err.message ().c_str ());
@@ -42,10 +44,10 @@ err_t create_dir (const string &path)
   assert_check (r, "Huh, I thought this would always be true here");
   return ERR_OK;
 }
-err_t ensure_dir_exists (const string &path)
+err_t ensure_dir_exists (const std::string &path)
 {
   bool r;
-  string dir_path = filesystem::path (path).remove_filename ().string();
+  std::string dir_path = std::filesystem::path (path).remove_filename ().string();
 
   RETURN_IF_FAIL (directory_exists (dir_path, r));
   if (!r)
@@ -54,16 +56,16 @@ err_t ensure_dir_exists (const string &path)
   return ERR_OK;
 }
 
-err_t copy (const string &old_path, const string &new_path)
+err_t copy (const std::string &old_path, const std::string &new_path)
 {
-  error_code err;
+  std::error_code err;
 
-  if (filesystem::is_directory (new_path))
+  if (is_directory (new_path))
     RETURN_IF_FAIL (remove_dir (new_path));
 
-  filesystem::copy_options options
-      = filesystem::copy_options::recursive | filesystem::copy_options::overwrite_existing;
-  filesystem::copy (old_path, new_path, options, err);
+  copy_options options
+      = copy_options::recursive | copy_options::overwrite_existing;
+  copy (old_path, new_path, options, err);
   if (err)
     return string_printf (
         "Couldn't copy \"%s\" to \"%s\": %s", old_path.c_str (), new_path.c_str (),
@@ -71,11 +73,11 @@ err_t copy (const string &old_path, const string &new_path)
 
   return ERR_OK;
 }
-err_t rename (const string &old_path, const string &new_path)
+err_t rename (const std::string &old_path, const std::string &new_path)
 {
-  error_code err;
+  std::error_code err;
 
-  filesystem::rename (old_path, new_path, err);
+  rename (old_path, new_path, err);
   if (err)
     return string_printf (
         "Couldn't rename \"%s\" to \"%s\": %s", old_path.c_str (), new_path.c_str (),
@@ -83,11 +85,11 @@ err_t rename (const string &old_path, const string &new_path)
 
   return ERR_OK;
 }
-err_t remove_dir (const string &path)
+err_t remove_dir (const std::string &path)
 {
-  error_code err;
+  std::error_code err;
 
-  filesystem::remove_all (path, err);
+  remove_all (path, err);
   if (err)
     return string_printf (
         "Couldn't remove directory \"%s\": %s", path.c_str (), err.message ().c_str ());
@@ -95,29 +97,29 @@ err_t remove_dir (const string &path)
   return ERR_OK;
 }
 
-err_t to_asset_file (const string &src_string, const string &asset_name)
+err_t to_asset_file (const std::string &src_string, const std::string &asset_name)
 {
   return to_file (src_string, get_assets_path_prefix () + asset_name + ".xml");
 }
-err_t from_asset_file (string &dst_string, const string &asset_name)
+err_t from_asset_file (std::string &dst_string, const std::string &asset_name)
 {
   return from_file (dst_string, get_assets_path_prefix () + asset_name + ".xml");
 }
-err_t to_saved_game_file (const string &src, const string &story, const string &save, const string &asset)
+err_t to_saved_game_file (const std::string &src, const std::string &story, const std::string &save, const std::string &asset)
 {
   return to_file (src, get_saved_game_path_prefix () + story + "/" + save + "/" + asset + ".xml");
 }
-err_t from_saved_game_file (string &dst, const string &story, const string &save, const string &asset)
+err_t from_saved_game_file (std::string &dst, const std::string &story, const std::string &save, const std::string &asset)
 {
   return from_file (dst, get_saved_game_path_prefix () + story + "/" + save + "/" + asset + ".xml");
 }
 
-err_t to_file (const string &src_string, const string &dst_filename)
+err_t to_file (const std::string &src_string, const std::string &dst_filename)
 {
-  RETURN_IF_FAIL (ensure_dir_exists (filesystem::path (dst_filename).remove_filename ().string()));
+  RETURN_IF_FAIL (ensure_dir_exists (path (dst_filename).remove_filename ().string()));
 
-  fstream file_stream;
-  file_stream.open (dst_filename, ios::out);
+  std::fstream file_stream;
+  file_stream.open (dst_filename, std::ios::out);
   if (!file_stream.is_open ())
     return string_printf ("Couldn't open file for writing %s", dst_filename.c_str ());
 
@@ -128,15 +130,15 @@ err_t to_file (const string &src_string, const string &dst_filename)
   return ERR_OK;
 }
 
-err_t from_file (string &dst_string, const string &src_filename)
+err_t from_file (std::string &dst_string, const std::string &src_filename)
 {
-  fstream file_stream;
+  std::fstream file_stream;
 
-  file_stream.open (src_filename, ios_base::in);
+  file_stream.open (src_filename, std::ios_base::in);
   if (!file_stream.is_open ())
     return string_printf ("Couldn't open file for reading %s", src_filename.c_str ());
 
-  stringstream buffer;
+  std::stringstream buffer;
   buffer << file_stream.rdbuf();
 
   dst_string = buffer.str ();

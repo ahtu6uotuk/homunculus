@@ -1,5 +1,6 @@
 #include "font.h"
 #include "engine/renderer/shader.h"
+#include "common/common.h"
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -33,12 +34,12 @@ font_character_t::font_character_t (GLuint texture_id,
 font_character_t::~font_character_t ()
 {}
 
-font_t::font_t (string &&font_name, const unsigned int font_height):
+font_t::font_t (std::string &&font_name, const unsigned int font_height):
   m_font_name (font_name),
   m_font_height (font_height)
 {}
 
-err_t font_t::load_chars (FT_Library &ftlib, FT_Face &ftface, size_t start, map<GLubyte, font_character_t> &chars)
+err_t font_t::load_chars (FT_Library &ftlib, FT_Face &ftface, size_t start, std::map<GLubyte, font_character_t> &chars)
 {
   for (GLubyte c = 0; c < 128; c++)
     {
@@ -47,7 +48,7 @@ err_t font_t::load_chars (FT_Library &ftlib, FT_Face &ftface, size_t start, map<
         {
           FT_Done_Face (ftface);
           FT_Done_FreeType (ftlib);
-          return err_t (string ("FreeType: failed to load glyph: index ").append (to_string (static_cast<int> (c))));
+          return err_t (std::string ("FreeType: failed to load glyph: index ").append (std::to_string (static_cast<int> (c))));
         }
 #if 0
       auto &bmp = ftface->glyph->bitmap;
@@ -84,7 +85,7 @@ err_t font_t::load_chars (FT_Library &ftlib, FT_Face &ftface, size_t start, map<
       glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
       glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-      chars.insert (make_pair (c,
+      chars.insert (std::make_pair (c,
                                 font_character_t (texture,
                                                   glm::ivec2 (ftface->glyph->bitmap.width,
                                                               ftface->glyph->bitmap.rows),
@@ -99,7 +100,7 @@ err_t font_t::load_chars (FT_Library &ftlib, FT_Face &ftface, size_t start, map<
 
 err_t font_t::load ()
 {
-  string ttf_filename = string ("gamedata/fonts/").append (m_font_name);
+  std::string ttf_filename = std::string ("gamedata/fonts/").append (m_font_name);
   FT_Library ftlib;
   if (FT_Init_FreeType (&ftlib))
     return err_t ("FreeType: failed to init library!");
@@ -107,7 +108,7 @@ err_t font_t::load ()
   if (FT_New_Face (ftlib, ttf_filename.c_str (), 0, &ftface))
     {
       FT_Done_FreeType (ftlib);
-      return err_t (string ("FreeType: failed to load font ").append (ttf_filename));
+      return err_t (std::string ("FreeType: failed to load font ").append (ttf_filename));
     }
   FT_Set_Pixel_Sizes (ftface, 0, m_font_height);
 
@@ -142,7 +143,7 @@ const font_character_t &font_t::process_character (const unsigned char *&ch) con
   return m_ru_chars.at (*ch + shift - 128);
 }
 
-void font_t::render_text (const string &text,
+void font_t::render_text (const std::string &text,
                           GLfloat x,
                           GLfloat y,
                           GLuint font_size,
@@ -188,7 +189,7 @@ void font_t::render_text (const string &text,
   glBindTexture (GL_TEXTURE_2D, 0);
 }
 
-unsigned int font_t::get_text_width (const string &text) const
+unsigned int font_t::get_text_width (const std::string &text) const
 {
   unsigned int width = 0;
   for (const unsigned char *c = (unsigned char *) text.c_str (); *c; c++)

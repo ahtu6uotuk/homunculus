@@ -15,12 +15,12 @@ __attribute__((format(__MINGW_PRINTF_FORMAT, 1, 2)))
 #endif
 std::string string_printf (const char *format, ...);
 
-inline string string_replace (
+inline std::string string_replace (
     const std::string &src,
     const std::string &to_replace,
     const std::string &replacement)
 {
-  string x = src;
+  std::string x = src;
   size_t pos = 0;
 
   while ((pos = x.find (to_replace, pos)) != std::string::npos)
@@ -31,7 +31,7 @@ inline string string_replace (
   return x;
 }
 
-string string_join (const vector<string> &parts, const string &separator);
+std::string string_join (const std::vector<std::string> &parts, const std::string &separator);
 
 inline std::string &ltrim (std::string &s, const char *t = " \t\n\r\f\v")
 {

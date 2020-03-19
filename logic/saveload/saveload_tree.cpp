@@ -15,7 +15,7 @@ std::string detail::xml_node_to_string (const rapidxml::xml_node<> &node)
 
 saveload_node::~saveload_node () {}
 
-saveload_node::saveload_node (doc_t &root_node, const string &name)
+saveload_node::saveload_node (doc_t &root_node, const std::string &name)
   : m_root (root_node), m_name (name)
 {
   assert_check (!m_name.empty (), "Object must have a valid name!");
@@ -24,7 +24,7 @@ saveload_node::saveload_node (doc_t &root_node, const string &name)
 err_t saveload_node::load ()
 {
   assert_check (m_node, "Node not set when trying to load");
-  unordered_map<node_t *, bool> all_loaded;
+  std::unordered_map<node_t *, bool> all_loaded;
   for (node_t *node = m_node->first_node (); node; node = node->next_sibling ())
     all_loaded[node] = false;
 
@@ -71,7 +71,7 @@ err_t saveload_node::save_private (bool ignore_defaults)
   return ERR_OK;
 }
 
-void saveload_node::set_node_value (const string &value)
+void saveload_node::set_node_value (const std::string &value)
 {
   if (value.empty ())
     return;

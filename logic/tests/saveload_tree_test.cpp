@@ -27,8 +27,8 @@ public:
     node.add (m_unique_int_1, "m_unique_int_1");
     node.add (m_unique_int_2, "m_unique_int_2");
   }
-  unique_ptr<int> m_unique_int_1;
-  unique_ptr<int> m_unique_int_2;
+  std::unique_ptr<int> m_unique_int_1;
+  std::unique_ptr<int> m_unique_int_2;
   double m_double_val_1 = 0;
   double m_double_val_2 = 0;
   int m_int_val_1 = 0;
@@ -57,11 +57,11 @@ public:
     node.add (m_unique_inner_2, "unique_inner_2");
   }
   inner_class m_member_inner;
-  unique_ptr<inner_class> m_unique_inner_1;
-  unique_ptr<inner_class> m_unique_inner_2;
+  std::unique_ptr<inner_class> m_unique_inner_1;
+  std::unique_ptr<inner_class> m_unique_inner_2;
   double m_double_val = 0;
-  unordered_map<int, string> m_int_string_map;
-  vector<inner_class> m_vect_of_inners;
+  std::unordered_map<int, std::string> m_int_string_map;
+  std::vector<inner_class> m_vect_of_inners;
 };
 
 void complex_structure_saveload_test ()

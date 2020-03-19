@@ -7,7 +7,7 @@
 #include "engine/renderer/shader.h"
 #include "engine/renderer/mesh.h"
 
-bool resource_manager_t::is_resource_in_storage (const string &filename, unsigned int &resource) const
+bool resource_manager_t::is_resource_in_storage (const std::string &filename, unsigned int &resource) const
 {
   const auto &it = m_resource_id_storage.find (filename);
   if (it != m_resource_id_storage.cend ())
@@ -43,24 +43,24 @@ mesh_t *resource_manager_t::get_mesh (const resource_id_t &res_id) const
 }
 
 template<typename T>
-bool resource_manager_t::is_resource_in_storage (const string &filename, T **resource) const
+bool resource_manager_t::is_resource_in_storage (const std::string &filename, T **resource) const
 {
   const auto &it = m_resource_id_storage.find (filename);
   if (it != m_resource_id_storage.cend ())
     {
-      if constexpr (is_same_v<T, vertex_shader_t>)
+      if constexpr (std::is_same_v<T, vertex_shader_t>)
         {
           *resource = get_vertex_shader (it->second);
         }
-      else if constexpr (is_same_v<T, fragment_shader_t>)
+      else if constexpr (std::is_same_v<T, fragment_shader_t>)
         {
           *resource = get_fragment_shader (it->second);
         }
-      else if constexpr (is_same_v<T, shader_t>)
+      else if constexpr (std::is_same_v<T, shader_t>)
         {
           *resource = get_shader (it->second);
         }
-      else if constexpr (is_same_v<T, mesh_t>)
+      else if constexpr (std::is_same_v<T, mesh_t>)
         {
           *resource = get_mesh (it->second);
         }
@@ -70,13 +70,13 @@ bool resource_manager_t::is_resource_in_storage (const string &filename, T **res
   return false;
 }
 
-err_t resource_manager_t::load_vertex_shader (const string &filename, vertex_shader_t **vertex_shader)
+err_t resource_manager_t::load_vertex_shader (const std::string &filename, vertex_shader_t **vertex_shader)
 {
-  auto path = string ("gamedata/shaders/").append (filename);
+  auto path = std::string ("gamedata/shaders/").append (filename);
 
-  string src;
+  std::string src;
   RETURN_IF_FAIL (read_file_data (path, src));
-  auto &vs = m_vertex_shaders.emplace_back (make_unique<vertex_shader_t> (src.c_str ()));
+  auto &vs = m_vertex_shaders.emplace_back (std::make_unique<vertex_shader_t> (src.c_str ()));
   RETURN_IF_FAIL (vs->check ());
 
   m_logger.print (log_section_t::RESOURCE_MANAGER, log_priority_t::INFO, "load vertex subshader", path);
@@ -90,13 +90,13 @@ err_t resource_manager_t::load_vertex_shader (const string &filename, vertex_sha
   return ERR_OK;
 }
 
-err_t resource_manager_t::load_fragment_shader (const string &filename, fragment_shader_t **fragment_shader)
+err_t resource_manager_t::load_fragment_shader (const std::string &filename, fragment_shader_t **fragment_shader)
 {
-  auto path = string ("gamedata/shaders/").append (filename);
+  auto path = std::string ("gamedata/shaders/").append (filename);
 
-  string src;
+  std::string src;
   RETURN_IF_FAIL (read_file_data (path, src));
-  auto &fs = m_fragment_shaders.emplace_back (make_unique<fragment_shader_t> (src.c_str ()));
+  auto &fs = m_fragment_shaders.emplace_back (std::make_unique<fragment_shader_t> (src.c_str ()));
   RETURN_IF_FAIL (fs->check ());
 
   m_logger.print (log_section_t::RESOURCE_MANAGER, log_priority_t::INFO, "load fragment subshader", path);
@@ -110,26 +110,26 @@ err_t resource_manager_t::load_fragment_shader (const string &filename, fragment
   return ERR_OK;
 }
 
-err_t resource_manager_t::load_shader (const string &filename, shader_t **shader)
+err_t resource_manager_t::load_shader (const std::string &filename, shader_t **shader)
 {
-  auto path = string ("gamedata/shaders/").append (filename);
+  auto path = std::string ("gamedata/shaders/").append (filename);
   if (is_resource_in_storage (path, shader))
     return ERR_OK;
 
   m_logger.print (log_section_t::RESOURCE_MANAGER, log_priority_t::INFO, "load shader", path);
 
-  ifstream fdata (path);
+  std::ifstream fdata (path);
 
   if (!fdata.is_open ())
-    return string ("can't open ").append (path);
+    return std::string ("can't open ").append (path);
 
-  string vs_path, fs_path;
+  std::string vs_path, fs_path;
 
   if (!getline (fdata, vs_path))
-    return string ("can't read ").append (path);
+    return std::string ("can't read ").append (path);
 
   if (!getline (fdata, fs_path))
-    return string ("can't read ").append (path);
+    return std::string ("can't read ").append (path);
 
   vertex_shader_t *vs = nullptr;
   fragment_shader_t *fs = nullptr;
@@ -137,7 +137,7 @@ err_t resource_manager_t::load_shader (const string &filename, shader_t **shader
   RETURN_IF_FAIL (load_vertex_shader (vs_path, &vs));
   RETURN_IF_FAIL (load_fragment_shader (fs_path, &fs));
 
-  auto &res = m_shaders.emplace_back (make_unique<shader_t> (vs->get_id (), fs->get_id ()));
+  auto &res = m_shaders.emplace_back (std::make_unique<shader_t> (vs->get_id (), fs->get_id ()));
   RETURN_IF_FAIL (res->check ());
 
   m_resource_id_storage.emplace (
@@ -149,9 +149,9 @@ err_t resource_manager_t::load_shader (const string &filename, shader_t **shader
   return ERR_OK;
 }
 
-err_t resource_manager_t::load_mesh (const string &filename, mesh_t **mesh)
+err_t resource_manager_t::load_mesh (const std::string &filename, mesh_t **mesh)
 {
-  auto path = string ("gamedata/models/").append (filename);
+  auto path = std::string ("gamedata/models/").append (filename);
 
   if (is_resource_in_storage (path, mesh))
     return ERR_OK;
@@ -162,7 +162,7 @@ err_t resource_manager_t::load_mesh (const string &filename, mesh_t **mesh)
   RETURN_IF_FAIL (obj_importer.load (path));
   obj_importer.print_debug_info (m_logger);
 
-  m_meshes.emplace_back (make_unique<mesh_t> (obj_importer.to_mesh (m_logger)));
+  m_meshes.emplace_back (std::make_unique<mesh_t> (obj_importer.to_mesh (m_logger)));
   m_resource_id_storage.emplace (
         make_pair (path, resource_id_t (resource_type_t::MESH, m_meshes.size () - 1))
         );
@@ -172,9 +172,9 @@ err_t resource_manager_t::load_mesh (const string &filename, mesh_t **mesh)
   return ERR_OK;
 }
 
-err_t resource_manager_t::load_tga_texture (const string &filename, unsigned int &texture)
+err_t resource_manager_t::load_tga_texture (const std::string &filename, unsigned int &texture)
 {
-  auto path = string ("gamedata/textures/").append (filename);
+  auto path = std::string ("gamedata/textures/").append (filename);
 
   if (is_resource_in_storage (path, texture))
     {

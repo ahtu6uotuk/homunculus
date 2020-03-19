@@ -34,26 +34,26 @@ public:
 
 class font_t
 {
-  string m_font_name;
-  map<GLubyte, font_character_t> m_eng_chars;
-  map<GLubyte, font_character_t> m_ru_chars;
+  std::string m_font_name;
+  std::map<GLubyte, font_character_t> m_eng_chars;
+  std::map<GLubyte, font_character_t> m_ru_chars;
   const unsigned int m_font_height;
   GLuint m_vao;
   GLuint m_vbo;
   shader_t *m_text_shader;
 private:
-  err_t load_chars (FT_Library &ftlib, FT_Face &ftface, size_t start, map<GLubyte, font_character_t> &chars);
+  err_t load_chars (FT_Library &ftlib, FT_Face &ftface, size_t start, std::map<GLubyte, font_character_t> &chars);
   const font_character_t &process_character (const unsigned char *&ch) const;
   GLfloat get_scale (const unsigned int font_size) const;
 public:
-  font_t (string &&font_name, const unsigned int font_height);
+  font_t (std::string &&font_name, const unsigned int font_height);
   err_t load ();
-  const string &get_font_name () const {return m_font_name;}
-  void render_text (const string &text,
+  const std::string &get_font_name () const {return m_font_name;}
+  void render_text (const std::string &text,
                     GLfloat x, GLfloat y, GLuint scale,
                     const glm::vec3 &color) const;
   unsigned int get_font_height () const {return m_font_height;}
-  unsigned int get_text_width (const string &text) const;
+  unsigned int get_text_width (const std::string &text) const;
   void set_text_shader (shader_t *shader);
   ~font_t ();
 };

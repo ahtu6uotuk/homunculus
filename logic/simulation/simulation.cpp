@@ -10,16 +10,16 @@ void  run_simulation (bool cont)
 {
   world_t world ("test_story");
 
-  string save_name = cont ? "simulation_state" : "initial_state";
+  std::string save_name = cont ? "simulation_state" : "initial_state";
   assert_error (world.load (save_name));
 
   while (true)
     {
       printf ("\nObjects to interact with:\n");
 
-      vector<object_base *> objs_on_level = world.get_level ().get_all ();
+      std::vector<object_base *> objs_on_level = world.get_level ().get_all ();
 
-      function<string (object_base *const &)> obj_print_func = [] (object_base *const &obj) {
+      std::function<std::string (object_base *const &)> obj_print_func = [] (object_base *const &obj) {
         return obj->get_policy<simple_name_policy> ()->get_name ();
       };
 
@@ -30,12 +30,12 @@ void  run_simulation (bool cont)
       {
         object_base *obj_to_interact = objs_on_level[obj_to_interact_num];
 
-        vector<interaction> interactions = obj_to_interact->get_interactions ();
+        std::vector<interaction> interactions = obj_to_interact->get_interactions ();
         interactions.insert (interactions.begin (), interaction ("Inspect", [&] (object_base &) {
                                printf ("Description: %s\n", obj_to_interact->describe ().c_str ());
                              }));
 
-        function<string (const interaction &)> int_print_func
+        std::function<std::string (const interaction &)> int_print_func
             = [] (const interaction &inter) { return inter.get_name (); };
 
         int interaction_num = print_choices_and_get_answer (interactions, int_print_func, true);

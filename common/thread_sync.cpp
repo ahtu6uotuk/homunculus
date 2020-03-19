@@ -14,7 +14,7 @@ void thread_sync_t::sync ()
   if (m_thread_number <= 1)
     return;
 
-  unique_lock lock (m_mutex);
+  std::unique_lock lock (m_mutex);
 
   m_times_in++;
 

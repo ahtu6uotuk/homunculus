@@ -20,7 +20,7 @@ inline void run_logic_tests ()
 template <typename T>
 T save_and_load_test (T &data_to_save)
 {
-  string dump;
+  std::string dump;
   assert_error (save (data_to_save, dump));
 
   T data_to_load;
@@ -29,7 +29,7 @@ T save_and_load_test (T &data_to_save)
   err_t err = (data_to_save == data_to_load ? ERR_OK : err_t ("Loaded data is different from saved data!"));
   assert_error (err, string_printf ("\nDump:\n%s", dump.c_str ()));
 
-  string another_dump;
+  std::string another_dump;
   assert_error (save (data_to_load, another_dump));
 
   err = (dump == another_dump ? ERR_OK : err_t ("Loaded data dump differs from saved data dump!"));

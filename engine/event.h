@@ -12,7 +12,7 @@ public:
   {
     assert_check (false, "I thought i moved them");
   }
-  event_t (event_t &&other) : m_event (move (other.m_event)) {}
+  event_t (event_t &&other) : m_event (std::move (other.m_event)) {}
 
 private:
   sf::Event m_event;

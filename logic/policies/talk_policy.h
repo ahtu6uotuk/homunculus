@@ -9,15 +9,15 @@ class dialog_tree;
 class talk_policy : virtual public object_base
 {
 public:
-  virtual string policy_describe () const = 0;
+  virtual std::string policy_describe () const = 0;
   virtual void policy_build_saveload_tree (saveload_node &node) = 0;
-  virtual vector<interaction> policy_get_interactions ()
+  virtual std::vector<interaction> policy_get_interactions ()
   {
     return {interaction ("Talk", [this] (object_base &pc) { get_talked_by (pc); })};
   }
 
   virtual dialog_tree &get_dialog_tree () = 0;
-  virtual string &get_current_tag () = 0;
+  virtual std::string &get_current_tag () = 0;
   void get_talked_by (object_base &player_character);
 };
 
@@ -25,7 +25,7 @@ template <const char *dialog_name>
 class simple_talk_policy : public talk_policy
 {
 public:
-  string policy_describe () const override
+  std::string policy_describe () const override
   {
     return string_printf ("Talks using dialog \"%s\", tag: \"%s\"", dialog_name, m_current_tag.c_str ());
   }
@@ -39,11 +39,11 @@ public:
   }
 
   dialog_tree &get_dialog_tree () override { return *m_dialog; }
-  string &get_current_tag () override { return m_current_tag; }
+  std::string &get_current_tag () override { return m_current_tag; }
 
 private:
   asset_ptr<dialog_tree, dialog_name> m_dialog;
-  string m_current_tag = "start";
+  std::string m_current_tag = "start";
 };
 
 

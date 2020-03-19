@@ -42,7 +42,7 @@ err_t tga_image_t::load (const std::string &file_name)
   std::ifstream tga_file;
   tga_file.open (file_name, std::ios::in | std::ios::binary);
   if (!tga_file.is_open ())
-    {return string ("can't open ").append (file_name);}
+    {return std::string ("can't open ").append (file_name);}
 
   tga_file.read (reinterpret_cast<char *> (&m_header.m_id_length), sizeof (m_header.m_id_length));
   tga_file.read (reinterpret_cast<char *> (&m_header.m_color_map_type), sizeof (m_header.m_color_map_type));
@@ -58,7 +58,7 @@ err_t tga_image_t::load (const std::string &file_name)
   tga_file.read (reinterpret_cast<char *> (&m_header.m_descriptor), sizeof (m_header.m_descriptor));
 
   if (tga_file.fail ())
-    {return string ("wrong TGA header format ").append (file_name);}
+    {return std::string ("wrong TGA header format ").append (file_name);}
 
   if (m_header.m_id_length > 0)
     {
@@ -67,7 +67,7 @@ err_t tga_image_t::load (const std::string &file_name)
     }
 
   if (m_header.m_color_map_type)
-    {return string ("wrong color type in TGA file ").append (file_name);}
+    {return std::string ("wrong color type in TGA file ").append (file_name);}
 
 //  m_header.print_debug_info ();
 
@@ -76,7 +76,7 @@ err_t tga_image_t::load (const std::string &file_name)
   tga_file.read (reinterpret_cast<char *> (m_image_data.get ()), image_data_size);
 
   if (m_header.m_image_type != tga_image_type_t::UNCOMPRESSED_TRUE_COLOR)
-    return string ("unsupported TGA image type ").append (file_name);
+    return std::string ("unsupported TGA image type ").append (file_name);
 
   return ERR_OK;
 }

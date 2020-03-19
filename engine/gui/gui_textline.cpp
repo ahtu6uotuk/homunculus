@@ -9,7 +9,7 @@ gui_textline_t::gui_textline_t (
     const unsigned int y,
     gui_horizontal_alignment_t h_align,
     gui_vertical_alignment_t v_align,
-    const string &text,
+    const std::string &text,
     const glm::vec3 &color,
     const unsigned int font_size,
     const gui_element_t *pivot)

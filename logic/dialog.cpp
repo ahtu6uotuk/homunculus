@@ -46,7 +46,7 @@ bool pc_dialog_line::operator== (const pc_dialog_line &other) const
 {
   return dialog_line::operator== (other) && m_text == other.m_text;
 }
-const string &pc_dialog_line::print () const { return m_text; }
+const std::string &pc_dialog_line::print () const { return m_text; }
 
 void npc_dialog_line::build_saveload_tree (saveload_node &node)
 {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common/common.h"
+#include <memory>
 
 template <class T>
 struct is_unique_ptr : std::false_type
@@ -12,7 +12,7 @@ struct is_unique_ptr<std::unique_ptr<T, D>> : std::true_type
 template<typename T>
 bool typed_is_default (const T &data)
 {
-  if constexpr (is_floating_point<T>::value)
+  if constexpr (std::is_floating_point<T>::value)
     {
       return !fuzzycmp (data, 0);
     }
@@ -25,4 +25,10 @@ bool typed_is_default (const T &data)
       T temp {};
       return data == temp;
     }
+}
+
+template<typename T>
+bool uptrs_are_equal (const std::unique_ptr<T> &a, const std::unique_ptr<T> &b)
+{
+  return (!a and !b) or (*a == *b);
 }

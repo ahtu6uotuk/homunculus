@@ -4,12 +4,12 @@
 
 void do_nothing_no_inline () {}
 
-void assert_check (bool check, string message)
+void assert_check (bool check, std::string message)
 {
   if (!check)
     {
       fprintf (stderr, "WARNING: %s\n", message.c_str ());
-      throw exception ();
+      throw std::exception ();
     }
 }
 
@@ -22,5 +22,5 @@ int fuzzycmp (double a, double b, double eps)
   return -1;
 }
 
-string get_assets_path_prefix () { return "gamedata/assets/"; }
-string get_saved_game_path_prefix () { return "gamedata/saved_game/"; }
+std::string get_assets_path_prefix () { return "gamedata/assets/"; }
+std::string get_saved_game_path_prefix () { return "gamedata/saved_game/"; }

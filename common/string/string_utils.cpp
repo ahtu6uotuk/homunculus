@@ -38,7 +38,7 @@ std::string string_printf (const char *format, ...)
   return result;
 }
 
-string string_join (const vector<string> &parts, const string &separator)
+std::string string_join (const std::vector<std::string> &parts, const std::string &separator)
 {
   std::stringstream ss;
   for (size_t i = 0; i < parts.size (); i++)

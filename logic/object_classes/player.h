@@ -14,5 +14,5 @@ class player_t : public object<
                      >
 {
 public:
-  static string objtype_name () { return "player"; }
+  static std::string objtype_name () { return "player"; }
 };

@@ -29,9 +29,9 @@ const char *enum_to_string (log_priority_t priority);
 
 class logger_t
 {
-  stringstream m_buffer;
-  fstream m_fstream;
-  mutex m_mutex;
+  std::stringstream m_buffer;
+  std::fstream m_fstream;
+  std::mutex m_mutex;
 private:
   void print_internal ()
   {}
@@ -49,7 +49,7 @@ public:
   template<typename ...Types>
   void print_plain (const Types & ... data)
   {
-    lock_guard lock (m_mutex);
+    std::lock_guard lock (m_mutex);
     m_buffer.clear ();
     m_buffer.str ("");
     print_internal (data...);

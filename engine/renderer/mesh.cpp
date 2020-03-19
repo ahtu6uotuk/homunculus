@@ -34,7 +34,7 @@ mesh_t::mesh_t ():
   m_textures ()
 {}
 
-mesh_t::mesh_t (vector<vertex_data_t> &&vertices, vector<GLuint> &&indeces, vector<GLuint> &&textures):
+mesh_t::mesh_t (std::vector<vertex_data_t> &&vertices, std::vector<GLuint> &&indeces, std::vector<GLuint> &&textures):
   m_vertices (std::move (vertices)),
   m_indices (std::move (indeces)),
   m_textures (std::move (textures))

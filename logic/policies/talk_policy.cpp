@@ -5,24 +5,24 @@
 #include "logic/policies/plot_tags_policy.h"
 #include "logic/simulation/simulation_helpers.h"
 
-static void print_text_beats (const vector<string> &beats)
+static void print_text_beats (const std::vector<std::string> &beats)
 {
-  for (const string &beat : beats)
+  for (const std::string &beat : beats)
     {
       printf ("%s", beat.c_str ());
-      string dummy;
-      getline (cin, dummy);
+      std::string dummy;
+      getline (std::cin, dummy);
     }
 }
 
-static string get_goto (const object_base &pc, const object_base &npc, const dialog_line &line)
+static std::string get_goto (const object_base &pc, const object_base &npc, const dialog_line &line)
 {
   const plot_tags_policy *pc_policy = pc.get_policy<plot_tags_policy> ();
   const plot_tags_policy *npc_policy = npc.get_policy<plot_tags_policy> ();
 
-  string curr_goto = "";
+  std::string curr_goto = "";
 
-  for (const pair<named_tag, string> &cond_goto : line.m_conditional_goto.m_pc_conditions)
+  for (const std::pair<named_tag, std::string> &cond_goto : line.m_conditional_goto.m_pc_conditions)
     {
       if (pc_policy->has_tag (cond_goto.first.m_name, cond_goto.first.m_value))
         {
@@ -31,7 +31,7 @@ static string get_goto (const object_base &pc, const object_base &npc, const dia
         }
     }
 
-  for (const pair<named_tag, string> &cond_goto : line.m_conditional_goto.m_npc_conditions)
+  for (const std::pair<named_tag, std::string> &cond_goto : line.m_conditional_goto.m_npc_conditions)
     {
       if (npc_policy->has_tag (cond_goto.first.m_name, cond_goto.first.m_value))
         {
@@ -62,7 +62,7 @@ static void exec_dialog_line (const dialog_line &line, object_base &pc, object_b
 
 void talk_policy::get_talked_by (object_base &player_character)
 {
-  unordered_map<string, npc_dialog_line> &lines = get_dialog_tree ().m_lines;
+  std::unordered_map<std::string, npc_dialog_line> &lines = get_dialog_tree ().m_lines;
 
   while (true)
     {
@@ -75,14 +75,14 @@ void talk_policy::get_talked_by (object_base &player_character)
       if (curr_line.m_final)
         return;
 
-      string goto_str = get_goto (player_character, *this, curr_line);
+      std::string goto_str = get_goto (player_character, *this, curr_line);
       if (!goto_str.empty ())
         {
           get_current_tag () = goto_str;
           continue;
         }
 
-      function<string (const pc_dialog_line &)> print_func
+      std::function<std::string (const pc_dialog_line &)> print_func
           = [] (const pc_dialog_line &line) { return line.print (); };
       int answer_number = print_choices_and_get_answer (curr_line.m_answers, print_func);
 

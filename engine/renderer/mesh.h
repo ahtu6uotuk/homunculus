@@ -13,14 +13,14 @@ class mesh_t
   GLuint m_vao; ///< vertex array object
   GLuint m_vbo; ///< vertext buffer object
   GLuint m_ibo; ///< index buffer object
-  vector<vertex_data_t> m_vertices;
-  vector<GLuint> m_indices;
-  vector<GLuint> m_textures;
+  std::vector<vertex_data_t> m_vertices;
+  std::vector<GLuint> m_indices;
+  std::vector<GLuint> m_textures;
 private:
   void init_gl ();
 public:
   mesh_t ();
-  mesh_t (vector<vertex_data_t> &&vertices, vector<GLuint> &&indeces, vector<GLuint> &&textures);
+  mesh_t (std::vector<vertex_data_t> &&vertices, std::vector<GLuint> &&indeces, std::vector<GLuint> &&textures);
   mesh_t (mesh_t &&b);
   mesh_t (const mesh_t &) = delete;
   mesh_t &operator= (mesh_t &&b);

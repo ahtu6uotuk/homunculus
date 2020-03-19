@@ -9,9 +9,9 @@
 class health_policy : virtual public object_base
 {
 public:
-  virtual string policy_describe () const = 0;
+  virtual std::string policy_describe () const = 0;
   virtual void policy_build_saveload_tree (saveload_node &node) = 0;
-  vector<interaction> policy_get_interactions ()
+  std::vector<interaction> policy_get_interactions ()
   {
     return {interaction ("Hit", [this] (object_base &pc) { get_hit_by (pc); })};
   }
@@ -24,7 +24,7 @@ class hp_health_policy : public health_policy
 {
 public:
   bool operator== (const hp_health_policy &other) const { return m_hp == other.m_hp; }
-  string policy_describe () const override { return string_printf ("Has %d hp", m_hp); }
+  std::string policy_describe () const override { return string_printf ("Has %d hp", m_hp); }
   void policy_build_saveload_tree (saveload_node &node) override { node.add (m_hp, "hp"); }
 
   void get_hit_by (object_base &) override { m_hp -= 10; }
@@ -40,7 +40,7 @@ class hit_count_health_policy : public health_policy
 {
 public:
   bool operator== (const hit_count_health_policy &other) const { return m_hits_remaining == other.m_hits_remaining; }
-  string policy_describe () const override { return string_printf ("Can take %d more hits\n", m_hits_remaining); }
+  std::string policy_describe () const override { return string_printf ("Can take %d more hits\n", m_hits_remaining); }
   virtual void policy_build_saveload_tree (saveload_node &node) override
   {
     node.add (m_hits_remaining, "hits_remaining");

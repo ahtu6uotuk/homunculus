@@ -19,20 +19,20 @@ control_flow::control_flow (int argc, char **argv) : m_argc (argc), m_argv (argv
 
 err_t control_flow::init ()
 {
-  m_engine = make_unique<engine_t> (m_argc, m_argv);
+  m_engine = std::make_unique<engine_t> (m_argc, m_argv);
   RETURN_IF_FAIL (m_engine->init ());
 
-  m_world = make_unique<world_t> ("test_story");
+  m_world = std::make_unique<world_t> ("test_story");
   RETURN_IF_FAIL (m_world->load ("initial_state"));
 
-  m_sync = make_unique<thread_sync_t> (get_calc_threads_number ());
-  m_sync_w_main = make_unique<thread_sync_t> (get_calc_threads_number () + 1);
+  m_sync = std::make_unique<thread_sync_t> (get_calc_threads_number ());
+  m_sync_w_main = std::make_unique<thread_sync_t> (get_calc_threads_number () + 1);
   RETURN_IF_FAIL (create_threads ());
 
-  m_frame_manager = make_unique<frame_manager> (*m_engine->get_performance_indicator ());
+  m_frame_manager = std::make_unique<frame_manager> (*m_engine->get_performance_indicator ());
 
-  m_old_request_to_calc = make_unique<request_to_calc_empty> ();
-  m_old_request_to_gui = make_unique<request_to_gui_empty> ();
+  m_old_request_to_calc = std::make_unique<request_to_calc_empty> ();
+  m_old_request_to_gui = std::make_unique<request_to_gui_empty> ();
 
   return ERR_OK;
 }
@@ -64,7 +64,7 @@ err_t control_flow::run ()
 
 size_t control_flow::get_calc_threads_number () const
 {
-  return max<size_t> (1, thread::hardware_concurrency () - 1);
+  return std::max<size_t> (1, std::thread::hardware_concurrency () - 1);
 }
 
 err_t control_flow::create_threads ()
@@ -73,14 +73,14 @@ err_t control_flow::create_threads ()
   m_threads.resize (n_thr);
   for (size_t id = 0; id < n_thr; id++)
     {
-      unique_ptr<thread_info_t> inf = make_unique<thread_info_t> (*m_sync, *m_sync_w_main, id, n_thr);
-      m_threads[id] = thread (run_calc_thread, move (inf), std::ref (*this));
+      std::unique_ptr<thread_info_t> inf = std::make_unique<thread_info_t> (*m_sync, *m_sync_w_main, id, n_thr);
+      m_threads[id] = std::thread (run_calc_thread, move (inf), std::ref (*this));
     }
   return ERR_OK;
 }
 
 void control_flow::join_threads ()
 {
-  for (thread &thr : m_threads)
+  for (std::thread &thr : m_threads)
     thr.join ();
 }

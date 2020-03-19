@@ -8,12 +8,12 @@
 
 void asset_test ()
 {
-  vector<string> replics = {"kek", "чебурек", "лол", "mea culpa", ""};
+  std::vector<std::string> replics = {"kek", "чебурек", "лол", "mea culpa", ""};
 
-  string savestring;
+  std::string savestring;
   assert_error (save (replics, savestring));
   assert_error (to_asset_file (savestring, "test"));
 
-  asset_ptr<vector<string>, LITERAL ("test")> test_asset;
+  asset_ptr<std::vector<std::string>, LITERAL ("test")> test_asset;
   assert_check (*test_asset.get () == replics, "These should be equal");
 }

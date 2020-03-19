@@ -14,23 +14,23 @@ class logger_t;
 /// .obj model format can be used for static not-animated meshes
 class model_obj_t
 {
-  vector<glm::vec3> m_vertices;
-  vector<glm::vec3> m_normals;
-  vector<glm::vec2> m_uv;
-  vector<unsigned int> m_vertex_indices;
-  vector<unsigned int> m_uv_indices;
-  vector<unsigned int> m_normal_indices;
+  std::vector<glm::vec3> m_vertices;
+  std::vector<glm::vec3> m_normals;
+  std::vector<glm::vec2> m_uv;
+  std::vector<unsigned int> m_vertex_indices;
+  std::vector<unsigned int> m_uv_indices;
+  std::vector<unsigned int> m_normal_indices;
 private:
-  void parse_position_3d (stringstream &ss, vector<glm::vec3> &vec);
-  void parse_vertex_line (stringstream &ss);
-  void parse_vertex_texture_coordinate_line (stringstream &ss);
-  void parse_vertex_normal_line (stringstream &ss);
-  void parse_face_line (stringstream &ss);
+  void parse_position_3d (std::stringstream &ss, std::vector<glm::vec3> &vec);
+  void parse_vertex_line (std::stringstream &ss);
+  void parse_vertex_texture_coordinate_line (std::stringstream &ss);
+  void parse_vertex_normal_line (std::stringstream &ss);
+  void parse_face_line (std::stringstream &ss);
 
 public:
   model_obj_t () = default;
-  model_obj_t (const string &filename);
-  err_t load (const string &filename);
+  model_obj_t (const std::string &filename);
+  err_t load (const std::string &filename);
   void print_debug_info (logger_t &logger);
   mesh_t to_mesh (logger_t &logger);
 };

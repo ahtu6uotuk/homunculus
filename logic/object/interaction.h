@@ -11,14 +11,14 @@ class object_base;
 class interaction
 {
 public:
-  interaction (const string &name, function<void (object_base &player_character)> interact_func)
+  interaction (const std::string &name, std::function<void (object_base &player_character)> interact_func)
     : m_name (name), m_interact_func (interact_func)
   {
   }
   void interact (object_base &player_character) { m_interact_func (player_character); }
-  const string &get_name () const { return m_name; }
+  const std::string &get_name () const { return m_name; }
 
 private:
-  string m_name;
-  function<void (object_base &player_character)> m_interact_func;
+  std::string m_name;
+  std::function<void (object_base &player_character)> m_interact_func;
 };

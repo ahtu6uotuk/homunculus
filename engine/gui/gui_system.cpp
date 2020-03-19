@@ -22,7 +22,7 @@ void gui_system_t::draw ()
   m_context[m_active_id]->draw ();
 }
 
-void gui_system_t::set_world_content (unique_ptr<gui_context_t> world_content)
+void gui_system_t::set_world_content (std::unique_ptr<gui_context_t> world_content)
 {
   m_world_content = move (world_content);
 }
@@ -46,7 +46,7 @@ void gui_system_t::handle_mouse_press_event (const int x, const int y)
 
 unsigned int gui_system_t::make_context ()
 {
-  m_context.push_back (make_unique<gui_context_t> (*this));
+  m_context.push_back (std::make_unique<gui_context_t> (*this));
   return static_cast<unsigned int> (m_context.size ());
 }
 

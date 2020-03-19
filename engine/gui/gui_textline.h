@@ -9,7 +9,7 @@ class font_t;
 class gui_textline_t : public gui_element_t
 {
   font_t &m_font;
-  string m_text;
+  std::string m_text;
   glm::vec3 m_color;
   unsigned int m_font_size;
 public:
@@ -19,7 +19,7 @@ public:
                   const unsigned int y,
                   gui_horizontal_alignment_t h_align,
                   gui_vertical_alignment_t v_align,
-                  const string &text,
+                  const std::string &text,
                   const glm::vec3 &color,
                   const unsigned int font_size,
                   const gui_element_t *pivot = nullptr);

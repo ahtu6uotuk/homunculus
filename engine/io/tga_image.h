@@ -1,6 +1,7 @@
 #pragma once
 #ifndef TGA_IMAGE_H
 #define TGA_IMAGE_H
+#include <memory>
 #include "common/err_t.h"
 
 enum class tga_image_type_t : uint8_t

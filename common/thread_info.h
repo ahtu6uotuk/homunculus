@@ -3,16 +3,15 @@
 #include <condition_variable>
 #include <functional>
 
-using namespace std;
 class thread_sync_t;
 
 class thread_info_t
 {
   thread_sync_t &m_thread_sync;
   thread_sync_t &m_thread_sync_w_main;
-  mutex m_mutex;
-  mutex m_condvar_mutex;
-  condition_variable m_condvar;
+  std::mutex m_mutex;
+  std::mutex m_condvar_mutex;
+  std::condition_variable m_condvar;
   unsigned int m_thread_id;
   unsigned int m_thread_number;
   unsigned int m_activations;

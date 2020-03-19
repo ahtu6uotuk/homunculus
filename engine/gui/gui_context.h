@@ -1,7 +1,7 @@
 #ifndef GUI_CONTEXT_H
 #define GUI_CONTEXT_H
 #include <vector>
-#include "common/common.h"
+#include <memory>
 
 class gui_system_t;
 class gui_element_t;
@@ -14,12 +14,12 @@ class renderer_t;
 class gui_context_t
 {
   gui_system_t &m_system;
-  vector<unique_ptr<gui_element_t>> m_context_element;
-  vector<unique_ptr<gui_interactive_element_t>> m_context_interactive;
+  std::vector<std::unique_ptr<gui_element_t>> m_context_element;
+  std::vector<std::unique_ptr<gui_interactive_element_t>> m_context_interactive;
 public:
   gui_context_t (gui_system_t &sys);
-  void add_element (unique_ptr<gui_element_t> element);
-  void add_element (unique_ptr<gui_interactive_element_t> element);
+  void add_element (std::unique_ptr<gui_element_t> element);
+  void add_element (std::unique_ptr<gui_interactive_element_t> element);
   void resize (const unsigned int width, const unsigned int height);
   void draw ();
   void handle_mouse_move_event (const int x, const int y);
