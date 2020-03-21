@@ -12,14 +12,6 @@ public:
   void exec_assert (engine_t &engine) { assert_error (exec (engine)); }
 };
 
-class request_to_gui_empty : public request_to_gui_base
-{
-public:
-  ~request_to_gui_empty () {}
-  request_to_gui_empty () {}
-  err_t exec (engine_t &) override { return ERR_OK; }
-};
-
 template<typename FuncT>
 class request_to_gui_t : public request_to_gui_base
 {

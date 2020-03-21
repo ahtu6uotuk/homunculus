@@ -31,9 +31,6 @@ err_t control_flow::init ()
 
   m_frame_manager = std::make_unique<frame_manager> (*m_engine->get_performance_indicator ());
 
-  m_old_request_to_calc = std::make_unique<request_to_calc_empty> ();
-  m_old_request_to_gui = std::make_unique<request_to_gui_empty> ();
-
   return ERR_OK;
 }
 
@@ -42,7 +39,7 @@ err_t control_flow::run ()
   RETURN_IF_FAIL (init ());
 
   m_sync_w_main->sync ();
-  while (!m_old_request_to_calc->is_exit ())
+  while (m_old_request_to_calc.empty () || !m_old_request_to_calc.back ()->is_exit ())
     {
       m_frame_manager->start_frame ();
 
@@ -50,7 +47,8 @@ err_t control_flow::run ()
       m_engine->render_and_display ();
 
       m_sync_w_main->sync ();
-      m_old_request_to_gui->exec_assert (*m_engine);
+      for (auto &req : m_old_request_to_gui)
+        req->exec_assert (*m_engine);
       m_old_request_to_calc = move (m_new_request_to_calc);
       m_old_request_to_gui = move (m_new_request_to_gui);
       m_sync_w_main->sync ();

@@ -37,10 +37,10 @@ private:
 
   std::unique_ptr<frame_manager> m_frame_manager;
 
-  std::unique_ptr<request_to_calc_base> m_old_request_to_calc;
-  std::unique_ptr<request_to_gui_base> m_old_request_to_gui;
-  std::unique_ptr<request_to_calc_base> m_new_request_to_calc;
-  std::unique_ptr<request_to_gui_base> m_new_request_to_gui;
+  std::vector<std::unique_ptr<request_to_calc_base>> m_old_request_to_calc;
+  std::vector<std::unique_ptr<request_to_gui_base>> m_old_request_to_gui;
+  std::vector<std::unique_ptr<request_to_calc_base>> m_new_request_to_calc;
+  std::vector<std::unique_ptr<request_to_gui_base>> m_new_request_to_gui;
 
   std::vector<std::thread> m_threads;
   std::unique_ptr<thread_sync_t> m_sync;

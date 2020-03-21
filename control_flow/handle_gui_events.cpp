@@ -6,9 +6,9 @@
 #include "control_flow/request_to_calc.h"
 #include "engine/engine.h"
 
-std::unique_ptr<request_to_calc_base> handle_gui_events (engine_t &engine)
+std::vector<std::unique_ptr<request_to_calc_base>> handle_gui_events (engine_t &engine)
 {
-  std::unique_ptr<request_to_calc_base> result (new request_to_calc_empty ());
+  std::vector<std::unique_ptr<request_to_calc_base>> result;
   auto &camera = engine.get_renderer ().get_camera ();
 
   sf::Event event;
@@ -18,8 +18,8 @@ std::unique_ptr<request_to_calc_base> handle_gui_events (engine_t &engine)
         {
         case sf::Event::EventType::Closed:
           {
-            result.reset (new request_to_calc_exit ());
-            break;
+            result.push_back (std::make_unique<request_to_calc_exit> ());
+            return result;
           }
         case sf::Event::EventType::Resized:
           {

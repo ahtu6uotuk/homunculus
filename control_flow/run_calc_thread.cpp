@@ -10,18 +10,27 @@
 #include "control_flow/request_to_gui.h"
 #include "control_flow/request_to_calc.h"
 
+static bool handle_requests (std::vector<std::unique_ptr<request_to_calc_base>> &requests, world_t &world, thread_info_t &thr_info)
+{
+  for (auto &req : requests)
+    {
+      if (req->is_exit ())
+        return false;
+      req->exec_assert (world, thr_info);
+    }
+  return true;
+}
+
 void run_calc_thread (std::unique_ptr<thread_info_t> thr_info, control_flow &flow)
 {
-  std::unique_ptr<request_to_calc_base> &old_request_to_calc = flow.m_old_request_to_calc;
-  std::unique_ptr<request_to_gui_base> &new_request_to_gui = flow.m_new_request_to_gui;
+  std::vector<std::unique_ptr<request_to_calc_base>> &old_request_to_calc = flow.m_old_request_to_calc;
+  std::vector<std::unique_ptr<request_to_gui_base>> &new_request_to_gui = flow.m_new_request_to_gui;
   world_t &world = *flow.m_world;
   engine_t &engine = *flow.m_engine;
 
   thr_info->sync_with_main ();
-  while (!old_request_to_calc->is_exit ())
+  while (handle_requests (old_request_to_calc, world, *thr_info))
     {
-      old_request_to_calc->exec_assert (world, *thr_info);
-
       // pretending to do something
       int j = 0;
       for (int i = 0; i < 10000; i++)

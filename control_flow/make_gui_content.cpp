@@ -9,7 +9,7 @@
 #include "control_flow/request_to_gui.h"
 #include "control_flow/request_to_calc.h"
 
-void make_gui_content (engine_t &engine, world_t &world, thread_info_t &thr_info, std::unique_ptr<request_to_gui_base> &result)
+void make_gui_content (engine_t &engine, world_t &world, thread_info_t &thr_info, std::vector<std::unique_ptr<request_to_gui_base>> &result)
 {
   // TODO: this should be parallel
   if (!thr_info.is_main_thread ())
@@ -31,7 +31,8 @@ void make_gui_content (engine_t &engine, world_t &world, thread_info_t &thr_info
       // other types of gui elements here...
     }
 
-  result.reset (
+  result.clear ();
+  result.emplace_back (
       new request_to_gui_t ([new_content = move (new_content)] (engine_t &eng) mutable -> err_t {
         eng.get_renderer ().get_gui ().set_world_content (move (new_content));
         return ERR_OK;

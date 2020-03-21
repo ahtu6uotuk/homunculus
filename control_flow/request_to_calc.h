@@ -17,14 +17,6 @@ public:
   }
 };
 
-class request_to_calc_empty : public request_to_calc_base
-{
-public:
-  ~request_to_calc_empty () {}
-  request_to_calc_empty () {}
-  err_t exec (world_t &, thread_info_t &) override { return ERR_OK; }
-};
-
 class request_to_calc_exit : public request_to_calc_base
 {
 public:
