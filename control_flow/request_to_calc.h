@@ -1,5 +1,7 @@
 #pragma once
 #include <functional>
+#include <vector>
+#include "engine/event.h"
 #include "common/common.h"
 #include "common/err_t.h"
 class world_t;
@@ -30,12 +32,22 @@ public:
   }
 };
 
+//class request_to_calc_events : public request_to_calc_base
+//{
+//public:
+//  request_to_calc_events (std::vector<event_t> events) : m_events (std::move (events)) {}
+//  ~request_to_calc_events () {}
+//  bool is_exit () override { return true; }
+//  err_t exec (world_t &, thread_info_t &) override;
+//  std::vector<event_t> m_events;
+//};
+
 template<typename FuncT>
 class request_to_calc_t : public request_to_calc_base
 {
 public:
   ~request_to_calc_t () {}
-  request_to_calc_t (FuncT func) : m_func (move (func)) {}
+  request_to_calc_t (FuncT func) : m_func (std::move (func)) {}
   err_t exec (world_t &world, thread_info_t &thr_info) override { return m_func (world, thr_info); }
 
 private:

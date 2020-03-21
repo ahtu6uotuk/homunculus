@@ -35,6 +35,15 @@ public:
   camera_t &operator= (const camera_t &) = delete;
   camera_t &operator= (camera_t &&) = delete;
   camera_t (const glm::vec3 &position);
+
+  // Yes, this is not okay.
+  // But storing player position in renderer is also not okay.
+  // So this class needs to be redone anyway.
+  void set_position (double x, double y, double z)
+  {
+    m_position = {x, y, z};
+  }
+
   /// @brief Move camera in direction during time dt
   void move (movement_direction_t direction, float dt);
   /// @brief Rotate camera

@@ -4,6 +4,8 @@
 #include "logic/object/object_heap.h"
 #include "logic/object_classes/player.h"
 
+extern const int player_id;
+
 class world_t
 {
 public:
@@ -16,6 +18,21 @@ public:
   player_t &get_player ();
   object_heap &get_level ();
   std::vector<object_base *> get_all ();
+
+  object_base *get_by_id (int id)
+  {
+    if (id == player_id)
+      return m_player.get ();
+    return m_level->get (id);
+  }
+
+  template<typename T>
+  T *get_by_id (int id)
+  {
+    if (id == player_id)
+      return m_player.get ();
+    return m_level->get<T> (id);
+  }
 
 private:
   struct meta_info;

@@ -9,7 +9,6 @@
 class engine_t;
 class world_t;
 class err_t;
-class event_t;
 class thread_sync_t;
 class thread_info_t;
 class gui_context_t;

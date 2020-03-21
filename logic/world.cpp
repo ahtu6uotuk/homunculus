@@ -5,6 +5,8 @@
 #include "common/err_t.h"
 #include "common/file_utils.h"
 
+const int player_id = 0;
+
 const std::string &world_t::meta_info::get_level ()
 {
   assert_check (loaded (), "Level should have a valid name");

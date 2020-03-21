@@ -7,7 +7,6 @@
 #include "engine/renderer/renderer.h"
 
 class thread_info_t;
-class event_t;
 class gui_context_t;
 class gui_textline_t;
 

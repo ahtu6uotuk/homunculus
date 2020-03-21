@@ -3,6 +3,7 @@
 #include "engine/engine.h"
 #include "logic/world.h"
 #include "logic/policies/get_text_for_gui_policy.h"
+#include "logic/policies/coordinates_policy.h"
 #include "engine/gui/gui_textline.h"
 #include "engine/gui/gui_context.h"
 #include "common/thread_info.h"
@@ -33,8 +34,11 @@ void make_gui_content (engine_t &engine, world_t &world, thread_info_t &thr_info
 
   result.clear ();
   result.emplace_back (
-      new request_to_gui_t ([new_content = move (new_content)] (engine_t &eng) mutable -> err_t {
+      new request_to_gui_t ([new_content = move (new_content), &world] (engine_t &eng) mutable -> err_t {
+        simple_coordinates_policy *coord = world.get_player ().get_policy<simple_coordinates_policy> ();
+
         eng.get_renderer ().get_gui ().set_world_content (move (new_content));
+        eng.get_renderer ().get_camera ().set_position (coord->get_x (), coord->get_y (), coord->get_z ());
         return ERR_OK;
       }));
 }

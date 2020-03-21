@@ -39,9 +39,13 @@ SOURCES += \
     logic/object_classes/friend.cpp \
     logic/object_classes/player.cpp \
     logic/plot_tag.cpp \
+    logic/policies/choose_action_policy.cpp \
+    logic/policies/coordinates_policy.cpp \
     logic/policies/get_text_for_gui_policy.cpp \
+    logic/policies/player_choose_action_policy.cpp \
     logic/policies/plot_tags_policy.cpp \
     logic/policies/talk_policy.cpp \
+    logic/action.cpp \
     logic/simulation/simulation.cpp \
     logic/simulation/simulation_helpers.cpp \
     logic/tests/asset_test.cpp \
@@ -108,9 +112,13 @@ HEADERS += \
     logic/object_classes/friend.h \
     logic/object_classes/player.h \
     logic/plot_tag.h \
+    logic/policies/choose_action_policy.h \
+    logic/policies/coordinates_policy.h \
     logic/policies/get_text_for_gui_policy.h \
+    logic/policies/player_choose_action_policy.h \
     logic/policies/plot_tags_policy.h \
     logic/policies/talk_policy.h \
+    logic/action.h \
     logic/saveload/saveload.h \
     logic/saveload/saveload_tree_fwd.h \
     logic/simulation/simulation.h \

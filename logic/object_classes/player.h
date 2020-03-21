@@ -6,11 +6,15 @@
 #include "logic/policies/name_policy.h"
 #include "logic/policies/plot_tags_policy.h"
 #include "logic/policies/get_text_for_gui_policy.h"
+#include "logic/policies/player_choose_action_policy.h"
+#include "logic/policies/coordinates_policy.h"
 
 class player_t : public object<
                      player_t,
                      simple_name_policy,
-                     simple_get_text_for_gui_policy
+                     simple_get_text_for_gui_policy,
+                     simple_coordinates_policy,
+                     player_choose_action_policy
                      >
 {
 public:
