@@ -39,7 +39,8 @@ public:
     obj_map_base *corresp_vector = m_obj_maps[name_of_type].get ();
     obj_map<T> *typed_vector = dynamic_cast<obj_map<T> *> (corresp_vector);
     std::unique_ptr<T> created_obj = std::make_unique<T> (std::forward<ConstructorArgs> (constructor_args)...);
-    typed_vector->m_data[++m_max_id] = move (created_obj);
+    created_obj->m_id = ++m_max_id;
+    typed_vector->m_data[m_max_id] = move (created_obj);
     return m_max_id;
   }
 

@@ -5,8 +5,9 @@
 			<first>3</first>
 			<second>
 				<entry>
-					<name>Old man</name>
+					<id>3</id>
 					<current_tag>start</current_tag>
+					<name>Old man</name>
 				</entry>
 			</second>
 		</entry>
@@ -16,6 +17,7 @@
 			<first>1</first>
 			<second>
 				<entry>
+					<id>1</id>
 					<name>Skeleton</name>
 					<hp>10</hp>
 				</entry>
@@ -25,6 +27,7 @@
 			<first>2</first>
 			<second>
 				<entry>
+					<id>2</id>
 					<name>Zombie</name>
 					<hp>25</hp>
 				</entry>

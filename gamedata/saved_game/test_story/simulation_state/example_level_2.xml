@@ -7,6 +7,7 @@
 				<entry>
 					<name>Skeleton</name>
 					<hp>10</hp>
+					<id>1</id>
 				</entry>
 			</second>
 		</entry>
@@ -16,6 +17,7 @@
 				<entry>
 					<name>Zombie</name>
 					<hp>25</hp>
+					<id>2</id>
 				</entry>
 			</second>
 		</entry>
@@ -26,7 +28,8 @@
 			<second>
 				<entry>
 					<name>Old man</name>
-					<current_tag>goodbye</current_tag>
+					<current_tag>start</current_tag>
+					<id>3</id>
 				</entry>
 			</second>
 		</entry>
