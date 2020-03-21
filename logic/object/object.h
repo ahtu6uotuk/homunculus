@@ -43,7 +43,17 @@ public:
     for_all_attrs (func);
     return res;
   }
+  void build_saveload_tree (saveload_node &node)
+  {
+    auto func = [&node] (auto attr) { attr->policy_build_saveload_tree (node); };
+    for_all_attrs (func);
+  }
 
+protected:
+  virtual object_base &get_policy_private () override { return *this; }
+  virtual const object_base &get_policy_private () const override { return *this; }
+
+private:
   template<typename Func>
   void for_all_attrs (Func &func)
   {
@@ -56,11 +66,6 @@ public:
     for_all_attrs_helper<Func, Args...> (func);
   }
 
-protected:
-  virtual object_base &get_policy_private () override { return *this; }
-  virtual const object_base &get_policy_private () const override { return *this; }
-
-private:
   template<typename Func, typename Attr>
   void for_all_attrs_helper (Func &func)
   {

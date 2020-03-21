@@ -97,16 +97,6 @@ public:
     add_primitive (data, name);
   }
 
-  /// composite objects
-  template<typename Data, std::enable_if_t<std::is_base_of_v<object_base, Data>, int> = 0>
-  void add (Data &data, const std::string &name)
-  {
-    m_children.emplace_back (new saveload_node (m_root, name));
-    saveload_node &node = *m_children.back ();
-    auto func = [&node] (auto attr) { attr->policy_build_saveload_tree (node); };
-    data.for_all_attrs (func);
-  }
-
   /// everything else
   template<typename Data, std::enable_if_t<detail::can_build_saveload_tree<Data>::value, int> = 0>
   void add (Data &data, const std::string &name)
