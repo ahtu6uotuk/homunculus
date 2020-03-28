@@ -55,7 +55,7 @@ public:
     });
   }
 
-  void build_saveload_tree (saveload_node &node)
+  void build_saveload_tree (saveload::node_t &node)
   {
     for (std::pair<const std::string, std::unique_ptr<plot_tag_base>> &it: m_plot_properties)
       it.second->add_to_tree_named (node, it.first);
@@ -89,7 +89,7 @@ private:
     virtual void set (const std::string &str_enum_value) = 0;
     virtual bool has (const std::string &str_enum_value) const = 0;
     virtual int get () const = 0;
-    virtual void add_to_tree_named (saveload_node &node, const std::string &name) = 0;
+    virtual void add_to_tree_named (saveload::node_t &node, const std::string &name) = 0;
     virtual bool operator == (const plot_tag_base &other) const = 0;
     virtual std::string print () const = 0;
   };
@@ -113,9 +113,9 @@ private:
     {
       return enum_to_string (m_property_value) == str_enum_value;
     }
-    void add_to_tree_named (saveload_node &node, const std::string &name) override
+    void add_to_tree_named (saveload::node_t &node, const std::string &name) override
     {
-      node.add (m_property_value, name);
+      saveload::add (node, m_property_value, name);
     }
     bool operator == (const plot_tag_base &other) const override
     {

@@ -4,7 +4,7 @@
 #include "external/rapidxml/rapidxml_print.hpp"
 #include "logic/saveload/saveload.h"
 
-std::string detail::xml_node_to_string (const rapidxml::xml_node<> &node)
+std::string saveload::detail::xml_node_to_string (const rapidxml::xml_node<> &node)
 {
   std::string s;
   print (std::back_inserter (s), node, 0);
@@ -13,24 +13,24 @@ std::string detail::xml_node_to_string (const rapidxml::xml_node<> &node)
 
 // saveload_node---------------------------------------------------------------
 
-saveload_node::~saveload_node () {}
+saveload::node_t::~node_t () {}
 
-saveload_node::saveload_node (doc_t &root_node, const std::string &name)
-  : m_root (root_node), m_name (name)
+saveload::node_t::node_t (xml_doc_t &root_node, const std::string &name)
+  : m_name (name), m_root (root_node)
 {
   assert_check (!m_name.empty (), "Object must have a valid name!");
 }
 
-err_t saveload_node::load ()
+err_t saveload::node_t::load ()
 {
   assert_check (m_node, "Node not set when trying to load");
-  std::unordered_map<node_t *, bool> all_loaded;
-  for (node_t *node = m_node->first_node (); node; node = node->next_sibling ())
+  std::unordered_map<xml_node_t *, bool> all_loaded;
+  for (xml_node_t *node = m_node->first_node (); node; node = node->next_sibling ())
     all_loaded[node] = false;
 
   for (size_t i = 0; i < m_children.size (); i++)
     {
-      node_t *current_node = m_node->first_node (m_children[i]->m_name.c_str ());
+      xml_node_t *current_node = m_node->first_node (m_children[i]->m_name.c_str ());
       if (!current_node)
         continue;
       all_loaded[current_node] = true;
@@ -49,12 +49,12 @@ err_t saveload_node::load ()
   return ERR_OK;
 }
 
-err_t saveload_node::save ()
+err_t saveload::node_t::save ()
 {
   return save_private ();
 }
 
-err_t saveload_node::save_private (bool ignore_defaults)
+err_t saveload::node_t::save_private (bool ignore_defaults)
 {
   for (size_t i = 0; i < m_children.size (); i++)
     {
@@ -71,7 +71,7 @@ err_t saveload_node::save_private (bool ignore_defaults)
   return ERR_OK;
 }
 
-void saveload_node::set_node_value (const std::string &value)
+void saveload::node_t::set_node_value (const std::string &value)
 {
   if (value.empty ())
     return;
@@ -79,18 +79,35 @@ void saveload_node::set_node_value (const std::string &value)
   m_node->value (node_value);
 }
 
-// saveload_container_node---------------------------------------------------------------
+bool saveload::node_t::is_default () const
+{
+  if (!is_default_self ())
+    return false;
+  return all_of (m_children.begin (), m_children.end (), [] (auto &a) { return a->is_default (); });
+}
+
+bool saveload::node_t::is_default_self () const { return true; }
+
+void saveload::node_t::spawn_empty_child (const std::string &name)
+{
+  m_children.emplace_back (new node_t (m_root, name));
+}
+
+saveload::node_t &saveload::node_t::last_child () { return *m_children.back (); }
+
+
+// container_node_t---------------------------------------------------------------
 
 
 
 // saveload_root---------------------------------------------------------------
 
-detail::saveload_root::~saveload_root () {}
-detail::saveload_root::saveload_root ()
-  : saveload_node (m_root_ownership, "doc")
+saveload::detail::root_node_t::~root_node_t () {}
+saveload::detail::root_node_t::root_node_t ()
+  : node_t (m_root_ownership, "doc")
 {
 }
-void detail::saveload_root::set_node (saveload_node::node_t *node)
+void saveload::detail::root_node_t::set_node (node_t::xml_node_t *node)
 {
   m_node = node;
 }

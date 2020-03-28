@@ -23,7 +23,7 @@ private:
     m_data = std::make_unique<DataT> ();
     std::string file_contents;
     assert_error (from_asset_file (file_contents, asset_name));
-    assert_error (load (*m_data, file_contents));
+    assert_error (saveload::load (*m_data, file_contents));
   }
   std::unique_ptr<DataT> m_data;
 };

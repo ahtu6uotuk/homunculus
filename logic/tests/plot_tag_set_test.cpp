@@ -17,10 +17,10 @@ void plot_tag_set_test ()
   dialog_tree empty_dialog;
   std::string res1;
   assert_error (from_asset_file (res1, "some_dialog"));
-  assert_error (load (empty_dialog, res1));
+  assert_error (saveload::load (empty_dialog, res1));
 
   std::string res2;
-  assert_error (save (empty_dialog, res2));
+  assert_error (saveload::save (empty_dialog, res2));
   assert_error (to_asset_file (res2, "some_dialog"));
 
   object_heap heap;

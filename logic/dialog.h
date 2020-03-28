@@ -3,11 +3,11 @@
 #include <unordered_map>
 
 #include "common/common.h"
-class saveload_node;
+#include "logic/saveload/saveload_fwd.h"
 
 struct named_tag
 {
-  void build_saveload_tree (saveload_node &node);
+  void build_saveload_tree (saveload::node_t &node);
   bool operator== (const named_tag &other) const;
   std::string m_name;
   std::string m_value;
@@ -15,7 +15,7 @@ struct named_tag
 
 struct cond_goto
 {
-  void build_saveload_tree (saveload_node &node);
+  void build_saveload_tree (saveload::node_t &node);
   bool operator== (const cond_goto &other) const;
   std::vector<std::pair<named_tag, std::string>> m_pc_conditions;
   std::vector<std::pair<named_tag, std::string>> m_npc_conditions;
@@ -32,7 +32,7 @@ public:
   std::vector<named_tag> m_npc_tags_to_set;
 
 protected:
-  void add_to_tree (saveload_node &node);
+  void add_to_tree (saveload::node_t &node);
   bool operator== (const dialog_line &other) const;
 };
 
@@ -40,7 +40,7 @@ class pc_dialog_line : public dialog_line
 {
 public:
   virtual ~pc_dialog_line () {}
-  void build_saveload_tree (saveload_node &node);
+  void build_saveload_tree (saveload::node_t &node);
   bool operator== (const pc_dialog_line &other) const;
   const std::string &print () const;
 
@@ -52,7 +52,7 @@ class npc_dialog_line : public dialog_line
 {
 public:
   virtual ~npc_dialog_line () {}
-  void build_saveload_tree (saveload_node &node);
+  void build_saveload_tree (saveload::node_t &node);
   bool operator== (const npc_dialog_line &other) const;
 
   std::vector<std::string> m_text_beats;
@@ -62,6 +62,6 @@ public:
 class dialog_tree
 {
 public:
-  void build_saveload_tree (saveload_node &node);
+  void build_saveload_tree (saveload::node_t &node);
   std::unordered_map<std::string, npc_dialog_line> m_lines;
 };

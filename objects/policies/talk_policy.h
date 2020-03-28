@@ -10,7 +10,7 @@ class talk_policy : virtual public object_base
 {
 public:
   virtual std::string policy_describe () const = 0;
-  virtual void policy_build_saveload_tree (saveload_node &node) = 0;
+  virtual void policy_build_saveload_tree (saveload::node_t &node) = 0;
   virtual std::vector<interaction> policy_get_interactions ()
   {
     return {interaction ("Talk", [this] (object_base &pc) { get_talked_by (pc); })};
@@ -29,9 +29,9 @@ public:
   {
     return string_printf ("Talks using dialog \"%s\", tag: \"%s\"", dialog_name, m_current_tag.c_str ());
   }
-  void policy_build_saveload_tree (saveload_node &node) override
+  void policy_build_saveload_tree (saveload::node_t &node) override
   {
-    node.add (m_current_tag, "current_tag");
+    saveload::add (node, m_current_tag, "current_tag");
   }
   bool operator== (const simple_talk_policy<dialog_name> &other) const
   {

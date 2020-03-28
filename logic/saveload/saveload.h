@@ -1,18 +1,20 @@
 #pragma once
 
-#include "logic/saveload/saveload_tree.h"
+#include "logic/saveload/saveload_rules.h"
 
+namespace saveload
+{
 template<typename Data>
 err_t save (const Data &src, std::string &dst)
 {
-  detail::saveload_root root;
+  detail::root_node_t root;
 
-  saveload_node::node_t *root_node
+  node_t::xml_node_t *root_node
       = root.m_root_ownership.allocate_node (rapidxml::node_type::node_element, "root");
   root.set_node (root_node);
   root.m_root_ownership.append_node (root_node);
 
-  root.add (const_cast<Data &> (src), "data");
+  add (root, const_cast<Data &> (src), "data");
   // It would be great to get rid of this const_cast.
   // I don't know how though.
 
@@ -26,7 +28,7 @@ err_t save (const Data &src, std::string &dst)
 template<typename Data>
 err_t load (Data &dst, const std::string &src)
 {
-  detail::saveload_root root;
+  detail::root_node_t root;
 
   std::vector<char> copy (src.begin (), src.end ());
   copy.push_back ('\0');
@@ -58,6 +60,25 @@ err_t load (Data &dst, const std::string &src)
     return err_t (string_printf ("Error encountered while parsing xml: %s\n", errstr.c_str ()));
 
   root.set_node (&root.m_root_ownership);
-  root.add (dst, "data");
+  add (root, dst, "data");
   return root.load ();
 }
+
+template<typename DataT>
+void add (node_t &node, DataT &data, const std::string &name)
+{
+  rules::add_impl (node, data, name);
+}
+
+namespace detail
+{
+template<typename ElemT, typename ContainerT>
+void add_elem (ContainerT &data, std::unique_ptr<ElemT> elem_to_add_impl)
+{
+  rules::add_elem_impl (data, std::move (elem_to_add_impl));
+}
+}
+
+}
+
+

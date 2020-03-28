@@ -22,7 +22,7 @@ public:
 
   std::vector<object_base *> get_all ();
   object_base *get (int id);
-  void build_saveload_tree (saveload_node &node);
+  void build_saveload_tree (saveload::node_t &node);
 
   template<typename T, typename... ConstructorArgs>
   T *allocate_and_get (ConstructorArgs... constructor_args)
@@ -67,7 +67,7 @@ private:
     virtual bool operator== (const obj_map_base &other) = 0;
     virtual std::vector<object_base *> get_all () = 0;
     virtual object_base *get_by_id (int id) = 0;
-    virtual void add_to_tree (saveload_node &node) = 0;
+    virtual void add_to_tree (saveload::node_t &node) = 0;
   };
 
   template<typename T>
@@ -104,9 +104,9 @@ private:
       return m_data.count (id) ? m_data[id].get () : nullptr;
     }
 
-    virtual void add_to_tree (saveload_node &node) override
+    virtual void add_to_tree (saveload::node_t &node) override
     {
-      node.add (m_data, T::objtype_name ());
+      saveload::add (node, m_data, T::objtype_name ());
     }
 
     std::unordered_map<int, std::unique_ptr<T>> m_data;

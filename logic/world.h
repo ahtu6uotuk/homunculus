@@ -53,7 +53,7 @@ private:
 private:
   struct meta_info
   {
-    void build_saveload_tree (saveload_node &node);
+    void build_saveload_tree (saveload::node_t &node);
     bool loaded ();
     const std::string &get_level ();
     void set_level (const std::string &name);

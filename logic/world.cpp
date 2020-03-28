@@ -21,9 +21,9 @@ void world_t::meta_info::set_level (const std::string &name)
 
 bool world_t::meta_info::loaded () { return !m_curr_level.empty (); }
 
-void world_t::meta_info::build_saveload_tree (saveload_node &node)
+void world_t::meta_info::build_saveload_tree (saveload::node_t &node)
 {
-  node.add (m_curr_level, "current_level_name");
+  saveload::add (node, m_curr_level, "current_level_name");
 }
 
 world_t::world_t (const std::string &story_name) : m_story_name (story_name)
@@ -91,7 +91,7 @@ err_t world_t::load_player (const std::string &save_name)
   std::string buffer;
 
   RETURN_IF_FAIL (from_saved_game_file (buffer, m_story_name, save_name, "player"));
-  RETURN_IF_FAIL (::load (*new_player, buffer));
+  RETURN_IF_FAIL (saveload::load (*new_player, buffer));
 
   m_player = move (new_player);
 
@@ -105,7 +105,7 @@ err_t world_t::load_meta_info (const std::string &save_name)
   std::string buffer;
 
   RETURN_IF_FAIL (from_saved_game_file (buffer, m_story_name, save_name, "meta_info"));
-  RETURN_IF_FAIL (::load (*new_info, buffer));
+  RETURN_IF_FAIL (saveload::load (*new_info, buffer));
 
   m_meta_info = move (new_info);
 
@@ -119,7 +119,7 @@ err_t world_t::load_level (const std::string &save_name)
   std::string buffer;
 
   RETURN_IF_FAIL (from_saved_game_file (buffer, m_story_name, save_name, m_meta_info->get_level ()));
-  RETURN_IF_FAIL (::load (*new_level, buffer));
+  RETURN_IF_FAIL (saveload::load (*new_level, buffer));
 
   m_level = move (new_level);
 
@@ -134,9 +134,9 @@ err_t world_t::save (const std::string &save_name)
   std::string player_buffer;
   std::string level_buffer;
 
-  RETURN_IF_FAIL (::save (*m_meta_info, meta_info_buffer));
-  RETURN_IF_FAIL (::save (*m_player, player_buffer));
-  RETURN_IF_FAIL (::save (*m_level, level_buffer));
+  RETURN_IF_FAIL (saveload::save (*m_meta_info, meta_info_buffer));
+  RETURN_IF_FAIL (saveload::save (*m_player, player_buffer));
+  RETURN_IF_FAIL (saveload::save (*m_level, level_buffer));
 
   if (m_last_save_name != save_name)
     {

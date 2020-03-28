@@ -11,7 +11,7 @@ public:
   {
     return string_printf ("Choosing action according to keyboard input");
   }
-  void policy_build_saveload_tree (saveload_node &) override {}
+  void policy_build_saveload_tree (saveload::node_t &) override {}
   bool operator== (const player_choose_action_policy &) const { return true; }
 
   std::unique_ptr<action> get_action (world_t &) override

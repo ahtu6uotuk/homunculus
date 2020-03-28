@@ -10,7 +10,7 @@ class coordinates_policy : virtual public object_base
 {
 public:
   virtual std::string policy_describe () const = 0;
-  virtual void policy_build_saveload_tree (saveload_node &node) = 0;
+  virtual void policy_build_saveload_tree (saveload::node_t &node) = 0;
   virtual std::vector<interaction> policy_get_interactions () { return {}; }
   };
 
@@ -31,11 +31,11 @@ public:
   {
     return string_printf ("My coordinates are (%f; %f; %f)", m_x, m_y, m_z);
   }
-  void policy_build_saveload_tree (saveload_node &node) override
+  void policy_build_saveload_tree (saveload::node_t &node) override
   {
-    node.add (m_x, "x");
-    node.add (m_y, "y");
-    node.add (m_z, "z");
+    saveload::add (node, m_x, "x");
+    saveload::add (node, m_y, "y");
+    saveload::add (node, m_z, "z");
   }
   bool operator== (const simple_coordinates_policy &other) const
   {

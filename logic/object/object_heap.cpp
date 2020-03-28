@@ -43,9 +43,9 @@ object_base *object_heap::get (int id)
   return nullptr;
 }
 
-void object_heap::build_saveload_tree (saveload_node &node)
+void object_heap::build_saveload_tree (saveload::node_t &node)
 {
-  node.add (m_max_id, "max_id");
+  saveload::add (node, m_max_id, "max_id");
   for (std::pair<const std::string, std::unique_ptr<obj_map_base>> &it : m_obj_maps)
     it.second->add_to_tree (node);
 }

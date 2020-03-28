@@ -18,14 +18,14 @@ public:
            && uptrs_are_equal (m_unique_int_1, other.m_unique_int_1)
            && uptrs_are_equal (m_unique_int_2, other.m_unique_int_2);
   }
-  void build_saveload_tree (saveload_node &node)
+  void build_saveload_tree (saveload::node_t &node)
   {
-    node.add (m_double_val_1, "m_double_val_1");
-    node.add (m_double_val_2, "m_double_val_2");
-    node.add (m_int_val_1, "m_int_val_1");
-    node.add (m_int_val_2, "m_int_val_2");
-    node.add (m_unique_int_1, "m_unique_int_1");
-    node.add (m_unique_int_2, "m_unique_int_2");
+    saveload::add (node, m_double_val_1, "m_double_val_1");
+    saveload::add (node, m_double_val_2, "m_double_val_2");
+    saveload::add (node, m_int_val_1, "m_int_val_1");
+    saveload::add (node, m_int_val_2, "m_int_val_2");
+    saveload::add (node, m_unique_int_1, "m_unique_int_1");
+    saveload::add (node, m_unique_int_2, "m_unique_int_2");
   }
   std::unique_ptr<int> m_unique_int_1;
   std::unique_ptr<int> m_unique_int_2;
@@ -47,14 +47,14 @@ public:
            && uptrs_are_equal (m_unique_inner_1, other.m_unique_inner_1)
            && uptrs_are_equal (m_unique_inner_1, other.m_unique_inner_1);
   }
-  void build_saveload_tree (saveload_node &node)
+  void build_saveload_tree (saveload::node_t &node)
   {
-    node.add (m_member_inner, "member_inner");
-    node.add (m_double_val, "double_val");
-    node.add (m_int_string_map, "vect_of_ints");
-    node.add (m_vect_of_inners, "vect_of_inners");
-    node.add (m_unique_inner_1, "unique_inner_1");
-    node.add (m_unique_inner_2, "unique_inner_2");
+    saveload::add (node, m_member_inner, "member_inner");
+    saveload::add (node, m_double_val, "double_val");
+    saveload::add (node, m_int_string_map, "vect_of_ints");
+    saveload::add (node, m_vect_of_inners, "vect_of_inners");
+    saveload::add (node, m_unique_inner_1, "unique_inner_1");
+    saveload::add (node, m_unique_inner_2, "unique_inner_2");
   }
   inner_class m_member_inner;
   std::unique_ptr<inner_class> m_unique_inner_1;

@@ -106,6 +106,8 @@ HEADERS += \
     logic/asset.h \
     logic/dialog.h \
     logic/object/interaction.h \
+    logic/saveload/saveload_fwd.h \
+    logic/saveload/saveload_rules.h \
     objects/object_classes/enemy.h \
     objects/object_classes/example_classes.h \
     objects/object_classes/friend.h \
@@ -119,7 +121,6 @@ HEADERS += \
     objects/policies/talk_policy.h \
     logic/action.h \
     logic/saveload/saveload.h \
-    logic/saveload/saveload_tree_fwd.h \
     logic/simulation/simulation.h \
     logic/simulation/simulation_helpers.h \
     logic/tests/logic_tests.h \

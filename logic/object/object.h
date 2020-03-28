@@ -43,11 +43,11 @@ public:
     for_all_attrs (func);
     return res;
   }
-  void build_saveload_tree (saveload_node &node)
+  void build_saveload_tree (saveload::node_t &node)
   {
     auto func = [&node] (auto attr) { attr->policy_build_saveload_tree (node); };
     for_all_attrs (func);
-    node.add (m_id, "id");
+    saveload::add (node, m_id, "id");
   }
 
 protected:
