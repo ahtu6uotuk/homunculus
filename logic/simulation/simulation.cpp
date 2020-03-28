@@ -1,8 +1,8 @@
 #include "simulation.h"
 
 #include "logic/object/object_heap.h"
-#include "logic/object_classes/enemy.h"
-#include "logic/object_classes/friend.h"
+#include "objects/object_classes/enemy.h"
+#include "objects/object_classes/friend.h"
 #include "logic/simulation/simulation_helpers.h"
 #include "logic/world.h"
 

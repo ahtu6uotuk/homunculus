@@ -6,7 +6,7 @@
 #include "control_flow/request_to_calc.h"
 #include "engine/engine.h"
 #include "logic/world.h"
-#include "logic/policies/player_choose_action_policy.h"
+#include "objects/policies/player_choose_action_policy.h"
 
 static std::unique_ptr<request_to_calc_base> request_player_action (std::unique_ptr<action> action)
 {

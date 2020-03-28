@@ -1,9 +1,9 @@
 #pragma once
 
-#include "logic/policies/name_policy.h"
-#include "logic/policies/plot_tags_policy.h"
-#include "logic/policies/talk_policy.h"
-#include "logic/policies/health_policy.h"
+#include "objects/policies/name_policy.h"
+#include "objects/policies/plot_tags_policy.h"
+#include "objects/policies/talk_policy.h"
+#include "objects/policies/health_policy.h"
 #include "logic/object/object.h"
 
 class human : public object<

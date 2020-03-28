@@ -2,7 +2,7 @@
 
 #include "logic/dialog.h"
 #include "logic/object/object_heap.h"
-#include "logic/object_classes/example_classes.h"
+#include "objects/object_classes/example_classes.h"
 
 void object_heap_test ()
 {

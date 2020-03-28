@@ -1,7 +1,7 @@
 #include "action.h"
 
 #include "logic/world.h"
-#include "logic/policies/coordinates_policy.h"
+#include "objects/policies/coordinates_policy.h"
 
 void action::exec (int actor_id, world_t &world)
 {

@@ -2,7 +2,10 @@
 
 #include "common/common.h"
 #include "logic/object/object_heap.h"
-#include "logic/object_classes/player.h"
+
+// TODO: make ids global and player object not special in the world,
+// remove this reference to another module
+#include "objects/object_classes/player.h"
 
 extern const int player_id;
 

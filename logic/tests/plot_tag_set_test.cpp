@@ -3,7 +3,7 @@
 #include "common/template_tricks/string_literal.h"
 #include "logic/dialog.h"
 #include "logic/plot_tag.h"
-#include "logic/object_classes/friend.h"
+#include "objects/object_classes/friend.h"
 
 void plot_tag_set_test ()
 {

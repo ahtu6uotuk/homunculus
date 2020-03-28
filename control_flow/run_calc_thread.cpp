@@ -6,7 +6,7 @@
 #include "control_flow/make_gui_content.h"
 #include "logic/world.h"
 #include "logic/action.h"
-#include "logic/policies/choose_action_policy.h"
+#include "objects/policies/choose_action_policy.h"
 #include "engine/event.h"
 #include "common/thread_info.h"
 #include "control_flow/request_to_gui.h"

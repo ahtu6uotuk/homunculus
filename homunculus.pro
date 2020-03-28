@@ -35,16 +35,16 @@ SOURCES += \
     logic/dialog.cpp \
     logic/object/interaction.cpp \
     logic/object/object_heap.cpp \
-    logic/object_classes/enemy.cpp \
-    logic/object_classes/friend.cpp \
-    logic/object_classes/player.cpp \
+    objects/object_classes/enemy.cpp \
+    objects/object_classes/friend.cpp \
+    objects/object_classes/player.cpp \
     logic/plot_tag.cpp \
-    logic/policies/choose_action_policy.cpp \
-    logic/policies/coordinates_policy.cpp \
-    logic/policies/get_text_for_gui_policy.cpp \
-    logic/policies/player_choose_action_policy.cpp \
-    logic/policies/plot_tags_policy.cpp \
-    logic/policies/talk_policy.cpp \
+    objects/policies/choose_action_policy.cpp \
+    objects/policies/coordinates_policy.cpp \
+    objects/policies/get_text_for_gui_policy.cpp \
+    objects/policies/player_choose_action_policy.cpp \
+    objects/policies/plot_tags_policy.cpp \
+    objects/policies/talk_policy.cpp \
     logic/action.cpp \
     logic/simulation/simulation.cpp \
     logic/simulation/simulation_helpers.cpp \
@@ -106,17 +106,17 @@ HEADERS += \
     logic/asset.h \
     logic/dialog.h \
     logic/object/interaction.h \
-    logic/object_classes/enemy.h \
-    logic/object_classes/example_classes.h \
-    logic/object_classes/friend.h \
-    logic/object_classes/player.h \
+    objects/object_classes/enemy.h \
+    objects/object_classes/example_classes.h \
+    objects/object_classes/friend.h \
+    objects/object_classes/player.h \
     logic/plot_tag.h \
-    logic/policies/choose_action_policy.h \
-    logic/policies/coordinates_policy.h \
-    logic/policies/get_text_for_gui_policy.h \
-    logic/policies/player_choose_action_policy.h \
-    logic/policies/plot_tags_policy.h \
-    logic/policies/talk_policy.h \
+    objects/policies/choose_action_policy.h \
+    objects/policies/coordinates_policy.h \
+    objects/policies/get_text_for_gui_policy.h \
+    objects/policies/player_choose_action_policy.h \
+    objects/policies/plot_tags_policy.h \
+    objects/policies/talk_policy.h \
     logic/action.h \
     logic/saveload/saveload.h \
     logic/saveload/saveload_tree_fwd.h \
@@ -126,8 +126,8 @@ HEADERS += \
     logic/object/object.h \
     logic/object/object_base.h \
     logic/object/object_heap.h \
-    logic/policies/health_policy.h \
-    logic/policies/name_policy.h \
+    objects/policies/health_policy.h \
+    objects/policies/name_policy.h \
     logic/saveload/saveload_tree.h \
     common/string/string_utils.h \
     engine/logger.h \
