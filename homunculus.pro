@@ -77,7 +77,6 @@ SOURCES += \
     engine/logger_utils.cpp \
     engine/renderer/camera.cpp \
     engine/io/resource_manager.cpp \
-    engine/io/io_utils.cpp \
     engine/renderer/gl/gl_ext.cpp
 # Directories
 
@@ -153,7 +152,6 @@ HEADERS += \
     common/type_traits_ext.h \
     engine/io/resource_manager.h \
     engine/renderer/shader_fwd.h \
-    engine/io/io_utils.h \
     engine/renderer/gl/gl_ext.h
 
 DISTFILES += \

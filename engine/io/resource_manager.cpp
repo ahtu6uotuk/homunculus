@@ -1,7 +1,7 @@
 #include "resource_manager.h"
 #include <fstream>
 #include "engine/logger.h"
-#include "engine/io/io_utils.h"
+#include "common/file_utils.h"
 #include "engine/io/model_obj.h"
 #include "engine/io/tga_image.h"
 #include "engine/renderer/shader.h"
@@ -75,7 +75,8 @@ err_t resource_manager_t::load_vertex_shader (const std::string &filename, verte
   auto path = std::string ("gamedata/shaders/").append (filename);
 
   std::string src;
-  RETURN_IF_FAIL (read_file_data (path, src));
+  RETURN_IF_FAIL (from_file (src, path));
+
   auto &vs = m_vertex_shaders.emplace_back (std::make_unique<vertex_shader_t> (src.c_str ()));
   RETURN_IF_FAIL (vs->check ());
 
@@ -95,7 +96,7 @@ err_t resource_manager_t::load_fragment_shader (const std::string &filename, fra
   auto path = std::string ("gamedata/shaders/").append (filename);
 
   std::string src;
-  RETURN_IF_FAIL (read_file_data (path, src));
+  RETURN_IF_FAIL (from_file (src, path));
   auto &fs = m_fragment_shaders.emplace_back (std::make_unique<fragment_shader_t> (src.c_str ()));
   RETURN_IF_FAIL (fs->check ());
 
