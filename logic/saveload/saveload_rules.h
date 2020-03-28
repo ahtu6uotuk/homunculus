@@ -7,6 +7,10 @@ namespace saveload
 namespace rules
 {
 /// primitives
+inline void add_impl (node_t &node, float &data, const std::string &name)
+{
+  node.add_primitive (data, name);
+}
 inline void add_impl (node_t &node, double &data, const std::string &name)
 {
   node.add_primitive (data, name);

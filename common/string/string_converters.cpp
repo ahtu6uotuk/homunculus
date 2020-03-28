@@ -27,6 +27,19 @@ err_t string_from_data (std::string &dst, const double &src)
   return ERR_OK;
 }
 
+// float
+err_t string_to_data (const std::string &src, float &dst)
+{
+  double temp_dst;
+  RETURN_IF_FAIL (string_to_data (src, temp_dst));
+  dst = temp_dst;
+  return ERR_OK;
+}
+err_t string_from_data (std::string &dst, const float &src)
+{
+  return string_from_data (dst, (double) src);
+}
+
 // int
 err_t string_to_data (const std::string &src, int &dst)
 {

@@ -8,7 +8,7 @@ namespace rules
 {
 
 /// glvec3
-void add_impl (node_t &node, glm::vec3 &data, const std::string &name)
+inline void add_impl (node_t &node, glm::vec3 &data, const std::string &name)
 {
   node.spawn_empty_child (name);
   add (node.last_child (), data.x, "x");

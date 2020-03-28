@@ -9,6 +9,9 @@ class err_t;
 err_t string_to_data (const std::string &src, double &dst);
 err_t string_from_data (std::string &dst, const double &src);
 
+err_t string_to_data (const std::string &src, float &dst);
+err_t string_from_data (std::string &dst, const float &src);
+
 err_t string_to_data (const std::string &src, int &dst);
 err_t string_from_data (std::string &dst, const int &src);
 

@@ -1,25 +1,13 @@
 <data>
 	<max_id>3</max_id>
-	<friend>
-		<entry>
-			<first>3</first>
-			<second>
-				<entry>
-					<id>3</id>
-					<current_tag>start</current_tag>
-					<name>Old man</name>
-				</entry>
-			</second>
-		</entry>
-	</friend>
 	<enemy>
 		<entry>
 			<first>1</first>
 			<second>
 				<entry>
-					<id>1</id>
 					<name>Skeleton</name>
 					<hp>10</hp>
+					<id>1</id>
 				</entry>
 			</second>
 		</entry>
@@ -27,11 +15,23 @@
 			<first>2</first>
 			<second>
 				<entry>
-					<id>2</id>
 					<name>Zombie</name>
 					<hp>25</hp>
+					<id>2</id>
 				</entry>
 			</second>
 		</entry>
 	</enemy>
+	<friend>
+		<entry>
+			<first>3</first>
+			<second>
+				<entry>
+					<name>Old man</name>
+					<current_tag>start</current_tag>
+					<id>3</id>
+				</entry>
+			</second>
+		</entry>
+	</friend>
 </data>

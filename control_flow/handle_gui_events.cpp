@@ -64,17 +64,13 @@ std::vector<std::unique_ptr<request_to_calc_base>> handle_gui_events (engine_t &
           //            if (event.key.code == sf::Keyboard::Key::Down)
           //              camera.rotate (0.f, -5.f);
           if (event.key.code == sf::Keyboard::Key::D)
-            result.push_back (request_player_action (std::make_unique<move_action> (1, 0, 0)));
-          //              camera.move (movement_direction_t::RIGHT, 1.f);
+            result.push_back (request_player_action (std::make_unique<move_action> (movement_direction_t::RIGHT, 1.f, 0.1f)));
           if (event.key.code == sf::Keyboard::Key::A)
-            result.push_back (request_player_action (std::make_unique<move_action> (0, 1, 0)));
-          //              camera.move (movement_direction_t::LEFT, 1.f);
+            result.push_back (request_player_action (std::make_unique<move_action> (movement_direction_t::LEFT, 1.f, 0.1f)));
           if (event.key.code == sf::Keyboard::Key::W)
-            result.push_back (request_player_action (std::make_unique<move_action> (0, 0, 1)));
-          //              camera.move (movement_direction_t::FORWARD, 1.f);
+            result.push_back (request_player_action (std::make_unique<move_action> (movement_direction_t::FORWARD, 1.f, 0.1f)));
           if (event.key.code == sf::Keyboard::Key::S)
-            result.push_back (request_player_action (std::make_unique<move_action> (-1, -1, -1)));
-          //              camera.move (movement_direction_t::BACKWARD, 1.f);
+            result.push_back (request_player_action (std::make_unique<move_action> (movement_direction_t::BACKWARD, 1.f, 0.1f)));
           break;
           }
         case sf::Event::EventType::KeyReleased:
