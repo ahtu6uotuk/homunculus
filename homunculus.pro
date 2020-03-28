@@ -108,6 +108,7 @@ HEADERS += \
     logic/object/interaction.h \
     logic/saveload/saveload_fwd.h \
     logic/saveload/saveload_rules.h \
+    objects/helpers/saveload_rules_extensions.h \
     objects/object_classes/enemy.h \
     objects/object_classes/example_classes.h \
     objects/object_classes/friend.h \
