@@ -10,6 +10,8 @@ class world_t;
 class shader_policy : virtual public object_base
 {
 public:
+  virtual shader_t *get_shader () = 0;
+
   virtual std::string policy_describe () const = 0;
   virtual void policy_build_saveload_tree (saveload::node_t &node) = 0;
   virtual std::vector<interaction> policy_get_interactions () { return {}; }
@@ -19,7 +21,7 @@ template<const char *file_name>
 class simple_shader_policy : public shader_policy
 {
 public:
-  shader_t &get_shader () { return *m_shader; }
+  shader_t *get_shader () override { return m_shader.get (); }
 
   std::string policy_describe () const override
   {

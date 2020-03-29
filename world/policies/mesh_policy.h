@@ -10,6 +10,8 @@ class world_t;
 class mesh_policy : virtual public object_base
 {
 public:
+  virtual mesh_t *get_mesh () = 0;
+
   virtual std::string policy_describe () const = 0;
   virtual void policy_build_saveload_tree (saveload::node_t &node) = 0;
   virtual std::vector<interaction> policy_get_interactions () { return {}; }
@@ -19,7 +21,7 @@ template<const char *file_name>
 class simple_mesh_policy : public mesh_policy
 {
 public:
-  mesh_t &get_mesh () { return m_mesh; }
+  mesh_t *get_mesh () override { return m_mesh.get (); }
 
   std::string policy_describe () const override
   {

@@ -6,6 +6,8 @@
 #include "engine/gui/gui_element.h"
 #include "engine/gui/gui_textline.h"
 #include "gui/gui_context.h"
+#include "resource/resource_manager.h"
+#include "datastructs/shader.h"
 
 engine_t::engine_t (int argc, char *argv[]):
   m_window (sf::VideoMode (800, 600, 32), "Homunculus", sf::Style::Default,
@@ -19,22 +21,11 @@ engine_t::engine_t (int argc, char *argv[]):
 
 err_t engine_t::load_engine_resources ()
 {
-  shader_t *tmp_shader = nullptr;
-//  RETURN_IF_FAIL (m_resource_manager.load_shader ("text.shader", &tmp_shader));
+  // its okay to explicitly call resource manager here, since this shader does not belong to any object
+  shader_t *tmp_shader = resource_manager::instance ().get_resource<shader_t> ("shaders/text.shader");
 
   auto &font = m_renderer.get_font ();
   font.set_text_shader (tmp_shader);
-
-  mesh_t *msh = nullptr;
-//  RETURN_IF_FAIL (m_resource_manager.load_mesh ("cube.obj", &msh));
-
-//  RETURN_IF_FAIL (m_resource_manager.load_shader ("test.shader", &tmp_shader));
-
-  unsigned int tex;
-//  RETURN_IF_FAIL (m_resource_manager.load_tga_texture ("cube.tga", tex));
-  tex = 0;
-
-  m_renderer.set_mesh (msh, tmp_shader, tex);
 
   return ERR_OK;
 }

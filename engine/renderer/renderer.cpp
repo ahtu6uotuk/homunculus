@@ -53,23 +53,24 @@ void renderer_t::render ()
 
   glActiveTexture (GL_TEXTURE0);
 
-  glBindTexture (GL_TEXTURE_2D, m_tex.m_texture_id);
+  glBindTexture (GL_TEXTURE_2D, m_tex->m_texture_id);
 
   m_test_shader->set_uniform_1i ("myTextureSampler", 0);
 
-  m_test_mesh->draw ();
-//  glEnable (GL_BLEND);
-//  m_gui.draw ();
-//  glDisable (GL_BLEND);
+  if (m_test_mesh)
+    m_test_mesh->draw ();
+  //  glEnable (GL_BLEND);
+  //  m_gui.draw ();
+  //  glDisable (GL_BLEND);
   GL_DEBUG_INFO (nullptr);
 }
 
-void renderer_t::set_mesh (mesh_t *test, shader_t *shader, unsigned int tex)
+void renderer_t::set_mesh (mesh_t *test, shader_t *shader, texture_t *tex)
 {
   m_test_mesh = test;
   m_test_mesh->print_debug_info ();
   m_test_shader = shader;
-  m_tex.m_texture_id = tex;
+  m_tex = tex;
 }
 
 renderer_t::~renderer_t ()

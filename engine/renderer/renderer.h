@@ -21,9 +21,10 @@ class renderer_t
   gui_system_t &m_gui;
   font_t m_font;
   camera_t m_camera;
-  shader_t *m_test_shader;
-  mesh_t *m_test_mesh;
-  texture_t m_tex;
+
+  shader_t *m_test_shader = nullptr;
+  mesh_t *m_test_mesh = nullptr;
+  texture_t *m_tex = nullptr;
 public:
   renderer_t (engine_t &engine);
   err_t init ();
@@ -31,6 +32,6 @@ public:
   font_t &get_font () {return m_font;}
   gui_system_t &get_gui () {return m_gui;}
   camera_t &get_camera () {return m_camera;}
-  void set_mesh (mesh_t *test, shader_t *shader, unsigned int tex);
+  void set_mesh (mesh_t *test, shader_t *shader, texture_t *tex);
   ~renderer_t ();
 };
