@@ -56,7 +56,7 @@ void make_gui_content (engine_t &engine, world_t &world, thread_info_t &thr_info
       }
     }
 
-  assert_check (all_models.size () == 1, "Currently only one object had a model");
+  assert_check (all_models.size () >= 1, "At least one object with a model");
   model_info model = all_models[0];
 
   result.clear ();
