@@ -1,2 +1,2 @@
-test.vert
-test.frag
+shaders/test.vert
+shaders/test.frag

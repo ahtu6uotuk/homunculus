@@ -1,2 +1,2 @@
-text.vert
-text.frag
+shaders/text.vert
+shaders/text.frag
