@@ -9,7 +9,7 @@ private:                                                                        
     typedef char Yes[19];                                                         \
     typedef char No[7];                                                           \
     template<typename C>                                                          \
-    static Yes &test (decltype (&C::member));                        \
+    static Yes &test (decltype (&C::member));                                     \
     template<typename C>                                                          \
     static No &test (...);                                                        \
 public:                                                                           \

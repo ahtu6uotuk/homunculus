@@ -4,10 +4,18 @@
 template<typename Self, typename... Args>
 class object;
 class object_base;
+class err_t;
 
 namespace saveload
 {
 class node_t;
+
+template<typename Data>
+err_t save (const Data &src, std::string &dst);
+
+template<typename Data>
+err_t load (Data &dst, const std::string &src);
+
 template<typename DataT>
 void add (node_t &node, DataT &data, const std::string &name);
 

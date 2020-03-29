@@ -5,36 +5,31 @@
 #include "common/err_t.h"
 #include "logic/saveload/saveload.h"
 #include "common/template_tricks/string_literal.h"
+#include "logic/resource_manager.h"
 
 template <typename DataT, const char *asset_name>
 class asset_ptr
 {
 public:
-  DataT *operator-> () { return m_data.operator-> (); }
-  DataT *get () { return m_data.get (); }
-  DataT &operator * () { return m_data.operator* (); }
+  DataT *get () { return m_cached_ptr; }
+  DataT *operator-> () { return m_cached_ptr; }
+  DataT &operator * () { return *m_cached_ptr; }
 
+  ~asset_ptr () { die (); }
   asset_ptr () { init (); }
   asset_ptr (const asset_ptr<DataT, asset_name> &) { init (); }
 
 private:
-  std::unique_ptr<DataT> m_data;
+  DataT *m_cached_ptr = nullptr;
 
   void init ()
   {
-    m_data = std::make_unique<DataT> ();
-    std::string file_contents;
-    assert_error (from_asset_file (file_contents, asset_name));
-    assert_error (load_data_private (file_contents));
+    resource_manager &mgr = resource_manager::instance ();
+    m_cached_ptr = mgr.get_resource<DataT> (asset_name);
   }
-
-  template<typename T = DataT>
-  err_t load_data_private (const std::string &file_contents)
+  void die ()
   {
-    return m_data.load_custom (file_contents);
-  }
-  err_t load_data_private (const std::string &file_contents)
-  {
-    return saveload::load (*m_data, file_contents);
+    resource_manager &mgr = resource_manager::instance ();
+    mgr.pop_resource (asset_name);
   }
 };

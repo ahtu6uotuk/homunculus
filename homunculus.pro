@@ -46,6 +46,7 @@ SOURCES += \
     objects/policies/plot_tags_policy.cpp \
     objects/policies/talk_policy.cpp \
     logic/action.cpp \
+    logic/resource_manager.cpp \
     logic/simulation/simulation.cpp \
     logic/simulation/simulation_helpers.cpp \
     logic/tests/asset_test.cpp \
@@ -76,7 +77,6 @@ SOURCES += \
     engine/io/tga_image.cpp \
     engine/logger_utils.cpp \
     engine/renderer/camera.cpp \
-    engine/io/resource_manager.cpp \
     engine/renderer/gl/gl_ext.cpp
 # Directories
 
@@ -122,6 +122,7 @@ HEADERS += \
     objects/policies/plot_tags_policy.h \
     objects/policies/talk_policy.h \
     logic/action.h \
+    logic/resource_manager.h \
     logic/saveload/saveload.h \
     logic/simulation/simulation.h \
     logic/simulation/simulation_helpers.h \
@@ -153,7 +154,6 @@ HEADERS += \
     engine/logger_utils.h \
     engine/renderer/camera.h \
     common/type_traits_ext.h \
-    engine/io/resource_manager.h \
     engine/renderer/shader_fwd.h \
     engine/renderer/gl/gl_ext.h
 

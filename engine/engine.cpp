@@ -11,7 +11,7 @@ engine_t::engine_t (int argc, char *argv[]):
   m_window (sf::VideoMode (800, 600, 32), "Homunculus", sf::Style::Default,
             sf::ContextSettings (0, 0, 0, 3, 3, sf::ContextSettings::Attribute::Core)),
   m_logger ("engine.log"),
-  m_resource_manager (m_logger),
+//  m_resource_manager (m_logger),
   m_gui (800, 600),
   m_renderer (*this)
 {
@@ -22,18 +22,19 @@ engine_t::engine_t (int argc, char *argv[]):
 err_t engine_t::load_engine_resources ()
 {
   shader_t *tmp_shader = nullptr;
-  RETURN_IF_FAIL (m_resource_manager.load_shader ("text.shader", &tmp_shader));
+//  RETURN_IF_FAIL (m_resource_manager.load_shader ("text.shader", &tmp_shader));
 
   auto &font = m_renderer.get_font ();
   font.set_text_shader (tmp_shader);
 
   mesh_t *msh = nullptr;
-  RETURN_IF_FAIL (m_resource_manager.load_mesh ("cube.obj", &msh));
+//  RETURN_IF_FAIL (m_resource_manager.load_mesh ("cube.obj", &msh));
 
-  RETURN_IF_FAIL (m_resource_manager.load_shader ("test.shader", &tmp_shader));
+//  RETURN_IF_FAIL (m_resource_manager.load_shader ("test.shader", &tmp_shader));
 
   unsigned int tex;
-  RETURN_IF_FAIL (m_resource_manager.load_tga_texture ("cube.tga", tex));
+//  RETURN_IF_FAIL (m_resource_manager.load_tga_texture ("cube.tga", tex));
+  tex = 0;
 
   m_renderer.set_mesh (m_logger, msh, tmp_shader, tex);
 
