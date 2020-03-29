@@ -29,6 +29,6 @@ private:
   void die ()
   {
     resource_manager &mgr = resource_manager::instance ();
-    mgr.pop_resource (asset_name);
+    mgr.pop_resource<DataT> (asset_name);
   }
 };
