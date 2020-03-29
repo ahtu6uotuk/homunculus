@@ -1,8 +1,7 @@
 #pragma once
 #include "common/string/string_utils.h"
 
-// TODO: modules
-#include "engine/renderer/camera.h"
+#include "datastructs/camera_data_t.h"
 class dialog_tree;
 class world_t;
 class object_base;

@@ -33,6 +33,7 @@ HEADERS += common/common.h \
            control_flow/request_to_calc.h \
            control_flow/request_to_gui.h \
            control_flow/run_calc_thread.h \
+           datastructs/camera_data_t.h \
            datastructs/dialog.h \
            datastructs/plot_tag.h \
            engine/engine.h \
@@ -83,7 +84,7 @@ HEADERS += common/common.h \
            world/classes/example_classes.h \
            world/classes/friend.h \
            world/classes/player.h \
-           world/helpers/saveload_rules_extensions.h \
+           datastructs/helpers/saveload_rules_extensions.h \
            world/policies/camera_policy.h \
            world/policies/choose_action_policy.h \
            world/policies/get_text_for_gui_policy.h \
@@ -142,6 +143,7 @@ SOURCES += main.cpp \
            control_flow/request_to_calc.cpp \
            control_flow/request_to_gui.cpp \
            control_flow/run_calc_thread.cpp \
+           datastructs/camera_data_t.cpp \
            datastructs/dialog.cpp \
            datastructs/plot_tag.cpp \
            engine/engine.cpp \
