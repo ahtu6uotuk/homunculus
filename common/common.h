@@ -12,5 +12,5 @@ void assert_check (bool check, std::string message);
 
 int fuzzycmp (double a, double b = 0.0, double eps = 1e-16);
 
-std::string get_assets_path_prefix ();
+std::string get_gamedata_path_prefix ();
 std::string get_saved_game_path_prefix ();

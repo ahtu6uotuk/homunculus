@@ -8,10 +8,10 @@ class subshader_t
 {
   unsigned int m_id = 0;
 public:
-  subshader_t () = delete;
+  subshader_t () {}
+  err_t load_custom (const std::string &source_code);
   subshader_t (const subshader_t &) = delete;
   subshader_t (subshader_t &&) = delete;
-  explicit subshader_t (const char *source_code);
   unsigned int get_id () const {return m_id;}
   err_t check () const;
   ~subshader_t ();
@@ -22,15 +22,15 @@ using fragment_shader_t = subshader_t<shader_type_t::FRAGMENT>;
 
 class shader_t
 {
-public:
-//  err_t load_custom (const std::string &file_contents);
 private:
   unsigned int m_id = 0;
 public:
+  err_t load_custom (const std::string &file_contents);
   shader_t () = default;
   shader_t (const shader_t &) = delete;
   shader_t (shader_t &&) = delete;
   shader_t (unsigned int m_vertex_id, unsigned int m_fragment_id);
+  void init (unsigned int m_vertex_id, unsigned int m_fragment_id);
   void use () const;
   void set_uniform_1i (const std::string &var_name, const int value) const;
   void set_uniform_1f (const std::string &var_name, const float value) const;

@@ -55,7 +55,7 @@ private:
     DataT *typed_data = std::any_cast<DataT> (result.get ());
 
     std::string file_contents;
-    assert_error (from_asset_file (file_contents, asset_name));
+    assert_error (from_gamedata_file (file_contents, asset_name));
 
     assert_error (load_data_private (file_contents, *typed_data));
 

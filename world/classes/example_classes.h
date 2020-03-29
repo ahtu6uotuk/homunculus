@@ -9,7 +9,7 @@
 class human : public object<
                   human,
                   simple_name_policy,
-                  simple_talk_policy<LITERAL ("some_dialog")>,
+                  simple_talk_policy<LITERAL ("assets/some_dialog.xml")>,
                   hp_health_policy>
 {
 public:
@@ -19,7 +19,7 @@ public:
 class immortal : public object<
                      immortal,
                      simple_name_policy,
-                     simple_talk_policy<LITERAL ("some_dialog")>,
+                     simple_talk_policy<LITERAL ("assets/some_dialog.xml")>,
                      hit_count_health_policy>
 {
 public:
@@ -29,7 +29,7 @@ public:
 class other : public object<
                   other,
                   simple_name_policy,
-                  simple_talk_policy<LITERAL ("some_dialog")>,
+                  simple_talk_policy<LITERAL ("assets/some_dialog.xml")>,
                   hit_count_health_policy>
 {
 public:

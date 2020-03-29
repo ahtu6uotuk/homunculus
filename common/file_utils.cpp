@@ -97,13 +97,13 @@ err_t remove_dir (const std::string &path)
   return ERR_OK;
 }
 
-err_t to_asset_file (const std::string &src_string, const std::string &asset_name)
+err_t to_gamedata_file (const std::string &src_string, const std::string &asset_name)
 {
-  return to_file (src_string, get_assets_path_prefix () + asset_name + ".xml");
+  return to_file (src_string, get_gamedata_path_prefix () + asset_name);
 }
-err_t from_asset_file (std::string &dst_string, const std::string &asset_name)
+err_t from_gamedata_file (std::string &dst_string, const std::string &asset_name)
 {
-  return from_file (dst_string, get_assets_path_prefix () + asset_name + ".xml");
+  return from_file (dst_string, get_gamedata_path_prefix () + asset_name);
 }
 err_t to_saved_game_file (const std::string &src, const std::string &story, const std::string &save, const std::string &asset)
 {

@@ -16,12 +16,12 @@ void plot_tag_set_test ()
 
   dialog_tree empty_dialog;
   std::string res1;
-  assert_error (from_asset_file (res1, "some_dialog"));
+  assert_error (from_gamedata_file (res1, "assets/some_dialog.xml"));
   assert_error (saveload::load (empty_dialog, res1));
 
   std::string res2;
   assert_error (saveload::save (empty_dialog, res2));
-  assert_error (to_asset_file (res2, "some_dialog"));
+  assert_error (to_gamedata_file (res2, "assets/some_dialog.xml"));
 
   object_heap heap;
   friend_t *some_human = heap.allocate_and_get<friend_t> ();

@@ -47,6 +47,8 @@ HEADERS += common/common.h \
            resource/resource_manager.h \
            tests/logic_tests.h \
            world/action.h \
+           world/policies/mesh_policy.h \
+           world/policies/shader_policy.h \
            world/world.h \
            common/string/string_converters.h \
            common/string/string_utils.h \
@@ -123,6 +125,8 @@ SOURCES += main.cpp \
            tests/plot_tag_set_test.cpp \
            tests/saveload_tree_test.cpp \
            world/action.cpp \
+           world/policies/mesh_policy.cpp \
+           world/policies/shader_policy.cpp \
            world/world.cpp \
            common/string/string_converters.cpp \
            common/string/string_utils.cpp \

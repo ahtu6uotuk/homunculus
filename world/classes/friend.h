@@ -24,7 +24,7 @@ class friend_t
         simple_name_policy,
         simple_get_text_for_gui_policy,
         simple_plot_tags_policy<named_enum<LITERAL ("mood"), mood>, named_enum<LITERAL ("blood_type"), bloodtype>>,
-        simple_talk_policy<LITERAL ("some_dialog")>>
+        simple_talk_policy<LITERAL ("assets/some_dialog.xml")>>
 {
 public:
   static std::string objtype_name () { return "friend"; }

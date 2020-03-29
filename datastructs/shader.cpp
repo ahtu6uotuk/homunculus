@@ -1,8 +1,17 @@
 #include "shader.h"
 
+#include <vector>
 #include <GL/glew.h>
 
+#include "common/string/string_utils.h"
+#include "resource/resource_manager.h"
+
 shader_t::shader_t (GLuint m_vertex_id, GLuint m_fragment_id)
+{
+  init (m_vertex_id, m_fragment_id);
+}
+
+void shader_t::init (GLuint m_vertex_id, GLuint m_fragment_id)
 {
   m_id = glCreateProgram ();
   glAttachShader (m_id, m_vertex_id);
@@ -77,14 +86,20 @@ constexpr GLenum shader_type_to_GLenum (shader_type_t shader_type)
 }
 
 template<shader_type_t SHADER_TYPE>
-subshader_t<SHADER_TYPE>::subshader_t (const char *source_code)
+err_t subshader_t<SHADER_TYPE>::load_custom (const std::string &source_code)
 {
-  if (!source_code)
-    return;
+  if (source_code.empty ())
+    return std::string ("Empty shader data!");
+
+  std::vector<char> source_code_copy (source_code.begin (), source_code.end ());
+  source_code_copy.push_back ('\0');
+  const char *cchr = &source_code_copy[0];
 
   m_id = glCreateShader (shader_type_to_GLenum (SHADER_TYPE));
-  glShaderSource (m_id, 1, &source_code, nullptr);
+  glShaderSource (m_id, 1, &cchr, nullptr);
   glCompileShader (m_id);
+
+  return ERR_OK;
 }
 
 template<shader_type_t SHADER_TYPE>
@@ -110,3 +125,23 @@ subshader_t<SHADER_TYPE>::~subshader_t ()
 
 template class subshader_t<shader_type_t::VERTEX>;
 template class subshader_t<shader_type_t::FRAGMENT>;
+
+err_t shader_t::load_custom (const std::string &file_contents)
+{
+  std::vector<std::string> two_shader_names = string_split (file_contents, "\n");
+  if (two_shader_names.size () != 2)
+    return std::string ("Shader file is supposed to have two names");
+
+  // Its not great to explicitly call resource manager here. It would be better if asset_ptr did it.
+  // But since shaders have this weird file-data structure, lets leave it like this for now.
+  vertex_shader_t *v_shader = resource_manager::instance ().get_resource<vertex_shader_t> (two_shader_names[0]);
+  fragment_shader_t *f_shader = resource_manager::instance ().get_resource<fragment_shader_t> (two_shader_names[1]);
+
+  if (!v_shader || !f_shader)
+    return string_printf (
+        "Could not load shaders from %s and %s", two_shader_names[0].c_str (),
+        two_shader_names[1].c_str ());
+
+  init (v_shader->get_id (), f_shader->get_id ());
+  return ERR_OK;
+}

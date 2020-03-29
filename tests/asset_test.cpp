@@ -12,8 +12,8 @@ void asset_test ()
 
   std::string savestring;
   assert_error (saveload::save (replics, savestring));
-  assert_error (to_asset_file (savestring, "test"));
+  assert_error (to_gamedata_file (savestring, "assets/test.xml"));
 
-  asset_ptr<std::vector<std::string>, LITERAL ("test")> test_asset;
+  asset_ptr<std::vector<std::string>, LITERAL ("assets/test.xml")> test_asset;
   assert_check (*test_asset.get () == replics, "These should be equal");
 }

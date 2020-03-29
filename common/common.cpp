@@ -22,5 +22,5 @@ int fuzzycmp (double a, double b, double eps)
   return -1;
 }
 
-std::string get_assets_path_prefix () { return "gamedata/assets/"; }
+std::string get_gamedata_path_prefix () { return "gamedata/"; }
 std::string get_saved_game_path_prefix () { return "gamedata/saved_game/"; }
