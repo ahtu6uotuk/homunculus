@@ -2,12 +2,12 @@
 
 #include "common/common.h"
 #include "common/string/string_utils.h"
-#include "datastructs/mesh.h"
+#include "datastructs/texture.h"
 #include "object/object.h"
 #include "resource/asset.h"
 class world_t;
 
-class mesh_policy : virtual public object_base
+class texture_policy : virtual public object_base
 {
 public:
   virtual std::string policy_describe () const = 0;
@@ -16,23 +16,23 @@ public:
 };
 
 template<const char *file_name>
-class simple_mesh_policy : public mesh_policy
+class simple_texture_policy : public texture_policy
 {
 public:
-  mesh_t &get_mesh () { return m_mesh; }
+  texture_t &get_texture () { return m_texture; }
 
   std::string policy_describe () const override
   {
-    return string_printf ("mesh from %s", file_name);
+    return string_printf ("texture from %s", file_name);
   }
 
   void policy_build_saveload_tree (saveload::node_t &) override {}
 
-  bool operator== (const simple_mesh_policy<file_name> &) const
+  bool operator== (const simple_texture_policy<file_name> &) const
   {
     return true;
   }
 
 private:
-  asset_ptr<mesh_t, file_name> m_mesh;
+  asset_ptr<texture_t, file_name> m_texture;
 };

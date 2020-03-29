@@ -49,6 +49,7 @@ HEADERS += common/common.h \
            world/action.h \
            world/policies/mesh_policy.h \
            world/policies/shader_policy.h \
+           world/policies/texture_policy.h \
            world/world.h \
            common/string/string_converters.h \
            common/string/string_utils.h \
@@ -127,6 +128,7 @@ SOURCES += main.cpp \
            world/action.cpp \
            world/policies/mesh_policy.cpp \
            world/policies/shader_policy.cpp \
+           world/policies/texture_policy.cpp \
            world/world.cpp \
            common/string/string_converters.cpp \
            common/string/string_utils.cpp \
