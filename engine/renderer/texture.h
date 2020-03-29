@@ -10,6 +10,7 @@ enum class texture_type_t
 
 class texture_t
 {
+public:
   texture_type_t m_texture_type;
   GLuint m_texture_id;
 };

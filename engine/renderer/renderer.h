@@ -3,6 +3,7 @@
 #include "common/err_t.h"
 #include "engine/renderer/camera.h"
 #include "engine/renderer/font.h"
+#include "engine/renderer/texture.h"
 
 class engine_t;
 class gui_system_t;
@@ -22,7 +23,7 @@ class renderer_t
   camera_t m_camera;
   shader_t *m_test_shader;
   mesh_t *m_test_mesh;
-  int m_tex;
+  texture_t m_tex;
 public:
   renderer_t (engine_t &engine);
   err_t init ();
