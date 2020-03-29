@@ -1,5 +1,4 @@
-#ifndef GUI_CONTEXT_H
-#define GUI_CONTEXT_H
+#pragma once
 #include <vector>
 #include <memory>
 
@@ -27,5 +26,3 @@ public:
   void add_test_page (renderer_t &renderer); /// plz delete me!
   ~gui_context_t ();
 };
-
-#endif // GUI_CONTEXT_H

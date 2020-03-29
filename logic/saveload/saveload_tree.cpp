@@ -2,7 +2,6 @@
 
 #include "common/string/string_utils.h"
 #include "external/rapidxml/rapidxml_print.hpp"
-#include "logic/saveload/saveload.h"
 
 std::string saveload::detail::xml_node_to_string (const rapidxml::xml_node<> &node)
 {

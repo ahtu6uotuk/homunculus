@@ -1,11 +1,12 @@
+#include "model_obj.h"
+
 #include <fstream>
 #include <sstream>
 #include <map>
-#include "engine/renderer/mesh.h"
-#include "engine/logger.h"
-#include "model_obj.h"
-#include "engine/logger_utils.h"
 
+#include "engine/logger.h"
+#include "engine/logger_utils.h"
+#include "engine/renderer/mesh.h"
 
 void model_obj_t::parse_position_3d (std::stringstream &ss, std::vector<glm::vec3> &vec_pos)
 {

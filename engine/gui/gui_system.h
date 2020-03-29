@@ -1,5 +1,5 @@
-#ifndef GUI_SYSTEM_H
-#define GUI_SYSTEM_H
+#pragma once
+
 #include <vector>
 #include <memory>
 
@@ -35,5 +35,3 @@ public:
   void set_world_content (std::unique_ptr<gui_context_t> world_content);
   ~gui_system_t ();
 };
-
-#endif // GUI_SYSTEM_H

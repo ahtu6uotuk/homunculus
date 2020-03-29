@@ -1,6 +1,6 @@
-#include <GL/glew.h>
 #include "shader.h"
 
+#include <GL/glew.h>
 
 shader_t::shader_t (GLuint m_vertex_id, GLuint m_fragment_id)
 {

@@ -2,8 +2,8 @@
 
 #include "common/common.h"
 #include "common/string/string_utils.h"
-#include "logic/object/object.h"
 #include "engine/renderer/camera.h"
+#include "logic/object/object.h"
 class dialog_tree;
 class world_t;
 

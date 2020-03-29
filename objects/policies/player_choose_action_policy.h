@@ -1,8 +1,9 @@
 #pragma once
 
 #include <queue>
-#include "objects/policies/choose_action_policy.h"
+
 #include "logic/action.h"
+#include "objects/policies/choose_action_policy.h"
 
 class player_choose_action_policy : public choose_action_policy
 {

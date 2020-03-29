@@ -1,6 +1,5 @@
 #include "gui_interactive_element.h"
 
-
 gui_interactive_element_t::gui_interactive_element_t (
     renderer_t &renderer,
     const int x,

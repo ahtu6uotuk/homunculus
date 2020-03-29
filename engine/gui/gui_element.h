@@ -1,6 +1,4 @@
-#ifndef GUI_ELEMENT_H
-#define GUI_ELEMENT_H
-
+#pragma once
 
 class renderer_t;
 class gui_context_t;
@@ -61,5 +59,3 @@ public:
   int get_absolute_y () const;
   virtual ~gui_element_t ();
 };
-
-#endif // GUI_ELEMENT_H

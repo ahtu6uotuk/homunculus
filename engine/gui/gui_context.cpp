@@ -1,8 +1,8 @@
-#include "gui_interactive_element.h"
-#include "gui_system.h"
 #include "gui_context.h"
 
 #include "common/common.h"
+#include "engine/gui/gui_interactive_element.h"
+#include "engine/gui/gui_system.h"
 
 gui_context_t::gui_context_t (gui_system_t &sys):
   m_system (sys)

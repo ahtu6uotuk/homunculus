@@ -1,12 +1,13 @@
-#ifndef MESH_H
-#define MESH_H
+#pragma once
+
+#include <GL/glew.h>
 #include <GL/gl.h>
 #include <vector>
+
 #include "common/err_t.h"
 #include "engine/renderer/vertex_data.h"
 
 class logger_t;
-
 
 class mesh_t
 {
@@ -30,5 +31,3 @@ public:
   void print_debug_info (logger_t &logger);
   ~mesh_t ();
 };
-
-#endif // MESH_H

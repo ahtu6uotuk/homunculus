@@ -1,7 +1,7 @@
 #include "gui_element.h"
-#include "engine/renderer/renderer.h"
-#include "engine/gui/gui_system.h"
 
+#include "engine/gui/gui_system.h"
+#include "engine/renderer/renderer.h"
 
 gui_element_t::gui_element_t (renderer_t &renderer,
                               const int x,

@@ -1,9 +1,10 @@
-#ifndef FONT_H
-#define FONT_H
+#pragma once
+
 #include <GL/glew.h>
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 #include <map>
+
 #include "common/err_t.h"
 
 typedef struct FT_LibraryRec_  *FT_Library;
@@ -57,5 +58,3 @@ public:
   void set_text_shader (shader_t *shader);
   ~font_t ();
 };
-
-#endif // FONT_H

@@ -1,12 +1,12 @@
 #pragma once
 
+#include "logic/dialog.h"
+#include "logic/object/object.h"
+#include "objects/policies/get_text_for_gui_policy.h"
+#include "objects/policies/health_policy.h"
 #include "objects/policies/name_policy.h"
 #include "objects/policies/plot_tags_policy.h"
 #include "objects/policies/talk_policy.h"
-#include "objects/policies/health_policy.h"
-#include "objects/policies/get_text_for_gui_policy.h"
-#include "logic/object/object.h"
-#include "logic/dialog.h"
 
 enum class mood { happy, sad, melancholic, COUNT };
 const char *enum_to_string (mood m);

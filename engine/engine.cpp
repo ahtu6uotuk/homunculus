@@ -2,7 +2,6 @@
 
 #include <SFML/Window.hpp>
 
-#include "engine/event.h"
 #include "gui/gui_context.h"
 #include "engine/gui/gui_element.h"
 #include "engine/gui/gui_textline.h"

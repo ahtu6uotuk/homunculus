@@ -1,7 +1,9 @@
 #include "action.h"
 
 #include "logic/world.h"
-#include "objects/policies/coordinates_policy.h"
+
+// TODO: modules
+#include "objects/policies/camera_policy.h"
 
 void action::exec (int actor_id, world_t &world)
 {

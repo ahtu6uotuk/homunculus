@@ -1,7 +1,9 @@
 #include "gl_ext.h"
-#include "engine/logger.h"
-#include <iostream>
+
 #include <GL/glew.h>
+#include <iostream>
+
+#include "engine/logger.h"
 
 const char *gl_error_to_string (unsigned int err_code)
 {

@@ -1,9 +1,6 @@
 #pragma once
 #include <memory>
 
-template<typename Self, typename... Args>
-class object;
-class object_base;
 class err_t;
 
 namespace saveload

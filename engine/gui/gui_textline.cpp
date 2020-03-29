@@ -1,6 +1,7 @@
 #include "gui_textline.h"
-#include "engine/renderer/renderer.h"
+
 #include "engine/renderer/font.h"
+#include "engine/renderer/renderer.h"
 #include "engine/renderer/shader.h"
 
 gui_textline_t::gui_textline_t (

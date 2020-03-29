@@ -1,5 +1,4 @@
-#ifndef THREAD_SYNC_H
-#define THREAD_SYNC_H
+#pragma once
 #include <mutex>
 #include <condition_variable>
 #include <functional>
@@ -22,5 +21,3 @@ public:
   thread_sync_t (const unsigned int thread_number);
   ~thread_sync_t ();
 };
-
-#endif // THREAD_SYNC_H

@@ -1,9 +1,11 @@
-#ifndef CAMERA_H
-#define CAMERA_H
 #pragma once
-#include <glm/vec3.hpp>
+
 #include <glm/matrix.hpp>
+#include <glm/vec3.hpp>
+
 #include "common/common.h"
+
+// TODO: modules
 #include "logic/saveload/saveload_fwd.h"
 
 enum class movement_direction_t
@@ -57,5 +59,3 @@ public:
 
   ~camera_t ();
 };
-
-#endif // CAMERA_H

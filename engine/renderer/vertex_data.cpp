@@ -1,6 +1,6 @@
 #include "vertex_data.h"
-#include <cstring>
 
+#include <cstring>
 
 vertex_data_t::vertex_data_t (const vertex_data_view_t &vertex_view):
   m_vertex (*vertex_view.m_vertex),

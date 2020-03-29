@@ -1,10 +1,10 @@
 #include "simulation.h"
 
 #include "logic/object/object_heap.h"
-#include "objects/object_classes/enemy.h"
-#include "objects/object_classes/friend.h"
 #include "logic/simulation/simulation_helpers.h"
 #include "logic/world.h"
+#include "objects/object_classes/enemy.h"
+#include "objects/object_classes/friend.h"
 
 void  run_simulation (bool cont)
 {

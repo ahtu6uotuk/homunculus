@@ -1,8 +1,10 @@
+#include "logger_utils.h"
+
 #include <map>
 #include <vector>
-#include "logger_utils.h"
-#include "logger.h"
+
 #include "common/type_traits_ext.h"
+#include "engine/logger.h"
 #include "engine/renderer/vertex_data.h"
 
 using std::to_string;

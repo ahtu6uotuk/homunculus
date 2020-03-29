@@ -1,6 +1,7 @@
 #pragma once
 #include "common/string/string_utils.h"
-// TODO: move action out of logic
+
+// TODO: modules
 #include "engine/renderer/camera.h"
 class dialog_tree;
 class world_t;

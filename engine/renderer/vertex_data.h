@@ -1,10 +1,8 @@
-#ifndef VERTEX_DATA_H
-#define VERTEX_DATA_H
+#pragma once
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 
 struct vertex_data_view_t;
-
 
 struct vertex_data_t
 {
@@ -28,5 +26,3 @@ struct vertex_data_view_t
   {}
   bool operator< (const vertex_data_view_t &b) const;
 };
-
-#endif // VERTEX_DATA_H

@@ -1,10 +1,11 @@
 #include "renderer.h"
+
 #include <GL/glew.h>
+
 #include "engine/engine.h"
 #include "engine/gui/gui_context.h"
+#include "engine/renderer/mesh.h"
 #include "engine/renderer/shader.h"
-#include "mesh.h"
-
 
 renderer_t::renderer_t (engine_t &engine):
   m_engine (engine),

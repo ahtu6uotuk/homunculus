@@ -3,9 +3,13 @@
 #include <unordered_map>
 #include <functional>
 
-#include "logic/saveload/saveload.h"
+#include "common/common.h"
+#include "common/template_tricks/comparator.h"
+#include "logic/saveload/saveload_fwd.h"
 
 class object_heap;
+class object_base;
+
 struct obj_heap_helper
 {
   static std::vector<std::function<void (object_heap &)>> &singleton()

@@ -1,12 +1,13 @@
+#include "camera.h"
+
 #include <cmath>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/trigonometric.hpp>
 #include <glm/geometric.hpp>
 
-// fuck, i guess i have to fix this dependency too
+// TODO: modules
 #include "objects/helpers/saveload_rules_extensions.h"
 #include "logic/saveload/saveload.h"
-#include "camera.h"
 
 ///
 ///         y

@@ -1,5 +1,5 @@
-#include <GL/glew.h>
 #include "mesh.h"
+
 #include "engine/logger.h"
 #include "engine/logger_utils.h"
 

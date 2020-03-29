@@ -1,6 +1,7 @@
 #pragma once
-#include "logic/saveload/saveload_tree.h"
 #include <glm/vec3.hpp>
+
+#include "logic/saveload/saveload_tree.h"
 
 namespace saveload
 {

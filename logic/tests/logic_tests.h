@@ -2,8 +2,8 @@
 #include "common/common.h"
 #include "common/err_t.h"
 #include "common/string/string_utils.h"
-#include "logic/simulation/simulation.h"
 #include "logic/saveload/saveload.h"
+#include "logic/simulation/simulation.h"
 
 void complex_structure_saveload_test ();
 void object_heap_test ();

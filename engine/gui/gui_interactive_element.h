@@ -1,7 +1,6 @@
-#ifndef GUI_INTERACTIVE_ELEMENT_H
-#define GUI_INTERACTIVE_ELEMENT_H
-#include "engine/gui/gui_element.h"
+#pragma once
 
+#include "engine/gui/gui_element.h"
 
 /// @brief Base class for all GUI objects that can be clicked
 class gui_interactive_element_t : public gui_element_t
@@ -27,5 +26,3 @@ public:
   virtual void on_mouse_hover (const bool is_mouse_pointer_inside) = 0;
   virtual ~gui_interactive_element_t ();
 };
-
-#endif // GUI_INTERACTIVE_ELEMENT_H

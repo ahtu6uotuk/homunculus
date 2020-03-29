@@ -30,7 +30,6 @@ SOURCES += \
     control_flow/request_to_calc.cpp \
     control_flow/request_to_gui.cpp \
     control_flow/run_calc_thread.cpp \
-    engine/event.cpp \
     logic/asset.cpp \
     logic/dialog.cpp \
     logic/object/interaction.cpp \
@@ -39,8 +38,8 @@ SOURCES += \
     objects/object_classes/friend.cpp \
     objects/object_classes/player.cpp \
     logic/plot_tag.cpp \
+    objects/policies/camera_policy.cpp \
     objects/policies/choose_action_policy.cpp \
-    objects/policies/coordinates_policy.cpp \
     objects/policies/get_text_for_gui_policy.cpp \
     objects/policies/player_choose_action_policy.cpp \
     objects/policies/plot_tags_policy.cpp \
@@ -88,7 +87,6 @@ HEADERS += \
     common/template_tricks/static_for.h \
     common/template_tricks/string_literal.h \
     control_flow/control_flow.h \
-    control_flow/event.h \
     control_flow/frame_manager.h \
     control_flow/handle_gui_events.h \
     control_flow/make_gui_content.h \
@@ -115,8 +113,8 @@ HEADERS += \
     objects/object_classes/friend.h \
     objects/object_classes/player.h \
     logic/plot_tag.h \
+    objects/policies/camera_policy.h \
     objects/policies/choose_action_policy.h \
-    objects/policies/coordinates_policy.h \
     objects/policies/get_text_for_gui_policy.h \
     objects/policies/player_choose_action_policy.h \
     objects/policies/plot_tags_policy.h \

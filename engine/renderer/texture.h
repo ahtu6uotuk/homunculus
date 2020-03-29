@@ -1,5 +1,4 @@
-#ifndef TEXTURE_H
-#define TEXTURE_H
+#pragma once
 #include <GL/gl.h>
 
 enum class texture_type_t
@@ -14,5 +13,3 @@ class texture_t
   texture_type_t m_texture_type;
   GLuint m_texture_id;
 };
-
-#endif // TEXTURE_H

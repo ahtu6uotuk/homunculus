@@ -7,7 +7,6 @@
 #include "logic/world.h"
 #include "logic/action.h"
 #include "objects/policies/choose_action_policy.h"
-#include "engine/event.h"
 #include "common/thread_info.h"
 #include "control_flow/request_to_gui.h"
 #include "control_flow/request_to_calc.h"

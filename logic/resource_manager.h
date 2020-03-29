@@ -2,10 +2,11 @@
 #include <any>
 #include <memory>
 #include <unordered_map>
-#include "common/file_utils.h"
+
 #include "common/err_t.h"
+#include "common/file_utils.h"
 #include "common/template_tricks/has_member.h"
-#include "logic/saveload/saveload_fwd.h"
+#include "logic/saveload/saveload.h"
 
 class resource_manager
 {

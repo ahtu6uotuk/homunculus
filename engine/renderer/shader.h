@@ -1,8 +1,7 @@
-#ifndef SHADER_H
-#define SHADER_H
-#include "common/err_t.h"
-#include "shader_fwd.h"
+#pragma once
 
+#include "common/err_t.h"
+#include "engine/renderer/shader_fwd.h"
 
 template<shader_type_t SHADER_TYPE>
 class subshader_t
@@ -40,5 +39,3 @@ public:
   err_t check ();
   ~shader_t ();
 };
-
-#endif // SHADER_H

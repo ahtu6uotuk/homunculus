@@ -1,8 +1,9 @@
-#ifndef gui_textline_H
-#define gui_textline_H
-#include "gui_element.h"
-#include "common/common.h"
+#pragma once
+
 #include <glm/vec3.hpp>
+
+#include "common/common.h"
+#include "engine/gui/gui_element.h"
 
 class font_t;
 
@@ -28,5 +29,3 @@ public:
   void draw () override;
   ~gui_textline_t ();
 };
-
-#endif // gui_textline_H

@@ -3,7 +3,7 @@
 #include "engine/engine.h"
 #include "logic/world.h"
 #include "objects/policies/get_text_for_gui_policy.h"
-#include "objects/policies/coordinates_policy.h"
+#include "objects/policies/camera_policy.h"
 #include "engine/gui/gui_textline.h"
 #include "engine/gui/gui_context.h"
 #include "common/thread_info.h"

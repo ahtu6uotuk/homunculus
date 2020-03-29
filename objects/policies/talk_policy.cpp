@@ -2,8 +2,8 @@
 
 #include "logic/dialog.h"
 #include "logic/object/object.h"
-#include "objects/policies/plot_tags_policy.h"
 #include "logic/simulation/simulation_helpers.h"
+#include "objects/policies/plot_tags_policy.h"
 
 static void print_text_beats (const std::vector<std::string> &beats)
 {

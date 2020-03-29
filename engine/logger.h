@@ -2,8 +2,8 @@
 #include <sstream>
 #include <fstream>
 #include <mutex>
-#include "common/common.h"
 
+#include "common/common.h"
 
 enum class log_section_t
 {

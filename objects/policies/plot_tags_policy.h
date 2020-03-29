@@ -2,8 +2,8 @@
 
 #include "common/common.h"
 #include "common/string/string_utils.h"
-#include "logic/plot_tag.h"
 #include "logic/object/object.h"
+#include "logic/plot_tag.h"
 
 class plot_tags_policy : virtual public object_base
 {

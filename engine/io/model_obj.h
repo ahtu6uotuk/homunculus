@@ -1,10 +1,10 @@
-#ifndef MODEL_OBJ_H
-#define MODEL_OBJ_H
+#pragma once
+
 #include <glm/vec3.hpp>
 #include <glm/vec2.hpp>
 #include <vector>
-#include "common/err_t.h"
 
+#include "common/err_t.h"
 
 class mesh_t;
 class logger_t;
@@ -34,5 +34,3 @@ public:
   void print_debug_info (logger_t &logger);
   mesh_t to_mesh (logger_t &logger);
 };
-
-#endif // MODEL_OBJ_H

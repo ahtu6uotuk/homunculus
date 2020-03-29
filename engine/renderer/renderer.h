@@ -1,8 +1,8 @@
-#ifndef RENDERER_H
-#define RENDERER_H
+#pragma once
+
 #include "common/err_t.h"
-#include "engine/renderer/font.h"
 #include "engine/renderer/camera.h"
+#include "engine/renderer/font.h"
 
 class engine_t;
 class gui_system_t;
@@ -34,5 +34,3 @@ public:
   void set_mesh (logger_t &logger, mesh_t *test, shader_t *shader, unsigned int tex);
   ~renderer_t ();
 };
-
-#endif // RENDERER_H
