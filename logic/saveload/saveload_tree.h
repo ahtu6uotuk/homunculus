@@ -10,6 +10,7 @@
 #include "common/string/string_converters.h"
 #include "common/string/string_utils.h"
 #include "common/template_tricks/comparator.h"
+#include "common/template_tricks/has_member.h"
 #include "external/rapidxml/rapidxml.hpp"
 #include "logic/saveload/saveload_fwd.h"
 
@@ -72,20 +73,7 @@ namespace detail
 
 std::string xml_node_to_string (const rapidxml::xml_node<> &node);
 
-template<typename T>
-class can_build_saveload_tree
-{
-  typedef char Yes[1];
-  typedef char No[2];
-
-  template<typename C>
-  static Yes &test (decltype (&C::build_saveload_tree));
-  template<typename C>
-  static No &test (...);
-
-public:
-  enum { value = sizeof (test<T> (0)) == sizeof (Yes) };
-};
+GENERATE_HAS_MEMBER (build_saveload_tree)
 
 class root_node_t : public node_t
 {

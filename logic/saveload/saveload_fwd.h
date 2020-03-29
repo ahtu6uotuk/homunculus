@@ -17,7 +17,7 @@ class container_node_t_base;
 template<typename DataT, typename ElemT>
 class container_node_t;
 template<typename T>
-class can_build_saveload_tree;
+class has_member_build_saveload_tree;
 template<typename Data>
 class primitive_node_t;
 template<typename ElemT, typename ContainerT>

@@ -84,6 +84,7 @@ HEADERS += \
     common/file_utils.h \
     common/template_tricks/auto_register.h \
     common/template_tricks/comparator.h \
+    common/template_tricks/has_member.h \
     common/template_tricks/static_for.h \
     common/template_tricks/string_literal.h \
     control_flow/control_flow.h \

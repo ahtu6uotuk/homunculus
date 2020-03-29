@@ -105,7 +105,7 @@ void add_impl (node_t &node, Data &data, const std::string &name)
 }
 
 /// everything else
-template<typename Data, std::enable_if_t<detail::can_build_saveload_tree<Data>::value, int> = 0>
+template<typename Data, std::enable_if_t<detail::has_member_build_saveload_tree<Data>::value, int> = 0>
 void add_impl (node_t &node, Data &data, const std::string &name)
 {
   node.add_complex_structure (data, name);
