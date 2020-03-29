@@ -93,43 +93,7 @@ HEADERS += common/common.h \
            world/policies/player_choose_action_policy.h \
            world/policies/plot_tags_policy.h \
            world/policies/talk_policy.h \
-           engine/renderer/gl/gl_ext.h \
-           /common/common.h \
-           /common/err_t.h \
-           /common/string/string_utils.h \
-           /common/thread_sync.h \
-           /control_flow/run_calc_thread.h \
-           /control_flow/frame_manager.h \
-           /engine/engine.h \
-           /engine/logger.h \
-           /engine/gui/gui_system.h \
-           /engine/renderer/renderer.h \
-           /engine/renderer/camera.h \
-           /engine/renderer/font.h \
-           /engine/gui/gui_context.h \
-           /common/thread_info.h \
-           /engine/gui/gui_textline.h \
-           /engine/gui/gui_element.h \
-           /control_flow/handle_gui_events.h \
-           /control_flow/request_to_gui.h \
-           /control_flow/request_to_calc.h \
-           /control_flow/control_flow.h \
-           /control_flow/make_gui_content.h \
-           /common/template_tricks/static_for.h \
-           /common/type_traits_ext.h \
-           /engine/renderer/vertex_data.h \
-           /common/template_tricks/comparator.h \
-           /common/file_utils.h \
-           /common/template_tricks/string_literal.h \
-           /common/template_tricks/has_member.h \
-           /engine/gui/gui_interactive_element.h \
-           /engine/renderer/shader.h \
-           /engine/renderer/shader_fwd.h \
-           /engine/logger_utils.h \
-           /engine/renderer/mesh.h \
-           /common/string/string_converters.h \
-           /external/rapidxml/rapidxml.hpp \
-           /external/rapidxml/rapidxml_print.hpp
+           engine/renderer/gl/gl_ext.h
 SOURCES += main.cpp \
            common/common.cpp \
            common/err_t.cpp \
