@@ -32,7 +32,7 @@ inline std::string string_replace (
 }
 
 std::string string_join (const std::vector<std::string> &parts, const std::string &separator);
-std::vector<std::string> string_split (const std::string &s, const std::string &delim);
+std::vector<std::string> string_split (const std::string &s, const std::string &delim, bool discard_empty = false);
 
 inline std::string &ltrim (std::string &s, const char *t = " \t\n\r\f\v")
 {

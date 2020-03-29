@@ -50,7 +50,7 @@ std::string string_join (const std::vector<std::string> &parts, const std::strin
   return ss.str ();
 }
 
-std::vector<std::string> string_split (const std::string &s, const std::string &delim)
+std::vector<std::string> string_split (const std::string &s, const std::string &delim, bool discard_empty)
 {
   std::vector<std::string> result;
 
@@ -59,11 +59,16 @@ std::vector<std::string> string_split (const std::string &s, const std::string &
 
   while (end != std::string::npos)
     {
-      result.push_back (s.substr (start, end - start));
+      std::string part = s.substr (start, end - start);
+      if (!discard_empty || !part.empty ())
+        result.push_back (part);
       start = end + delim.length ();
       end = s.find (delim, start);
     }
 
-  result.push_back (s.substr (start, end));
+  std::string last_part = s.substr (start, end);
+  if (!discard_empty || !last_part.empty ())
+    result.push_back (last_part);
+
   return result;
 }
