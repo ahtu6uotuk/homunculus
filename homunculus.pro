@@ -68,7 +68,7 @@ HEADERS += common/common.h \
            engine/renderer/renderer.h \
            engine/renderer/shader.h \
            engine/renderer/shader_fwd.h \
-           engine/renderer/texture.h \
+           datastructs/texture.h \
            engine/renderer/vertex_data.h \
            external/rapidxml/rapidxml.hpp \
            external/rapidxml/rapidxml_iterators.hpp \
@@ -113,6 +113,7 @@ SOURCES += main.cpp \
            engine/engine.cpp \
            common/logger/logger.cpp \
            common/logger/logger_utils.cpp \
+           datastructs/texture.cpp \
            object/interaction.cpp \
            object/object_heap.cpp \
            resource/asset.cpp \

@@ -3,7 +3,7 @@
 #include "common/err_t.h"
 #include "engine/renderer/camera.h"
 #include "engine/renderer/font.h"
-#include "engine/renderer/texture.h"
+#include "datastructs/texture.h"
 
 class engine_t;
 class gui_system_t;

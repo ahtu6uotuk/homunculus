@@ -37,7 +37,7 @@ struct tga_header_t
   unsigned char m_pixel_depth; ///< image pixel color depth
   union
   {
-    struct
+    struct // please make this less weird, clang code model doesnt get this and highlighting is fucked up
     {
       unsigned char m_bpp : 2;
       bool m_from_left : 1;
@@ -59,7 +59,7 @@ class tga_image_t
   std::unique_ptr<unsigned char[]> m_image_data = nullptr;
 public:
   tga_image_t ();
-  err_t load (const std::string &file_name);
+  err_t load (const std::string &file_contents);
   std::unique_ptr<unsigned char[]> move_as_texture_data ();
   std::unique_ptr<unsigned char[]> copy_as_texture_data () const;
   unsigned int to_gl () const;
