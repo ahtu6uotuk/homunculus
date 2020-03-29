@@ -60,6 +60,9 @@ err_t model_obj_t::load (const std::string &file_contents)
   size_t line_number = 1;
   for (std::string &line : lines)
     {
+      if (line.empty ())
+        continue;
+
       std::stringstream ss (line);
       std::string buffer;
       ss >> buffer;
