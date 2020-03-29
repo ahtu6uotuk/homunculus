@@ -18,12 +18,23 @@ public:
   asset_ptr (const asset_ptr<DataT, asset_name> &) { init (); }
 
 private:
+  std::unique_ptr<DataT> m_data;
+
   void init ()
   {
     m_data = std::make_unique<DataT> ();
     std::string file_contents;
     assert_error (from_asset_file (file_contents, asset_name));
-    assert_error (saveload::load (*m_data, file_contents));
+    assert_error (load_data_private (file_contents));
   }
-  std::unique_ptr<DataT> m_data;
+
+  template<typename T = DataT>
+  err_t load_data_private (const std::string &file_contents)
+  {
+    return m_data.load_custom (file_contents);
+  }
+  err_t load_data_private (const std::string &file_contents)
+  {
+    return saveload::load (*m_data, file_contents);
+  }
 };
