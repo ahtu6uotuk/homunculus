@@ -3,9 +3,10 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <vector>
+#include <string>
 
-#include "common/err_t.h"
 #include "engine/renderer/vertex_data.h"
+class err_t;
 
 class mesh_t
 {
@@ -18,6 +19,7 @@ class mesh_t
 private:
   void init_gl ();
 public:
+  err_t load_custom (const std::string &file_content);
   mesh_t ();
   mesh_t (std::vector<vertex_data_t> &&vertices, std::vector<GLuint> &&indeces, std::vector<GLuint> &&textures);
   mesh_t (mesh_t &&b);

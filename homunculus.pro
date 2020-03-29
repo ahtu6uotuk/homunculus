@@ -64,7 +64,7 @@ HEADERS += common/common.h \
            engine/io/tga_image.h \
            engine/renderer/camera.h \
            engine/renderer/font.h \
-           engine/renderer/mesh.h \
+           datastructs/mesh.h \
            engine/renderer/renderer.h \
            engine/renderer/shader.h \
            engine/renderer/shader_fwd.h \
@@ -134,7 +134,7 @@ SOURCES += main.cpp \
            engine/io/tga_image.cpp \
            engine/renderer/camera.cpp \
            engine/renderer/font.cpp \
-           engine/renderer/mesh.cpp \
+           datastructs/mesh.cpp \
            engine/renderer/renderer.cpp \
            engine/renderer/shader.cpp \
            engine/renderer/vertex_data.cpp \

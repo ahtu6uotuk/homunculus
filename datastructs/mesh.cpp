@@ -1,7 +1,23 @@
 #include "mesh.h"
 
+#include <memory>
+
 #include "common/logger/logger.h"
 #include "common/logger/logger_utils.h"
+
+// TODO: modules
+#include "engine/io/model_obj.h"
+
+err_t mesh_t::load_custom (const std::string &file_content)
+{
+  model_obj_t obj_importer;
+
+  RETURN_IF_FAIL (obj_importer.load (file_content));
+  obj_importer.print_debug_info ();
+
+  *this = obj_importer.to_mesh ();
+  return ERR_OK;
+}
 
 void mesh_t::init_gl ()
 {

@@ -28,8 +28,8 @@ private:
 
 public:
   model_obj_t () = default;
-  model_obj_t (const std::string &filename);
-  err_t load (const std::string &filename);
+  model_obj_t (const std::string &file_contents);
+  err_t load (const std::string &file_contents);
   void print_debug_info ();
   mesh_t to_mesh ();
 };

@@ -6,7 +6,8 @@
 
 #include "common/logger/logger.h"
 #include "common/logger/logger_utils.h"
-#include "engine/renderer/mesh.h"
+#include "common/string/string_utils.h"
+#include "datastructs/mesh.h"
 
 void model_obj_t::parse_position_3d (std::stringstream &ss, std::vector<glm::vec3> &vec_pos)
 {
@@ -52,17 +53,12 @@ void model_obj_t::parse_face_line (std::stringstream &ss)
     }
 }
 
-err_t model_obj_t::load (const std::string &filename)
+err_t model_obj_t::load (const std::string &file_contents)
 {
-  std::ifstream ifs;
-  ifs.open (filename);
-  if (!ifs.is_open ())
-    {
-      return err_t (std::string ("Can't open file ").append (filename));
-    }
-  std::string line;
+  std::vector<std::string> lines = string_split (file_contents, "\n");
+
   size_t line_number = 1;
-  while (getline (ifs, line))
+  for (std::string &line : lines)
     {
       std::stringstream ss (line);
       std::string buffer;
@@ -91,7 +87,7 @@ err_t model_obj_t::load (const std::string &filename)
 
       if (ss.fail ())
         {
-          return err_t (std::string ("failed to load model ").append (filename) + ": line " + std::to_string (line_number));
+          return err_t (std::string ("failed to load model") + ": line " + std::to_string (line_number));
         }
 
       line_number++;
