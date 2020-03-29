@@ -3,7 +3,7 @@
 #include "control_flow/run_calc_thread.h"
 #include "control_flow/frame_manager.h"
 #include "engine/engine.h"
-#include "logic/world.h"
+#include "world/world.h"
 #include "engine/gui/gui_context.h"
 #include "common/thread_info.h"
 #include "engine/gui/gui_textline.h"

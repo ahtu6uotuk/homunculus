@@ -6,8 +6,8 @@
 #include <glm/geometric.hpp>
 
 // TODO: modules
-#include "objects/helpers/saveload_rules_extensions.h"
-#include "logic/saveload/saveload.h"
+#include "world/helpers/saveload_rules_extensions.h"
+#include "resource/saveload/saveload.h"
 
 ///
 ///         y

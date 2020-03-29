@@ -4,9 +4,9 @@
 
 #include "control_flow/control_flow.h"
 #include "control_flow/make_gui_content.h"
-#include "logic/world.h"
-#include "logic/action.h"
-#include "objects/policies/choose_action_policy.h"
+#include "world/world.h"
+#include "world/action.h"
+#include "world/policies/choose_action_policy.h"
 #include "common/thread_info.h"
 #include "control_flow/request_to_gui.h"
 #include "control_flow/request_to_calc.h"

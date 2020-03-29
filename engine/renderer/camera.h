@@ -6,7 +6,7 @@
 #include "common/common.h"
 
 // TODO: modules
-#include "logic/saveload/saveload_fwd.h"
+#include "resource/saveload/saveload_fwd.h"
 
 enum class movement_direction_t
 {
