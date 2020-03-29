@@ -40,7 +40,7 @@ void camera_data_t::compute_orientation_vectors ()
   m_orientation_front.y = std::sin (glm::radians (m_pitch));
   m_orientation_front.z = std::sin (glm::radians (m_yaw)) * std::cos (glm::radians (m_pitch));
   m_orientation_front = glm::normalize (m_orientation_front);
-  m_orientation_right = glm::normalize (glm::cross (m_orientation_front, camera_defaults::orientation_world_up));
+  m_orientation_right = glm::normalize (glm::cross (m_orientation_front, glm::vec3 (0.f, 1.f, 0.f)));
   m_orientation_up = glm::normalize (glm::cross (m_orientation_right, m_orientation_front));
 }
 

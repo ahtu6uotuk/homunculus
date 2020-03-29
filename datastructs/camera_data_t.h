@@ -18,7 +18,6 @@ constexpr float yaw = -90.f;
 constexpr float pitch = 0.f;
 constexpr float zoom = 45.f;
 constexpr float mouse_sensitivity = 0.05f;
-constexpr glm::vec3 orientation_world_up = {0.f, 1.f, 0.f};
 }
 
 struct camera_data_t

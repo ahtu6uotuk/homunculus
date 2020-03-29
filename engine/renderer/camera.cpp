@@ -40,7 +40,7 @@ glm::mat4 camera_t::get_view_matrix () const
   return glm::
       lookAt (m_current_data.m_position,
               m_current_data.m_position + m_current_data.m_orientation_front,
-              camera_defaults::orientation_world_up);
+              glm::vec3 (0.f, 1.f, 0.f));
 }
 
 camera_t::~camera_t ()
