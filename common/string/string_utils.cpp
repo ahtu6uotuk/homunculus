@@ -49,3 +49,21 @@ std::string string_join (const std::vector<std::string> &parts, const std::strin
     }
   return ss.str ();
 }
+
+std::vector<std::string> string_split (const std::string &s, const std::string &delim)
+{
+  std::vector<std::string> result;
+
+  auto start = 0U;
+  auto end = s.find (delim);
+
+  while (end != std::string::npos)
+    {
+      result.push_back (s.substr (start, end - start));
+      start = end + delim.length ();
+      end = s.find (delim, start);
+    }
+
+  result.push_back (s.substr (start, end));
+  return result;
+}
