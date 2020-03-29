@@ -7,8 +7,6 @@
 #include "common/err_t.h"
 #include "engine/renderer/vertex_data.h"
 
-class logger_t;
-
 class mesh_t
 {
   GLuint m_vao; ///< vertex array object
@@ -28,6 +26,6 @@ public:
   mesh_t &operator= (const mesh_t &) = delete;
   err_t load ();
   void draw ();
-  void print_debug_info (logger_t &logger);
+  void print_debug_info ();
   ~mesh_t ();
 };

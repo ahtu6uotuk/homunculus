@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 #include <iostream>
 
-#include "engine/logger.h"
+#include "common/logger/logger.h"
 
 const char *gl_error_to_string (unsigned int err_code)
 {

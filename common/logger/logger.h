@@ -29,6 +29,10 @@ const char *enum_to_string (log_priority_t priority);
 
 class logger_t
 {
+public:
+  static logger_t &instance ();
+
+private:
   std::stringstream m_buffer;
   std::fstream m_fstream;
   std::mutex m_mutex;

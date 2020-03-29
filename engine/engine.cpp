@@ -2,15 +2,14 @@
 
 #include <SFML/Window.hpp>
 
-#include "gui/gui_context.h"
+#include "common/logger/logger.h"
 #include "engine/gui/gui_element.h"
 #include "engine/gui/gui_textline.h"
+#include "gui/gui_context.h"
 
 engine_t::engine_t (int argc, char *argv[]):
   m_window (sf::VideoMode (800, 600, 32), "Homunculus", sf::Style::Default,
             sf::ContextSettings (0, 0, 0, 3, 3, sf::ContextSettings::Attribute::Core)),
-  m_logger ("engine.log"),
-//  m_resource_manager (m_logger),
   m_gui (800, 600),
   m_renderer (*this)
 {
@@ -35,14 +34,14 @@ err_t engine_t::load_engine_resources ()
 //  RETURN_IF_FAIL (m_resource_manager.load_tga_texture ("cube.tga", tex));
   tex = 0;
 
-  m_renderer.set_mesh (m_logger, msh, tmp_shader, tex);
+  m_renderer.set_mesh (msh, tmp_shader, tex);
 
   return ERR_OK;
 }
 
 err_t engine_t::init ()
 {
-  if (!m_logger.is_ok ())
+  if (!logger_t::instance ().is_ok ())
     return err_t ("Internal logger error");
 
   RETURN_IF_FAIL (m_renderer.init ());
@@ -64,7 +63,7 @@ err_t engine_t::init ()
 
   RETURN_IF_FAIL (load_engine_resources ());
 
-  m_logger.print (log_section_t::ENGINE, log_priority_t::INFO, "initialization complete!");
+  logger_t::instance ().print (log_section_t::ENGINE, log_priority_t::INFO, "initialization complete!");
 
   return ERR_OK;
 }

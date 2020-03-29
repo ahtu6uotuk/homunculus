@@ -64,10 +64,10 @@ void renderer_t::render ()
   GL_DEBUG_INFO (nullptr);
 }
 
-void renderer_t::set_mesh (logger_t &logger, mesh_t *test, shader_t *shader, unsigned int tex)
+void renderer_t::set_mesh (mesh_t *test, shader_t *shader, unsigned int tex)
 {
   m_test_mesh = test;
-  m_test_mesh->print_debug_info (logger);
+  m_test_mesh->print_debug_info ();
   m_test_shader = shader;
   m_tex = static_cast<int> (tex);
 }

@@ -1,5 +1,11 @@
 #include "logger.h"
 
+logger_t &logger_t::instance ()
+{
+  static logger_t inst ("engine.log");
+  return inst;
+}
+
 logger_t::logger_t (const char *fname_log)
 {
   m_fstream.open (fname_log, std::ios_base::out);

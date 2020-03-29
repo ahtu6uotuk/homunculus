@@ -7,7 +7,6 @@
 #include "common/err_t.h"
 
 class mesh_t;
-class logger_t;
 
 /// @brief Class to import .obj model format
 /// @details
@@ -31,6 +30,6 @@ public:
   model_obj_t () = default;
   model_obj_t (const std::string &filename);
   err_t load (const std::string &filename);
-  void print_debug_info (logger_t &logger);
-  mesh_t to_mesh (logger_t &logger);
+  void print_debug_info ();
+  mesh_t to_mesh ();
 };

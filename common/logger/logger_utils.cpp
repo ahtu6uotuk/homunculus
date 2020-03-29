@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "common/type_traits_ext.h"
-#include "engine/logger.h"
+#include "common/logger/logger.h"
 #include "engine/renderer/vertex_data.h"
 
 using std::to_string;
@@ -85,18 +85,18 @@ inline std::string to_stl_string (const T &data)
 }
 
 template<typename T>
-void logger_utils::print_var_info (logger_t &logger, const char *var_name, const T &var_value)
+void logger_utils::print_var_info (const char *var_name, const T &var_value)
 {
-  logger.print_plain (var_name, to_stl_string (var_value));
+  logger_t::instance ().print_plain (var_name, to_stl_string (var_value));
 }
 
-template void logger_utils::print_var_info (logger_t &, const char *, const bool &);
-template void logger_utils::print_var_info (logger_t &, const char *, const unsigned int &);
-template void logger_utils::print_var_info (logger_t &, const char *, const std::size_t &);
-template void logger_utils::print_var_info (logger_t &, const char *, const std::string &);
-template void logger_utils::print_var_info (logger_t &, const char *, const std::vector<vertex_data_t> &);
-template void logger_utils::print_var_info (logger_t &, const char *, const std::vector<unsigned int> &);
-template void logger_utils::print_var_info (logger_t &, const char *, const std::vector<glm::vec3> &);
-template void logger_utils::print_var_info (logger_t &, const char *, const std::vector<glm::vec2> &);
-template void logger_utils::print_var_info (logger_t &, const char *, const vertex_data_view_t &);
-template void logger_utils::print_var_info (logger_t &, const char *, const std::map<vertex_data_view_t, unsigned int> &);
+template void logger_utils::print_var_info (const char *, const bool &);
+template void logger_utils::print_var_info (const char *, const unsigned int &);
+template void logger_utils::print_var_info (const char *, const std::size_t &);
+template void logger_utils::print_var_info (const char *, const std::string &);
+template void logger_utils::print_var_info (const char *, const std::vector<vertex_data_t> &);
+template void logger_utils::print_var_info (const char *, const std::vector<unsigned int> &);
+template void logger_utils::print_var_info (const char *, const std::vector<glm::vec3> &);
+template void logger_utils::print_var_info (const char *, const std::vector<glm::vec2> &);
+template void logger_utils::print_var_info (const char *, const vertex_data_view_t &);
+template void logger_utils::print_var_info (const char *, const std::map<vertex_data_view_t, unsigned int> &);

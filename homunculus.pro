@@ -37,8 +37,8 @@ HEADERS += common/common.h \
            datastructs/dialog.h \
            datastructs/plot_tag.h \
            engine/engine.h \
-           engine/logger.h \
-           engine/logger_utils.h \
+           common/logger/logger.h \
+           common/logger/logger_utils.h \
            object/interaction.h \
            object/object.h \
            object/object_base.h \
@@ -111,8 +111,8 @@ SOURCES += main.cpp \
            datastructs/dialog.cpp \
            datastructs/plot_tag.cpp \
            engine/engine.cpp \
-           engine/logger.cpp \
-           engine/logger_utils.cpp \
+           common/logger/logger.cpp \
+           common/logger/logger_utils.cpp \
            object/interaction.cpp \
            object/object_heap.cpp \
            resource/asset.cpp \

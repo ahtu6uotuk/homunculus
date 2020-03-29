@@ -1,7 +1,7 @@
 #include "mesh.h"
 
-#include "engine/logger.h"
-#include "engine/logger_utils.h"
+#include "common/logger/logger.h"
+#include "common/logger/logger_utils.h"
 
 void mesh_t::init_gl ()
 {
@@ -88,17 +88,17 @@ void mesh_t::draw ()
   glBindVertexArray (0);
 }
 
-void mesh_t::print_debug_info (logger_t &logger)
+void mesh_t::print_debug_info ()
 {
-  logger_utils::print_var_info (logger, "m_vao", m_vao);
-  logger_utils::print_var_info (logger, "m_vbo", m_vbo);
-  logger_utils::print_var_info (logger, "m_ibo", m_ibo);
-  logger_utils::print_var_info (logger, "m_vertices.size ()", m_vertices.size ());
-  logger_utils::print_var_info (logger, "m_vertices", m_vertices);
-  logger_utils::print_var_info (logger, "m_indices.size ()", m_indices.size ());
-  logger_utils::print_var_info (logger, "m_indices", m_indices);
-  logger_utils::print_var_info (logger, "m_textures.size ()", m_textures.size ());
-  logger_utils::print_var_info (logger, "m_textures", m_textures);
+  logger_utils::print_var_info ("m_vao", m_vao);
+  logger_utils::print_var_info ("m_vbo", m_vbo);
+  logger_utils::print_var_info ("m_ibo", m_ibo);
+  logger_utils::print_var_info ("m_vertices.size ()", m_vertices.size ());
+  logger_utils::print_var_info ("m_vertices", m_vertices);
+  logger_utils::print_var_info ("m_indices.size ()", m_indices.size ());
+  logger_utils::print_var_info ("m_indices", m_indices);
+  logger_utils::print_var_info ("m_textures.size ()", m_textures.size ());
+  logger_utils::print_var_info ("m_textures", m_textures);
 }
 
 mesh_t::~mesh_t ()

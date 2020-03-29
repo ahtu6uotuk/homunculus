@@ -4,8 +4,8 @@
 #include <sstream>
 #include <map>
 
-#include "engine/logger.h"
-#include "engine/logger_utils.h"
+#include "common/logger/logger.h"
+#include "common/logger/logger_utils.h"
 #include "engine/renderer/mesh.h"
 
 void model_obj_t::parse_position_3d (std::stringstream &ss, std::vector<glm::vec3> &vec_pos)
@@ -100,18 +100,18 @@ err_t model_obj_t::load (const std::string &filename)
   return ERR_OK;
 }
 
-void model_obj_t::print_debug_info (logger_t &logger)
+void model_obj_t::print_debug_info ()
 {
-  logger.print (log_section_t::RESOURCE_MANAGER, log_priority_t::INFO, "IMPORT OBJ MODEL:");
-  logger_utils::print_var_info (logger, "m_vertices", m_vertices);
-  logger_utils::print_var_info (logger, "m_normals", m_normals);
-  logger_utils::print_var_info (logger, "m_uv", m_uv);
-  logger_utils::print_var_info (logger, "m_vertex_indices", m_vertex_indices);
-  logger_utils::print_var_info (logger, "m_normal_indices", m_normal_indices);
-  logger_utils::print_var_info (logger, "m_uv_indices", m_uv_indices);
+  logger_t::instance ().print (log_section_t::RESOURCE_MANAGER, log_priority_t::INFO, "IMPORT OBJ MODEL:");
+  logger_utils::print_var_info ("m_vertices", m_vertices);
+  logger_utils::print_var_info ("m_normals", m_normals);
+  logger_utils::print_var_info ("m_uv", m_uv);
+  logger_utils::print_var_info ("m_vertex_indices", m_vertex_indices);
+  logger_utils::print_var_info ("m_normal_indices", m_normal_indices);
+  logger_utils::print_var_info ("m_uv_indices", m_uv_indices);
 }
 
-mesh_t model_obj_t::to_mesh (logger_t &)
+mesh_t model_obj_t::to_mesh ()
 {
   std::map<vertex_data_view_t, unsigned int> indexation;
   std::vector<vertex_data_t> out_vertices = {};
