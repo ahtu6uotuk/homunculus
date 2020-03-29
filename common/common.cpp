@@ -1,6 +1,7 @@
 #include "common.h"
 
 #include <math.h>
+#include <signal.h>
 
 void do_nothing_no_inline () {}
 
@@ -9,7 +10,11 @@ void assert_check (bool check, std::string message)
   if (!check)
     {
       fprintf (stderr, "WARNING: %s\n", message.c_str ());
-      throw std::exception ();
+#ifndef _WIN32
+//      ::raise (SIGTRAP);
+#else
+      __asm__("int $3");
+#endif
     }
 }
 
