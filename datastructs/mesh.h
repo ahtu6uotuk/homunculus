@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 
-#include "engine/renderer/vertex_data.h"
+#include "datastructs/vertex_data.h"
 class err_t;
 
 class mesh_t

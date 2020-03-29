@@ -1,7 +1,7 @@
 #pragma once
 
 #include "common/err_t.h"
-#include "engine/renderer/shader_fwd.h"
+#include "datastructs/shader_fwd.h"
 
 template<shader_type_t SHADER_TYPE>
 class subshader_t
@@ -22,6 +22,9 @@ using fragment_shader_t = subshader_t<shader_type_t::FRAGMENT>;
 
 class shader_t
 {
+public:
+//  err_t load_custom (const std::string &file_contents);
+private:
   unsigned int m_id = 0;
 public:
   shader_t () = default;

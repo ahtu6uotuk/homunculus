@@ -4,9 +4,7 @@
 
 #include "common/logger/logger.h"
 #include "common/logger/logger_utils.h"
-
-// TODO: modules
-#include "engine/io/model_obj.h"
+#include "datastructs/io/model_obj.h"
 
 err_t mesh_t::load_custom (const std::string &file_content)
 {

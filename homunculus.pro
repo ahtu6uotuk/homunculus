@@ -60,16 +60,16 @@ HEADERS += common/common.h \
            engine/gui/gui_interactive_element.h \
            engine/gui/gui_system.h \
            engine/gui/gui_textline.h \
-           engine/io/model_obj.h \
-           engine/io/tga_image.h \
+           datastructs/io/model_obj.h \
+           datastructs/io/tga_image.h \
            engine/renderer/camera.h \
            engine/renderer/font.h \
            datastructs/mesh.h \
            engine/renderer/renderer.h \
-           engine/renderer/shader.h \
-           engine/renderer/shader_fwd.h \
+           datastructs/shader.h \
+           datastructs/shader_fwd.h \
            datastructs/texture.h \
-           engine/renderer/vertex_data.h \
+           datastructs/vertex_data.h \
            external/rapidxml/rapidxml.hpp \
            external/rapidxml/rapidxml_iterators.hpp \
            external/rapidxml/rapidxml_print.hpp \
@@ -131,14 +131,14 @@ SOURCES += main.cpp \
            engine/gui/gui_interactive_element.cpp \
            engine/gui/gui_system.cpp \
            engine/gui/gui_textline.cpp \
-           engine/io/model_obj.cpp \
-           engine/io/tga_image.cpp \
+           datastructs/io/model_obj.cpp \
+           datastructs/io/tga_image.cpp \
            engine/renderer/camera.cpp \
            engine/renderer/font.cpp \
            datastructs/mesh.cpp \
            engine/renderer/renderer.cpp \
-           engine/renderer/shader.cpp \
-           engine/renderer/vertex_data.cpp \
+           datastructs/shader.cpp \
+           datastructs/vertex_data.cpp \
            resource/saveload/saveload_tree.cpp \
            tests/simulation/simulation.cpp \
            tests/simulation/simulation_helpers.cpp \

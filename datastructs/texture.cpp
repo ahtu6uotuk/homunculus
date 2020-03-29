@@ -1,6 +1,6 @@
 #include "texture.h"
 
-#include "engine/io/tga_image.h"
+#include "datastructs/io/tga_image.h"
 #include "common/err_t.h"
 
 err_t texture_t::load_custom (const std::string &file_content)

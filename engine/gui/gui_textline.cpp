@@ -2,7 +2,7 @@
 
 #include "engine/renderer/font.h"
 #include "engine/renderer/renderer.h"
-#include "engine/renderer/shader.h"
+#include "datastructs/shader.h"
 
 gui_textline_t::gui_textline_t (
     renderer_t &renderer,

@@ -7,7 +7,7 @@
 #include FT_FREETYPE_H
 
 #include "common/common.h"
-#include "engine/renderer/shader.h"
+#include "datastructs/shader.h"
 
 font_character_t::font_character_t (const font_character_t &b):
   m_texture_id (b.m_texture_id),

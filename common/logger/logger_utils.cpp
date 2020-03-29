@@ -5,7 +5,7 @@
 
 #include "common/type_traits_ext.h"
 #include "common/logger/logger.h"
-#include "engine/renderer/vertex_data.h"
+#include "datastructs/vertex_data.h"
 
 using std::to_string;
 
