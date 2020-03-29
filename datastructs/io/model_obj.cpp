@@ -55,7 +55,7 @@ void model_obj_t::parse_face_line (std::stringstream &ss)
 
 err_t model_obj_t::load (const std::string &file_contents)
 {
-  std::vector<std::string> lines = string_split (file_contents, '\n');
+  std::vector<std::string> lines = string_split (file_contents, "\n");
 
   size_t line_number = 1;
   for (std::string &line : lines)

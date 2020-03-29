@@ -128,7 +128,7 @@ template class subshader_t<shader_type_t::FRAGMENT>;
 
 err_t shader_t::load_custom (const std::string &file_contents)
 {
-  std::vector<std::string> two_shader_names = string_split (file_contents, '\n');
+  std::vector<std::string> two_shader_names = string_split (file_contents, "\n");
   if (two_shader_names.size () != 2)
     return std::string ("Shader file is supposed to have two names");
 

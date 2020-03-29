@@ -3,7 +3,6 @@
 #include <fstream>
 #include <sstream>
 #include <cstdarg>
-#include <cstring>
 
 #include "common/common.h"
 #include "common/err_t.h"
@@ -51,25 +50,23 @@ std::string string_join (const std::vector<std::string> &parts, const std::strin
   return ss.str ();
 }
 
-std::vector<std::string> string_split (const std::string &string_to_split, char delimiter)
+std::vector<std::string> string_split (const std::string &s, const std::string &delim)
 {
   std::vector<std::string> result;
 
-  const char *begin_substr = string_to_split.c_str ();
-  const char *end_substr = nullptr;
+  auto start = 0U;
+  auto end = s.find (delim);
 
-  do
+  while (end != std::string::npos)
     {
-      end_substr = strchr (begin_substr, delimiter);
-      if (end_substr != nullptr)
-        {
-          result.push_back (std::string (begin_substr, end_substr));
-          begin_substr = end_substr + 1;
-        }
-      else
-        result.push_back (std::string (begin_substr));
+      std::string part = s.substr (start, end - start);
+      result.push_back (part);
+      start = end + delim.length ();
+      end = s.find (delim, start);
     }
-  while (end_substr != nullptr);
+
+  std::string last_part = s.substr (start, end);
+  result.push_back (last_part);
 
   return result;
 }
