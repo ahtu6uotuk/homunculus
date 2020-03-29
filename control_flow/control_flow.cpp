@@ -37,19 +37,27 @@ err_t control_flow::run ()
 {
   RETURN_IF_FAIL (init ());
 
+  bool first_frame = true;
   m_sync_w_main->sync ();
   while (m_old_request_to_calc.empty () || !m_old_request_to_calc.back ()->is_exit ())
     {
       m_frame_manager->start_frame ();
 
-      m_new_request_to_calc = handle_gui_events (*m_engine);
-      m_engine->render_and_display ();
+      if (first_frame)
+        {
+          first_frame = false;
+        }
+      else
+        {
+          m_new_request_to_calc = handle_gui_events (*m_engine);
+          m_engine->render_and_display ();
+        }
 
       m_sync_w_main->sync ();
-      for (auto &req : m_old_request_to_gui)
-        req->exec_assert (*m_engine);
       m_old_request_to_calc = move (m_new_request_to_calc);
       m_old_request_to_gui = move (m_new_request_to_gui);
+      for (auto &req : m_old_request_to_gui)
+        req->exec_assert (*m_engine);
       m_sync_w_main->sync ();
 
       m_frame_manager->end_frame ();

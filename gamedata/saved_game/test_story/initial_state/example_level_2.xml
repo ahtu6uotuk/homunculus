@@ -1,5 +1,17 @@
 <data>
 	<max_id>3</max_id>
+	<friend>
+		<entry>
+			<first>3</first>
+			<second>
+				<entry>
+					<name>Old man</name>
+					<current_tag>start</current_tag>
+					<id>3</id>
+				</entry>
+			</second>
+		</entry>
+	</friend>
 	<enemy>
 		<entry>
 			<first>1</first>
@@ -22,16 +34,4 @@
 			</second>
 		</entry>
 	</enemy>
-	<friend>
-		<entry>
-			<first>3</first>
-			<second>
-				<entry>
-					<name>Old man</name>
-					<current_tag>start</current_tag>
-					<id>3</id>
-				</entry>
-			</second>
-		</entry>
-	</friend>
 </data>

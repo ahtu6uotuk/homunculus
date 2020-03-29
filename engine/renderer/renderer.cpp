@@ -57,8 +57,7 @@ void renderer_t::render ()
 
   m_test_shader->set_uniform_1i ("myTextureSampler", 0);
 
-  if (m_test_mesh)
-    m_test_mesh->draw ();
+  m_test_mesh->draw ();
   //  glEnable (GL_BLEND);
   //  m_gui.draw ();
   //  glDisable (GL_BLEND);
