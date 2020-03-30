@@ -1,5 +1,6 @@
 #pragma once
 #include <sstream>
+#include <iostream>
 #include <fstream>
 #include <mutex>
 
@@ -29,13 +30,12 @@ const char *enum_to_string (log_priority_t priority);
 
 class logger_t
 {
-public:
-  static logger_t &instance ();
-
 private:
   std::stringstream m_buffer;
   std::fstream m_fstream;
   std::mutex m_mutex;
+  bool m_is_print_to_stdout;
+  bool m_is_print_to_file;
 private:
   void print_internal ()
   {}
@@ -47,7 +47,7 @@ private:
   }
 public:
   logger_t () = delete;
-  explicit logger_t (const char *fname_log);
+  explicit logger_t (const char *fname_log, const bool is_print_to_stdout, const bool is_print_to_file);
   logger_t (const logger_t &) = delete;
   logger_t (logger_t &&) = delete;
   template<typename ...Types>
@@ -58,8 +58,17 @@ public:
     m_buffer.str ("");
     print_internal (data...);
     m_buffer << std::endl;
-    m_fstream << m_buffer.rdbuf ();
-    m_fstream.flush ();
+    if (m_is_print_to_file)
+      {
+        m_fstream << m_buffer.rdbuf ();
+        m_buffer.seekg (m_buffer.beg);
+        m_fstream.flush ();
+      }
+    if (m_is_print_to_stdout)
+      {
+        std::cout << m_buffer.rdbuf ();
+        std::cout.flush ();
+      }
   }
   template<typename ...Types>
   void print (const log_section_t section, const log_priority_t priority, const Types & ... data)
@@ -72,5 +81,8 @@ public:
   }
 
   bool is_ok () const;
+
+  static logger_t &instance ();
+
   ~logger_t ();
 };

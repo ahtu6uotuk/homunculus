@@ -2,11 +2,12 @@
 
 logger_t &logger_t::instance ()
 {
-  static logger_t inst ("engine.log");
+  static logger_t inst ("engine.log", true, true);
   return inst;
 }
 
-logger_t::logger_t (const char *fname_log)
+logger_t::logger_t (const char *fname_log, const bool is_print_to_stdout, const bool is_print_to_file):
+  m_is_print_to_stdout (is_print_to_stdout), m_is_print_to_file (is_print_to_file)
 {
   m_fstream.open (fname_log, std::ios_base::out);
 }
