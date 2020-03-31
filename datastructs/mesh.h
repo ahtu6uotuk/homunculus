@@ -18,6 +18,7 @@ class mesh_t
   std::vector<GLuint> m_textures;
 private:
   void init_gl ();
+  void reset_gl_objects ();
 public:
   err_t load_custom (const std::string &file_content);
   mesh_t ();

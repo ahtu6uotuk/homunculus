@@ -77,6 +77,7 @@ mesh_t &mesh_t::operator= (mesh_t &&b)
   m_vertices = std::move (b.m_vertices);
   m_indices = std::move (b.m_indices);
   m_textures = std::move (b.m_textures);
+  b.reset_gl_objects ();
   return *this;
 }
 
@@ -108,6 +109,13 @@ void mesh_t::print_debug_info ()
   logger_utils::print_var_info ("m_indices", m_indices);
   logger_utils::print_var_info ("m_textures.size ()", m_textures.size ());
   logger_utils::print_var_info ("m_textures", m_textures);
+}
+
+void mesh_t::reset_gl_objects ()
+{
+  m_vao = 0;
+  m_vbo = 0;
+  m_ibo = 0;
 }
 
 mesh_t::~mesh_t ()
