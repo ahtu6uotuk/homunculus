@@ -80,11 +80,6 @@ mesh_t &mesh_t::operator= (mesh_t &&b)
   return *this;
 }
 
-err_t mesh_t::load ()
-{
-  return ERR_OK;
-}
-
 void mesh_t::draw ()
 {
   glBindBuffer (GL_ARRAY_BUFFER, m_vbo);
