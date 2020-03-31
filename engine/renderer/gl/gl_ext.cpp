@@ -31,15 +31,12 @@ const char *gl_error_to_string (unsigned int err_code)
   return "unknown GL error";
 }
 
-void gl_get_error_description (logger_t *logger, const char *filename, unsigned int line)
+void gl_get_error_description (const char *filename, unsigned int line)
 {
   auto err_code = glGetError ();
   auto descr = gl_error_to_string (err_code);
   if (descr)
     {
-      if (logger)
-        logger->print (log_section_t::RENDERER, log_priority_t::DEBUG, filename, ":", line, ":", descr);
-      else
-        std::cout << filename << ": line " << std::to_string (line) << ": " << descr << std::endl;
+      logger_t::instance ().print (log_section_t::RENDERER, log_priority_t::DEBUG, filename, ":", line, ":", descr);
     }
 }

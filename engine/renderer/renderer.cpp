@@ -61,7 +61,7 @@ void renderer_t::render ()
   //  glEnable (GL_BLEND);
   //  m_gui.draw ();
   //  glDisable (GL_BLEND);
-  GL_DEBUG_INFO (nullptr);
+  GL_DEBUG_INFO ();
 }
 
 void renderer_t::set_mesh (mesh_t *test, shader_t *shader, texture_t *tex)

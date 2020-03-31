@@ -6,6 +6,6 @@ class logger_t;
 const char *gl_error_to_string (unsigned int err_code);
 
 /// @brief Print GL error code string to logger or stdout
-void gl_get_error_description (logger_t *logger, const char *filename, unsigned int line);
+void gl_get_error_description (const char *filename, unsigned int line);
 
-#define GL_DEBUG_INFO(LOGGER) gl_get_error_description((LOGGER), __FILE__, __LINE__)
+#define GL_DEBUG_INFO() gl_get_error_description(__FILE__, __LINE__)
