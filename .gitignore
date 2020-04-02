@@ -41,6 +41,12 @@ target_wrapper.*
 
 # QtCreator CMake
 CMakeLists.txt.user*
+CMakeCache.txt
+*CMakeFiles*
+*.cmake
+
+# Ninja
+*ninja*
 
 # Game files and other data
 *.log
