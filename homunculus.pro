@@ -157,7 +157,8 @@ SOURCES += main.cpp \
            world/policies/player_choose_action_policy.cpp \
            world/policies/plot_tags_policy.cpp \
            world/policies/talk_policy.cpp \
-           engine/renderer/gl/gl_ext.cpp
+           engine/renderer/gl/gl_ext.cpp \
+           tests/homunculus_tests.cpp
 
 
 DISTFILES += \
