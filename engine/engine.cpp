@@ -32,9 +32,6 @@ err_t engine_t::load_engine_resources ()
 
 err_t engine_t::init ()
 {
-  if (!logger_t::instance ().is_ok ())
-    return err_t ("Internal logger error");
-
   RETURN_IF_FAIL (m_renderer.init ());
 
   // TODO: remove this block
