@@ -19,9 +19,6 @@ int main (int argc, char *argv[])
     }
 
   control_flow flow (argc, argv);
-  err_t err = flow.run ();
-  if (err)
-    logger_t::instance ().print (log_section_t::ENGINE, log_priority_t::LOG_ERROR, "execution aborted");
-
+  assert_error (flow.run (), "Error occured in while running: ");
   return 0;
 }
