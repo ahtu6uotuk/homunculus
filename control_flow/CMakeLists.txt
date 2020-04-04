@@ -14,4 +14,4 @@ add_library(${PROJECT_NAME} STATIC
             run_calc_thread.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR})
-target_link_libraries(${PROJECT_NAME} engine world ${PTHREAD_LIBRARY})
+target_link_libraries(${PROJECT_NAME} engine world ${PTHREAD_LIBRARY} ${MATH_LIBRARY})

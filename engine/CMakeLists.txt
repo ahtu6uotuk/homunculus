@@ -24,6 +24,10 @@ elseif (WIN32)
 	set(PLATFORM_SPECIFIC_LIBRARIES ${GL_LIBRARY} ${GLU_LIBRARY} ${GLEW_LIBRARY} ${LSSP_LIBRARY})
 endif()
 
+find_library(SFML_GRAPHICS_LIBRARY NAMES sfml-graphics)
+find_library(SFML_WINDOW_LIBRARY NAMES sfml-window)
+find_library(SFML_SYSTEM_LIBRARY NAMES sfml-system)
+
 add_library(${PROJECT_NAME} STATIC)
 
 target_sources(${PROJECT_NAME} PRIVATE
