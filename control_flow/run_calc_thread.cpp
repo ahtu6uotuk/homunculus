@@ -1,6 +1,6 @@
 #include "run_calc_thread.h"
 
-#include "math.h"
+#include <math.h>
 
 #include "control_flow/control_flow.h"
 #include "control_flow/make_gui_content.h"
