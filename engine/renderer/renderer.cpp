@@ -58,16 +58,16 @@ void renderer_t::render ()
   m_test_shader->set_uniform_1i ("myTextureSampler", 0);
 
   m_test_mesh->draw ();
-  //  glEnable (GL_BLEND);
-  //  m_gui.draw ();
-  //  glDisable (GL_BLEND);
+    glEnable (GL_BLEND);
+    m_gui.draw ();
+    glDisable (GL_BLEND);
   GL_DEBUG_INFO ();
 }
 
 void renderer_t::set_mesh (mesh_t *test, shader_t *shader, texture_t *tex)
 {
   m_test_mesh = test;
-  m_test_mesh->print_debug_info ();
+//  m_test_mesh->print_debug_info ();
   m_test_shader = shader;
   m_tex = tex;
 }
