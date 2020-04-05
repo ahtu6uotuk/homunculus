@@ -6,11 +6,19 @@
 #include "common/logger/logger.h"
 #include "control_flow/control_flow.h"
 
+#include "world/classes/enemy.h"
+#include "world/classes/friend.h"
+
 int main (int argc, char *argv[])
 {
 #ifndef WIN32
   feenableexcept (FE_DIVBYZERO | FE_OVERFLOW | FE_INVALID);
 #endif
+
+  enemy_t *kek = 0;
+  (void) kek;
+  friend_t *lel = 0;
+  (void) lel;
 
   if (!logger_t::instance ().is_ok ())
     {

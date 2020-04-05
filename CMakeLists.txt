@@ -2,8 +2,15 @@ cmake_minimum_required(VERSION 2.8.0)
 
 project(homunculus)
 
-# Main libraries
-find_library(MATH_LIBRARY NAMES m)
+set (OpenGL_GL_PREFERENCE LEGACY)
+include (FindOpenGL)
+if (NOT OpenGL_OpenGL_FOUND)
+  message (FATAL_ERROR "OpenGL libraries not found!")
+endif ()
+if (NOT OPENGL_GLU_FOUND)
+  message (FATAL_ERROR "GLU libraries not found!")
+endif ()
+find_package(GLEW REQUIRED)
 
 # Compiler tuning
 set(CMAKE_CXX_FLAGS "-W -Wall -Wunused -Wcast-align -Werror -pedantic -pedantic-errors -fstack-protector-all -Wfloat-equal -Wpointer-arith -Wwrite-strings -Wcast-align -Wno-long-long -Wsuggest-override -Wmissing-declarations -Wnon-virtual-dtor -Wmissing-format-attribute -Wvla -Wformat=1 -Wno-maybe-uninitialized -Wuninitialized -Wlogical-op -Wno-unused-local-typedefs -Wshadow -Wextra  -Wformat-security -Wformat-nonliteral")

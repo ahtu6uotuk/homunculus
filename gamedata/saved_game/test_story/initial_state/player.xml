@@ -2,26 +2,26 @@
 	<name>Мудро</name>
 	<camera_data>
 		<position>
-			<x>0x1.0ca154p+1</x>
-			<y>0x1.164cc6p-13</y>
-			<z>0x1.066662p+3</z>
+			<x>0x8.650aap-2</x>
+			<y>0x8.b2663p-16</y>
+			<z>0x8.33331p+0</z>
 		</position>
-		<yaw>-0x1.68p+6</yaw>
-		<pitch>-0x1.5be01ap-10</pitch>
+		<yaw>-0xb.4p+3</yaw>
+		<pitch>-0xa.df00dp-13</pitch>
 		<orientation_front>
-			<x>-0x1.777a5cp-25</x>
-			<y>-0x1.5be01ap-10</y>
-			<z>-0x1p+0</z>
+			<x>-0xb.bbd2ep-28</x>
+			<y>-0xa.df00dp-13</y>
+			<z>-0x8p-3</z>
 		</orientation_front>
 		<orientation_up>
-			<x>-0x1.5be01ap-10</x>
-			<y>0x1p+0</y>
-			<z>-0x1.5be01ap-10</z>
+			<x>-0xa.df00dp-13</x>
+			<y>0x8p-3</y>
+			<z>-0xa.df00dp-13</z>
 		</orientation_up>
 		<orientation_right>
-			<x>0x1p+0</x>
-			<y>-0x1.5be01ap-10</y>
-			<z>-0x1.777a5cp-25</z>
+			<x>0x8p-3</x>
+			<y>-0xa.df00dp-13</y>
+			<z>-0xb.bbd2ep-28</z>
 		</orientation_right>
 	</camera_data>
 	<id>-1</id>

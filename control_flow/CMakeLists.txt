@@ -18,4 +18,4 @@ if (NOT THREADS_FOUND)
   message (FATAL_ERROR "Can't find threads library!")
 endif ()
 
-target_link_libraries(${PROJECT_NAME} engine world ${MATH_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(${PROJECT_NAME} engine world ${CMAKE_THREAD_LIBS_INIT})
