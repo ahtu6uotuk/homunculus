@@ -12,3 +12,4 @@ add_executable(${PROJECT_NAME}
                simulation/simulation_helpers.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR})
+target_link_libraries(${PROJECT_NAME} world common resource datastructs)

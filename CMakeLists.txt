@@ -24,7 +24,7 @@ add_subdirectory(world)
 add_subdirectory(datastructs)
 add_subdirectory(resource)
 add_subdirectory(object)
-#add_subdirectory(tests)
+add_subdirectory(tests)
 
 add_executable(homunculus main.cpp)
 
