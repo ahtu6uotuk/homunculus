@@ -64,7 +64,7 @@ err_t control_flow::run ()
     }
 
   join_threads ();
-  m_world->save ("initial_state");
+//  m_world->save ("initial_state");
   return ERR_OK;
 }
 
