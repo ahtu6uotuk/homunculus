@@ -63,6 +63,15 @@ std::vector<std::unique_ptr<request_to_calc_base>> handle_gui_events (engine_t &
           //              camera.rotate (0.f, 5.f);
           //            if (event.key.code == sf::Keyboard::Key::Down)
           //              camera.rotate (0.f, -5.f);
+          if (event.key.code == sf::Keyboard::Key::Right)
+            result.push_back (request_player_action (std::make_unique<rotate_action> (5.f, 0.f)));
+          if (event.key.code == sf::Keyboard::Key::Left)
+            result.push_back (request_player_action (std::make_unique<rotate_action> (-5.f, 0.f)));
+          if (event.key.code == sf::Keyboard::Key::Up)
+            result.push_back (request_player_action (std::make_unique<rotate_action> (0.f, 5.f)));
+          if (event.key.code == sf::Keyboard::Key::Down)
+            result.push_back (request_player_action (std::make_unique<rotate_action> (0.f, -5.f)));
+
           if (event.key.code == sf::Keyboard::Key::D)
             result.push_back (request_player_action (std::make_unique<move_action> (movement_direction_t::RIGHT, 1.f, 0.1f)));
           if (event.key.code == sf::Keyboard::Key::A)

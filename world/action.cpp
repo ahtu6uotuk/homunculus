@@ -20,3 +20,11 @@ void move_action::exec_impl (object_base &actor, world_t &)
 
   coord->get ().move (m_direction, m_speed, m_dt);
 }
+
+void rotate_action::exec_impl (object_base &actor, world_t &)
+{
+  simple_camera_policy *coord = actor.get_policy<simple_camera_policy> ();
+  assert_check (coord, "How do i move without coord policy, I dunno");
+
+  coord->get ().rotate (m_yaw, m_pitch);
+}

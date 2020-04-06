@@ -38,6 +38,21 @@ private:
   float m_dt;
 };
 
+class rotate_action : public action
+{
+public:
+  ~rotate_action () {}
+  rotate_action (float yaw, float pitch)
+    : m_yaw (yaw), m_pitch (pitch)
+  {
+  }
+  void exec_impl (object_base &actor, world_t &world) override;
+
+private:
+  float m_yaw;
+  float m_pitch;
+};
+
 
 
 
