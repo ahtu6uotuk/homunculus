@@ -20,7 +20,7 @@ private:
   void init_gl ();
   void reset_gl_objects ();
 public:
-  err_t load_custom (const std::string &file_content);
+  err_t load_custom (const std::string &asset_name);
   mesh_t ();
   mesh_t (std::vector<vertex_data_t> &&vertices, std::vector<GLuint> &&indeces, std::vector<GLuint> &&textures);
   mesh_t (mesh_t &&b);

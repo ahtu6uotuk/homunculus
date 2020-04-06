@@ -39,10 +39,12 @@ tga_image_t::tga_image_t ()
 
 }
 
-err_t tga_image_t::load (const std::string &file_contents)
+err_t tga_image_t::load (const std::string &asset_name)
 {
-  std::stringstream tga_file;
-  tga_file << file_contents;
+  std::ifstream tga_file;
+  tga_file.open ("gamedata/" + asset_name, std::ios::in | std::ios::binary);
+  if (!tga_file.is_open ())
+    {return std::string ("can't open ").append (asset_name);}
 
   tga_file.read (reinterpret_cast<char *> (&m_header.m_id_length), sizeof (m_header.m_id_length));
   tga_file.read (reinterpret_cast<char *> (&m_header.m_color_map_type), sizeof (m_header.m_color_map_type));

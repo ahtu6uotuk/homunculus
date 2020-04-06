@@ -48,13 +48,16 @@ private:
 
   GENERATE_HAS_MEMBER (load_custom)
   template<typename DataT, std::enable_if_t<has_member_load_custom<DataT>::value, int> = 0>
-  static err_t load_data_private (const std::string &file_contents, DataT &result)
+  static err_t load_data_private (const std::string &asset_name, DataT &result)
   {
-    return result.load_custom (file_contents);
+    return result.load_custom (asset_name);
   }
   template<typename DataT, std::enable_if_t<!has_member_load_custom<DataT>::value, int> = 0>
-  static err_t load_data_private (const std::string &file_contents, DataT &result)
+  static err_t load_data_private (const std::string &asset_name, DataT &result)
   {
+    std::string file_contents;
+    assert_error (from_gamedata_file (file_contents, asset_name));
+
     return saveload::load (result, file_contents);
   }
 
@@ -62,12 +65,7 @@ private:
   static resource load_new_resource (const std::string &asset_name)
   {
     DataT *result = new DataT;
-
-    std::string file_contents;
-    assert_error (from_gamedata_file (file_contents, asset_name));
-
-    assert_error (load_data_private (file_contents, *result));
-
+    assert_error (load_data_private (asset_name, *result));
     return resource (result);
   }
 };

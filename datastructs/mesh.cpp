@@ -2,15 +2,20 @@
 
 #include <memory>
 
+#include "common/file_utils.h"
 #include "common/logger/logger.h"
 #include "common/logger/logger_utils.h"
 #include "datastructs/io/model_obj.h"
 
-err_t mesh_t::load_custom (const std::string &file_content)
+
+err_t mesh_t::load_custom (const std::string &asset_name)
 {
+  std::string file_contents;
+  RETURN_IF_FAIL (from_gamedata_file (file_contents, asset_name));
+
   model_obj_t obj_importer;
 
-  RETURN_IF_FAIL (obj_importer.load (file_content));
+  RETURN_IF_FAIL (obj_importer.load (file_contents));
   obj_importer.print_debug_info ();
 
   *this = obj_importer.to_mesh ();

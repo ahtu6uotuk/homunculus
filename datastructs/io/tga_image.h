@@ -59,7 +59,7 @@ class tga_image_t
   std::unique_ptr<unsigned char[]> m_image_data = nullptr;
 public:
   tga_image_t ();
-  err_t load (const std::string &file_contents);
+  err_t load (const std::string &asset_name);
   std::unique_ptr<unsigned char[]> move_as_texture_data ();
   std::unique_ptr<unsigned char[]> copy_as_texture_data () const;
   unsigned int to_gl () const;

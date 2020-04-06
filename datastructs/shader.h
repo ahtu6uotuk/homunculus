@@ -9,7 +9,7 @@ class subshader_t
   unsigned int m_id = 0;
 public:
   subshader_t () {}
-  err_t load_custom (const std::string &source_code);
+  err_t load_custom (const std::string &asset_name);
   subshader_t (const subshader_t &) = delete;
   subshader_t (subshader_t &&) = delete;
   unsigned int get_id () const {return m_id;}
@@ -25,7 +25,7 @@ class shader_t
 private:
   unsigned int m_id = 0;
 public:
-  err_t load_custom (const std::string &file_contents);
+  err_t load_custom (const std::string &asset_name);
   shader_t () = default;
   shader_t (const shader_t &) = delete;
   shader_t (shader_t &&) = delete;

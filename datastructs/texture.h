@@ -14,7 +14,7 @@ enum class texture_type_t
 class texture_t
 {
 public:
-  err_t load_custom (const std::string &file_content);
+  err_t load_custom (const std::string &asset_name);
 
   texture_type_t m_texture_type;
   GLuint m_texture_id;

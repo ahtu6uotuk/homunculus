@@ -86,8 +86,11 @@ constexpr GLenum shader_type_to_GLenum (shader_type_t shader_type)
 }
 
 template<shader_type_t SHADER_TYPE>
-err_t subshader_t<SHADER_TYPE>::load_custom (const std::string &source_code)
+err_t subshader_t<SHADER_TYPE>::load_custom (const std::string &asset_name)
 {
+  std::string source_code;
+  RETURN_IF_FAIL (from_gamedata_file (source_code, asset_name));
+
   if (source_code.empty ())
     return std::string ("Empty shader data!");
 
@@ -126,8 +129,11 @@ subshader_t<SHADER_TYPE>::~subshader_t ()
 template class subshader_t<shader_type_t::VERTEX>;
 template class subshader_t<shader_type_t::FRAGMENT>;
 
-err_t shader_t::load_custom (const std::string &file_contents)
+err_t shader_t::load_custom (const std::string &asset_name)
 {
+  std::string file_contents;
+  RETURN_IF_FAIL (from_gamedata_file (file_contents, asset_name));
+
   std::vector<std::string> two_shader_names = string_split (file_contents, "\n");
   if (two_shader_names.size () != 2)
     return std::string ("Shader file is supposed to have two names");
