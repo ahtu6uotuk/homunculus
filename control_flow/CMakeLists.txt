@@ -11,8 +11,6 @@ add_library(${PROJECT_NAME} STATIC
             request_to_gui.cpp
             run_calc_thread.cpp)
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR})
-
 include(FindThreads)
 if (NOT THREADS_FOUND)
   message (FATAL_ERROR "Can't find threads library!")

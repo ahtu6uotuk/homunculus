@@ -14,5 +14,3 @@ target_sources(${PROJECT_NAME} PRIVATE
     thread_sync.cpp
     logger/logger.cpp
     logger/logger_utils.cpp)
-
-target_include_directories(${PROJECT_NAME} PUBLIC "../")

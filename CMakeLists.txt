@@ -17,6 +17,8 @@ set(CMAKE_CXX_FLAGS "-W -Wall -Wunused -Wcast-align -Werror -pedantic -pedantic-
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
 
+include_directories (./)
+
 add_subdirectory(common)
 add_subdirectory(engine)
 add_subdirectory(control_flow)
@@ -31,5 +33,3 @@ add_executable(homunculus main.cpp)
 target_link_libraries(homunculus
  common
  control_flow)
-
-#set(INCLUDE_DIR "./")

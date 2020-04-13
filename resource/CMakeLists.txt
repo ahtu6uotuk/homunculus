@@ -8,5 +8,3 @@ target_sources(${PROJECT_NAME} PRIVATE
     asset.cpp
     resource_manager.cpp
     saveload/saveload_tree.cpp)
-
-target_include_directories(${PROJECT_NAME} PUBLIC "../")

@@ -45,5 +45,5 @@ set (RENDERER_LIBRARIES
     ${SFML_SYSTEM_LIBRARY}
     datastructs)
 
+target_include_directories (${PROJECT_NAME} PRIVATE ${FREETYPE_INCLUDE_DIRS})
 target_link_libraries (${PROJECT_NAME} ${RENDERER_LIBRARIES})
-target_include_directories (${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR} ${FREETYPE_INCLUDE_DIRS})
