@@ -125,7 +125,7 @@ err_t font_t::load ()
   glBindBuffer (GL_ARRAY_BUFFER, m_vbo);
   glBufferData (GL_ARRAY_BUFFER, 6 * 4 * sizeof (float), nullptr, GL_DYNAMIC_DRAW);
   glEnableVertexAttribArray (0);
-  glVertexAttribPointer (0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof (GLfloat), 0);
+  glVertexAttribPointer (0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof (GLfloat), nullptr);
   glBindBuffer (GL_ARRAY_BUFFER, 0);
   glBindVertexArray (0);
 
