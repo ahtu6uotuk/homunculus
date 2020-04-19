@@ -21,7 +21,9 @@ font_character_t::font_character_t (font_character_t &&b):
   m_size (b.m_size),
   m_base_offset (b.m_base_offset),
   m_glyph_offset (b.m_glyph_offset)
-{}
+{
+  b.m_texture_id = 0;
+}
 
 font_character_t::font_character_t (GLuint texture_id,
                                     glm::ivec2 size,
@@ -34,7 +36,10 @@ font_character_t::font_character_t (GLuint texture_id,
 {}
 
 font_character_t::~font_character_t ()
-{}
+{
+  if (glIsTexture (m_texture_id))
+    glDeleteTextures (1, &m_texture_id);
+}
 
 font_t::font_t (std::string &&font_name, const unsigned int font_height):
   m_font_name (font_name),
