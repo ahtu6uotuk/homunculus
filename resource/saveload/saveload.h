@@ -9,8 +9,7 @@ err_t save (const Data &src, std::string &dst)
 {
   detail::root_node_t root;
 
-  node_t::xml_node_t *root_node
-      = root.m_root_ownership.allocate_node (rapidxml::node_type::node_element, "root");
+  xml_node_t *root_node = root.m_root_ownership.allocate_node (rapidxml::node_type::node_element, "root");
   root.set_node (root_node);
   root.m_root_ownership.append_node (root_node);
 

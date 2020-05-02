@@ -55,9 +55,13 @@ err_t saveload::node_t::save ()
 
 err_t saveload::node_t::save_private (bool ignore_defaults)
 {
+  std::unique_ptr<node_t> default_self;
+  if (ignore_defaults)
+    default_self = m_default_holder->make_node ();
+
   for (size_t i = 0; i < m_children.size (); i++)
     {
-      if (ignore_defaults && m_children[i]->is_default ())
+      if (ignore_defaults && m_children[i] == default_self->m_children[i])
         continue;
 
       m_children[i]->m_node = m_root.allocate_node (
@@ -78,18 +82,9 @@ void saveload::node_t::set_node_value (const std::string &value)
   m_node->value (node_value);
 }
 
-bool saveload::node_t::is_default () const
+bool saveload::node_t::operator == (const node_t &other) const
 {
-  if (!is_default_self ())
-    return false;
-  return all_of (m_children.begin (), m_children.end (), [] (auto &a) { return a->is_default (); });
-}
-
-bool saveload::node_t::is_default_self () const { return true; }
-
-void saveload::node_t::spawn_empty_child (const std::string &name)
-{
-  m_children.emplace_back (new node_t (m_root, name));
+  return m_children == other.m_children;
 }
 
 saveload::node_t &saveload::node_t::last_child () { return *m_children.back (); }
@@ -106,7 +101,7 @@ saveload::detail::root_node_t::root_node_t ()
   : node_t (m_root_ownership, "doc")
 {
 }
-void saveload::detail::root_node_t::set_node (node_t::xml_node_t *node)
+void saveload::detail::root_node_t::set_node (xml_node_t *node)
 {
   m_node = node;
 }

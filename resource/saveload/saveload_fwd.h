@@ -2,6 +2,7 @@
 #include <memory>
 
 class err_t;
+class default_val_holder_base;
 
 namespace saveload
 {

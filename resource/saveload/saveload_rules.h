@@ -32,9 +32,12 @@ inline void add_impl (node_t &node, bool &data, const std::string &name)
 template<typename Type1, typename Type2>
 void add_impl (node_t &node, std::pair<Type1, Type2> &data, const std::string &name)
 {
-  node.spawn_empty_child (name);
-  add (node.last_child (), data.first, "first");
-  add (node.last_child (), data.second, "second");
+  fill_node_func_t<std::pair<Type1, Type2>> fill_func = [] (node_t &inode, std::pair<Type1, Type2> &idata) {
+    add (inode, idata.first, "first");
+    add (inode, idata.second, "second");
+  };
+
+  node.add_external_complex_structure (data, name, fill_func);
 }
 
 /// vector
@@ -42,7 +45,7 @@ template<typename VectElem>
 void add_impl (node_t &node, std::vector<VectElem> &data, const std::string &name)
 {
   std::string elem_name = "elem";
-  node.add_container<std::vector<VectElem>, VectElem> (data, name, elem_name);
+  node.add_container<std::vector<VectElem>, VectElem> (data, name);
   for (VectElem &elem : data)
     add (node.last_child (), elem, elem_name);
 }
@@ -57,7 +60,7 @@ template<typename MapKey, typename MapValue>
 void add_impl (node_t &node, std::unordered_map<MapKey, MapValue> &data, const std::string &name)
 {
   std::string elem_name = "entry";
-  node.add_container<std::unordered_map<MapKey, MapValue>, std::pair<MapKey, MapValue>> (data, name, elem_name);
+  node.add_container<std::unordered_map<MapKey, MapValue>, std::pair<MapKey, MapValue>> (data, name);
 
   std::vector<std::pair<const MapKey, MapValue> *> ordered_pairs;
   for (std::pair<const MapKey, MapValue> &elem : data)
@@ -69,8 +72,8 @@ void add_impl (node_t &node, std::unordered_map<MapKey, MapValue> &data, const s
 
   for (std::pair<const MapKey, MapValue> *elem : ordered_pairs)
     {
-      std::pair<MapKey &, MapValue &> unconst_pair (const_cast<MapKey &> (elem->first), elem->second);
-      add (node.last_child (), unconst_pair, elem_name);
+      std::pair<MapKey, MapValue> *unconst_pair = reinterpret_cast<std::pair<MapKey, MapValue> *> (elem); // oh yeah baby, this is fucking dirty
+      add (node.last_child (), *unconst_pair, elem_name);
     }
 }
 template<typename MapKey, typename MapValue>
@@ -87,7 +90,7 @@ template<typename DataT>
 void add_impl (node_t &node, std::unique_ptr<DataT> &data, const std::string &name)
 {
   std::string elem_name = "entry";
-  node.add_container<std::unique_ptr<DataT>, DataT> (data, name, elem_name);
+  node.add_container<std::unique_ptr<DataT>, DataT> (data, name);
   if (data)
     add (node.last_child (), *data, elem_name);
 }

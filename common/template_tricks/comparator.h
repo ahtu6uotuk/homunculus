@@ -28,6 +28,23 @@ bool typed_is_default (const T &data)
 }
 
 template<typename T>
+bool typed_compare (const T &lhs, const T &rhs)
+{
+  if constexpr (std::is_floating_point<T>::value)
+    {
+      return !fuzzycmp (lhs, rhs);
+    }
+  else if constexpr (is_unique_ptr<T>::value)
+    {
+      return uptrs_are_equal (lhs, rhs);
+    }
+  else
+    {
+      return lhs == rhs;
+    }
+}
+
+template<typename T>
 bool uptrs_are_equal (const std::unique_ptr<T> &a, const std::unique_ptr<T> &b)
 {
   return (!a and !b) or (*a == *b);
