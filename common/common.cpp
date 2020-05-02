@@ -14,6 +14,7 @@ void assert_check (bool check, std::string message)
 //      ::raise (SIGTRAP);
 #else
       __asm__("int $3");
+      throw std::exception ();
 #endif
     }
 }
