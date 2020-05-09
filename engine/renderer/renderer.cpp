@@ -33,6 +33,8 @@ err_t renderer_t::init ()
 
   glViewport (0., 0., 800, 600);
 
+  glClearColor (0., 0., 1., 0.);
+
   return ERR_OK;
 }
 
@@ -41,7 +43,6 @@ err_t renderer_t::init ()
 #include "gl/gl_ext.h"
 void renderer_t::render ()
 {
-  glClearColor (0., 0., 1., 0.);
   glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   //... Draw something here
   m_test_shader->use ();
