@@ -13,7 +13,8 @@ target_sources(${PROJECT_NAME} PRIVATE
     io/tga_image.cpp
     mesh.cpp
     shader.cpp
-    vertex_data.cpp)
+    vertex_data.cpp
+    shader_property.cpp)
 
 target_link_libraries(${PROJECT_NAME} GLEW::GLEW ${OPENGL_LIBRARIES} common resource)
 
