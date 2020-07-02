@@ -136,5 +136,5 @@ mesh_t model_obj_t::to_mesh ()
         }
     }
 
-  return mesh_t (std::move (out_vertices), std::move (out_indices), {});
+  return mesh_t (std::move (out_vertices), std::move (out_indices));
 }

@@ -49,14 +49,12 @@ mesh_t::mesh_t ():
   m_vbo (0),
   m_ibo (0),
   m_vertices (),
-  m_indices (),
-  m_textures ()
+  m_indices ()
 {}
 
-mesh_t::mesh_t (std::vector<vertex_data_t> &&vertices, std::vector<GLuint> &&indeces, std::vector<GLuint> &&textures):
+mesh_t::mesh_t (std::vector<vertex_data_t> &&vertices, std::vector<GLuint> &&indeces):
   m_vertices (std::move (vertices)),
-  m_indices (std::move (indeces)),
-  m_textures (std::move (textures))
+  m_indices (std::move (indeces))
 {
   init_gl ();
 }
@@ -66,8 +64,7 @@ mesh_t::mesh_t (mesh_t &&b):
   m_vbo (std::move (b.m_vbo)),
   m_ibo (std::move (b.m_ibo)),
   m_vertices (std::move (b.m_vertices)),
-  m_indices(std::move (b.m_indices)),
-  m_textures (std::move (b.m_textures))
+  m_indices(std::move (b.m_indices))
 {
   b.m_vao = 0;
   b.m_vbo = 0;
@@ -81,7 +78,6 @@ mesh_t &mesh_t::operator= (mesh_t &&b)
   m_ibo = b.m_ibo;
   m_vertices = std::move (b.m_vertices);
   m_indices = std::move (b.m_indices);
-  m_textures = std::move (b.m_textures);
   b.reset_gl_objects ();
   return *this;
 }
@@ -112,8 +108,6 @@ void mesh_t::print_debug_info ()
   logger_utils::print_var_info ("m_vertices", m_vertices);
   logger_utils::print_var_info ("m_indices.size ()", m_indices.size ());
   logger_utils::print_var_info ("m_indices", m_indices);
-  logger_utils::print_var_info ("m_textures.size ()", m_textures.size ());
-  logger_utils::print_var_info ("m_textures", m_textures);
 }
 
 void mesh_t::reset_gl_objects ()
