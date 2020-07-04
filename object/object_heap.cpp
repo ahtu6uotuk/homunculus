@@ -6,11 +6,13 @@ object_heap::object_heap ()
     type_adder (*this);
 }
 
+void object_heap::set_id_generator (id_generator_t gen)
+{
+  m_id_generator = gen;
+}
+
 bool object_heap::operator== (const object_heap & other) const
 {
-  if (m_max_id != other.m_max_id)
-    return false;
-
   for (const std::pair<const std::string, std::unique_ptr<obj_map_base>> &it : m_obj_maps)
     {
       auto other_it = other.m_obj_maps.find (it.first);
@@ -45,7 +47,6 @@ object_base *object_heap::get (int id)
 
 void object_heap::build_saveload_tree (saveload::node_t &node)
 {
-  saveload::add (node, m_max_id, "max_id");
   for (std::pair<const std::string, std::unique_ptr<obj_map_base>> &it : m_obj_maps)
     it.second->add_to_tree (node);
 }

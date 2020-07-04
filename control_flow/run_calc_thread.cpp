@@ -37,7 +37,7 @@ void run_calc_thread (std::unique_ptr<thread_info_t> thr_info, control_flow &flo
         {
           // choose actions
           std::vector<std::pair<int, std::unique_ptr<action>>> actors_and_actions;
-          for (object_base *obj : world.get_all ())
+          for (object_base *obj : world.get_level ().get_all ())
             {
               choose_action_policy *pl = obj->get_policy<choose_action_policy> ();
               if (pl)

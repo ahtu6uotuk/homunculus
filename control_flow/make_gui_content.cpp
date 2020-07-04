@@ -20,7 +20,7 @@ void make_gui_content (engine_t &engine, world_t &world, thread_info_t &thr_info
     return;
 
   std::unique_ptr<gui_context_t> new_content = std::make_unique<gui_context_t> (engine.get_gui_system ());
-  std::vector<object_base *> objs = world.get_all ();
+  std::vector<object_base *> objs = world.get_level ().get_all ();
 
   struct model_info
   {

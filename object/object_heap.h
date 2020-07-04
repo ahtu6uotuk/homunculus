@@ -21,8 +21,10 @@ struct obj_heap_helper
 
 class object_heap
 {
+  using id_generator_t = std::function<int ()>;
 public:
   object_heap ();
+  void set_id_generator (id_generator_t gen);
 
   std::vector<object_base *> get_all ();
   object_base *get (int id);
@@ -43,9 +45,10 @@ public:
     obj_map_base *corresp_vector = m_obj_maps[name_of_type].get ();
     obj_map<T> *typed_vector = dynamic_cast<obj_map<T> *> (corresp_vector);
     std::unique_ptr<T> created_obj = std::make_unique<T> (std::forward<ConstructorArgs> (constructor_args)...);
-    created_obj->m_id = ++m_max_id;
-    typed_vector->m_data[m_max_id] = move (created_obj);
-    return m_max_id;
+    int id = m_id_generator ();
+    created_obj->m_id = id;
+    typed_vector->m_data[id] = move (created_obj);
+    return id;
   }
 
   template<typename T>
@@ -62,7 +65,7 @@ public:
 private:
   struct obj_map_base;
   std::unordered_map<std::string, std::unique_ptr<obj_map_base>> m_obj_maps;
-  int m_max_id = 0;
+  id_generator_t m_id_generator;
 
 private:
   struct obj_map_base
