@@ -1,5 +1,4 @@
 <data>
-	<max_id>3</max_id>
 	<enemy>
 		<entry>
 			<first>1</first>
@@ -22,13 +21,45 @@
 			</second>
 		</entry>
 	</enemy>
+	<player>
+		<entry>
+			<second>
+				<entry>
+					<name>Мудро</name>
+					<camera_data>
+						<position>
+							<x>0xd.cc1e5p-1</x>
+							<y>-0xd.fec31p-4</y>
+							<z>0xe.1c97dp+0</z>
+						</position>
+						<yaw>-0xb.4p+3</yaw>
+						<pitch>0xbp+0</pitch>
+						<orientation_front>
+							<x>-0xb.84a2ap-28</x>
+							<y>0xc.36371p-6</y>
+							<z>-0xf.b4bedp-4</z>
+						</orientation_front>
+						<orientation_up>
+							<x>0x8.f4a05p-30</x>
+							<y>0xf.b4bebp-4</y>
+							<z>0xc.3636fp-6</z>
+						</orientation_up>
+						<orientation_right>
+							<x>0x8p-3</x>
+							<z>-0xb.bbd2dp-28</z>
+						</orientation_right>
+					</camera_data>
+					<id>0</id>
+				</entry>
+			</second>
+		</entry>
+	</player>
 	<friend>
 		<entry>
 			<first>3</first>
 			<second>
 				<entry>
 					<name>Old man</name>
-					<current_tag>start</current_tag>
 					<id>3</id>
 				</entry>
 			</second>
