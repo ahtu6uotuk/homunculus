@@ -1,26 +1,4 @@
 <data>
-	<enemy>
-		<entry>
-			<first>1</first>
-			<second>
-				<entry>
-					<name>Skeleton</name>
-					<hp>10</hp>
-					<id>1</id>
-				</entry>
-			</second>
-		</entry>
-		<entry>
-			<first>2</first>
-			<second>
-				<entry>
-					<name>Zombie</name>
-					<hp>25</hp>
-					<id>2</id>
-				</entry>
-			</second>
-		</entry>
-	</enemy>
 	<player>
 		<entry>
 			<second>
@@ -28,25 +6,25 @@
 					<name>Мудро</name>
 					<camera_data>
 						<position>
-							<x>0xd.cc1e5p-1</x>
-							<y>-0xd.fec31p-4</y>
-							<z>0xe.1c97dp+0</z>
+							<x>-0x1.348f1p-2</x>
+							<y>-0x1.8eff8cp-1</y>
+							<z>0x1.b3de3ep+3</z>
 						</position>
-						<yaw>-0xb.4p+3</yaw>
-						<pitch>0xbp+0</pitch>
+						<yaw>-0x1.68p+6</yaw>
+						<pitch>0x1.6p+3</pitch>
 						<orientation_front>
-							<x>-0xb.84a2ap-28</x>
-							<y>0xc.36371p-6</y>
-							<z>-0xf.b4bedp-4</z>
+							<x>-0x1.709454p-25</x>
+							<y>0x1.86c6e2p-3</y>
+							<z>-0x1.f697dap-1</z>
 						</orientation_front>
 						<orientation_up>
-							<x>0x8.f4a05p-30</x>
-							<y>0xf.b4bebp-4</y>
-							<z>0xc.3636fp-6</z>
+							<x>0x1.1e940ap-27</x>
+							<y>0x1.f697d6p-1</y>
+							<z>0x1.86c6dep-3</z>
 						</orientation_up>
 						<orientation_right>
-							<x>0x8p-3</x>
-							<z>-0xb.bbd2dp-28</z>
+							<x>0x1p+0</x>
+							<z>-0x1.777a5ap-25</z>
 						</orientation_right>
 					</camera_data>
 					<id>0</id>
@@ -61,8 +39,45 @@
 				<entry>
 					<name>Old man</name>
 					<id>3</id>
+					<position>
+					<x>5.0</x>
+					<y>0.0</y>
+					<z>0.0</z>
+					</position>
 				</entry>
 			</second>
 		</entry>
 	</friend>
+	<enemy>
+		<entry>
+			<first>1</first>
+			<second>
+				<entry>
+					<name>Skeleton</name>
+					<hp>10</hp>
+					<id>1</id>
+					<position>
+						<x>-5.0</x>
+						<y>0.0</y>
+						<z>0.0</z>
+					</position>
+				</entry>
+			</second>
+		</entry>
+		<entry>
+			<first>2</first>
+			<second>
+				<entry>
+					<name>Zombie</name>
+					<hp>25</hp>
+					<id>2</id>
+					<position>
+						<x>0.0</x>
+						<y>0.0</y>
+						<z>-5.0</z>
+					</position>
+				</entry>
+			</second>
+		</entry>
+	</enemy>
 </data>
