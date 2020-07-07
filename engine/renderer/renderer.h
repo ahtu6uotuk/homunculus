@@ -5,6 +5,8 @@
 #include "engine/renderer/font.h"
 #include "datastructs/texture.h"
 #include <glm/mat4x4.hpp>
+#include <vector>
+#include <datastructs/model.h>
 
 class engine_t;
 class gui_system_t;
@@ -24,6 +26,7 @@ class renderer_t
   camera_t m_camera;
   glm::mat4 m_mat_view;
   glm::mat4 m_mat_gui;
+  std::vector<model_t> m_drawable_models;
 private:
   void update_matrices ();
 public:
@@ -33,6 +36,6 @@ public:
   font_t &get_font () {return m_font;}
   gui_system_t &get_gui () {return m_gui;}
   camera_t &get_camera () {return m_camera;}
-  void set_mesh (mesh_t *test, shader_t *shader, texture_t *tex);
+  void add_drawable_models (std::vector<model_t> &&drawable_models);
   ~renderer_t ();
 };

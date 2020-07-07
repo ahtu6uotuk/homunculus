@@ -12,8 +12,7 @@ renderer_t::renderer_t (engine_t &engine):
   m_window (engine.get_sfml_window ()),
   m_gui (engine.get_gui_system ()),
   m_font ("FreeSerif.ttf", 48),
-  m_camera (glm::vec3 (0.f, 0.f, 5.f)),
-  m_test_mesh (nullptr)
+  m_camera (glm::vec3 (0.f, 0.f, 5.f))
 {}
 
 err_t renderer_t::init ()
@@ -39,7 +38,6 @@ err_t renderer_t::init ()
 }
 
 #include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 #include "gl/gl_ext.h"
 
 void renderer_t::update_matrices ()
@@ -57,17 +55,8 @@ void renderer_t::render ()
   update_matrices ();
 
   //... Draw something here
-  m_test_shader->use ();
-
-  m_test_shader->set_uniform_mat4 ("MVP", glm::value_ptr (m_mat_view));
-
-  glActiveTexture (GL_TEXTURE0);
-
-  glBindTexture (GL_TEXTURE_2D, m_tex->m_texture_id);
-
-  m_test_shader->set_uniform_1i ("myTextureSampler", 0);
-
-  m_test_mesh->draw ();
+  for (auto &model : m_drawable_models)
+    model.render (m_mat_view);
 
   glEnable (GL_BLEND);
   m_gui.draw ();
@@ -75,12 +64,9 @@ void renderer_t::render ()
   GL_DEBUG_INFO ();
 }
 
-void renderer_t::set_mesh (mesh_t *test, shader_t *shader, texture_t *tex)
+void renderer_t::add_drawable_models (std::vector<model_t> &&drawable_models)
 {
-  m_test_mesh = test;
-//  m_test_mesh->print_debug_info ();
-  m_test_shader = shader;
-  m_tex = tex;
+  m_drawable_models = std::move (drawable_models);
 }
 
 renderer_t::~renderer_t ()
