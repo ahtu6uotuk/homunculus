@@ -11,6 +11,7 @@
 #include "world/policies/shader_policy.h"
 #include "world/policies/mesh_policy.h"
 #include "world/policies/texture_policy.h"
+#include "world/policies/position_policy.h"
 
 class enemy_t : public object<
                     enemy_t,
@@ -20,7 +21,8 @@ class enemy_t : public object<
                     // perhaps these three should be merged into one policy, its not even hard
                     simple_shader_policy<LITERAL("shaders/test.shader")>,
                     simple_mesh_policy<LITERAL("models/cube.obj")>,
-                    simple_texture_policy<LITERAL("textures/cube.tga")>
+                    simple_texture_policy<LITERAL("textures/cube.tga")>,
+                    position_policy_t
                     >
 {
 public:
