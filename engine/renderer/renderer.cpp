@@ -41,16 +41,25 @@ err_t renderer_t::init ()
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "gl/gl_ext.h"
-void renderer_t::render ()
+
+void renderer_t::update_matrices ()
 {
-  glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  //... Draw something here
-  m_test_shader->use ();
+  m_mat_gui = glm::ortho (0.f, 800.f, 0.f, 600.f); // unused now
   glm::mat4 projection = glm::perspective (glm::radians (45.f), 800.f / 600.f, 0.1f, 100.0f);
   glm::mat4 view = m_camera.get_view_matrix ();
   glm::mat4 model_matrix = glm::mat4 (1.);
-  glm::mat4 mvp = projection * view * model_matrix;
-  m_test_shader->set_uniform_mat4 ("MVP", glm::value_ptr (mvp));
+  m_mat_view = projection * view * model_matrix;
+}
+
+void renderer_t::render ()
+{
+  glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  update_matrices ();
+
+  //... Draw something here
+  m_test_shader->use ();
+
+  m_test_shader->set_uniform_mat4 ("MVP", glm::value_ptr (m_mat_view));
 
   glActiveTexture (GL_TEXTURE0);
 
@@ -59,6 +68,7 @@ void renderer_t::render ()
   m_test_shader->set_uniform_1i ("myTextureSampler", 0);
 
   m_test_mesh->draw ();
+
   glEnable (GL_BLEND);
   m_gui.draw ();
   glDisable (GL_BLEND);

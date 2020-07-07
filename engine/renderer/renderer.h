@@ -4,6 +4,7 @@
 #include "engine/renderer/camera.h"
 #include "engine/renderer/font.h"
 #include "datastructs/texture.h"
+#include <glm/mat4x4.hpp>
 
 class engine_t;
 class gui_system_t;
@@ -21,10 +22,10 @@ class renderer_t
   gui_system_t &m_gui;
   font_t m_font;
   camera_t m_camera;
-
-  shader_t *m_test_shader = nullptr;
-  mesh_t *m_test_mesh = nullptr;
-  texture_t *m_tex = nullptr;
+  glm::mat4 m_mat_view;
+  glm::mat4 m_mat_gui;
+private:
+  void update_matrices ();
 public:
   renderer_t (engine_t &engine);
   err_t init ();
