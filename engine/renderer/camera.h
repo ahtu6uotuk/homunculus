@@ -9,7 +9,6 @@
 class camera_t
 {
   camera_data_t m_current_data;
-  float m_mouse_sensitivity;
   float m_zoom;
 public:
   camera_t () = delete;

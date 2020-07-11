@@ -35,9 +35,13 @@ struct tga_header_t
   unsigned short m_image_width; ///< image width
   unsigned short m_image_height; ///< image height
   unsigned char m_pixel_depth; ///< image pixel color depth
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnested-anon-types"
+#endif
   union
   {
-    struct // please make this less weird, clang code model doesnt get this and highlighting is fucked up
+    struct
     {
       unsigned char m_bpp : 2;
       bool m_from_left : 1;
@@ -46,6 +50,9 @@ struct tga_header_t
     } m_desciptor_bits;
     unsigned char m_descriptor;
   };
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
   void print_debug_info () const;
   size_t get_image_size () const;
 };

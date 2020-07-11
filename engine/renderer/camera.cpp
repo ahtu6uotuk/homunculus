@@ -20,7 +20,6 @@
 
 camera_t::camera_t (glm::vec3 position):
   m_current_data (position),
-  m_mouse_sensitivity (camera_defaults::mouse_sensitivity),
   m_zoom (camera_defaults::zoom)
 {
 }

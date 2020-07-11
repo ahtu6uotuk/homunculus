@@ -8,7 +8,6 @@
 #include "datastructs/shader.h"
 
 renderer_t::renderer_t (engine_t &engine):
-  m_engine (engine),
   m_window (engine.get_sfml_window ()),
   m_gui (engine.get_gui_system ()),
   m_font ("FreeSerif.ttf", 48),

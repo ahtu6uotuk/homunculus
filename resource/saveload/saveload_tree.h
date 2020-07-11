@@ -35,8 +35,8 @@ protected:
 
   template<typename DataT, typename ElemT>
   friend class detail::container_node_t;
-  friend class defaultable_val;
-  friend class default_val_holder_base;
+  friend struct defaultable_val;
+  friend struct default_val_holder_base;
 
   virtual err_t save_private (bool ignore_defaults = true);
   void set_node_name (const std::string &name);

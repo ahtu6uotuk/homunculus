@@ -6,6 +6,7 @@
 /// Virtual base class for all shader properties
 class shader_property_t
 {
+protected:
   unsigned int m_id; ///< unique GL uniform ID
 public:
   shader_property_t () = delete;

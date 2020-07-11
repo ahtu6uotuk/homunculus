@@ -19,7 +19,6 @@ namespace sf
 
 class renderer_t
 {
-  engine_t &m_engine;
   sf::RenderWindow &m_window;
   gui_system_t &m_gui;
   font_t m_font;
