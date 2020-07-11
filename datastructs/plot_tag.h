@@ -54,11 +54,20 @@ public:
       m_plot_properties[name] = std::make_unique<plot_tag<EnumT>> ();
     });
   }
+  plot_tag_set (const plot_tag_set<NamedEnums...> &other) { *this = other; }
 
   void build_saveload_tree (saveload::node_t &node)
   {
-    for (std::pair<const std::string, std::unique_ptr<plot_tag_base>> &it: m_plot_properties)
-      it.second->add_to_tree_named (node, it.first);
+    std::tuple<NamedEnums...> helper;
+    static_for<0, sizeof...(NamedEnums)>::apply ([this, &helper, &node] (auto N) {
+      std::string name = std::get<N> (helper).get_name ();
+      using EnumT = decltype (std::get<N> (helper).get_en ());
+
+      auto it = m_plot_properties.find (name);
+      if (it != m_plot_properties.end ())
+        it->second = std::make_unique<plot_tag<EnumT>> ();
+      it->second->add_to_tree_named (node, name);
+    });
   }
 
   std::string print () const
@@ -82,6 +91,14 @@ public:
     return true;
   }
 
+  plot_tag_set<NamedEnums...> &operator = (const plot_tag_set<NamedEnums...> &other)
+  {
+    m_plot_properties.clear ();
+    for (const std::pair<const std::string, std::unique_ptr<plot_tag_base>> &it : other.m_plot_properties)
+      m_plot_properties[it.first] = it.second->clone ();
+    return *this;
+  }
+
 private:
   struct plot_tag_base
   {
@@ -91,6 +108,7 @@ private:
     virtual int get () const = 0;
     virtual void add_to_tree_named (saveload::node_t &node, const std::string &name) = 0;
     virtual bool operator == (const plot_tag_base &other) const = 0;
+    virtual std::unique_ptr<plot_tag_base> clone () const = 0;
     virtual std::string print () const = 0;
   };
 
@@ -125,7 +143,13 @@ private:
 
       return m_property_value == typed_other->m_property_value;
     }
-    virtual std::string print () const override { return enum_to_string (m_property_value); }
+    std::unique_ptr<plot_tag_base> clone () const override
+    {
+      std::unique_ptr<plot_tag<EnumT>> res = std::make_unique<plot_tag<EnumT>> ();
+      res->set (enum_to_string (m_property_value));
+      return res;
+    }
+    std::string print () const override { return enum_to_string (m_property_value); }
 
     EnumT m_property_value;
   };

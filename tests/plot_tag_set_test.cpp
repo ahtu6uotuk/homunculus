@@ -3,7 +3,7 @@
 #include "common/template_tricks/string_literal.h"
 #include "datastructs/dialog.h"
 #include "datastructs/plot_tag.h"
-#include "world/classes/friend.h"
+#include "world/classes/example_classes.h"
 
 void plot_tag_set_test ()
 {
@@ -24,7 +24,8 @@ void plot_tag_set_test ()
   assert_error (to_gamedata_file (res2, "assets/some_dialog.xml"));
 
   object_heap heap;
-  friend_t *some_human = heap.allocate_and_get<friend_t> ();
+  heap.set_id_generator ([] () { static int id = 0; return ++id; });
+  human *some_human = heap.allocate_and_get<human> ();
   save_and_load_test (*some_human);
 
 //  moody_human *pc = heap.allocate_and_get<moody_human> ();

@@ -6,6 +6,7 @@ add_library(${PROJECT_NAME} STATIC
             classes/enemy.cpp
             classes/friend.cpp
             classes/player.cpp
+            classes/example_classes.cpp
             policies/camera_policy.cpp
             policies/choose_action_policy.cpp
             policies/get_text_for_gui_policy.cpp

@@ -11,7 +11,7 @@ void assert_check (bool check, std::string message)
     {
       fprintf (stderr, "WARNING: %s\n", message.c_str ());
 #ifndef _WIN32
-//      ::raise (SIGTRAP);
+      ::raise (SIGTRAP);
 #else
       __asm__("int $3");
       throw std::exception ();

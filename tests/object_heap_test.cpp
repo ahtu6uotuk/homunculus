@@ -2,11 +2,13 @@
 
 #include "datastructs/dialog.h"
 #include "object/object_heap.h"
+#include "world/world.h"
 #include "world/classes/example_classes.h"
 
 void object_heap_test ()
 {
   object_heap heap;
+  heap.set_id_generator ([] () { static int id = 0; return ++id; });
 
   human *one = heap.allocate_and_get<human> ();
   one->set_hp (11);
