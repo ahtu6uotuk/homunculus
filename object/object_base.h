@@ -23,7 +23,7 @@ public:
 
   virtual std::string describe () const = 0;
   virtual std::vector<interaction> get_interactions () = 0;
-  int get_id () { return m_id; }
+  int get_id () const { return m_id; }
 private:
   virtual object_base &get_policy_private () = 0;
   virtual const object_base &get_policy_private () const = 0;

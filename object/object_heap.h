@@ -27,7 +27,9 @@ public:
   void set_id_generator (id_generator_t gen);
 
   std::vector<object_base *> get_all ();
+  std::vector<const object_base *> get_all () const;
   object_base *get (int id);
+  const object_base *get (int id) const;
   void build_saveload_tree (saveload::node_t &node);
 
   template<typename T, typename... ConstructorArgs>
@@ -59,6 +61,11 @@ public:
 
     return dynamic_cast<T *> (m_obj_maps[name_of_type]->get_by_id (id));
   }
+  template<typename T>
+  const T *get (int id) const
+  {
+    return const_cast<object_heap *> (this)->get<T> (id);
+  }
 
   bool operator== (const object_heap &other) const;
 
@@ -73,7 +80,9 @@ private:
     virtual ~obj_map_base () {};
     virtual bool operator== (const obj_map_base &other) = 0;
     virtual std::vector<object_base *> get_all () = 0;
+    virtual std::vector<const object_base *> get_all () const = 0;
     virtual object_base *get_by_id (int id) = 0;
+    virtual const object_base *get_by_id (int id) const = 0;
     virtual void add_to_tree (saveload::node_t &node) = 0;
   };
 
@@ -86,6 +95,13 @@ private:
     {
       std::vector<object_base *> res;
       for (std::pair<const int, std::unique_ptr<T>> &it : m_data)
+        res.push_back (it.second.get ());
+      return res;
+    }
+    virtual std::vector<const object_base *> get_all () const override
+    {
+      std::vector<const object_base *> res;
+      for (const std::pair<const int, std::unique_ptr<T>> &it : m_data)
         res.push_back (it.second.get ());
       return res;
     }
@@ -109,6 +125,11 @@ private:
     virtual object_base *get_by_id (int id) override
     {
       return m_data.count (id) ? m_data[id].get () : nullptr;
+    }
+
+    virtual const object_base *get_by_id (int id) const override
+    {
+      return const_cast<obj_map<T> *> (this)->get_by_id (id);
     }
 
     virtual void add_to_tree (saveload::node_t &node) override

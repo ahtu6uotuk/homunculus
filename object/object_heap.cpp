@@ -45,6 +45,26 @@ object_base *object_heap::get (int id)
   return nullptr;
 }
 
+std::vector<const object_base *> object_heap::get_all () const
+{
+  std::vector<const object_base *> res;
+
+  for (const std::pair<const std::string, std::unique_ptr<obj_map_base>> &it : m_obj_maps)
+    {
+      std::vector<const object_base *> part = const_cast<const obj_map_base *> (it.second.get ())->get_all ();
+      res.insert (res.end (), part.begin (), part.end ());
+    }
+  return res;
+}
+
+const object_base *object_heap::get (int id) const
+{
+  for (const std::pair<const std::string, std::unique_ptr<obj_map_base>> &it : m_obj_maps)
+    if (it.second->get_by_id (id))
+      return it.second->get_by_id (id);
+  return nullptr;
+}
+
 void object_heap::build_saveload_tree (saveload::node_t &node)
 {
   for (std::pair<const std::string, std::unique_ptr<obj_map_base>> &it : m_obj_maps)
