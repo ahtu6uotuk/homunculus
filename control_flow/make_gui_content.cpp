@@ -15,18 +15,11 @@
 #include "world/policies/position_policy.h"
 #include "datastructs/model.h"
 
-void make_gui_content (engine_t &engine, world_t &world, thread_info_t &thr_info, std::vector<std::unique_ptr<request_to_gui_base>> &result)
+static std::vector<model_t> get_all_models (std::vector<object_base *> &objects)
 {
-  // TODO: this should be parallel
-  if (!thr_info.is_main_thread ())
-    return;
-
-  std::unique_ptr<gui_context_t> new_content = std::make_unique<gui_context_t> (engine.get_gui_system ());
-  std::vector<object_base *> objs = world.get_level ().get_all ();
-
   std::vector<model_t> all_models;
 
-  for (object_base *obj : objs)
+  for (object_base *obj : objects)
     {
       {
         mesh_policy *m_p = obj->get_policy<mesh_policy> ();
@@ -44,8 +37,39 @@ void make_gui_content (engine_t &engine, world_t &world, thread_info_t &thr_info
         all_models.push_back (model);
       }
     }
+  return all_models;
+}
 
+static void set_object_in_focus (gui_context_t &content, world_t &world, engine_t &engine)
+{
+  const object_base *object_in_focus = world.get_player ().get_object_in_focus (world.get_level ());
+  if (!object_in_focus)
+    return;
+
+  std::string descriprion = object_in_focus->describe ();
+  std::vector<std::string> lines = string_split (descriprion, "\n");
+  std::reverse (lines.begin (), lines.end ());
+  for (unsigned int i = 0; i < lines.size (); i++)
+    {
+      content.add_element (std::make_unique<gui_textline_t> (
+          engine.get_renderer (), 10, 10 + 24 * i, gui_horizontal_alignment_t::LEFT,
+          gui_vertical_alignment_t::DOWN, lines[i], glm::vec3 (.7f, .15f, .15f), 24));
+    }
+}
+
+void make_gui_content (engine_t &engine, world_t &world, thread_info_t &thr_info, std::vector<std::unique_ptr<request_to_gui_base>> &result)
+{
+  // TODO: this should be parallel
+  if (!thr_info.is_main_thread ())
+    return;
+
+  std::unique_ptr<gui_context_t> new_content = std::make_unique<gui_context_t> (engine.get_gui_system ());
+  std::vector<object_base *> objs = world.get_level ().get_all ();
+
+  std::vector<model_t> all_models = get_all_models (objs);
   assert_check (all_models.size () >= 1, "At least one object with a model");
+
+  set_object_in_focus (*new_content, world, engine);
 
   result.clear ();
   result.emplace_back (

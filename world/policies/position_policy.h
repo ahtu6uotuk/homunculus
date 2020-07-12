@@ -12,6 +12,7 @@ class position_policy_t : virtual public object_base
 public:
   bool operator== (const position_policy_t &other) const {return other.m_position == m_position;}
   glm::vec3 &get_position () { return m_position; }
+  const glm::vec3 &get_position () const { return m_position; }
   std::string policy_describe () const;
   void policy_build_saveload_tree (saveload::node_t &node);
   std::vector<interaction> policy_get_interactions () { return {}; }

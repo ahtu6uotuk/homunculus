@@ -18,6 +18,7 @@ add_library(${PROJECT_NAME} STATIC
             policies/shader_policy.cpp
             policies/texture_policy.cpp
             policies/position_policy.cpp
+            policies/get_focus_policy.cpp
             world.cpp)
 
 target_link_libraries (${PROJECT_NAME} object)
