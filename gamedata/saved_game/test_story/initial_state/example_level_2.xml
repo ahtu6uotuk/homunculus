@@ -19,27 +19,27 @@
 				<entry>
 					<name>Мудро</name>
 					<camera_data>
-						<yaw>-0xf.1cp+4</yaw>
-						<pitch>-0xe.8p+1</pitch>
+						<yaw>-0xf.dp+4</yaw>
+						<pitch>-0xd.4p+1</pitch>
 						<orientation_front>
-							<x>-0xd.3f47ap-5</x>
-							<y>-0xf.838f7p-5</y>
-							<z>0xc.53bdap-4</z>
+							<x>-0x8.5f779p-5</x>
+							<y>-0xe.4740cp-5</y>
+							<z>0xd.b17adp-4</z>
 						</orientation_front>
 						<orientation_up>
-							<x>-0xe.afa23p-6</x>
-							<y>0xd.fe714p-4</y>
-							<z>0xd.aa82dp-5</z>
+							<x>-0x8.5962ep-6</x>
+							<y>0xe.51a6bp-4</y>
+							<z>0xd.a789p-5</z>
 						</orientation_up>
 						<orientation_right>
-							<x>-0xe.1820fp-4</x>
-							<z>-0xf.256eep-5</z>
+							<x>-0xf.4d063p-4</x>
+							<z>-0x9.5b1c5p-5</z>
 						</orientation_right>
 					</camera_data>
 					<position>
-						<x>0x8.59b95p+0</x>
-						<y>0x8.d380cp+0</y>
-						<z>-0xf.e3202p+0</z>
+						<x>0xf.6b23p-1</x>
+						<y>0xa.94bb6p+0</y>
+						<z>-0xb.4b124p+1</z>
 					</position>
 					<id>0</id>
 				</entry>

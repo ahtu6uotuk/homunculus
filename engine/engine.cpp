@@ -34,15 +34,13 @@ err_t engine_t::init ()
 {
   RETURN_IF_FAIL (m_renderer.init ());
 
-  // TODO: remove this block
   m_gui.make_context ();
   gui_context_t *context = m_gui.get_active_context ();
-  context->add_test_page (m_renderer);
-
-  std::unique_ptr<gui_textline_t> performance_indicator = std::make_unique<gui_textline_t> (
-      get_renderer (), 10, 0,
-      gui_horizontal_alignment_t::LEFT, gui_vertical_alignment_t::UP,
-      "", glm::vec3 (.7f, .15f, .15f), 24);
+  std::unique_ptr<gui_textline_t> performance_indicator =
+      std::make_unique<gui_textline_t> (get_renderer (),
+                                        10, 10, gui_horizontal_alignment_t::LEFT,
+                                        gui_vertical_alignment_t::DOWN, "",
+                                        glm::vec3 (.7f, .15f, .15f), 24);
   m_performance_indicator = performance_indicator.get ();
   context->add_element (move (performance_indicator));
 

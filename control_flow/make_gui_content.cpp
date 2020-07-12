@@ -26,17 +26,8 @@ void make_gui_content (engine_t &engine, world_t &world, thread_info_t &thr_info
 
   std::vector<model_t> all_models;
 
-  int i = 0;
   for (object_base *obj : objs)
     {
-      {
-        name_policy *pl = obj->get_policy<name_policy> ();
-        if (pl)
-          new_content->add_element (std::make_unique<gui_textline_t> (
-              engine.get_renderer (), 10, ++i * 24, gui_horizontal_alignment_t::LEFT,
-              gui_vertical_alignment_t::DOWN, pl->get_name (), glm::vec3 (.7f, .15f, .15f), 24));
-      }
-
       {
         mesh_policy *m_p = obj->get_policy<mesh_policy> ();
         shader_policy *s_p = obj->get_policy<shader_policy> ();
