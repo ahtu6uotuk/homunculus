@@ -26,12 +26,12 @@
 			<second>
 				<entry>
 					<name>Мудро</name>
+					<position>
+						<x>0xd.cc1e5p-1</x>
+						<y>-0xd.fec31p-4</y>
+						<z>0xe.1c97dp+0</z>
+					</position>
 					<camera_data>
-						<position>
-							<x>0xd.cc1e5p-1</x>
-							<y>-0xd.fec31p-4</y>
-							<z>0xe.1c97dp+0</z>
-						</position>
 						<yaw>-0xb.4p+3</yaw>
 						<pitch>0xbp+0</pitch>
 						<orientation_front>

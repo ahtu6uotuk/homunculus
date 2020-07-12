@@ -8,6 +8,7 @@
 ///@brief Camera class for renderer
 class camera_t
 {
+  glm::vec3 m_position;
   camera_data_t m_current_data;
   float m_zoom;
 public:
@@ -19,6 +20,7 @@ public:
   camera_t (glm::vec3 position);
 
   void set_current_data (const camera_data_t &data) { m_current_data = data; }
+  void set_position (const glm::vec3 &position) { m_position = position; }
 
   /// @brief Zoom camera
   void zoom (float zoom);

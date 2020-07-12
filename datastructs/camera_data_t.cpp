@@ -10,12 +10,10 @@
 
 bool camera_data_t::operator== (const camera_data_t &other) const
 {
-  return m_position == other.m_position && !fuzzycmp (m_yaw, other.m_yaw)
-         && !fuzzycmp (m_pitch, other.m_pitch);
+  return !fuzzycmp (m_yaw, other.m_yaw) && !fuzzycmp (m_pitch, other.m_pitch);
 }
 void camera_data_t::build_saveload_tree (saveload::node_t &node)
 {
-  saveload::add (node, m_position, "position");
   saveload::add (node, m_yaw, "yaw");
   saveload::add (node, m_pitch, "pitch");
 
@@ -24,12 +22,11 @@ void camera_data_t::build_saveload_tree (saveload::node_t &node)
   saveload::add (node, m_orientation_right, "orientation_right");
 }
 
-camera_data_t::camera_data_t (glm::vec3 position):
-                                                    m_position (position),
-                                                    m_orientation_front (0.f, 0.f, -1.f),
-                                                    m_orientation_up (0.f, 1.f, 0.f),
-                                                    m_yaw (camera_defaults::yaw),
-                                                    m_pitch (camera_defaults::pitch)
+camera_data_t::camera_data_t ()
+  : m_orientation_front (0.f, 0.f, -1.f),
+    m_orientation_up (0.f, 1.f, 0.f),
+    m_yaw (camera_defaults::yaw),
+    m_pitch (camera_defaults::pitch)
 {
   compute_orientation_vectors ();
 }
@@ -42,25 +39,6 @@ void camera_data_t::compute_orientation_vectors ()
   m_orientation_front = glm::normalize (m_orientation_front);
   m_orientation_right = glm::normalize (glm::cross (m_orientation_front, glm::vec3 (0.f, 1.f, 0.f)));
   m_orientation_up = glm::normalize (glm::cross (m_orientation_right, m_orientation_front));
-}
-
-void camera_data_t::move (movement_direction_t direction, float dt, float speed)
-{
-  switch (direction)
-    {
-    case movement_direction_t::FORWARD:
-      m_position += m_orientation_front * dt * speed;
-      break;
-    case movement_direction_t::BACKWARD:
-      m_position -= m_orientation_front * dt * speed;
-      break;
-    case movement_direction_t::LEFT:
-      m_position -= m_orientation_right * dt * speed;
-      break;
-    case movement_direction_t::RIGHT:
-      m_position += m_orientation_right * dt * speed;
-      break;
-    }
 }
 
 void camera_data_t::rotate (float d_yaw, float d_pitch)

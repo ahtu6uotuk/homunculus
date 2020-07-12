@@ -22,17 +22,14 @@ constexpr float mouse_sensitivity = 0.05f;
 
 struct camera_data_t
 {
-  camera_data_t (glm::vec3 position);
-  camera_data_t () {};
+  camera_data_t ();
 
   bool operator == (const camera_data_t &other) const;
   void build_saveload_tree (saveload::node_t &node);
 
-  void move (movement_direction_t direction, float dt, float speed);
   void rotate (float d_yaw, float d_pitch);
   void compute_orientation_vectors ();
 
-  glm::vec3 m_position;
   glm::vec3 m_orientation_front;
   glm::vec3 m_orientation_up;
   glm::vec3 m_orientation_right;

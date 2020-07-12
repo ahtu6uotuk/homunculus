@@ -22,9 +22,7 @@ public:
 
   std::string policy_describe () const override
   {
-    return string_printf (
-        "My coordinates are (%f; %f; %f)", m_camera_data.m_position.x, m_camera_data.m_position.y,
-        m_camera_data.m_position.z);
+    return string_printf ("Yaw and pitch: (%f; %f)", m_camera_data.m_yaw, m_camera_data.m_pitch);
   }
   void policy_build_saveload_tree (saveload::node_t &node) override
   {

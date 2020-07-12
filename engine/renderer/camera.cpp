@@ -18,9 +18,8 @@
 ///     x
 ///
 
-camera_t::camera_t (glm::vec3 position):
-  m_current_data (position),
-  m_zoom (camera_defaults::zoom)
+camera_t::camera_t (glm::vec3 position)
+  : m_position (position), m_current_data (), m_zoom (camera_defaults::zoom)
 {
 }
 
@@ -36,10 +35,7 @@ void camera_t::zoom (float d_zoom)
 
 glm::mat4 camera_t::get_view_matrix () const
 {
-  return glm::
-      lookAt (m_current_data.m_position,
-              m_current_data.m_position + m_current_data.m_orientation_front,
-              glm::vec3 (0.f, 1.f, 0.f));
+  return glm::lookAt (m_position, m_position + m_current_data.m_orientation_front, glm::vec3 (0.f, 1.f, 0.f));
 }
 
 camera_t::~camera_t ()

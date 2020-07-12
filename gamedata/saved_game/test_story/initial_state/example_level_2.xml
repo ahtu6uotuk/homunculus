@@ -1,32 +1,46 @@
 <data>
+	<friend>
+		<entry>
+			<first>3</first>
+			<second>
+				<entry>
+					<name>Old man</name>
+					<position>
+						<x>0xap-1</x>
+					</position>
+					<id>3</id>
+				</entry>
+			</second>
+		</entry>
+	</friend>
 	<player>
 		<entry>
 			<second>
 				<entry>
 					<name>Мудро</name>
 					<camera_data>
-						<position>
-							<x>0x1.3c2a76p+3</x>
-							<y>0x1.deb6d4p-1</y>
-							<z>-0x1.a9e12ap+2</z>
-						</position>
-						<yaw>-0x1.9cp+7</yaw>
-						<pitch>0x1.4p+0</pitch>
+						<yaw>-0xc.ep+4</yaw>
+						<pitch>0xap-3</pitch>
 						<orientation_front>
-							<x>-0x1.cc12b4p-1</x>
-							<y>0x1.656a42p-6</y>
-							<z>0x1.c0c8fep-2</z>
+							<x>-0xe.6095ap-4</x>
+							<y>0xb.2b521p-9</y>
+							<z>0xe.0647fp-5</z>
 						</orientation_front>
 						<orientation_up>
-							<x>0x1.413e1cp-6</x>
-							<y>0x1.ffe0d2p-1</y>
-							<z>-0x1.395c62p-7</z>
+							<x>0xa.09f0ep-9</x>
+							<y>0xf.ff069p-4</y>
+							<z>-0x9.cae31p-10</z>
 						</orientation_up>
 						<orientation_right>
-							<x>-0x1.c0e454p-2</x>
-							<z>-0x1.cc2ebap-1</z>
+							<x>-0xe.0722ap-5</x>
+							<z>-0xe.6175dp-4</z>
 						</orientation_right>
 					</camera_data>
+					<position>
+						<x>0xa.46da4p+0</x>
+						<y>0xe.3a127p-4</y>
+						<z>-0xa.a1758p+0</z>
+					</position>
 					<id>0</id>
 				</entry>
 			</second>
@@ -40,7 +54,7 @@
 					<name>Skeleton</name>
 					<hp>10</hp>
 					<position>
-						<x>-0x1.4p+2</x>
+						<x>-0xap-1</x>
 					</position>
 					<id>1</id>
 				</entry>
@@ -53,25 +67,11 @@
 					<name>Zombie</name>
 					<hp>25</hp>
 					<position>
-						<z>-0x1.4p+2</z>
+						<z>-0xap-1</z>
 					</position>
 					<id>2</id>
 				</entry>
 			</second>
 		</entry>
 	</enemy>
-	<friend>
-		<entry>
-			<first>3</first>
-			<second>
-				<entry>
-					<name>Old man</name>
-					<position>
-						<x>0x1.4p+2</x>
-					</position>
-					<id>3</id>
-				</entry>
-			</second>
-		</entry>
-	</friend>
 </data>

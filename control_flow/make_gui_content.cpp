@@ -59,10 +59,12 @@ void make_gui_content (engine_t &engine, world_t &world, thread_info_t &thr_info
   result.clear ();
   result.emplace_back (
       new request_to_gui_t ([new_content = move (new_content), all_models = std::move (all_models), &world] (engine_t &eng) mutable -> err_t {
-        simple_camera_policy *coord = world.get_player ().get_policy<simple_camera_policy> ();
+        position_policy_t *coord = world.get_player ().get_policy<position_policy_t> ();
+        simple_camera_policy *cam = world.get_player ().get_policy<simple_camera_policy> ();
 
         eng.get_renderer ().get_gui ().set_world_content (move (new_content));
-        eng.get_renderer ().get_camera ().set_current_data (coord->get ());
+        eng.get_renderer ().get_camera ().set_position (coord->get_position ());
+        eng.get_renderer ().get_camera ().set_current_data (cam->get ());
         eng.get_renderer ().add_drawable_models (std::move (all_models));
         return ERR_OK;
       }));
