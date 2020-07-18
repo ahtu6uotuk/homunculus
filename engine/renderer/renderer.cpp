@@ -3,9 +3,6 @@
 #include <GL/glew.h>
 
 #include "engine/engine.h"
-#include "engine/gui/gui_context.h"
-#include "datastructs/mesh.h"
-#include "datastructs/shader.h"
 
 renderer_t::renderer_t (engine_t &engine):
   m_window (engine.get_sfml_window ()),
