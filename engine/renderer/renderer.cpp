@@ -26,7 +26,7 @@ err_t renderer_t::init ()
   if (!ret.ok ())
     return ret;
 
-  glViewport (0., 0., 800, 600);
+  glViewport (0, 0, m_gui.get_width (), m_gui.get_height ());
 
   glClearColor (0., 0., 1., 0.);
 
@@ -38,8 +38,13 @@ err_t renderer_t::init ()
 
 void renderer_t::update_matrices ()
 {
-  m_mat_gui = glm::ortho (0.f, 800.f, 0.f, 600.f); // unused now
-  glm::mat4 projection = glm::perspective (glm::radians (45.f), 800.f / 600.f, 0.1f, 100.0f);
+  auto width = static_cast<float> (m_gui.get_width ());
+  auto height = static_cast<float> (m_gui.get_height ());
+  m_mat_gui = glm::ortho (0.f, width,
+                          0.f, height);
+  glm::mat4 projection = glm::perspective (glm::radians (45.f),
+                                           width / height,
+                                           0.1f, 100.0f);
   glm::mat4 view = m_camera.get_view_matrix ();
   glm::mat4 model_matrix = glm::mat4 (1.);
   m_mat_view = projection * view * model_matrix;
@@ -63,6 +68,13 @@ void renderer_t::render ()
 void renderer_t::add_drawable_models (std::vector<model_t> &&drawable_models)
 {
   m_drawable_models = std::move (drawable_models);
+}
+
+void renderer_t::resize_screen (unsigned int width, unsigned int height)
+{
+  m_gui.resize (width, height);
+  glViewport (0, 0, width, height);
+  update_matrices ();
 }
 
 renderer_t::~renderer_t ()

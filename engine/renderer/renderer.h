@@ -36,5 +36,6 @@ public:
   gui_system_t &get_gui () {return m_gui;}
   camera_t &get_camera () {return m_camera;}
   void add_drawable_models (std::vector<model_t> &&drawable_models);
+  void resize_screen (unsigned int width, unsigned int height);
   ~renderer_t ();
 };

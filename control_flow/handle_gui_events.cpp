@@ -35,7 +35,7 @@ std::vector<std::unique_ptr<request_to_calc_base>> handle_gui_events (engine_t &
           }
         case sf::Event::EventType::Resized:
           {
-            engine.get_gui_system ().resize (event.size.width, event.size.height);
+            engine.get_renderer ().resize_screen (event.size.width, event.size.height);
             break;
           }
         case sf::Event::EventType::MouseMoved:
