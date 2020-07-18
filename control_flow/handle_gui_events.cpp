@@ -35,6 +35,8 @@ std::vector<std::unique_ptr<request_to_calc_base>> handle_gui_events (engine_t &
           }
         case sf::Event::EventType::Resized:
           {
+            if (event.size.width == 0 || event.size.height == 0)
+              { break; }
             engine.get_renderer ().resize_screen (event.size.width, event.size.height);
             break;
           }
