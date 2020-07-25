@@ -55,6 +55,9 @@ public:
                     const glm::vec3 &color) const;
   unsigned int get_font_height () const {return m_font_height;}
   unsigned int get_text_width (const std::string &text) const;
-  void set_text_shader (shader_t *shader);
   ~font_t ();
+
+  // TODO: remove: use material system instead of shaders
+  void set_text_shader (shader_t *shader);
+  void update_text_shader_matrix (const float *matrix);
 };

@@ -34,6 +34,7 @@ err_t renderer_t::init ()
 }
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include "gl/gl_ext.h"
 
 void renderer_t::update_matrices ()
@@ -48,6 +49,7 @@ void renderer_t::update_matrices ()
   glm::mat4 view = m_camera.get_view_matrix ();
   glm::mat4 model_matrix = glm::mat4 (1.);
   m_mat_view = projection * view * model_matrix;
+  m_font.update_text_shader_matrix (glm::value_ptr(m_mat_gui));
 }
 
 void renderer_t::render ()

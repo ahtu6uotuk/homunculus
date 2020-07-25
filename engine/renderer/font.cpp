@@ -221,6 +221,11 @@ void font_t::set_text_shader (shader_t *shader)
   m_text_shader->set_uniform_3f ("textColor", .7f, .15f, .15f);
 }
 
+void font_t::update_text_shader_matrix (const float *matrix)
+{
+  m_text_shader->set_uniform_mat4 ("projection", matrix);
+}
+
 font_t::~font_t ()
 {
   if (glIsVertexArray (m_vao))
