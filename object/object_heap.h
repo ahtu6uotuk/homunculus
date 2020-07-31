@@ -78,7 +78,7 @@ private:
   struct obj_map_base
   {
     virtual ~obj_map_base () {};
-    virtual bool operator== (const obj_map_base &other) = 0;
+    virtual bool operator== (const obj_map_base &other) const = 0;
     virtual std::vector<object_base *> get_all () = 0;
     virtual std::vector<const object_base *> get_all () const = 0;
     virtual object_base *get_by_id (int id) = 0;
@@ -106,7 +106,7 @@ private:
       return res;
     }
 
-    virtual bool operator== (const obj_map_base &other) override
+    virtual bool operator== (const obj_map_base &other) const override
     {
       const obj_map<T> *typed_other = dynamic_cast<const obj_map<T> *> (&other);
       if (!typed_other)
