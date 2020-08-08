@@ -17,7 +17,7 @@ class bitview_t
     bool operator!= (const bitview_t::iterator &b) const { return !((*this)==b); }
     iterator &operator++ ()
     {
-      m_pos++;
+      m_pos--;
       return *this;
     }
   };
@@ -35,11 +35,11 @@ public:
   }
   bitview_t::iterator cbegin () const
   {
-    return bitview_t::iterator (m_byte, 0);
+    return bitview_t::iterator (m_byte, 7);
   }
   bitview_t::iterator cend () const
   {
-    return bitview_t::iterator (m_byte, 8);
+    return bitview_t::iterator (m_byte, 0);
   }
 };
 
