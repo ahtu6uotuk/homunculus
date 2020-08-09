@@ -41,6 +41,7 @@ public:
   {
     return bitview_t::iterator (m_byte, 0);
   }
+  bool at (int index) const { return std::to_integer<int> (m_byte) & (1 << index);}
 };
 
 #endif // BITVIEW_T_H
