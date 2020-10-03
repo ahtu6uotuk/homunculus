@@ -12,10 +12,10 @@ class quaternion_t
   {
     struct
     {
-      double m_w;
-      double m_i;
-      double m_j;
-      double m_k;
+      fp_t m_w;
+      fp_t m_i;
+      fp_t m_j;
+      fp_t m_k;
     };
     fp_t m_numbers[4];
   };
