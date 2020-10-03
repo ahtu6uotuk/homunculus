@@ -5,10 +5,10 @@
 
 namespace geom
 {
-  template<std::floating_point fp_t, int len>
+  template<typename/*std::floating_point*/ fp_t, int len>
   class vec_t
   {
-    fp_t m_values[len];
+    fp_t m_values[len] = { 0 };
   public:
     vec_t (fp_t value)
     {
@@ -51,7 +51,7 @@ namespace geom
     }
   };
 
-  template<std::floating_point fp_t, int len>
+  template<typename/*std::floating_point*/ fp_t, int len>
   vec_t<fp_t, len> operator+ (const vec_t<fp_t, len> &a, const vec_t<fp_t, len> &b)
   {
     vec_t<fp_t, len> rhs = a;
@@ -61,7 +61,7 @@ namespace geom
     return rhs;
   }
 
-  template<std::floating_point fp_t, int len>
+  template<typename/*std::floating_point*/ fp_t, int len>
   vec_t<fp_t, len> operator- (const vec_t<fp_t, len> &a, const vec_t<fp_t, len> &b)
   {
     vec_t<fp_t, len> rhs = a;
@@ -71,7 +71,7 @@ namespace geom
     return rhs;
   }
 
-  template<std::floating_point fp_t, int len>
+  template<typename/*std::floating_point*/ fp_t, int len>
   fp_t scalar_product (const vec_t<fp_t, len> &a, const vec_t<fp_t, len> &b)
   {
     fp_t scalar = 0.;
@@ -86,6 +86,18 @@ namespace geom
   using vec2_t = vec_t<double, 2>;
   using vec3f_t = vec_t<float, 3>;
   using vec3_t = vec_t<double, 3>;
+
+  // Dimension-specific functions
+
+  template<typename/*std::floating_point*/ fp_t>
+  vec_t<fp_t, 3> cross_product (const vec_t<fp_t, 3> &a, const vec_t<fp_t, 3> &b)
+  {
+    vec_t<fp_t, 3> res;
+    res[0] = a.at (1) * b.at (2) - a.at (2) * b.at (1);
+    res[1] = a.at (2) * b.at (0) - a.at (0) * b.at (2);
+    res[2] = a.at (0) * b.at (1) - a.at (1) * b.at (0);
+    return res;
+  }
 }
 
 #endif // VECTOR_MATH_H
