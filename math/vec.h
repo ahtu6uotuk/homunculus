@@ -1,6 +1,7 @@
 #pragma once
 #ifndef VECTOR_MATH_H
 #define VECTOR_MATH_H
+#include <math.h>
 #include "common/concepts_ext.h"
 
 namespace geom
@@ -48,6 +49,25 @@ namespace geom
         m_values[i] = rhs.m_values[i];
 
       return *this;
+    }
+
+    fp_t norm () const
+    {
+      fp_t sqr_res = 0;
+
+      for (decltype (len) i = 0; i < len; i++)
+        sqr_res += m_values[i] * m_values[i];
+
+      return sqrt (sqr_res);
+    }
+
+    void normalize ()
+    {
+      const auto denom = norm ();
+
+      if (denom > 1e-16)
+        for (decltype (len) i = 0; i < len; i++)
+          m_values[i] /= denom;
     }
   };
 
