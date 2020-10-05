@@ -1,7 +1,7 @@
 #pragma once
 #ifndef VECTOR_MATH_H
 #define VECTOR_MATH_H
-#include <math.h>
+#include "math/basic_math.h"
 #include "common/concepts_ext.h"
 
 namespace geom
@@ -65,7 +65,7 @@ namespace geom
     {
       const auto denom = norm ();
 
-      if (denom > 1e-16)
+      if (denom > math::min_compare)
         for (decltype (len) i = 0; i < len; i++)
           m_values[i] /= denom;
     }

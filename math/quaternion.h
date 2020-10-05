@@ -1,7 +1,7 @@
 #pragma once
 #ifndef QUATERNION_T_H
 #define QUATERNION_T_H
-#include <cmath>
+#include "math/basic_math.h"
 
 /// @brief Template class for quaternion number system
 /// @tparam fp_t floating-point type
@@ -115,7 +115,7 @@ public:
   void normalize ()
   {
     double norm = compute_norm ();
-    if (std::fabs (norm) > 1.e-16)
+    if (norm > math::min_compare)
       {
         for (int i = 0; i < 4; i++)
           m_numbers[i] /= norm;
