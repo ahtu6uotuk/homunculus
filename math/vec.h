@@ -4,13 +4,14 @@
 #include "math/basic_math.h"
 #include "common/concepts_ext.h"
 
-namespace geom
+namespace math
 {
   template<typename/*std::floating_point*/ fp_t, int len>
   class vec_t
   {
     fp_t m_values[len] = { 0 };
   public:
+    vec_t (vec_t &&b): m_values (std::move (b.m_values)) {}
     vec_t (fp_t value)
     {
       for (decltype (len) i = 0; i < len; i++)
@@ -102,9 +103,9 @@ namespace geom
     return scalar;
   }
 
-  using vec2f_t = vec_t<float, 2>;
+//  using vec2f_t = vec_t<float, 2>;
   using vec2_t = vec_t<double, 2>;
-  using vec3f_t = vec_t<float, 3>;
+//  using vec3f_t = vec_t<float, 3>;
   using vec3_t = vec_t<double, 3>;
 
   // Dimension-specific functions
