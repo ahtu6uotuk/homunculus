@@ -1,3 +1,4 @@
 #pragma once
 
-void run_simulation (bool cont);
+class err_t;
+void run_simulation(bool cont);

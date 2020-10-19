@@ -5,6 +5,7 @@ project(world)
 add_library(${PROJECT_NAME} STATIC
             classes/enemy.cpp
             classes/friend.cpp
+            classes/dialog_partner.cpp
             classes/player.cpp
             classes/example_classes.cpp
             policies/camera_policy.cpp

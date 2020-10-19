@@ -2,15 +2,17 @@
 
 #include "object/object_heap.h"
 #include "tests/simulation/simulation_helpers.h"
-#include "world/world.h"
+#include "world/classes/dialog_partner.h"
 #include "world/classes/enemy.h"
+#include "world/classes/example_classes.h"
 #include "world/classes/friend.h"
+#include "world/classes/player.h"
+#include "world/world.h"
 
-void  run_simulation (bool cont)
+void run_simulation (bool cont)
 {
+  std::string save_name = cont ? "simul_state_con" : "initial_state_con";
   world_t world ("test_story");
-
-  std::string save_name = cont ? "simulation_state" : "initial_state";
   assert_error (world.load (save_name));
 
   while (true)
@@ -49,5 +51,5 @@ void  run_simulation (bool cont)
       do_nothing (obj_to_interact_num);
     }
 
-  assert_error (world.save ("simulation_state"));
+  assert_error (world.save ("simul_state_con"));
 }

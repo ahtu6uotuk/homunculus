@@ -16,6 +16,42 @@ public:
   virtual bool has_tag (const std::string &tag_name, const std::string &tag_value) const = 0;
 };
 
+class string_tags_policy : public plot_tags_policy
+{
+public:
+  virtual std::string policy_describe () const override
+  {
+    std::string result = "Current tag values:\n";
+    for (const std::pair<std::string, std::string> &p : m_tags)
+      result += string_printf ("%s = %s\n", p.first.c_str (), p.second.c_str ());
+    return result;
+  }
+  virtual void policy_build_saveload_tree (saveload::node_t &node) override { saveload::add (node, m_tags, "tags"); }
+  bool operator== (const string_tags_policy &other) const
+  {
+    return m_tags == other.m_tags;
+  }
+
+  void set_tag (const std::string &tag_name, const std::string &tag_value) override
+  {
+    for (std::pair<std::string, std::string> &p : m_tags)
+      if (p.first == tag_name)
+        p.second = tag_value;
+    m_tags.push_back (std::pair<std::string, std::string> (tag_name, tag_value));
+  }
+
+  bool has_tag (const std::string &tag_name, const std::string &tag_value) const override
+  {
+    for (const std::pair<std::string, std::string> &p : m_tags)
+      if (p.first == tag_name && p.second == tag_value)
+        return true;
+    return false;
+  }
+
+private:
+  std::vector<std::pair<std::string, std::string>> m_tags;
+};
+
 template <typename ... NamedEnums>
 class simple_plot_tags_policy : public plot_tags_policy
 {

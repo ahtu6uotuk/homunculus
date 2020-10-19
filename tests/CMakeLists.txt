@@ -11,4 +11,4 @@ add_executable(${PROJECT_NAME}
                simulation/simulation.cpp
                simulation/simulation_helpers.cpp)
 
-target_link_libraries(${PROJECT_NAME} world common resource datastructs)
+target_link_libraries(${PROJECT_NAME} engine world common resource datastructs)

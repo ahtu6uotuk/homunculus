@@ -1,18 +1,4 @@
 <data>
-	<friend>
-		<entry>
-			<first>3</first>
-			<second>
-				<entry>
-					<name>Old man</name>
-					<position>
-						<x>0xap-1</x>
-					</position>
-					<id>3</id>
-				</entry>
-			</second>
-		</entry>
-	</friend>
 	<player>
 		<entry>
 			<second>
@@ -46,32 +32,22 @@
 			</second>
 		</entry>
 	</player>
-	<enemy>
+	<dialog_partner>
 		<entry>
 			<first>1</first>
 			<second>
 				<entry>
-					<name>Skeleton</name>
-					<hp>10</hp>
-					<position>
-						<x>-0xap-1</x>
-					</position>
+					<name>Old man</name>
+					<tags>
+						<elem>
+							<first>mood</first>
+							<second>sad</second>
+						</elem>
+					</tags>
+					<current_tag>goodbye</current_tag>
 					<id>1</id>
 				</entry>
 			</second>
 		</entry>
-		<entry>
-			<first>2</first>
-			<second>
-				<entry>
-					<name>Zombie</name>
-					<hp>25</hp>
-					<position>
-						<z>-0xap-1</z>
-					</position>
-					<id>2</id>
-				</entry>
-			</second>
-		</entry>
-	</enemy>
+	</dialog_partner>
 </data>
