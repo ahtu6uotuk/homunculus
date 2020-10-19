@@ -23,7 +23,7 @@ public:
   {
     std::vector<std::string> lines = { "Current tag values:" };
     for (const std::pair<std::string, std::string> &p : m_tags)
-      lines.push_back (string_printf ("%s = %s\n", p.first.c_str (), p.second.c_str ()));
+      lines.push_back (string_printf ("%s = %s", p.first.c_str (), p.second.c_str ()));
     return string_join (lines, "\n");
   }
   virtual void policy_build_saveload_tree (saveload::node_t &node) override { saveload::add (node, m_tags, "tags"); }
