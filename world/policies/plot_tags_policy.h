@@ -21,10 +21,10 @@ class string_tags_policy : public plot_tags_policy
 public:
   virtual std::string policy_describe () const override
   {
-    std::string result = "Current tag values:\n";
+    std::vector<std::string> lines = { "Current tag values:" };
     for (const std::pair<std::string, std::string> &p : m_tags)
-      result += string_printf ("%s = %s\n", p.first.c_str (), p.second.c_str ());
-    return result;
+      lines.push_back (string_printf ("%s = %s\n", p.first.c_str (), p.second.c_str ()));
+    return string_join (lines, "\n");
   }
   virtual void policy_build_saveload_tree (saveload::node_t &node) override { saveload::add (node, m_tags, "tags"); }
   bool operator== (const string_tags_policy &other) const
