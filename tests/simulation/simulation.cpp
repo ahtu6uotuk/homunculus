@@ -17,8 +17,7 @@ void run_simulation (bool cont)
 
   while (true)
     {
-      //temp
-      //printf ("\nObjects to interact with:\n");
+      printf ("\nObjects to interact with:\n");
 
       std::vector<object_base *> objs_on_level = world.get_level ().get_all ();
 
@@ -26,12 +25,9 @@ void run_simulation (bool cont)
         return obj->get_policy<simple_name_policy> ()->get_name ();
       };
 
-      // temp
-      int obj_to_interact_num = 1;
-//      int obj_to_interact_num = print_choices_and_get_answer (objs_on_level, obj_print_func, true);
-//      if (obj_to_interact_num < 0)
-//        break;
-
+      int obj_to_interact_num = print_choices_and_get_answer (objs_on_level, obj_print_func, true);
+      if (obj_to_interact_num < 0)
+        break;
 
       {
         object_base *obj_to_interact = objs_on_level[obj_to_interact_num];
@@ -44,20 +40,15 @@ void run_simulation (bool cont)
         std::function<std::string (const interaction &)> int_print_func
             = [] (const interaction &inter) { return inter.get_name (); };
 
-        // temp
-        int interaction_num = 1;
-//        int interaction_num = print_choices_and_get_answer (interactions, int_print_func, true);
-//        if (interaction_num < 0)
-//          break;
+        int interaction_num = print_choices_and_get_answer (interactions, int_print_func, true);
+        if (interaction_num < 0)
+          break;
 
         if (obj_to_interact_num >= 0)
           interactions[interaction_num].interact (world.get_player ());
       }
 
       do_nothing (obj_to_interact_num);
-
-      //temp
-      break;
     }
 
   assert_error (world.save ("simul_state_con"));
