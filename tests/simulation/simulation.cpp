@@ -2,11 +2,8 @@
 
 #include "object/object_heap.h"
 #include "tests/simulation/simulation_helpers.h"
-#include "world/classes/dialog_partner.h"
-#include "world/classes/enemy.h"
-#include "world/classes/example_classes.h"
-#include "world/classes/friend.h"
 #include "world/classes/player.h"
+#include "world/classes/dialog_partner.h"
 #include "world/world.h"
 
 void run_simulation (bool cont)
@@ -27,7 +24,7 @@ void run_simulation (bool cont)
       };
 
       // temp
-      int obj_to_interact_num = 1;
+      int obj_to_interact_num = 0;
 //      int obj_to_interact_num = print_choices_and_get_answer (objs_on_level, obj_print_func, true);
 //      if (obj_to_interact_num < 0)
 //        break;

@@ -15,32 +15,10 @@
 			<second>
 				<entry>
 					<name>Kek</name>
-					<camera_data>
-						<yaw>-0x8.68p+6</yaw>
-						<pitch>-0x8p-5</pitch>
-						<orientation_front>
-							<x>-0xf.fd776p-4</x>
-							<y>-0x8.efa18p-11</y>
-							<z>-0x8.ef233p-8</z>
-						</orientation_front>
-						<orientation_up>
-							<x>-0x8.ee3cbp-11</x>
-							<y>0xf.fff6p-4</y>
-							<z>-0x9.fac5ep-16</z>
-						</orientation_up>
-						<orientation_right>
-							<x>0x8.ef28bp-8</x>
-							<z>-0xf.fd814p-4</z>
-						</orientation_right>
-					</camera_data>
-					<position>
-						<x>0x8.0f0f4p+0</x>
-						<y>0x9.95df6p-5</y>
-						<z>0xa.ae078p-6</z>
-					</position>
 					<id>0</id>
 				</entry>
 			</second>
 		</entry>
 	</player>
 </data>
+
