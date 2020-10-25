@@ -2,7 +2,6 @@
 
 #include "world/world.h"
 #include "world/policies/camera_policy.h"
-#include "world/policies/position_policy.h"
 
 void action::exec (int actor_id, world_t &world)
 {

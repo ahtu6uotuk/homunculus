@@ -14,7 +14,6 @@
 #include "world/policies/texture_policy.h"
 #include "world/policies/position_policy.h"
 #include "datastructs/model.h"
-#include "world/policies/get_focus_policy.h"
 
 static std::vector<model_t> get_all_models (std::vector<object_base *> &objects)
 {
@@ -43,7 +42,7 @@ static std::vector<model_t> get_all_models (std::vector<object_base *> &objects)
 
 static void set_object_in_focus (gui_context_t &content, world_t &world, engine_t &engine)
 {
-  const object_base *object_in_focus = world.get_player ().get_policy<get_focus_policy> ()->get_object_in_focus (world.get_level ());
+  const object_base *object_in_focus = world.get_player ().get_object_in_focus (world.get_level ());
   if (!object_in_focus)
     return;
 
