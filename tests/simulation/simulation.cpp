@@ -5,33 +5,9 @@
 #include "world/classes/player.h"
 #include "world/classes/dialog_partner.h"
 #include "world/world.h"
-#include "windows.h"
-#include "tchar.h"
-#include <fcntl.h>
-#include <io.h>
-#include <stdio.h>
 
 void run_simulation (bool cont)
 {
-  SetConsoleOutputCP (CP_UTF8);
-  setvbuf(stdout, nullptr, _IOFBF, 1000);
-
-  HANDLE StdOut = GetStdHandle(STD_OUTPUT_HANDLE);
-  CONSOLE_FONT_INFOEX info;
-  memset(&info, 0, sizeof(CONSOLE_FONT_INFOEX));
-  info.cbSize = sizeof(CONSOLE_FONT_INFOEX);              // prevents err=87 below
-  if (GetCurrentConsoleFontEx(StdOut, FALSE, &info))
-    {
-      info.FontFamily   = FF_DONTCARE;
-      info.dwFontSize.X = 0;  // leave X as zero
-      info.dwFontSize.Y = 14;
-      info.FontWeight   = 400;
-      wcscpy_s(info.FaceName, L"Consolas");
-      if (SetCurrentConsoleFontEx(StdOut, FALSE, &info))
-        {
-        }
-    }
-
   std::string save_name = cont ? "simul_state_con" : "initial_state_con";
   world_t world ("test_story");
   assert_error (world.load (save_name));
