@@ -81,5 +81,5 @@ void run_simulation (bool cont)
       break;
     }
 
-  assert_error (world.save ("simul_state_con"));
+//  assert_error (world.save ("simul_state_con"));
 }

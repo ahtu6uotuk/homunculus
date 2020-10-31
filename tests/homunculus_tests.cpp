@@ -12,13 +12,13 @@ int main (int argc, char **argv)
         }
       if (!strcmp (argv[1], "--sim-start"))
         {
-          run_logic_tests ();
+//          run_logic_tests ();
           run_simulation (false);
           return 0;
         }
       if (!strcmp (argv[1], "--sim-cont"))
         {
-          run_logic_tests ();
+//          run_logic_tests ();
           run_simulation (true);
           return 0;
         }
