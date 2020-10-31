@@ -1,11 +1,15 @@
 #include "talk_policy.h"
 
+#include <bits/locale_conv.h>
+#include <windows.h>
+#include <wincon.h>
+#include <codecvt>
+#include <locale>
+
 #include "datastructs/dialog.h"
 #include "object/object.h"
 #include "tests/simulation/simulation_helpers.h"
 #include "world/policies/plot_tags_policy.h"
-#include "windows.h"
-#include "wincon.h"
 
 static int get_buffer_width ()
 {
@@ -18,8 +22,11 @@ static int get_buffer_width ()
   return buffer_width;
 }
 
-static void print_with_wordwrap (std::string s)
+static void print_with_wordwrap (const std::string &original_string)
 {
+  std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+  std::wstring s = converter.from_bytes (original_string);
+
   int buffer_width = get_buffer_width ();
 
   for (unsigned int i = 1; i <= s.length () ; i++)
@@ -43,37 +50,9 @@ static void print_with_wordwrap (std::string s)
         }
     }
 
-  std::cout << s << std::endl;
+  std::string n_s = converter.to_bytes (s);
+  std::cout << n_s << std::endl;
 }
-
-//static void print_with_wordwrap (std::string s)
-//{
-//  int bufferWidth = get_buffer_width();
-
-//  for (unsigned int i = 1; i <= s.length() ; i++)
-//    {
-//      if ((i % bufferWidth) == 0)
-//        {
-//          int spaceCount = 0;
-
-//          if (s[(i-1)] != ' ')
-//            {
-//              for (int j = (i-1); j > -1 ; j--)
-//                {
-//                  if (s[j] == ' ')
-//                    {
-//                      s.insert(j, spaceCount, ' ');
-//                      break;
-//                    }
-//                  else spaceCount++;
-//                }
-//            }
-//        }
-//    }
-
-//  // Output string to console
-//  std::cout << s << std::endl;
-//}
 
 static void print_text_beats (const std::vector<std::string> &beats)
 {
