@@ -21,7 +21,6 @@ void plot_tag_set_test ()
 
   std::string res2;
   assert_error (saveload::save (empty_dialog, res2));
-  assert_error (to_gamedata_file (res2, "assets/some_dialog.xml"));
 
   object_heap heap;
   heap.set_id_generator ([] () { static int id = 0; return ++id; });
