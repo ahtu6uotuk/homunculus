@@ -4,12 +4,82 @@
 #include "object/object.h"
 #include "tests/simulation/simulation_helpers.h"
 #include "world/policies/plot_tags_policy.h"
+#include "windows.h"
+#include "wincon.h"
+
+static int get_buffer_width ()
+{
+  CONSOLE_SCREEN_BUFFER_INFO bufferInfo;
+  int buffer_width = 80;
+
+  if (GetConsoleScreenBufferInfo (GetStdHandle (STD_OUTPUT_HANDLE), &bufferInfo))
+    buffer_width = bufferInfo.dwSize.X;
+
+  return buffer_width;
+}
+
+static void print_with_wordwrap (std::string s)
+{
+  int buffer_width = get_buffer_width ();
+
+  for (unsigned int i = 1; i <= s.length () ; i++)
+    {
+      if (i % buffer_width)
+        continue;
+
+      if (s[(i-1)] == ' ')
+        continue;
+
+      int space_count = 0;
+
+      for (int j = (i-1); j > -1 ; j--)
+        {
+          if (s[j] == ' ')
+            {
+              s.insert (j, space_count, ' ');
+              break;
+            }
+          else space_count++;
+        }
+    }
+
+  std::cout << s << std::endl;
+}
+
+//static void print_with_wordwrap (std::string s)
+//{
+//  int bufferWidth = get_buffer_width();
+
+//  for (unsigned int i = 1; i <= s.length() ; i++)
+//    {
+//      if ((i % bufferWidth) == 0)
+//        {
+//          int spaceCount = 0;
+
+//          if (s[(i-1)] != ' ')
+//            {
+//              for (int j = (i-1); j > -1 ; j--)
+//                {
+//                  if (s[j] == ' ')
+//                    {
+//                      s.insert(j, spaceCount, ' ');
+//                      break;
+//                    }
+//                  else spaceCount++;
+//                }
+//            }
+//        }
+//    }
+
+//  // Output string to console
+//  std::cout << s << std::endl;
+//}
 
 static void print_text_beats (const std::vector<std::string> &beats)
 {
   for (const std::string &beat : beats)
     {
-      printf ("%s\n", beat.c_str ());
+      print_with_wordwrap (beat);
       std::string dummy;
       getline (std::cin, dummy);
     }
