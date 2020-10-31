@@ -51,7 +51,7 @@ static void print_with_wordwrap (const std::string &original_string)
     }
 
   std::string n_s = converter.to_bytes (s);
-  std::cout << n_s << std::endl;
+  printf ("%s\n", n_s.c_str ());
 }
 
 static void print_text_beats (const std::vector<std::string> &beats)
