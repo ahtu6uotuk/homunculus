@@ -9,7 +9,7 @@ static void print_text_beats (const std::vector<std::string> &beats)
 {
   for (const std::string &beat : beats)
     {
-      printf ("%s", beat.c_str ());
+      printf ("%s\n", beat.c_str ());
       std::string dummy;
       getline (std::cin, dummy);
     }

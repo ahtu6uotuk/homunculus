@@ -24,7 +24,7 @@ void run_simulation (bool cont)
     {
       info.FontFamily   = FF_DONTCARE;
       info.dwFontSize.X = 0;  // leave X as zero
-      info.dwFontSize.Y = 14;
+      info.dwFontSize.Y = 16;
       info.FontWeight   = 400;
       wcscpy_s(info.FaceName, L"Consolas");
       if (SetCurrentConsoleFontEx(StdOut, FALSE, &info))
