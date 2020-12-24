@@ -45,7 +45,8 @@ public:
   const std::string &print () const;
 
   std::string m_text;
-  std::vector<named_tag> m_tags_required;
+  std::vector<named_tag> m_pc_tags_required;
+  std::vector<named_tag> m_npc_tags_required;
 };
 
 class npc_dialog_line : public dialog_line

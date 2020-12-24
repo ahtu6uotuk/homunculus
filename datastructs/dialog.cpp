@@ -39,7 +39,8 @@ bool dialog_line::operator== (const dialog_line &other) const
 void pc_dialog_line::build_saveload_tree (saveload::node_t &node)
 {
   saveload::add (node, m_text, "text");
-  saveload::add (node, m_tags_required, "tags_required");
+  saveload::add (node, m_pc_tags_required, "pc_tags_required");
+  saveload::add (node, m_npc_tags_required, "npc_tags_required");
   dialog_line::add_to_tree (node);
 }
 bool pc_dialog_line::operator== (const pc_dialog_line &other) const

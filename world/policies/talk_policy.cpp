@@ -131,11 +131,33 @@ void talk_policy::get_talked_by (object_base &player_character)
           continue;
         }
 
+
+      const plot_tags_policy *pc_policy = player_character.get_policy<plot_tags_policy> ();
+      const plot_tags_policy *npc_policy = this->get_policy<plot_tags_policy> ();
+      std::vector<pc_dialog_line> available_answers;
+      for (const pc_dialog_line &answer : curr_line.m_answers)
+        {
+          bool skip = false;
+
+          for (const named_tag &necessary_tag : answer.m_pc_tags_required)
+            if (!pc_policy->has_tag (necessary_tag.m_name, necessary_tag.m_value))
+              skip = true;
+
+          for (const named_tag &necessary_tag : answer.m_npc_tags_required)
+            if (!npc_policy->has_tag (necessary_tag.m_name, necessary_tag.m_value))
+              skip = true;
+
+          if (skip)
+            continue;
+
+          available_answers.push_back (answer);
+        }
+
       std::function<std::string (const pc_dialog_line &)> print_func
           = [] (const pc_dialog_line &line) { return line.print (); };
-      int answer_number = print_choices_and_get_answer (curr_line.m_answers, print_func);
+      int answer_number = print_choices_and_get_answer (available_answers, print_func);
 
-      pc_dialog_line &given_answer = curr_line.m_answers[answer_number];
+      pc_dialog_line &given_answer = available_answers[answer_number];
       exec_dialog_line (given_answer, player_character, *this);
       get_current_tag () = get_goto (player_character, *this, given_answer);
     }
