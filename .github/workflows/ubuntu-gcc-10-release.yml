@@ -1,0 +1,17 @@
+name: ubuntu-gcc-10-release
+on: [push]
+jobs:
+  release-build-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Clean
+        run: rm -rf out
+      - name: Install build utils
+        run: sudo apt-get install g++-10 ninja-build
+      - name: Install dependencies
+        run: sudo apt-get install libglew-dev libglu1-mesa-dev libgl-dev libfreetype6-dev libsfml-dev libglm-dev
+      - name: CMake
+        run: cmake -B ./out/release/ -DCMAKE_BUILD_TYPE=Release -GNinja -D CMAKE_CXX_COMPILER=g++-10 -D CMAKE_C_COMPILER=gcc-10
+      - name: Ninja
+        run: ninja -C ./out/release/
