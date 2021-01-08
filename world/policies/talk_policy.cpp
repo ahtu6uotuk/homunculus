@@ -2,7 +2,10 @@
 
 #include "datastructs/dialog.h"
 #include "object/object.h"
-#include "tests/simulation/simulation_helpers.h"
+
+// O_o Check it, plz
+#include "utils/tests/simulation/simulation_helpers.h"
+
 #include "world/policies/plot_tags_policy.h"
 
 static void print_text_beats (const std::vector<std::string> &beats)

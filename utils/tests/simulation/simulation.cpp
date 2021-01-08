@@ -1,7 +1,7 @@
 #include "simulation.h"
 
 #include "object/object_heap.h"
-#include "tests/simulation/simulation_helpers.h"
+#include "simulation_helpers.h"
 #include "world/classes/dialog_partner.h"
 #include "world/classes/enemy.h"
 #include "world/classes/example_classes.h"
