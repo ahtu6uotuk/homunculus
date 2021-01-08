@@ -16,7 +16,8 @@ target_sources(${PROJECT_NAME} PRIVATE
     vertex_data.cpp
     shader_property.cpp
     material.cpp
-    model.cpp)
+    model.cpp
+    animation.cpp)
 
 target_link_libraries(${PROJECT_NAME} GLEW::GLEW ${OPENGL_LIBRARIES} common resource)
 
