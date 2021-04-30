@@ -71,6 +71,34 @@ static std::string get_goto (const object_base &pc, const object_base &npc, cons
 
   std::string curr_goto = "";
 
+  for (const std::pair<std::vector<named_tag>, std::string> &cond_goto_vect : line.m_conditional_goto.m_complex_pc_conditions)
+    {
+      bool ok = true;
+
+      for (const named_tag &cond_goto : cond_goto_vect.first)
+        ok &= pc_policy->has_tag (cond_goto.m_name, cond_goto.m_value);
+
+      if (!ok)
+        continue;
+
+      assert_check (curr_goto.empty (), "Conditional gotos should be mutually exclusive");
+      curr_goto = cond_goto_vect.second;
+    }
+
+  for (const std::pair<std::vector<named_tag>, std::string> &cond_goto_vect : line.m_conditional_goto.m_complex_npc_conditions)
+    {
+      bool ok = true;
+
+      for (const named_tag &cond_goto : cond_goto_vect.first)
+        ok &= npc_policy->has_tag (cond_goto.m_name, cond_goto.m_value);
+
+      if (!ok)
+        continue;
+
+      assert_check (curr_goto.empty (), "Conditional gotos should be mutually exclusive");
+      curr_goto = cond_goto_vect.second;
+    }
+
   for (const std::pair<named_tag, std::string> &cond_goto : line.m_conditional_goto.m_pc_conditions)
     {
       if (pc_policy->has_tag (cond_goto.first.m_name, cond_goto.first.m_value))

@@ -17,6 +17,8 @@ struct cond_goto
 {
   void build_saveload_tree (saveload::node_t &node);
   bool operator== (const cond_goto &other) const;
+  std::vector<std::pair<std::vector<named_tag>, std::string>> m_complex_pc_conditions;
+  std::vector<std::pair<std::vector<named_tag>, std::string>> m_complex_npc_conditions;
   std::vector<std::pair<named_tag, std::string>> m_pc_conditions;
   std::vector<std::pair<named_tag, std::string>> m_npc_conditions;
 };

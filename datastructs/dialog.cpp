@@ -14,12 +14,17 @@ bool named_tag::operator== (const named_tag &other) const
 
 void cond_goto::build_saveload_tree (saveload::node_t &node)
 {
+  saveload::add (node, m_complex_pc_conditions, "complex_pc_conditions");
+  saveload::add (node, m_complex_npc_conditions, "complex_npc_conditions");
   saveload::add (node, m_pc_conditions, "pc_conditions");
   saveload::add (node, m_npc_conditions, "npc_conditions");
 }
 bool cond_goto::operator== (const cond_goto &other) const
 {
-  return m_pc_conditions == other.m_pc_conditions && m_npc_conditions == other.m_npc_conditions;
+  return    m_complex_npc_conditions == other.m_complex_npc_conditions
+         && m_complex_pc_conditions == other.m_complex_pc_conditions
+         && m_pc_conditions == other.m_pc_conditions
+         && m_npc_conditions == other.m_npc_conditions;
 }
 
 void dialog_line::add_to_tree (saveload::node_t &node)
