@@ -18,7 +18,13 @@ if (NOT (CMAKE_CXX_COMPILER_ID STREQUAL "Clang"))
   set (CMAKE_CXX_FLAGS "-Wsuggest-override -Wno-maybe-uninitialized -Wformat=1 -Wlogical-op ${CMAKE_CXX_FLAGS}")
 endif ()
 
-set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -Wl,-Bstatic,--whole-archive -lwinpthread -lssp -Wl,--no-whole-archive -Wl,-Bdynamic")
+if (WIN32)
+  set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -Wl,-Bstatic,--whole-archive -lwinpthread -lssp -Wl,--no-whole-archive -Wl,-Bdynamic")
+endif (WIN32)
+
+if (UNIX)
+  set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -Wl,-Bstatic,--whole-archive -Wl,--no-whole-archive -Wl,-Bdynamic")
+endif (UNIX)
 
 # gcc-only -Wsuggest-override -Wno-maybe-uninitialized -Wformat=1 -Wlogical-op
 set (CMAKE_CXX_STANDARD 20)

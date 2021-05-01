@@ -5,14 +5,18 @@
 #include "world/classes/player.h"
 #include "world/classes/dialog_partner.h"
 #include "world/world.h"
-#include "windows.h"
-#include "tchar.h"
 #include <fcntl.h>
-#include <io.h>
 #include <stdio.h>
+
+#ifdef _WIN32
+#include <windows.h>
+#include <tchar.h>
+#include <io.h>
+#endif
 
 void run_simulation (bool cont)
 {
+#ifdef _WIN32
   SetConsoleOutputCP (CP_UTF8);
   setvbuf(stdout, nullptr, _IOFBF, 1000);
 
@@ -31,6 +35,7 @@ void run_simulation (bool cont)
         {
         }
     }
+#endif
 
   std::string save_name = cont ? "simul_state_con" : "initial_state_con";
   world_t world ("test_story");

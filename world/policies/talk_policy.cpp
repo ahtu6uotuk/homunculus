@@ -1,8 +1,6 @@
 #include "talk_policy.h"
 
 #include <bits/locale_conv.h>
-#include <windows.h>
-#include <wincon.h>
 #include <codecvt>
 #include <locale>
 
@@ -11,8 +9,17 @@
 #include "tests/simulation/simulation_helpers.h"
 #include "world/policies/plot_tags_policy.h"
 
+#ifdef _WIN32
+#include <windows.h>
+#include <wincon.h>
+#else
+#include <sys/ioctl.h>
+#include <unistd.h>
+#endif
+
 static int get_buffer_width ()
 {
+#ifdef _WIN32
   CONSOLE_SCREEN_BUFFER_INFO bufferInfo;
   int buffer_width = 80;
 
@@ -20,6 +27,13 @@ static int get_buffer_width ()
     buffer_width = bufferInfo.dwSize.X;
 
   return buffer_width;
+#else
+
+  struct winsize w;
+  ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+
+  return w.ws_col;
+#endif
 }
 
 static void print_with_wordwrap (const std::string &original_string)
