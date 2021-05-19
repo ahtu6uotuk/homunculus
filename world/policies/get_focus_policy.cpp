@@ -2,6 +2,7 @@
 
 #include "world/policies/position_policy.h"
 #include <glm/geometric.hpp>
+#include <optional>
 
 const object_base *simple_get_focus_policy::get_object_in_focus (const object_heap &level) const
 {
