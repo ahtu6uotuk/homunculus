@@ -25,12 +25,7 @@ camera_t::camera_t (glm::vec3 position)
 
 void camera_t::zoom (float d_zoom)
 {
-  if (m_zoom >= 1.0f && m_zoom <= 45.0f)
-      m_zoom -= d_zoom;
-  if (m_zoom <= 1.0f)
-      m_zoom = 1.0f;
-  if (m_zoom >= 45.0f)
-    m_zoom = 45.0f;
+  m_zoom = std::clamp (m_zoom + d_zoom, 1.f, 90.f);
 }
 
 glm::mat4 camera_t::get_view_matrix () const
