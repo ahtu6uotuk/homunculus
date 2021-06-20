@@ -8,7 +8,7 @@
 ///@brief Camera class for renderer
 class camera_t
 {
-  glm::vec3 m_position;
+  glm::vec3 m_position; ///< Camera position
   camera_data_t m_current_data;
   float m_zoom;
 public:
@@ -24,6 +24,10 @@ public:
 
   /// @brief Zoom camera
   void zoom (float zoom);
+
+  /// @brief Get zoom value
+  auto get_zoom () const { return m_zoom; }
+
   /// @brief Compute view matrix
   glm::mat4 get_view_matrix () const;
 
