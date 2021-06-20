@@ -55,6 +55,11 @@ std::vector<std::unique_ptr<request_to_calc_base>> handle_gui_events (engine_t &
           {
             break;
           }
+        case sf::Event::EventType::MouseWheelScrolled:
+          {
+            engine.get_renderer ().get_camera ().zoom (event.mouseWheelScroll.delta);
+            break;
+          }
         case sf::Event::EventType::KeyPressed:
           {
           if (event.key.code == sf::Keyboard::Key::Right)

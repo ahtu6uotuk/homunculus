@@ -43,7 +43,7 @@ void renderer_t::update_matrices ()
   auto height = static_cast<float> (m_gui.get_height ());
   m_mat_gui = glm::ortho (0.f, width,
                           0.f, height);
-  glm::mat4 projection = glm::perspective (glm::radians (45.f),
+  glm::mat4 projection = glm::perspective (glm::radians (m_camera.get_zoom ()),
                                            width / height,
                                            0.1f, 100.0f);
   glm::mat4 view = m_camera.get_view_matrix ();
