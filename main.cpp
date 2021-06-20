@@ -12,7 +12,7 @@
 int main (int argc, char *argv[])
 {
 #ifndef WIN32
-  feenableexcept (FE_DIVBYZERO | FE_OVERFLOW | FE_INVALID);
+  feenableexcept (FE_DIVBYZERO | FE_OVERFLOW | FE_UNDERFLOW | FE_INVALID);
 #endif
 
   enemy_t *kek = 0;
