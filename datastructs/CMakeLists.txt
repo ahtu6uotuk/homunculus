@@ -17,7 +17,8 @@ target_sources(${PROJECT_NAME} PRIVATE
     shader_property.cpp
     material.cpp
     model.cpp
-    animation.cpp)
+    animation.cpp
+    renderable_object.cpp)
 
 target_link_libraries(${PROJECT_NAME} GLEW::GLEW ${OPENGL_LIBRARIES} common resource)
 
