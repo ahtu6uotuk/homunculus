@@ -5,7 +5,7 @@ project(datastructs)
 add_library(${PROJECT_NAME} STATIC)
 
 target_sources(${PROJECT_NAME} PRIVATE
-	camera_data_t.cpp
+    camera_data_t.cpp
     dialog.cpp
     plot_tag.cpp
     texture.cpp
