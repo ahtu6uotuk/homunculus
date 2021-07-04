@@ -13,9 +13,6 @@ class texture_t;
 
 class model_t
 {
-//  unsigned int m_vbo;
-//  unsigned int m_vao;
-//  std::map<material_t *, mesh_t *> m_parts;
   glm::vec3 m_pos;
   shader_t *m_shader;
   mesh_t *m_mesh;
