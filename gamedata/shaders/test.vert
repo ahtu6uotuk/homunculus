@@ -12,11 +12,11 @@ uniform mat4 MVP;
 
 uniform vec3 offset;
 
-void main(){
+void main()
+{
+    // Output position of the vertex, in clip space : MVP * position
+    gl_Position = MVP * vec4(vertexPosition_modelspace - offset, 1);
 
-	// Output position of the vertex, in clip space : MVP * position
-       gl_Position = MVP * vec4(vertexPosition_modelspace - offset, 1);
-
-	// UV of the vertex. No special space for this one.
-	UV = vertexUV;
+    // UV of the vertex. No special space for this one.
+    UV = vertexUV;
 }
