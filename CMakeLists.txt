@@ -1,5 +1,3 @@
-cmake_minimum_required (VERSION 2.8.0)
-
 project (homunculus)
 
 set (OpenGL_GL_PREFERENCE LEGACY)
