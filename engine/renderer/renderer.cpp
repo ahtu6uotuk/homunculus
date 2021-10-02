@@ -26,12 +26,16 @@ public:
 
 
 renderer_t::renderer_t (engine_t &engine):
-  m_window (engine.get_sfml_window ()),
+  m_window (sf::VideoMode (800, 600, 32), "Homunculus", sf::Style::Default,
+            sf::ContextSettings (0, 0, 0, 3, 3, sf::ContextSettings::Attribute::Core)),
   m_gui (engine.get_gui_system ()),
   m_font ("FreeSerif.ttf", 48),
   m_camera (glm::vec3 (0.f, 0.f, 5.f)),
   m_matrix_holder (std::make_unique<matrix_holder_t> ())
-{}
+{
+  m_window.setFramerateLimit (60);
+  m_window.requestFocus ();
+}
 
 err_t renderer_t::init ()
 {
@@ -89,6 +93,7 @@ void renderer_t::render ()
   m_gui.draw ();
   glDisable (GL_BLEND);
   GL_DEBUG_INFO ();
+  m_window.display ();
 }
 
 void renderer_t::add_drawable_models (std::vector<model_t> &&drawable_models)

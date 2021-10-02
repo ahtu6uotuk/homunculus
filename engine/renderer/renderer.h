@@ -1,4 +1,5 @@
 #pragma once
+#include <SFML/Graphics/RenderWindow.hpp>
 
 #include "common/err_t.h"
 #include "engine/renderer/camera.h"
@@ -13,16 +14,12 @@ class engine_t;
 class gui_system_t;
 class mesh_t;
 
-namespace sf
-{
-  class RenderWindow;
-}
 class matrix_holder_t;
 
 /// @brief Main renderer class
 class renderer_t
 {
-  sf::RenderWindow &m_window;
+  sf::RenderWindow m_window;
   gui_system_t &m_gui;
   font_t m_font;
   camera_t m_camera;
@@ -42,5 +39,6 @@ public:
   camera_t &get_camera () {return m_camera;}
   void add_drawable_models (std::vector<model_t> &&drawable_models);
   void resize_screen (unsigned int width, unsigned int height);
+  sf::Window &get_window () { return m_window; }
   ~renderer_t ();
 };

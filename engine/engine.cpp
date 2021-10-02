@@ -1,7 +1,5 @@
 #include "engine.h"
 
-#include <SFML/Window.hpp>
-
 #include "common/logger/logger.h"
 #include "engine/gui/gui_element.h"
 #include "engine/gui/gui_textline.h"
@@ -10,13 +8,9 @@
 #include "datastructs/shader.h"
 
 engine_t::engine_t ():
-  m_window (sf::VideoMode (800, 600, 32), "Homunculus", sf::Style::Default,
-            sf::ContextSettings (0, 0, 0, 3, 3, sf::ContextSettings::Attribute::Core)),
   m_gui (800, 600),
   m_renderer (*this)
 {
-  m_window.setFramerateLimit (60);
-  m_window.requestFocus ();
 //  m_window.setMouseCursorGrabbed (true);
 }
 
@@ -58,7 +52,6 @@ err_t engine_t::init ()
 void engine_t::render_and_display ()
 {
   m_renderer.render ();
-  m_window.display ();
 }
 
 engine_t::~engine_t ()
