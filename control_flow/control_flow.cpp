@@ -14,11 +14,11 @@
 
 control_flow::~control_flow () {}
 
-control_flow::control_flow (int argc, char **argv) : m_argc (argc), m_argv (argv) {}
+control_flow::control_flow () {}
 
 err_t control_flow::init ()
 {
-  m_engine = std::make_unique<engine_t> (m_argc, m_argv);
+  m_engine = std::make_unique<engine_t> ();
   RETURN_IF_FAIL (m_engine->init ());
 
   m_world = std::make_unique<world_t> ("test_story");

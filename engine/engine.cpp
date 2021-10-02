@@ -9,13 +9,12 @@
 #include "resource/resource_manager.h"
 #include "datastructs/shader.h"
 
-engine_t::engine_t (int argc, char *argv[]):
+engine_t::engine_t ():
   m_window (sf::VideoMode (800, 600, 32), "Homunculus", sf::Style::Default,
             sf::ContextSettings (0, 0, 0, 3, 3, sf::ContextSettings::Attribute::Core)),
   m_gui (800, 600),
   m_renderer (*this)
 {
-  do_nothing (argc, argv);
   m_window.setFramerateLimit (60);
   m_window.requestFocus ();
 //  m_window.setMouseCursorGrabbed (true);

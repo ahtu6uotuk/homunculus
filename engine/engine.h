@@ -17,8 +17,7 @@ class engine_t
 private:
   err_t load_engine_resources ();
 public:
-  engine_t () = delete;
-  engine_t (int argc, char *argv[]);
+  engine_t ();
   engine_t (const engine_t &) = delete;
   engine_t (engine_t &&) = delete;
   err_t init ();

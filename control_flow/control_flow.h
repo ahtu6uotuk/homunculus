@@ -20,7 +20,7 @@ class control_flow
 {
 public:
   ~control_flow ();
-  control_flow (int argc, char **argv);
+  control_flow ();
   err_t run ();
 
 private:
@@ -45,9 +45,6 @@ private:
   std::unique_ptr<thread_sync_t> m_sync_w_main;
 
   err_t m_next_frame_error = ERR_OK;
-
-  int m_argc;
-  char ** m_argv;
 
   friend void run_calc_thread (std::unique_ptr<thread_info_t> , control_flow &);
 };

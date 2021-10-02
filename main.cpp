@@ -12,6 +12,7 @@ int main (int argc, char *argv[])
 #ifndef WIN32
   feenableexcept (FE_DIVBYZERO | FE_OVERFLOW | FE_UNDERFLOW | FE_INVALID);
 #endif
+  do_nothing (argc, argv);
 
   if (!logger_t::instance ().is_ok ())
     {
@@ -19,7 +20,7 @@ int main (int argc, char *argv[])
       return 1;
     }
 
-  control_flow flow (argc, argv);
+  control_flow flow;
   assert_error (flow.run (), "Error occured in while running: ");
   return 0;
 }
