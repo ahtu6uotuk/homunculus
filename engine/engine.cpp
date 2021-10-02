@@ -17,6 +17,8 @@ engine_t::engine_t (int argc, char *argv[]):
 {
   do_nothing (argc, argv);
   m_window.setFramerateLimit (60);
+  m_window.requestFocus ();
+//  m_window.setMouseCursorGrabbed (true);
 }
 
 err_t engine_t::load_engine_resources ()
