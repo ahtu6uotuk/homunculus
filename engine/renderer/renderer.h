@@ -16,7 +16,9 @@ namespace sf
 {
   class RenderWindow;
 }
+class matrix_holder_t;
 
+/// @brief Main renderer class
 class renderer_t
 {
   sf::RenderWindow &m_window;
@@ -25,6 +27,7 @@ class renderer_t
   camera_t m_camera;
   glm::mat4 m_mat_view;
   glm::mat4 m_mat_gui;
+  std::unique_ptr<matrix_holder_t> m_matrix_holder;
   std::vector<model_t> m_drawable_models;
 private:
   void update_matrices ();

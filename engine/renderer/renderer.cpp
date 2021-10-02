@@ -4,11 +4,33 @@
 
 #include "engine/engine.h"
 
+
+/// @brief Special storage for GL view matrices
+/// @details glPushMatrix/glPopMatrix replacement
+class matrix_holder_t
+{
+  glm::mat4 m_gui_view_matrix;
+  glm::mat4 m_model_matrix;
+  glm::mat4 m_view_matrix;
+  glm::mat4 m_projection_matrix;
+  glm::mat4 m_mvp_matrix;
+public:
+  matrix_holder_t () = default;
+  const auto &get_model_matrix () const { return m_model_matrix; }
+  const auto &get_view_matrix () const { return m_view_matrix; }
+  const auto &get_projection_matrix () const { return m_projection_matrix; }
+  const auto &get_model_view_projection_matrix () const { return m_mvp_matrix; }
+  const auto &get_gui_view_matrix () const { return m_gui_view_matrix; }
+  ~matrix_holder_t () = default;
+};
+
+
 renderer_t::renderer_t (engine_t &engine):
   m_window (engine.get_sfml_window ()),
   m_gui (engine.get_gui_system ()),
   m_font ("FreeSerif.ttf", 48),
-  m_camera (glm::vec3 (0.f, 0.f, 5.f))
+  m_camera (glm::vec3 (0.f, 0.f, 5.f)),
+  m_matrix_holder (std::make_unique<matrix_holder_t> ())
 {}
 
 err_t renderer_t::init ()
