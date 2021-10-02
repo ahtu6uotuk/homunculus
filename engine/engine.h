@@ -4,8 +4,6 @@
 #include "engine/gui/gui_system.h"
 #include "engine/renderer/renderer.h"
 
-class thread_info_t;
-class gui_context_t;
 class gui_textline_t;
 
 class engine_t
