@@ -26,7 +26,6 @@ public:
 private:
   err_t init ();
   err_t create_threads ();
-  size_t get_calc_threads_number () const;
   static std::unique_ptr<gui_context_t> make_gui_content (engine_t &engine, world_t &world);
 
 private:

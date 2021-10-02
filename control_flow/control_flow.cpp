@@ -16,6 +16,11 @@ control_flow::~control_flow () {}
 
 control_flow::control_flow () {}
 
+static size_t get_calc_threads_number ()
+{
+  return std::max<size_t> (1, std::thread::hardware_concurrency () - 1);
+}
+
 err_t control_flow::init ()
 {
   m_engine = std::make_unique<engine_t> ();
@@ -65,11 +70,6 @@ err_t control_flow::run ()
 
   m_world->save ("initial_state");
   return ERR_OK;
-}
-
-size_t control_flow::get_calc_threads_number () const
-{
-  return std::max<size_t> (1, std::thread::hardware_concurrency () - 1);
 }
 
 err_t control_flow::create_threads ()
