@@ -34,6 +34,7 @@ target_sources (${PROJECT_NAME} PRIVATE
                 renderer/gl/gl_ext.cpp
                 renderer/camera.cpp
                 renderer/font.cpp
+                renderer/scene.cpp
                 renderer/renderer.cpp)
 
 set (RENDERER_LIBRARIES

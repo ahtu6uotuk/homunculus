@@ -79,6 +79,8 @@ void renderer_t::render ()
   glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   update_matrices ();
 
+  m_scene.render ();
+
   //... Draw something here
   for (auto &model : m_drawable_models)
     model.render (m_mat_view);

@@ -3,6 +3,7 @@
 #include "common/err_t.h"
 #include "engine/renderer/camera.h"
 #include "engine/renderer/font.h"
+#include "engine/renderer/scene.h"
 #include "datastructs/texture.h"
 #include <glm/mat4x4.hpp>
 #include <vector>
@@ -29,6 +30,7 @@ class renderer_t
   glm::mat4 m_mat_gui;
   std::unique_ptr<matrix_holder_t> m_matrix_holder;
   std::vector<model_t> m_drawable_models;
+  scene_t m_scene;
 private:
   void update_matrices ();
 public:
