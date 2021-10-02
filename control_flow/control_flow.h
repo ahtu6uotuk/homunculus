@@ -26,7 +26,6 @@ public:
 private:
   err_t init ();
   err_t create_threads ();
-  void join_threads ();
   size_t get_calc_threads_number () const;
   static std::unique_ptr<gui_context_t> make_gui_content (engine_t &engine, world_t &world);
 
@@ -41,7 +40,7 @@ private:
   std::vector<std::unique_ptr<request_to_calc_base>> m_new_request_to_calc;
   std::vector<std::unique_ptr<request_to_gui_base>> m_new_request_to_gui;
 
-  std::vector<std::thread> m_threads;
+  std::vector<std::jthread> m_threads;
   std::unique_ptr<thread_sync_t> m_sync;
   std::unique_ptr<thread_sync_t> m_sync_w_main;
 

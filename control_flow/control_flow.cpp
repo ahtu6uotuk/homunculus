@@ -63,7 +63,6 @@ err_t control_flow::run ()
       m_frame_manager->end_frame ();
     }
 
-  join_threads ();
   m_world->save ("initial_state");
   return ERR_OK;
 }
@@ -80,13 +79,7 @@ err_t control_flow::create_threads ()
   for (size_t id = 0; id < n_thr; id++)
     {
       std::unique_ptr<thread_info_t> inf = std::make_unique<thread_info_t> (*m_sync, *m_sync_w_main, id, n_thr);
-      m_threads[id] = std::thread (run_calc_thread, move (inf), std::ref (*this));
+      m_threads[id] = std::jthread (run_calc_thread, move (inf), std::ref (*this));
     }
   return ERR_OK;
-}
-
-void control_flow::join_threads ()
-{
-  for (std::thread &thr : m_threads)
-    thr.join ();
 }
