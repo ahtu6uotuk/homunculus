@@ -1,5 +1,4 @@
 #include <fenv.h>
-#include <cstring>
 
 #include "common/common.h"
 #include "common/err_t.h"
