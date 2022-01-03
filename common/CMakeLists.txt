@@ -6,7 +6,6 @@ target_sources(${PROJECT_NAME} PRIVATE
     common.cpp
     err_t.cpp
     file_utils.cpp
-    bitview.cpp
     string/string_converters.cpp
     string/string_utils.cpp
     thread_info.cpp
