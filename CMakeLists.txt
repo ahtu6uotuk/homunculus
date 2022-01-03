@@ -1,3 +1,5 @@
+cmake_minimum_required (VERSION 3.0)
+
 project (homunculus)
 
 set (OpenGL_GL_PREFERENCE LEGACY)
@@ -25,12 +27,12 @@ include_directories (./)
 
 add_subdirectory (common)
 add_subdirectory (engine)
-add_subdirectory (control_flow)
-add_subdirectory (world)
 add_subdirectory (datastructs)
 add_subdirectory (resource)
 add_subdirectory (object)
-add_subdirectory (utils)
+add_subdirectory (control_flow)
+add_subdirectory (world)
+# add_subdirectory (utils)
 
 add_executable (homunculus main.cpp)
 
