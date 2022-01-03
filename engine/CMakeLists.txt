@@ -1,10 +1,7 @@
 project(engine)
 
-# Try to find Freetype2 library
-include(FindFreetype)
-if (NOT FREETYPE_FOUND)
-  message (FATAL_ERROR "Freetype library not found!")
-endif()
+add_subdirectory (gui)
+add_subdirectory (renderer)
 
 find_library (SFML_GRAPHICS_LIBRARY NAMES sfml-graphics)
 find_library (SFML_WINDOW_LIBRARY NAMES sfml-window)
@@ -23,26 +20,14 @@ endif ()
 add_library (${PROJECT_NAME} STATIC)
 
 target_sources (${PROJECT_NAME} PRIVATE
-                engine.cpp
-                gui/gui_context.cpp
-                gui/gui_element.cpp
-                gui/gui_interactive_element.cpp
-                gui/gui_system.cpp
-                gui/gui_textline.cpp
-                renderer/gl/gl_ext.cpp
-                renderer/camera.cpp
-                renderer/font.cpp
-                renderer/scene.cpp
-                renderer/renderer.cpp)
+                engine.cpp)
 
 set (RENDERER_LIBRARIES
      GLEW::GLEW
     ${OPENGL_LIBRARIES}
-    ${FREETYPE_LIBRARIES}
     ${SFML_GRAPHICS_LIBRARY}
     ${SFML_WINDOW_LIBRARY}
     ${SFML_SYSTEM_LIBRARY}
     datastructs)
 
-target_include_directories (${PROJECT_NAME} PRIVATE ${FREETYPE_INCLUDE_DIRS})
-target_link_libraries (${PROJECT_NAME} ${RENDERER_LIBRARIES})
+target_link_libraries (${PROJECT_NAME} ${RENDERER_LIBRARIES} gui renderer)
