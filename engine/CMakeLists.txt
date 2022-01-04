@@ -23,11 +23,8 @@ target_sources (${PROJECT_NAME} PRIVATE
                 engine.cpp)
 
 set (RENDERER_LIBRARIES
-     GLEW::GLEW
-    ${OPENGL_LIBRARIES}
     ${SFML_GRAPHICS_LIBRARY}
     ${SFML_WINDOW_LIBRARY}
-    ${SFML_SYSTEM_LIBRARY}
-    datastructs)
+    ${SFML_SYSTEM_LIBRARY})
 
 target_link_libraries (${PROJECT_NAME} ${RENDERER_LIBRARIES} gui renderer)

@@ -30,12 +30,13 @@ add_subdirectory (engine)
 add_subdirectory (datastructs)
 add_subdirectory (resource)
 add_subdirectory (object)
-add_subdirectory (control_flow)
 add_subdirectory (world)
+add_subdirectory (game)
 # add_subdirectory (utils)
 
-add_executable (homunculus main.cpp)
+add_executable (homunculus application.cpp application.h main.cpp)
 
 target_link_libraries (homunculus
  common
- control_flow)
+ engine
+ game)

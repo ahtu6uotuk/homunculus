@@ -39,9 +39,9 @@ err_t engine_t::init ()
   return ERR_OK;
 }
 
-void engine_t::render_and_display ()
+err_t engine_t::run ()
 {
-  m_renderer.render ();
+  return ERR_OK;
 }
 
 engine_t::~engine_t ()

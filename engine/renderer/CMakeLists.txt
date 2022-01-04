@@ -17,4 +17,4 @@ target_sources (${PROJECT_NAME} PRIVATE
                 scene.cpp
                 renderer.cpp)
 
-target_link_libraries (${PROJECT_NAME} ${FREETYPE_LIBRARIES})
+target_link_libraries (${PROJECT_NAME} ${FREETYPE_LIBRARIES} GLEW::GLEW ${OPENGL_LIBRARIES} datastructs)

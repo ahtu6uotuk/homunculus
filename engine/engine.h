@@ -18,6 +18,6 @@ public:
   auto &get_renderer () {return m_renderer;}
   auto &get_gui_system () {return m_gui;}
   auto &get_sfml_window () {return m_renderer.get_window ();}
-  void render_and_display ();
+  err_t run ();
   ~engine_t ();
 };
