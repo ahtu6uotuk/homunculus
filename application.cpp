@@ -1,8 +1,10 @@
 #include "application.h"
+
+#include "common/common.h"
+#include "common/err_t.h"
+#include "common/logger/logger.h"
 #include "engine/engine.h"
 #include "game/game.h"
-#include "common/common.h"
-#include "common/logger/logger.h"
 
 application_t::application_t (int argc, char **argv):
   m_engine (std::make_unique<engine_t> ()),

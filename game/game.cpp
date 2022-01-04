@@ -1,5 +1,6 @@
 #include "game.h"
 
+#include "common/err_t.h"
 #include "engine/engine.h"
 
 game_t::game_t (engine_t &engine):
