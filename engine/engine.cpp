@@ -1,8 +1,6 @@
 #include "engine.h"
 
 #include "common/logger/logger.h"
-#include "engine/gui/gui_element.h"
-#include "engine/gui/gui_textline.h"
 #include "gui/gui_context.h"
 #include "resource/resource_manager.h"
 #include "datastructs/shader.h"
@@ -30,14 +28,6 @@ err_t engine_t::init ()
   RETURN_IF_FAIL (m_renderer.init ());
 
   m_gui.make_context ();
-  gui_context_t *context = m_gui.get_active_context ();
-  std::unique_ptr<gui_textline_t> performance_indicator =
-      std::make_unique<gui_textline_t> (get_renderer (),
-                                        0, 0, gui_horizontal_alignment_t::LEFT,
-                                        gui_vertical_alignment_t::UP, "",
-                                        glm::vec3 (.7f, .15f, .15f), 24);
-  m_performance_indicator = performance_indicator.get ();
-  context->add_element (move (performance_indicator));
 
   if (!m_gui.is_ok ())
     return err_t ("GUI initialization error: no contexts exist!");

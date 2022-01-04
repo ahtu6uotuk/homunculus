@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/gui/gui_element.h"
+#include "gui_element.h"
 
 /// @brief Base class for all GUI objects that can be clicked
 class gui_interactive_element_t : public gui_element_t

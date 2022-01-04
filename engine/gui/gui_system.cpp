@@ -1,7 +1,7 @@
 #include "gui_system.h"
 
 #include "engine/gui/gui_context.h"
-#include "engine/gui/gui_element.h"
+#include "widgets/gui_element.h"
 
 gui_system_t::gui_system_t (const unsigned int width, const unsigned int height):
   m_width (width), m_height (height)

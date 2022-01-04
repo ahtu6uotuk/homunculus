@@ -3,7 +3,7 @@
 #include <glm/vec3.hpp>
 
 #include "common/common.h"
-#include "engine/gui/gui_element.h"
+#include "gui_element.h"
 
 class font_t;
 

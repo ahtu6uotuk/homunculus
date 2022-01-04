@@ -1,7 +1,7 @@
 #include "gui_context.h"
 
 #include "common/common.h"
-#include "engine/gui/gui_interactive_element.h"
+#include "widgets/gui_interactive_element.h"
 #include "engine/gui/gui_system.h"
 
 gui_context_t::gui_context_t (gui_system_t &sys):
@@ -38,7 +38,7 @@ void gui_context_t::handle_mouse_move_event (const int x, const int y)
     }
 }
 
-#include "gui_textline.h"
+#include "widgets/gui_textline.h"
 void gui_context_t::add_test_page (renderer_t &renderer)
 {
   add_element (std::make_unique<gui_textline_t> (renderer,
@@ -75,5 +75,4 @@ void gui_context_t::handle_mouse_press_event (const int x, const int y)
     }
 }
 
-gui_context_t::~gui_context_t ()
-{}
+gui_context_t::~gui_context_t () = default;

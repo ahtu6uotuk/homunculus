@@ -22,5 +22,4 @@ bool gui_interactive_element_t::is_mouse_pointer_inside (const int mouse_x, cons
           && (mouse_y >= abs_y) && (mouse_y < abs_y + get_height ());
 }
 
-gui_interactive_element_t::~gui_interactive_element_t ()
-{}
+gui_interactive_element_t::~gui_interactive_element_t () = default;
