@@ -12,8 +12,7 @@ enum class log_section_t
   RENDERER,
   GAME,
   RESOURCE_MANAGER,
-  COUNT,
-  LOG_ERROR = COUNT
+  COUNT
 };
 
 enum class log_priority_t
