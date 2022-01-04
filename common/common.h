@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
 
-inline void do_nothing (...) {}
+template<typename ...T>
+inline void do_nothing (T...) {}
 
 template<typename T> int toi (T value) { return static_cast<int> (value); }
 
