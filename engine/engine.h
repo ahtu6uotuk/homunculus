@@ -1,8 +1,8 @@
 ﻿#pragma once
-#include "common/err_t.h"
 #include "engine/gui/gui_system.h"
 #include "engine/renderer/renderer.h"
 
+class err_t;
 
 class engine_t
 {
