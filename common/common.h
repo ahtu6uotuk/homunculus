@@ -2,7 +2,6 @@
 #include <string>
 
 inline void do_nothing (...) {}
-void do_nothing_no_inline ();
 
 template<typename T> int toi (T value) { return static_cast<int> (value); }
 

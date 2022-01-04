@@ -3,8 +3,6 @@
 #include <math.h>
 #include <signal.h>
 
-void do_nothing_no_inline () {}
-
 void assert_check (bool check, std::string message)
 {
   if (!check)
