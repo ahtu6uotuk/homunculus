@@ -6,6 +6,7 @@
 #include "gui/gui_system.h"
 #include "renderer/renderer.h"
 #include "resource/resource_manager.h"
+#include "thread/thread_manager.h"
 
 engine_t::engine_t ():
   m_gui (std::make_unique<gui_system_t> (800, 600)),

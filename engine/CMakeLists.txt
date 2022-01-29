@@ -20,7 +20,10 @@ endif ()
 add_library (${PROJECT_NAME} STATIC)
 
 target_sources (${PROJECT_NAME} PRIVATE
-                engine.cpp)
+                engine.cpp
+                engine.h
+                thread/thread_manager.cpp
+                thread/thread_manager.h)
 
 set (RENDERER_LIBRARIES
     ${SFML_GRAPHICS_LIBRARY}
