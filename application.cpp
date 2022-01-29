@@ -7,8 +7,7 @@
 #include "game/game.h"
 
 application_t::application_t (int argc, char **argv):
-  m_engine (std::make_unique<engine_t> ()),
-  m_game (std::make_unique<game_t> (*m_engine))
+  m_game (std::make_unique<game_t> ())
 {
   do_nothing (argc, argv);
 }
