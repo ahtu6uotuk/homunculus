@@ -38,31 +38,6 @@ void gui_context_t::handle_mouse_move_event (const int x, const int y)
     }
 }
 
-#include "widgets/gui_textline.h"
-void gui_context_t::add_test_page (renderer_t &renderer)
-{
-  add_element (std::make_unique<gui_textline_t> (renderer,
-                                            10, 10,
-                                            gui_horizontal_alignment_t::LEFT, gui_vertical_alignment_t::UP,
-                                            "LU", glm::vec3 (.7f, .15f, .15f), 48));
-  add_element (std::make_unique<gui_textline_t> (renderer,
-                                            10, 10,
-                                            gui_horizontal_alignment_t::LEFT, gui_vertical_alignment_t::DOWN,
-                                            "LD", glm::vec3 (.7f, .15f, .15f), 48));
-  add_element (std::make_unique<gui_textline_t> (renderer,
-                                            10, 10,
-                                            gui_horizontal_alignment_t::RIGHT, gui_vertical_alignment_t::DOWN,
-                                            "боттом кек", glm::vec3 (.7f, .15f, .15f), 48));
-  add_element (std::make_unique<gui_textline_t> (renderer,
-                                            10, 10,
-                                            gui_horizontal_alignment_t::RIGHT, gui_vertical_alignment_t::UP,
-                                            "ТОП КЕК", glm::vec3 (.7f, .15f, .15f), 48));
-  add_element (std::make_unique<gui_textline_t> (renderer,
-                                            10, 10,
-                                            gui_horizontal_alignment_t::CENTER, gui_vertical_alignment_t::CENTER,
-                                            "ещё один кек", glm::vec3 (.7f, .15f, .15f), 48));
-}
-
 void gui_context_t::handle_mouse_press_event (const int x, const int y)
 {
   for (auto &e : m_context_interactive)
