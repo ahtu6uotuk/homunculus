@@ -1,7 +1,6 @@
 #pragma once
 #include <SFML/Graphics/RenderWindow.hpp>
 
-#include "common/err_t.h"
 #include "engine/renderer/camera.h"
 #include "engine/renderer/font.h"
 #include "engine/renderer/scene.h"
@@ -11,6 +10,7 @@
 #include <datastructs/model.h>
 
 class engine_t;
+class err_t;
 class gui_system_t;
 class mesh_t;
 

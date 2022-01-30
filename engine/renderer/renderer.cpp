@@ -4,6 +4,7 @@
 
 #include "engine/engine.h"
 #include "engine/gui/gui_system.h"
+#include "common/err_t.h"
 
 
 /// @brief Special storage for GL view matrices
