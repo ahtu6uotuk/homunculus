@@ -8,11 +8,9 @@ class gui_element_t;
 enum class gui_horizontal_alignment_t;
 enum class gui_vertical_alignment_t;
 
-
 class gui_system_t
 {
   std::vector<std::unique_ptr<gui_context_t>> m_context;
-  std::unique_ptr<gui_context_t> m_world_content; // should be changed to contain different class
 
   unsigned int m_active_id = 0;
   unsigned int m_width;
@@ -32,6 +30,5 @@ public:
   unsigned int get_height () const {return m_height;}
   unsigned int make_context ();
   bool is_ok () const {return !m_context.empty ();}
-  void set_world_content (std::unique_ptr<gui_context_t> world_content);
   ~gui_system_t ();
 };

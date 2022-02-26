@@ -15,17 +15,7 @@ void gui_system_t::set_active_context (const unsigned int id)
 
 void gui_system_t::draw ()
 {
-  if (m_world_content)
-    {
-      m_world_content->draw ();
-      m_world_content.reset ();
-    }
   m_context[m_active_id]->draw ();
-}
-
-void gui_system_t::set_world_content (std::unique_ptr<gui_context_t> world_content)
-{
-  m_world_content = move (world_content);
 }
 
 void gui_system_t::resize (unsigned int width, unsigned height)
