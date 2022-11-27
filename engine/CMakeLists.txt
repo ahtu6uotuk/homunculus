@@ -30,4 +30,4 @@ set (RENDERER_LIBRARIES
     ${SFML_WINDOW_LIBRARY}
     ${SFML_SYSTEM_LIBRARY})
 
-target_link_libraries (${PROJECT_NAME} ${RENDERER_LIBRARIES} gui renderer)
+target_link_libraries (${PROJECT_NAME} gui renderer ${RENDERER_LIBRARIES})
