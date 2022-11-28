@@ -11,6 +11,7 @@ jobs:
         run: sudo apt-get install g++-10 ninja-build
       - name: Install dependencies
         run: sudo apt-get install libglew-dev libglu1-mesa-dev libgl-dev libfreetype6-dev libsfml-dev libglm-dev libjsoncpp-dev
+      - name: Make link
         run: sudo ln -s /usr/include/jsoncpp/json/ /usr/include/json
       - name: CMake
         run: cmake -B ./out/release/ -DCMAKE_BUILD_TYPE=Release -GNinja -D CMAKE_CXX_COMPILER=g++-10 -D CMAKE_C_COMPILER=gcc-10
