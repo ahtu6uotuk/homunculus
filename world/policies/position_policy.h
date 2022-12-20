@@ -1,5 +1,6 @@
 #pragma once
 #include <glm/vec3.hpp>
+#include "object/interaction.h"
 #include "object/object_base.h"
 #include "datastructs/helpers/saveload_rules_extensions.h"
 #include "resource/saveload/saveload.h"

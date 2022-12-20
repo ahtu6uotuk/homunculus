@@ -1,8 +1,9 @@
 #include "tga_image.h"
 
+#include <GL/glew.h>
+#include <algorithm>
 #include <fstream>
 #include <sstream>
-#include <GL/glew.h>
 
 void tga_header_t::print_debug_info () const
 {

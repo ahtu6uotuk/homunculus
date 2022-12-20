@@ -1,8 +1,8 @@
 #pragma once
 
+#include <string>
 #include <vector>
 
-#include "common/common.h"
 class interaction;
 
 class object_base
